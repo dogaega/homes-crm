@@ -133,7 +133,15 @@ class QueryBuilder {
 
   insert(body: any) {
     this.method = 'POST'
-    this.pendingBody = Array.isArray(body) ? body[0] : body
+    // Keep the full array. A previous version of this shim did
+    // `Array.isArray(body) ? body[0] : body`, which silently dropped every
+    // row but the first on any bulk insert (e.g. TaskTemplateApplicator
+    // inserting several template tasks in one `.insert([...])` call) —
+    // callers got back a "success" with no error, and it looked like every
+    // row was created when only one actually was. exec() below now posts
+    // each row in the array individually against the Worker's single-row
+    // REST endpoint and returns all created rows.
+    this.pendingBody = Array.isArray(body) ? body : [body]
     return this
   }
 
@@ -171,12 +179,18 @@ class QueryBuilder {
   private async exec() {
     const id = this.filters.id
     if (this.method === 'POST') {
-      const { data, error } = await request(`/${this.table}`, {
-        method: 'POST',
-        body: JSON.stringify(this.pendingBody),
-      })
-      if (this.wantsSingle) return { data, error }
-      return { data: data ? [data] : null, error }
+      const rows: any[] = this.pendingBody || []
+      const created: any[] = []
+      for (const row of rows) {
+        const { data, error } = await request(`/${this.table}`, {
+          method: 'POST',
+          body: JSON.stringify(row),
+        })
+        if (error) return { data: created.length ? created : null, error }
+        created.push(data)
+      }
+      if (this.wantsSingle) return { data: created[0] ?? null, error: null }
+      return { data: created.length ? created : null, error: null }
     }
 
     if (this.method === 'PATCH') {

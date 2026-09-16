@@ -283,7 +283,13 @@ export default function TaskTemplateManager({ agentId }: TaskTemplateManagerProp
         description: formData.description || null,
         workflow_type: formData.workflow_type,
         tasks: formData.tasks as any,
-        created_by: agentId
+        created_by: agentId,
+        // D1's task_templates.is_active has no DEFAULT (unlike the original
+        // Supabase/Postgres schema), so it must be set explicitly here or
+        // every new template comes back NULL and is silently excluded from
+        // every `.eq('is_active', true)` list query — including this
+        // manager's own template list and the duplicate-workflow check.
+        is_active: true
       }
 
       if (editingTemplate) {
