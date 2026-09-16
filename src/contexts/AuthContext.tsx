@@ -276,7 +276,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         userId: data.user?.id,
         email: data.user?.email
       })
-      
+
+      // The migrated API client's onAuthStateChange is a no-op stub (no
+      // realtime push channel), so — unlike the original Supabase-backed
+      // version — nothing else will update `user` after a successful
+      // login. Set it here explicitly, or the app stays stuck thinking
+      // no one is signed in.
+      const currentUser = data.user as AuthUser | null
+      setUser(currentUser)
+      if (currentUser) {
+        setSentryUser({
+          id: currentUser.id,
+          email: currentUser.email,
+          username: currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0],
+          role: 'agent'
+        })
+        fetchAgentData(currentUser.id).catch(error => {
+          reportAuthError(error as Error, { operation: 'login', userId: currentUser.id })
+        })
+      }
+
       return data
     } catch (error) {
       reportAuthError(error as Error, {
@@ -313,7 +332,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         userId: data.user?.id,
         email: data.user?.email
       })
-      
+
+      // Same reason as signIn: no realtime onAuthStateChange in the
+      // migrated API client, so set user state explicitly here too.
+      const newUser = data.user as AuthUser | null
+      setUser(newUser)
+      if (newUser) {
+        setSentryUser({
+          id: newUser.id,
+          email: newUser.email,
+          username: newUser.user_metadata?.full_name || newUser.email?.split('@')[0],
+          role: 'agent'
+        })
+        fetchAgentData(newUser.id).catch(error => {
+          reportAuthError(error as Error, { operation: 'signup', userId: newUser.id })
+        })
+      }
+
       return data
     } catch (error) {
       reportAuthError(error as Error, {
