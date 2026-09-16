@@ -173,7 +173,7 @@ export default function DocumentsPage() {
         <div className="flex">
           {/* Sidebar for larger screens */}
           <div className="hidden lg:block w-80 p-6 pr-4">
-            <DocumentsSidebar />
+            <DocumentsSidebar documents={documents} />
           </div>
 
           {/* Main content */}

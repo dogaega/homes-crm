@@ -16,11 +16,19 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
-interface DocumentsSidebarProps {
-  className?: string;
+interface DocumentSummary {
+  document_name: string;
+  document_type: string | null;
+  document_status: string | null;
+  created_at: string | null;
 }
 
-export default function DocumentsSidebar({ className = "" }: DocumentsSidebarProps) {
+interface DocumentsSidebarProps {
+  className?: string;
+  documents?: DocumentSummary[];
+}
+
+export default function DocumentsSidebar({ className = "", documents = [] }: DocumentsSidebarProps) {
   const quickActions = [
     {
       label: 'Create Document',
@@ -42,53 +50,45 @@ export default function DocumentsSidebar({ className = "" }: DocumentsSidebarPro
     }
   ];
 
-  const documentTypes = [
-    {
-      label: 'Listing Agreements',
-      count: 12,
-      icon: FileText,
-      filter: 'listing_agreement'
-    },
-    {
-      label: 'Purchase Agreements',
-      count: 8,
-      icon: FileText,
-      filter: 'purchase_agreement'
-    },
-    {
-      label: 'Lease Agreements',
-      count: 6,
-      icon: FileText,
-      filter: 'lease_agreement'
-    },
-    {
-      label: 'Disclosures',
-      count: 4,
-      icon: FileText,
-      filter: 'disclosure'
-    }
+  // These used to be hardcoded demo numbers/events (12/8/6/4 and three
+  // fabricated activity lines) that showed up even for a brand-new account
+  // with zero real documents — misleading, since nothing here ever
+  // happened. Derived from the real `documents` list passed in by the
+  // parent page instead.
+  const documentTypeDefs = [
+    { label: 'Listing Agreements', icon: FileText, filter: 'listing_agreement' },
+    { label: 'Purchase Agreements', icon: FileText, filter: 'purchase_agreement' },
+    { label: 'Lease Agreements', icon: FileText, filter: 'lease_agreement' },
+    { label: 'Disclosures', icon: FileText, filter: 'disclosure' }
   ];
+  const documentTypes = documentTypeDefs.map(def => ({
+    ...def,
+    count: documents.filter(d => d.document_type === def.filter).length
+  }));
 
-  const recentActivity = [
-    {
-      action: 'Document signed',
-      document: 'Listing Agreement - 123 Main St',
-      time: '2 hours ago',
-      icon: FileText
-    },
-    {
-      action: 'PDF generated',
-      document: 'Lease Agreement - Oak Ave',
-      time: '4 hours ago',
-      icon: Download
-    },
-    {
-      action: 'Document created',
-      document: 'Purchase Agreement - Elm St',
-      time: '1 day ago',
-      icon: Plus
-    }
-  ];
+  function timeAgo(iso: string | null) {
+    if (!iso) return '';
+    const ms = Date.now() - new Date(iso).getTime();
+    const mins = Math.floor(ms / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return `${mins} min${mins === 1 ? '' : 's'} ago`;
+    const hours = Math.floor(mins / 60);
+    if (hours < 24) return `${hours} hour${hours === 1 ? '' : 's'} ago`;
+    const days = Math.floor(hours / 24);
+    return `${days} day${days === 1 ? '' : 's'} ago`;
+  }
+
+  const recentActivity = [...documents]
+    .sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime())
+    .slice(0, 3)
+    .map(doc => ({
+      action: doc.document_status === 'signed' ? 'Document signed'
+        : doc.document_status === 'finalized' ? 'Document finalized'
+        : 'Document created',
+      document: doc.document_name,
+      time: timeAgo(doc.created_at),
+      icon: doc.document_status === 'signed' ? FileText : doc.document_status === 'finalized' ? Download : Plus
+    }));
 
   return (
     <div className={`space-y-6 ${className}`}>
@@ -147,7 +147,9 @@ export default function DocumentsSidebar({ className = "" }: DocumentsSidebarPro
           <h3 className="text-lg font-semibold">Recent Activity</h3>
         </CardHeader>
         <CardContent className="space-y-3">
-          {recentActivity.map((activity, index) => {
+          {recentActivity.length === 0 ? (
+            <p className="text-sm text-gray-500">No recent activity</p>
+          ) : recentActivity.map((activity, index) => {
             const IconComponent = activity.icon;
             return (
               <div key={index} className="flex items-start space-x-3">
