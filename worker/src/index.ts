@@ -298,7 +298,7 @@ async function handleRest(req: Request, env: Env, url: URL, table: TableName, id
         continue
       }
       conditions.push(`${key} = ?`)
-      params.push(value)
+      params.push(value === 'true' ? 1 : value === 'false' ? 0 : value)
     }
     if (conditions.length) sql += ' WHERE ' + conditions.join(' AND ')
     const order = url.searchParams.get('order')
