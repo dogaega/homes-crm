@@ -274,7 +274,12 @@ export const supabase = {
     async signUp({ email, password, options }: { email: string; password: string; options?: { data?: any } }) {
       const { data, error } = await request('/auth/signup', {
         method: 'POST',
-        body: JSON.stringify({ email, password, full_name: options?.data?.full_name }),
+        body: JSON.stringify({
+          email,
+          password,
+          full_name: options?.data?.full_name || options?.data?.agent_name,
+          invite_code: options?.data?.invite_code,
+        }),
       })
       if (error) return { data: { user: null, session: null }, error }
       const user = toAuthUser(data.user)

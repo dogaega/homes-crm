@@ -13,6 +13,7 @@
 export interface Env {
   DB: D1Database
   ALLOWED_ORIGINS: string
+  SIGNUP_INVITE_CODE: string
 }
 
 const TABLES = [
@@ -127,8 +128,11 @@ async function handleAuth(req: Request, env: Env, path: string, origin: string |
   const headers = corsHeaders(origin, env)
 
   if (path === '/auth/signup' && req.method === 'POST') {
-    const { email, password, full_name } = await req.json<any>()
+    const { email, password, full_name, invite_code } = await req.json<any>()
     if (!email || !password) return json({ error: 'email and password required' }, 400, headers)
+    if (!env.SIGNUP_INVITE_CODE || invite_code !== env.SIGNUP_INVITE_CODE) {
+      return json({ error: 'Invalid or missing invite code' }, 403, headers)
+    }
     const existing = await env.DB.prepare('SELECT id FROM users WHERE email = ?').bind(email).first()
     if (existing) return json({ error: 'User already exists' }, 409, headers)
 

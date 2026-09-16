@@ -11,6 +11,7 @@ export default function SignUpForm() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [agentName, setAgentName] = useState('')
   const [phone, setPhone] = useState('')
+  const [inviteCode, setInviteCode] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
@@ -40,13 +41,14 @@ export default function SignUpForm() {
       const { error } = await signUp(email, password, {
         agent_name: agentName,
         phone: phone,
-        role: 'agent'
+        role: 'agent',
+        invite_code: inviteCode
       })
-      
+
       if (error) {
         setError(error.message)
       } else {
-        setSuccess('Account created successfully! Please check your email to confirm your account.')
+        setSuccess('Account created successfully! Redirecting to login...')
         // Redirect to login after a delay
         setTimeout(() => {
           router.push('/login')
@@ -113,6 +115,20 @@ export default function SignUpForm() {
             type="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="inviteCode" className="block text-sm font-medium text-gray-700">
+            Invite Code
+          </label>
+          <input
+            id="inviteCode"
+            type="text"
+            value={inviteCode}
+            onChange={(e) => setInviteCode(e.target.value)}
+            required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
