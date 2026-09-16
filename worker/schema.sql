@@ -180,7 +180,23 @@ CREATE TABLE properties (
   updated_at TEXT,
   virtual_tour_url TEXT,
   year_built INTEGER,
-  zip_code TEXT NOT NULL
+  zip_code TEXT NOT NULL,
+  slug TEXT,
+  plot_size REAL,
+  terrain_description TEXT,
+  floor_count INTEGER,
+  house_history TEXT,
+  concept_description TEXT,
+  construction_details TEXT,
+  engineering_details TEXT,
+  room_layout TEXT,
+  floor_plan_urls TEXT,
+  gallery_urls TEXT,
+  video_url TEXT,
+  map_lat REAL,
+  map_lng REAL,
+  featured INTEGER DEFAULT 0,
+  public_listing INTEGER DEFAULT 0
 );
 
 CREATE TABLE sessions (

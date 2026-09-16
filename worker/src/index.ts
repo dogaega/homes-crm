@@ -26,7 +26,7 @@ type TableName = typeof TABLES[number]
 const JSON_COLUMNS: Record<string, string[]> = {
   agents: ['performance_metrics', 'social_media', 'territory', 'specialties'],
   clients: ['budget_range', 'preferences', 'tags'],
-  properties: ['features', 'photos'],
+  properties: ['features', 'photos', 'construction_details', 'engineering_details', 'room_layout', 'floor_plan_urls', 'gallery_urls'],
   tasks: [],
   task_templates: ['tasks'],
   documents: ['field_values', 'tags'],
@@ -192,6 +192,39 @@ async function handleAuth(req: Request, env: Env, path: string, origin: string |
   return json({ error: 'Not found' }, 404, headers)
 }
 
+const PUBLIC_PROPERTY_COLUMNS = `
+  id, property_id, slug, address, city, state, zip_code, price, bedrooms, bathrooms,
+  square_feet, lot_size, plot_size, year_built, floor_count, property_type,
+  description, terrain_description, house_history, concept_description,
+  construction_details, engineering_details, room_layout, floor_plan_urls,
+  gallery_urls, video_url, photos, map_lat, map_lng, featured, listing_status,
+  virtual_tour_url
+`
+
+async function handlePublic(req: Request, env: Env, path: string, origin: string | null): Promise<Response> {
+  const headers = corsHeaders(origin, env)
+  if (req.method !== 'GET') return json({ error: 'Method not allowed' }, 405, headers)
+
+  if (path === '/public/properties') {
+    const { results } = await env.DB.prepare(
+      `SELECT ${PUBLIC_PROPERTY_COLUMNS} FROM properties WHERE public_listing = 1 ORDER BY featured DESC, created_at DESC`
+    ).all()
+    return json((results || []).map((r: any) => parseJsonCols('properties', r)), 200, headers)
+  }
+
+  const detailMatch = path.match(/^\/public\/properties\/([^/]+)$/)
+  if (detailMatch) {
+    const slug = decodeURIComponent(detailMatch[1])
+    const row = await env.DB.prepare(
+      `SELECT ${PUBLIC_PROPERTY_COLUMNS} FROM properties WHERE slug = ? AND public_listing = 1`
+    ).bind(slug).first()
+    if (!row) return json({ error: 'Not found' }, 404, headers)
+    return json(parseJsonCols('properties', row), 200, headers)
+  }
+
+  return json({ error: 'Not found' }, 404, headers)
+}
+
 async function handleRest(req: Request, env: Env, url: URL, table: TableName, id: string | null, origin: string | null): Promise<Response> {
   const headers = corsHeaders(origin, env)
   const user = await getSessionUser(req, env)
@@ -294,6 +327,10 @@ export default {
 
     if (url.pathname.startsWith('/auth/')) {
       return handleAuth(req, env, url.pathname, origin)
+    }
+
+    if (url.pathname.startsWith('/public/')) {
+      return handlePublic(req, env, url.pathname, origin)
     }
 
     const parts = url.pathname.replace(/^\//, '').split('/')

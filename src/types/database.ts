@@ -624,6 +624,22 @@ export type Database = {
           virtual_tour_url: string | null
           year_built: number | null
           zip_code: string
+          slug: string | null
+          plot_size: number | null
+          terrain_description: string | null
+          floor_count: number | null
+          house_history: string | null
+          concept_description: string | null
+          construction_details: Json | null
+          engineering_details: Json | null
+          room_layout: Json | null
+          floor_plan_urls: Json | null
+          gallery_urls: Json | null
+          video_url: string | null
+          map_lat: number | null
+          map_lng: number | null
+          featured: number | null
+          public_listing: number | null
         }
         Insert: {
           address: string
@@ -651,6 +667,22 @@ export type Database = {
           virtual_tour_url?: string | null
           year_built?: number | null
           zip_code: string
+          slug?: string | null
+          plot_size?: number | null
+          terrain_description?: string | null
+          floor_count?: number | null
+          house_history?: string | null
+          concept_description?: string | null
+          construction_details?: Json | null
+          engineering_details?: Json | null
+          room_layout?: Json | null
+          floor_plan_urls?: Json | null
+          gallery_urls?: Json | null
+          video_url?: string | null
+          map_lat?: number | null
+          map_lng?: number | null
+          featured?: number | null
+          public_listing?: number | null
         }
         Update: {
           address?: string
@@ -678,6 +710,22 @@ export type Database = {
           virtual_tour_url?: string | null
           year_built?: number | null
           zip_code?: string
+          slug?: string | null
+          plot_size?: number | null
+          terrain_description?: string | null
+          floor_count?: number | null
+          house_history?: string | null
+          concept_description?: string | null
+          construction_details?: Json | null
+          engineering_details?: Json | null
+          room_layout?: Json | null
+          floor_plan_urls?: Json | null
+          gallery_urls?: Json | null
+          video_url?: string | null
+          map_lat?: number | null
+          map_lng?: number | null
+          featured?: number | null
+          public_listing?: number | null
         }
         Relationships: [
           {

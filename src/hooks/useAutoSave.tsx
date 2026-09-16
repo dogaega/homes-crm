@@ -23,6 +23,8 @@ export function useAutoSave({
   const timeoutRef = useRef<NodeJS.Timeout>()
   const isFirstRender = useRef(true)
   const lastSavedData = useRef<string>('')
+  const onRestoreRef = useRef(onRestore)
+  onRestoreRef.current = onRestore
 
   // Auto-save when data changes
   useEffect(() => {
@@ -73,12 +75,17 @@ export function useAutoSave({
       const savedData = localStorage.getItem(`autosave_${key}`)
       if (savedData) {
         const parsedData = JSON.parse(savedData)
-        onRestore?.(parsedData)
+        onRestoreRef.current?.(parsedData)
       }
     } catch (error) {
       console.error('Failed to restore auto-saved data:', error)
     }
-  }, [key, enabled, onRestore])
+    // Intentionally runs only when key/enabled change (i.e. on mount), not on
+    // every render — onRestore is read via a ref to avoid re-firing restore
+    // (and clobbering in-progress typing) when the caller passes a fresh
+    // inline callback each render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key, enabled])
 
   // Clear saved data
   const clearSavedData = () => {

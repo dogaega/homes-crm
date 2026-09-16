@@ -70,6 +70,36 @@ const validatePropertyId = async (propertyId: string): Promise<boolean> => {
   }
 }
 
+function Field({
+  label,
+  name,
+  value,
+  onChange,
+  type = 'text',
+  step,
+}: {
+  label: string
+  name: string
+  value: string
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  type?: string
+  step?: string
+}) {
+  return (
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+      <input
+        name={name}
+        value={value}
+        onChange={onChange}
+        type={type}
+        step={step}
+        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+  )
+}
+
 export default function PropertyForm({ onClose, onSuccess, initialData }: PropertyFormProps) {
   const { user } = useAuth()
   const { createProperty, updateProperty } = usePropertyStore()
@@ -97,7 +127,37 @@ export default function PropertyForm({ onClose, onSuccess, initialData }: Proper
     mls_number: initialData?.mls_number || '',
     description: initialData?.description || '',
     assigned_agent_id: initialData?.assigned_agent_id || '',
+    // Public marketing site fields
+    slug: (initialData as any)?.slug || '',
+    plot_size: (initialData as any)?.plot_size?.toString() || '',
+    terrain_description: (initialData as any)?.terrain_description || '',
+    floor_count: (initialData as any)?.floor_count?.toString() || '',
+    house_history: (initialData as any)?.house_history || '',
+    concept_description: (initialData as any)?.concept_description || '',
+    construction_walls: (initialData as any)?.construction_details?.walls || '',
+    construction_insulation: (initialData as any)?.construction_details?.insulation || '',
+    construction_roof: (initialData as any)?.construction_details?.roof || '',
+    construction_windows: (initialData as any)?.construction_details?.windows || '',
+    engineering_heating: (initialData as any)?.engineering_details?.heating || '',
+    engineering_ventilation: (initialData as any)?.engineering_details?.ventilation || '',
+    engineering_water: (initialData as any)?.engineering_details?.water_supply || '',
+    engineering_sewage: (initialData as any)?.engineering_details?.sewage || '',
+    video_url: (initialData as any)?.video_url || '',
+    map_lat: (initialData as any)?.map_lat?.toString() || '',
+    map_lng: (initialData as any)?.map_lng?.toString() || '',
+    featured: !!(initialData as any)?.featured,
+    public_listing: !!(initialData as any)?.public_listing,
   })
+
+  const [roomLayout, setRoomLayout] = useState<{ name: string; description: string }[]>(
+    (initialData as any)?.room_layout || []
+  )
+  const [galleryUrls, setGalleryUrls] = useState<string>(
+    ((initialData as any)?.gallery_urls || []).join('\n')
+  )
+  const [floorPlanUrls, setFloorPlanUrls] = useState<string>(
+    ((initialData as any)?.floor_plan_urls || []).join('\n')
+  )
 
   // Auto-save functionality
   const autoSaveKey = isEditing ? `property_edit_${initialData?.id}` : 'property_new'
@@ -201,6 +261,29 @@ export default function PropertyForm({ onClose, onSuccess, initialData }: Proper
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target
+    setFormData(prev => ({ ...prev, [name]: checked }))
+  }
+
+  const slugify = (s: string) =>
+    s
+      .toLowerCase()
+      .normalize('NFKD')
+      .replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '')
+
+  const generateSlug = () => {
+    const base = [formData.address, formData.city].filter(Boolean).join(' ')
+    setFormData(prev => ({ ...prev, slug: slugify(base) || `property-${Date.now()}` }))
+  }
+
+  const addRoomRow = () => setRoomLayout(prev => [...prev, { name: '', description: '' }])
+  const updateRoomRow = (i: number, field: 'name' | 'description', value: string) =>
+    setRoomLayout(prev => prev.map((r, idx) => (idx === i ? { ...r, [field]: value } : r)))
+  const removeRoomRow = (i: number) => setRoomLayout(prev => prev.filter((_, idx) => idx !== i))
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
@@ -263,7 +346,34 @@ export default function PropertyForm({ onClose, onSuccess, initialData }: Proper
         assigned_agent_id: formData.assigned_agent_id || currentAgentId,
         created_by: currentAgentId,
         listing_date: isEditing ? initialData.listing_date : new Date().toISOString(),
-      }
+        // Public marketing site fields
+        slug: formData.slug || null,
+        plot_size: formData.plot_size ? parseFloat(formData.plot_size) : null,
+        terrain_description: formData.terrain_description || null,
+        floor_count: formData.floor_count ? parseInt(formData.floor_count) : null,
+        house_history: formData.house_history || null,
+        concept_description: formData.concept_description || null,
+        construction_details: {
+          walls: formData.construction_walls || undefined,
+          insulation: formData.construction_insulation || undefined,
+          roof: formData.construction_roof || undefined,
+          windows: formData.construction_windows || undefined,
+        },
+        engineering_details: {
+          heating: formData.engineering_heating || undefined,
+          ventilation: formData.engineering_ventilation || undefined,
+          water_supply: formData.engineering_water || undefined,
+          sewage: formData.engineering_sewage || undefined,
+        },
+        room_layout: roomLayout.filter(r => r.name),
+        gallery_urls: galleryUrls.split('\n').map(s => s.trim()).filter(Boolean),
+        floor_plan_urls: floorPlanUrls.split('\n').map(s => s.trim()).filter(Boolean),
+        video_url: formData.video_url || null,
+        map_lat: formData.map_lat ? parseFloat(formData.map_lat) : null,
+        map_lng: formData.map_lng ? parseFloat(formData.map_lng) : null,
+        featured: formData.featured ? 1 : 0,
+        public_listing: formData.public_listing ? 1 : 0,
+      } as any
 
       let result
       if (isEditing) {
@@ -508,6 +618,123 @@ export default function PropertyForm({ onClose, onSuccess, initialData }: Proper
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Property description..."
             />
+          </div>
+
+          <div className="border-t pt-6 mt-2">
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">Public Site Content</h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Slug (public URL)</label>
+                <div className="flex items-center gap-2">
+                  <Input
+                    name="slug"
+                    value={formData.slug}
+                    onChange={handleInputChange}
+                    className="flex-1"
+                    placeholder="e.g. sample-villa-cap-dail"
+                  />
+                  <Button type="button" onClick={generateSlug} className="px-3 py-2 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300">
+                    Generate
+                  </Button>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-6 pt-6">
+                <label className="flex items-center gap-2 text-sm text-gray-700">
+                  <input type="checkbox" name="featured" checked={formData.featured} onChange={handleCheckboxChange} />
+                  Featured (hero)
+                </label>
+                <label className="flex items-center gap-2 text-sm text-gray-700">
+                  <input type="checkbox" name="public_listing" checked={formData.public_listing} onChange={handleCheckboxChange} />
+                  Show on public site
+                </label>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+              <Field label="Plot Size (m²)" name="plot_size" type="number" value={formData.plot_size} onChange={handleInputChange} />
+              <Field label="Floor Count" name="floor_count" type="number" value={formData.floor_count} onChange={handleInputChange} />
+              <Field label="Video URL" name="video_url" value={formData.video_url} onChange={handleInputChange} />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <Field label="Map Latitude" name="map_lat" type="number" step="any" value={formData.map_lat} onChange={handleInputChange} />
+              <Field label="Map Longitude" name="map_lng" type="number" step="any" value={formData.map_lng} onChange={handleInputChange} />
+            </div>
+
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Terrain Description</label>
+              <textarea name="terrain_description" value={formData.terrain_description} onChange={handleInputChange} rows={2}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-gray-700 mb-1">House History (narrative)</label>
+              <textarea name="house_history" value={formData.house_history} onChange={handleInputChange} rows={3}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Concept</label>
+              <textarea name="concept_description" value={formData.concept_description} onChange={handleInputChange} rows={2}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+
+            <h4 className="text-sm font-semibold text-gray-700 mt-6 mb-2">Construction</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Field label="Walls" name="construction_walls" value={formData.construction_walls} onChange={handleInputChange} />
+              <Field label="Insulation" name="construction_insulation" value={formData.construction_insulation} onChange={handleInputChange} />
+              <Field label="Roof" name="construction_roof" value={formData.construction_roof} onChange={handleInputChange} />
+              <Field label="Windows" name="construction_windows" value={formData.construction_windows} onChange={handleInputChange} />
+            </div>
+
+            <h4 className="text-sm font-semibold text-gray-700 mt-6 mb-2">Engineering</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Field label="Heating" name="engineering_heating" value={formData.engineering_heating} onChange={handleInputChange} />
+              <Field label="Ventilation" name="engineering_ventilation" value={formData.engineering_ventilation} onChange={handleInputChange} />
+              <Field label="Water Supply" name="engineering_water" value={formData.engineering_water} onChange={handleInputChange} />
+              <Field label="Sewage" name="engineering_sewage" value={formData.engineering_sewage} onChange={handleInputChange} />
+            </div>
+
+            <h4 className="text-sm font-semibold text-gray-700 mt-6 mb-2">Room Layout</h4>
+            <div className="space-y-2">
+              {roomLayout.map((row, i) => (
+                <div key={i} className="flex gap-2 items-start">
+                  <input
+                    value={row.name}
+                    onChange={e => updateRoomRow(i, 'name', e.target.value)}
+                    placeholder="Room name"
+                    className="w-1/3 px-3 py-2 border border-gray-300 rounded-md"
+                  />
+                  <input
+                    value={row.description}
+                    onChange={e => updateRoomRow(i, 'description', e.target.value)}
+                    placeholder="Description"
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-md"
+                  />
+                  <Button type="button" onClick={() => removeRoomRow(i)} className="px-3 py-2 text-sm bg-red-50 text-red-600 hover:bg-red-100 border border-red-200">
+                    Remove
+                  </Button>
+                </div>
+              ))}
+              <Button type="button" onClick={addRoomRow} className="px-3 py-2 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300">
+                + Add Room
+              </Button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Gallery Image URLs (one per line)</label>
+                <textarea value={galleryUrls} onChange={e => setGalleryUrls(e.target.value)} rows={4}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Floor Plan Image URLs (one per line)</label>
+                <textarea value={floorPlanUrls} onChange={e => setFloorPlanUrls(e.target.value)} rows={4}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              </div>
+            </div>
           </div>
 
           <div className="flex justify-end space-x-3">
