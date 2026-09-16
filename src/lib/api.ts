@@ -20,6 +20,57 @@ export interface ApiError {
   code?: string
 }
 
+// The Worker's REST endpoints only do flat `SELECT * FROM table`, with no
+// join support. Several call sites use Supabase's embedded-relation syntax
+// (`.select('*, document_templates(*), clients(id,...)')`) expecting a
+// nested object back — e.g. the document edit/view/print-preview pages and
+// generate-pdf route all read `data.document_templates.template_content`.
+// Against this shim that syntax silently did nothing (columns are ignored
+// entirely), so the embedded key was always undefined and those pages
+// rendered blank instead of erroring. This resolves those embeds with a
+// follow-up by-id fetch per row, using each relation's actual FK column
+// (documents.template_id -> document_templates being the one irregular
+// name; everything else here follows `<singular table>_id`).
+const EMBED_FK: Record<string, string> = {
+  document_templates: 'template_id',
+  clients: 'client_id',
+  properties: 'property_id',
+  agents: 'agent_id',
+}
+
+interface EmbedSpec {
+  alias: string
+  table: string
+}
+
+function parseEmbeds(columns?: string): EmbedSpec[] {
+  if (!columns) return []
+  const embeds: EmbedSpec[] = []
+  const re = /(?:(\w+):)?(\w+)\(/g
+  let m: RegExpExecArray | null
+  while ((m = re.exec(columns))) {
+    const alias = m[1] || m[2]
+    const table = m[2]
+    if (EMBED_FK[table]) embeds.push({ alias, table })
+  }
+  return embeds
+}
+
+async function attachEmbeds(row: any, embeds: EmbedSpec[]) {
+  if (!row) return row
+  for (const embed of embeds) {
+    const fkColumn = EMBED_FK[embed.table]
+    const fkValue = row[fkColumn]
+    if (!fkValue) {
+      row[embed.alias] = null
+      continue
+    }
+    const { data } = await request(`/${embed.table}/${fkValue}`)
+    row[embed.alias] = data || null
+  }
+  return row
+}
+
 async function request(path: string, options: RequestInit = {}) {
   const res = await fetch(`${API_BASE}${path}`, {
     ...options,
@@ -47,12 +98,14 @@ class QueryBuilder {
   private allowEmpty = false
   private pendingBody: any = null
   private method: 'GET' | 'POST' | 'PATCH' | 'DELETE' = 'GET'
+  private embeds: EmbedSpec[] = []
 
   constructor(table: string) {
     this.table = table
   }
 
-  select(_columns?: string) {
+  select(columns?: string) {
+    this.embeds = parseEmbeds(columns)
     return this
   }
 
@@ -210,7 +263,9 @@ class QueryBuilder {
 
     // GET
     if (this.wantsSingle && id) {
-      return request(`/${this.table}/${id}`)
+      const { data, error } = await request(`/${this.table}/${id}`)
+      if (!error && data) await attachEmbeds(data, this.embeds)
+      return { data, error }
     }
     const { data, error } = await request(`/${this.table}${this.buildQuery()}`)
     if (this.wantsSingle) {
@@ -220,7 +275,11 @@ class QueryBuilder {
         if (this.allowEmpty) return { data: null, error: null }
         return { data: null, error: { message: 'No rows found', code: 'PGRST116' } }
       }
+      if (this.embeds.length) await attachEmbeds(row, this.embeds)
       return { data: row, error: null }
+    }
+    if (!error && this.embeds.length && Array.isArray(data)) {
+      for (const row of data) await attachEmbeds(row, this.embeds)
     }
     return { data, error }
   }

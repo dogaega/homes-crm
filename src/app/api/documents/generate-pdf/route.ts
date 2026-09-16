@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/api';
 import jsPDF from 'jspdf';
 // Note: @react-pdf/renderer imports removed as they're not used in this implementation
 import { reportAPIError, measurePerformance, addBreadcrumb } from '@/lib/sentry';
@@ -8,7 +7,7 @@ export async function POST(request: NextRequest) {
   return measurePerformance('generatePDF', 'api.request', async () => {
     try {
       addBreadcrumb('PDF generation request started', 'api', 'info');
-      
+
       const { documentId } = await request.json();
 
       if (!documentId) {
@@ -17,25 +16,40 @@ export async function POST(request: NextRequest) {
       }
 
       addBreadcrumb('Fetching document for PDF generation', 'api', 'info', { documentId });
-      
-      // Fetch document with template
-      const { data: document, error: docError } = await supabase
-        .from('documents')
-        .select(`
-          *,
-          document_templates(*)
-        `)
-        .eq('id', documentId)
-        .single();
 
-      if (docError || !document) {
-        reportAPIError(docError || new Error('Document not found'), {
+      // This route runs server-side (a Next.js Route Handler executing in
+      // the Worker), unlike everywhere else `@/lib/api`'s `supabase` shim
+      // is used (client components in the browser). That shim builds
+      // relative fetch URLs and relies on the browser sending the httpOnly
+      // session cookie automatically — neither works from server-side code,
+      // so `supabase.from(...)` here always threw and this route always
+      // 500'd. Talk to the Worker directly with an absolute URL through the
+      // same `/api/backend` rewrite, forwarding the incoming request's
+      // Cookie header by hand instead.
+      const backendBase = `${new URL(request.url).origin}/api/backend`;
+      const cookie = request.headers.get('cookie') || '';
+
+      const docRes = await fetch(`${backendBase}/documents/${documentId}`, {
+        headers: { Cookie: cookie },
+      });
+      if (!docRes.ok) {
+        reportAPIError(new Error('Document not found'), {
           endpoint: '/api/documents/generate-pdf',
           method: 'POST',
           status: 404
         });
         return NextResponse.json({ error: 'Document not found' }, { status: 404 });
       }
+      const documentRow = await docRes.json();
+
+      let templateRow: any = null;
+      if (documentRow.template_id) {
+        const templateRes = await fetch(`${backendBase}/document_templates/${documentRow.template_id}`, {
+          headers: { Cookie: cookie },
+        });
+        if (templateRes.ok) templateRow = await templateRes.json();
+      }
+      const document = { ...documentRow, document_templates: templateRow };
 
       addBreadcrumb('Generating PDF content', 'api', 'info', {
         documentTitle: document.title,
@@ -90,22 +104,23 @@ export async function POST(request: NextRequest) {
       pdf.text('Agent Signature', 20, yPos + 5);
       pdf.text('Date: ___________', 130, yPos + 5);
       
-      // Convert to blob and upload to Supabase storage
+      // Convert to blob and upload to R2 via the Worker (replaces Supabase
+      // Storage, which this shim's server-side callers never had access to).
       const pdfBlob = pdf.output('blob');
       const fileName = `document_${documentId}_${Date.now()}.pdf`;
-      
-      addBreadcrumb('Uploading PDF to storage', 'api', 'info', { fileName });
-      
-      // Upload to Supabase Storage
-      const { error: uploadError } = await supabase.storage
-        .from('documents')
-        .upload(fileName, pdfBlob, {
-          contentType: 'application/pdf',
-          upsert: false
-        });
 
-      if (uploadError) {
-        reportAPIError(uploadError as Error, {
+      addBreadcrumb('Uploading PDF to storage', 'api', 'info', { fileName });
+
+      const pdfArrayBuffer = await pdfBlob.arrayBuffer();
+      const uploadRes = await fetch(`${backendBase}/documents/upload?filename=${encodeURIComponent(fileName)}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/pdf', Cookie: cookie },
+        body: pdfArrayBuffer,
+      });
+      const uploadBody: any = await uploadRes.json().catch(() => null);
+
+      if (!uploadRes.ok || !uploadBody?.url) {
+        reportAPIError(new Error(uploadBody?.error || 'PDF upload failed'), {
           endpoint: '/api/documents/generate-pdf',
           method: 'POST',
           status: 500
@@ -113,21 +128,22 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Failed to upload PDF' }, { status: 500 });
       }
 
-      // Get public URL
-      const { data: { publicUrl } } = supabase.storage
-        .from('documents')
-        .getPublicUrl(fileName);
+      // Store the same-origin path (proxied through /api/backend to the
+      // Worker's /documents/file/:key), so `window.open(pdf_url)` elsewhere
+      // in the app hits this app's own origin and the session cookie is
+      // sent automatically by the browser, same as any normal navigation.
+      const publicUrl = `/api/backend${uploadBody.url}`;
 
       addBreadcrumb('Updating document with PDF URL', 'api', 'info', { publicUrl });
-      
-      // Update document with PDF URL
-      const { error: updateError } = await supabase
-        .from('documents')
-        .update({ pdf_url: publicUrl })
-        .eq('id', documentId);
 
-      if (updateError) {
-        reportAPIError(updateError as Error, {
+      const updateRes = await fetch(`${backendBase}/documents/${documentId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', Cookie: cookie },
+        body: JSON.stringify({ pdf_url: publicUrl }),
+      });
+
+      if (!updateRes.ok) {
+        reportAPIError(new Error('Failed to update document with pdf_url'), {
           endpoint: '/api/documents/generate-pdf',
           method: 'POST',
           status: 500
