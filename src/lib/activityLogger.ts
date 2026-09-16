@@ -1,4 +1,4 @@
-import { supabase } from './supabase'
+import { supabase } from './api'
 import { Database } from '@/types/database'
 
 type ActivityType = Database['public']['Tables']['activity_logs']['Row']['activity_type']

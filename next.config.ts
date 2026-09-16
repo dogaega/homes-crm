@@ -64,3 +64,5 @@ const sentryWebpackPluginOptions = {
 };
 
 export default withSentryConfig(nextConfig, sentryWebpackPluginOptions);
+
+import('@opennextjs/cloudflare').then(m => m.initOpenNextCloudflareForDev());
