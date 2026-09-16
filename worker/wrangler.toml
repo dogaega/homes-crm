@@ -7,6 +7,10 @@ binding = "DB"
 database_name = "monaco-riviera-crm"
 database_id = "e84e3e48-4678-4d09-955f-24bdc6f18cff"
 
+[[r2_buckets]]
+binding = "DOCS"
+bucket_name = "monaco-riviera-crm-documents"
+
 [vars]
 # Comma-separated list of allowed origins for CORS (dev + prod front-end)
 ALLOWED_ORIGINS = "http://localhost:3000"

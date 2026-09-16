@@ -41,6 +41,9 @@ function CreateDocumentPageContent() {
   const [documentContent, setDocumentContent] = useState<string>('');
   const [showSigningInterface, setShowSigningInterface] = useState(false);
   const [createdDocument, setCreatedDocument] = useState<any>(null);
+  const [attachedFile, setAttachedFile] = useState<File | null>(null);
+  const [uploadingFile, setUploadingFile] = useState(false);
+  const [uploadError, setUploadError] = useState<string>('');
   
   const {
     documentTemplates,
@@ -507,6 +510,27 @@ function CreateDocumentPageContent() {
     const templateDocType = selectedTemplate?.document_type;
     const documentType = validDocumentTypes.includes(templateDocType) ? templateDocType : 'contract';
 
+    let fileUrl = '/placeholder.pdf'; // Fallback when no file is attached
+    let fileSize: number | null = null;
+    let mimeType: string | null = null;
+
+    if (attachedFile) {
+      setUploadingFile(true);
+      setUploadError('');
+      const { data: uploadData, error: uploadErr } = await supabase.storage
+        .from('documents')
+        .upload(attachedFile.name, attachedFile);
+      setUploadingFile(false);
+
+      if (uploadErr || !uploadData) {
+        setUploadError(uploadErr?.message || 'File upload failed');
+        return;
+      }
+      fileUrl = uploadData.path;
+      fileSize = uploadData.size;
+      mimeType = attachedFile.type || null;
+    }
+
     const documentData = {
       document_name: data.title,
       template_id: data.template_id,
@@ -517,7 +541,9 @@ function CreateDocumentPageContent() {
       document_type: documentType,
       field_values: templateFieldValues,
       document_status: 'draft',
-      file_url: '/placeholder.pdf', // Temporary placeholder URL
+      file_url: fileUrl,
+      file_size: fileSize,
+      mime_type: mimeType,
       title: data.title
     };
 
@@ -689,6 +715,28 @@ function CreateDocumentPageContent() {
                       )}
                     </div>
 
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Attach File (Optional)
+                      </label>
+                      <input
+                        type="file"
+                        onChange={(e) => {
+                          setAttachedFile(e.target.files?.[0] || null);
+                          setUploadError('');
+                        }}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                      {attachedFile && (
+                        <p className="mt-1 text-sm text-gray-600">
+                          {attachedFile.name} ({Math.round(attachedFile.size / 1024)} KB)
+                        </p>
+                      )}
+                      {uploadError && (
+                        <p className="mt-1 text-sm text-red-600">{uploadError}</p>
+                      )}
+                    </div>
+
                     <div className="grid grid-cols-1 gap-4">
                       <SearchableDropdown
                         label="Client (Optional)"
@@ -794,8 +842,8 @@ function CreateDocumentPageContent() {
                       Cancel
                     </Button>
                   </Link>
-                  <Button type="submit" disabled={isSubmitting || templatesLoading}>
-                    {isSubmitting ? 'Creating...' : 'Create Document'}
+                  <Button type="submit" disabled={isSubmitting || templatesLoading || uploadingFile}>
+                    {uploadingFile ? 'Uploading file...' : isSubmitting ? 'Creating...' : 'Create Document'}
                   </Button>
                 </div>
               </form>

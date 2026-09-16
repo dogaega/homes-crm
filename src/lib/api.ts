@@ -235,17 +235,32 @@ export const supabase = {
     }
     return { data: null, error: { message: `rpc('${fn}') is not implemented in the Worker API` } }
   },
-  // File storage was Supabase Storage; this migration does not include an
-  // R2-backed replacement yet. Calls resolve with a clear error instead of
-  // crashing, matching the shim contract error shape.
+  // File storage was Supabase Storage; now backed by R2 via the Worker's
+  // /documents/upload and /documents/file/:key endpoints (session-authenticated,
+  // so files aren't publicly readable).
   storage: {
     from(_bucket: string) {
       return {
-        async upload() {
-          return { data: null, error: { message: 'Storage is not implemented — Supabase Storage was not migrated to R2 yet' } }
+        async upload(_path: string, file: File | Blob) {
+          const filename = file instanceof File ? file.name : 'file'
+          const res = await fetch(`${API_BASE}/documents/upload?filename=${encodeURIComponent(filename)}`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': file.type || 'application/octet-stream' },
+            body: file,
+          })
+          let body: any = null
+          try { body = await res.json() } catch { /* no body */ }
+          if (!res.ok) {
+            return { data: null, error: { message: body?.error || res.statusText } }
+          }
+          return { data: { path: body.url, key: body.key, filename: body.filename, size: body.size }, error: null }
         },
         getPublicUrl(path: string) {
-          return { data: { publicUrl: path } }
+          // `path` here is the same-origin /documents/file/:key URL returned
+          // by upload() above — not truly "public" (session-gated), matching
+          // the private-document intent of this app.
+          return { data: { publicUrl: `${API_BASE}${path}` } }
         },
       }
     },

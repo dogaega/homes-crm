@@ -12,6 +12,7 @@
 
 export interface Env {
   DB: D1Database
+  DOCS: R2Bucket
   ALLOWED_ORIGINS: string
   SIGNUP_INVITE_CODE: string
 }
@@ -229,6 +230,45 @@ async function handlePublic(req: Request, env: Env, path: string, origin: string
   return json({ error: 'Not found' }, 404, headers)
 }
 
+async function handleDocumentFiles(req: Request, env: Env, url: URL, path: string, origin: string | null): Promise<Response> {
+  const headers = corsHeaders(origin, env)
+  const user = await getSessionUser(req, env)
+  if (!user) return json({ error: 'Unauthorized' }, 401, headers)
+
+  if (path === '/documents/upload' && req.method === 'POST') {
+    const filename = url.searchParams.get('filename') || 'file'
+    const safeName = filename.replace(/[^a-zA-Z0-9._-]/g, '_')
+    const key = `${crypto.randomUUID()}-${safeName}`
+    const contentType = req.headers.get('Content-Type') || 'application/octet-stream'
+    const body = await req.arrayBuffer()
+    if (body.byteLength === 0) return json({ error: 'Empty file' }, 400, headers)
+    if (body.byteLength > 25 * 1024 * 1024) return json({ error: 'File too large (25MB max)' }, 413, headers)
+
+    await env.DOCS.put(key, body, { httpMetadata: { contentType } })
+
+    return json({
+      key,
+      filename: safeName,
+      size: body.byteLength,
+      contentType,
+      url: `/documents/file/${encodeURIComponent(key)}`,
+    }, 200, headers)
+  }
+
+  const fileMatch = path.match(/^\/documents\/file\/([^/]+)$/)
+  if (fileMatch && req.method === 'GET') {
+    const key = decodeURIComponent(fileMatch[1])
+    const object = await env.DOCS.get(key)
+    if (!object) return json({ error: 'Not found' }, 404, headers)
+    const fileHeaders = new Headers(headers)
+    fileHeaders.set('Content-Type', object.httpMetadata?.contentType || 'application/octet-stream')
+    fileHeaders.set('Cache-Control', 'private, max-age=3600')
+    return new Response(object.body, { status: 200, headers: fileHeaders })
+  }
+
+  return json({ error: 'Not found' }, 404, headers)
+}
+
 async function handleRest(req: Request, env: Env, url: URL, table: TableName, id: string | null, origin: string | null): Promise<Response> {
   const headers = corsHeaders(origin, env)
   const user = await getSessionUser(req, env)
@@ -335,6 +375,10 @@ export default {
 
     if (url.pathname.startsWith('/public/')) {
       return handlePublic(req, env, url.pathname, origin)
+    }
+
+    if (url.pathname.startsWith('/documents/upload') || url.pathname.startsWith('/documents/file/')) {
+      return handleDocumentFiles(req, env, url, url.pathname, origin)
     }
 
     const parts = url.pathname.replace(/^\//, '').split('/')
