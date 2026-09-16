@@ -3,7 +3,7 @@
 import { useAuth } from '@/contexts/AuthContext'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState, use } from 'react'
-import { supabase } from '@/lib/supabase'
+import { supabase } from '@/lib/api'
 import { Database } from '@/types/database'
 import { useHydration } from '@/hooks/useHydration'
 import MainNavigation from '@/components/navigation/MainNavigation'

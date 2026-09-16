@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/lib/api';
 import { Database } from '@/types/database';
 import { showToast } from '@/lib/toast';
 import { reportCRMError, measurePerformance, addBreadcrumb } from '@/lib/sentry';

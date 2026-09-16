@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/lib/api';
 import { reportAPIError, measurePerformance, addBreadcrumb } from '@/lib/sentry';
 
 export async function GET(request: NextRequest) {
@@ -22,10 +22,10 @@ export async function GET(request: NextRequest) {
       const token = authHeader.replace('Bearer ', '');
       addBreadcrumb('Getting user from token', 'api', 'info');
       
-      const { data: { user }, error: userError } = await supabase.auth.getUser(token);
-      
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+
       if (userError || !user) {
-        reportAPIError(userError || new Error('User not authenticated'), {
+        reportAPIError(userError ? new Error(userError.message) : new Error('User not authenticated'), {
           endpoint: '/api/test-agent',
           method: 'GET',
           status: 401

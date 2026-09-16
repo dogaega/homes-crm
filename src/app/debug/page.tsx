@@ -3,7 +3,7 @@
 import { useAuth } from '@/contexts/AuthContext'
 import { useClientStore } from '@/stores/useClientStore'
 import { useEffect, useState } from 'react'
-import { supabase } from '@/lib/supabase'
+import { supabase } from '@/lib/api'
 
 export default function DebugPage() {
   const { user, agent, loading } = useAuth()

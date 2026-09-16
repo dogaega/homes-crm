@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { ArrowLeft, Save, FileText, Eye, Home, List, Plus, Settings } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/lib/api';
 import Link from 'next/link';
 
 interface DocumentWithTemplate {

@@ -7,7 +7,7 @@ import MainNavigation from '@/components/navigation/MainNavigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { supabase } from '@/lib/supabase'
+import { supabase } from '@/lib/api'
 import { Database } from '@/types/database'
 import { useBrowserBackButton } from '@/hooks/useBrowserBackButton'
 import { 
