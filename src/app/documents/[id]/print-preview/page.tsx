@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useDocumentStore } from '@/stores/useDocumentStore';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/lib/api';
 import PrintPreview from '@/components/documents/PrintPreview';
 
 interface DocumentWithTemplate {

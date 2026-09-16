@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Plus, Filter, Search } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
+import { supabase } from '@/lib/api'
 import { Database } from '@/types/database'
 
 type Property = Database['public']['Tables']['properties']['Row']

@@ -1,9 +1,16 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState } from 'react'
-import { supabase } from '@/lib/supabase'
-import { User } from '@supabase/supabase-js'
+import { supabase } from '@/lib/api'
 import { Database } from '@/types/database'
+
+// Minimal User shape (was imported from @supabase/supabase-js) — matches
+// what our Worker's /auth/session and /auth/login responses provide.
+interface User {
+  id: string
+  email?: string
+  user_metadata?: Record<string, any>
+}
 import { setSentryUser, clearSentryUser, reportAuthError, addBreadcrumb } from '@/lib/sentry'
 
 export interface AuthUser extends User {

@@ -7,7 +7,16 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   experimental: {
-    optimizePackageImports: ['@supabase/supabase-js', 'lucide-react', 'react-hook-form'],
+    optimizePackageImports: ['lucide-react', 'react-hook-form'],
+  },
+  async rewrites() {
+    // Same-origin proxy to the Cloudflare Worker API so the httpOnly
+    // session cookie works without CORS. WORKER_URL points at
+    // `wrangler dev` locally, or the deployed Worker in production.
+    const workerUrl = process.env.WORKER_URL || 'http://localhost:8787'
+    return [
+      { source: '/api/backend/:path*', destination: `${workerUrl}/:path*` },
+    ]
   },
   turbopack: {
     rules: {

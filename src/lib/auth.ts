@@ -1,5 +1,10 @@
-import { supabase } from '@/lib/supabase'
-import { User } from '@supabase/supabase-js'
+import { supabase } from '@/lib/api'
+
+interface User {
+  id: string
+  email?: string
+  user_metadata?: Record<string, any>
+}
 
 export interface AuthUser extends User {
   role?: 'agent' | 'team_lead' | 'manager' | 'admin' | 'client'

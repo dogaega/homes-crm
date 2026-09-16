@@ -15,7 +15,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/lib/api';
 import DocumentSigning from '@/components/documents/DocumentSigning';
 import { saveSignedDocument } from '@/lib/signedDocuments';
 import { PageErrorBoundary } from '@/components/error/withErrorBoundary';

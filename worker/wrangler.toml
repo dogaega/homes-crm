@@ -1,0 +1,12 @@
+name = "monaco-riviera-crm-worker"
+main = "src/index.ts"
+compatibility_date = "2024-09-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "monaco-riviera-crm"
+database_id = "e84e3e48-4678-4d09-955f-24bdc6f18cff"
+
+[vars]
+# Comma-separated list of allowed origins for CORS (dev + prod front-end)
+ALLOWED_ORIGINS = "http://localhost:3000"

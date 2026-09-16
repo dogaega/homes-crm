@@ -7,7 +7,7 @@ import { useDocumentStore } from '@/stores/useDocumentStore';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { ArrowLeft, Download, Edit, FileText, Home, List, Plus, Settings, Share2, Printer, Eye, PenTool } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/lib/api';
 import { formatDate } from '@/lib/utils';
 import Link from 'next/link';
 import PrintPreview from '@/components/documents/PrintPreview';

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/lib/api';
 import jsPDF from 'jspdf';
 // Note: @react-pdf/renderer imports removed as they're not used in this implementation
 import { reportAPIError, measurePerformance, addBreadcrumb } from '@/lib/sentry';

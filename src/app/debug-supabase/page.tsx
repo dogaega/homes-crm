@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/lib/api';
 
 export default function DebugSupabasePage() {
   const [status, setStatus] = useState<string>('Testing connection...');
