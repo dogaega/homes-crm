@@ -140,7 +140,7 @@ export default function GlobalSearch() {
           id: document.id,
           type: 'document',
           title: document.title || 'Untitled Document',
-          subtitle: `${document.document_type} • ${document.status}`,
+          subtitle: `${document.document_type || 'document'} • ${document.document_status || 'draft'}`,
           url: `/documents/${document.id}`
         })
       })
@@ -208,7 +208,7 @@ export default function GlobalSearch() {
 
       {/* Search Results Dropdown */}
       {isOpen && (searchTerm.length >= 2 || results.length > 0) && (
-        <div className="absolute top-full left-0 right-0 mt-1 bg-white/100 border border-gray-200 rounded-lg shadow-xl z-50 max-h-96 overflow-y-auto" style={{backgroundColor: 'white', opacity: 1}}>
+        <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-xl z-50 max-h-96 overflow-y-auto">
           {isSearching && (
             <div className="p-4 text-center text-gray-600">
               <div className="inline-flex items-center">

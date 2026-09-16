@@ -322,8 +322,15 @@ async function handleRest(req: Request, env: Env, url: URL, table: TableName, id
     const body = stringifyJsonCols(table, await req.json<any>())
     if (!body.id) body.id = crypto.randomUUID()
     const now = new Date().toISOString()
-    if ('created_at' in (await columnsOf(env, table)) && !body.created_at) body.created_at = now
-    if ('updated_at' in (await columnsOf(env, table)) && !body.updated_at) body.updated_at = now
+    // columnsOf() returns a Set<string> — `in` checks object properties, not
+    // Set membership, so this always evaluated false and created_at/updated_at
+    // were never auto-filled for any table unless the client happened to set
+    // them itself (e.g. activity_logs rows ended up with created_at=NULL,
+    // which the dashboard's "time ago" formatting then rendered as
+    // 01/01/1970 via `new Date(null)`). Use .has() to actually check.
+    const tableCols = await columnsOf(env, table)
+    if (tableCols.has('created_at') && !body.created_at) body.created_at = now
+    if (tableCols.has('updated_at') && !body.updated_at) body.updated_at = now
     const cols = Object.keys(body)
     const sql = `INSERT INTO ${table} (${cols.join(',')}) VALUES (${cols.map(() => '?').join(',')})`
     await env.DB.prepare(sql).bind(...cols.map(c => body[c])).run()
