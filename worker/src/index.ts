@@ -269,6 +269,13 @@ async function handleDocumentFiles(req: Request, env: Env, url: URL, path: strin
   return json({ error: 'Not found' }, 404, headers)
 }
 
+// Deliberate: any authenticated agent can read/write any other agent's
+// clients/properties/tasks/documents/etc — Mark chose team-wide shared
+// visibility for now (2026-09-17), with per-agent scoping planned as a
+// follow-up. If you're looking at this because something feels like a
+// data-isolation bug, it isn't one yet — check with Mark before adding
+// ownership checks here, since flipping this changes what every existing
+// team member can see.
 async function handleRest(req: Request, env: Env, url: URL, table: TableName, id: string | null, origin: string | null): Promise<Response> {
   const headers = corsHeaders(origin, env)
   const user = await getSessionUser(req, env)
