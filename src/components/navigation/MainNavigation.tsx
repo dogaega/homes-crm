@@ -102,8 +102,8 @@ export default function MainNavigation({ title = 'Real Estate CRM' }: MainNaviga
           </div>
 
           {/* Right side - Theme toggle, User info and Sign Out */}
-          <div className="flex items-center space-x-4">
-            <span className="text-sm text-foreground font-medium hidden sm:block">
+          <div className="flex items-center space-x-4 min-w-0">
+            <span className="text-sm text-foreground font-medium hidden sm:block truncate max-w-[220px]" title={user?.email}>
               Welcome back, {user?.email}
             </span>
             <ThemeToggle />

@@ -51,8 +51,8 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
     budget_max: client?.budget_range && typeof client.budget_range === 'object' 
       ? String((client.budget_range as any).max || '') 
       : '',
-    preferences: client?.preferences && typeof client.preferences === 'object' 
-      ? JSON.stringify(client.preferences) 
+    preferences: client?.preferences
+      ? (typeof client.preferences === 'string' ? client.preferences : JSON.stringify(client.preferences))
       : '',
     source: client?.source || 'website',
     tags: client?.tags || []
@@ -147,7 +147,12 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
         max: formData.budget_max ? parseInt(formData.budget_max) : null
       } : null
 
-      const preferences = formData.preferences ? JSON.parse(formData.preferences) : null
+      // Free-text notes, not hand-typed JSON — a plain string is valid
+      // stored JSON (the `preferences` column accepts any JSON value,
+      // including a bare string), and this used to call JSON.parse() on
+      // whatever the agent typed, which threw and crashed the whole submit
+      // the moment someone typed a normal sentence instead of raw JSON.
+      const preferences = formData.preferences || null
 
       const clientData = {
         first_name: formData.first_name,
@@ -449,7 +454,7 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
                 <textarea
                   value={formData.preferences}
                   onChange={(e) => handleInputChange('preferences', e.target.value)}
-                  placeholder="Enter client preferences, notes, or requirements (JSON format)"
+                  placeholder="e.g. Wants 3 bedrooms, prefers a pool, budget flexible for the right view..."
                   rows={4}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
