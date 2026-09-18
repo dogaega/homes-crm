@@ -203,7 +203,7 @@ async function handleAuth(req: Request, env: Env, path: string, origin: string |
 }
 
 const PUBLIC_PROPERTY_COLUMNS = `
-  id, property_id, slug, address, city, state, zip_code, price, bedrooms, bathrooms,
+  id, property_id, slug, address, city, state, zip_code, district, price, bedrooms, bathrooms,
   square_feet, lot_size, plot_size, year_built, floor_count, property_type,
   description, terrain_description, house_history, concept_description,
   construction_details, engineering_details, room_layout, floor_plan_urls,
