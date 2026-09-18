@@ -284,6 +284,32 @@ async function handleDocumentFiles(req: Request, env: Env, url: URL, path: strin
   const user = await getSessionUser(req, env)
   if (!user) return json({ error: 'Unauthorized' }, 401, headers)
 
+  // Property/marketing photos: same R2 bucket as documents, but the key
+  // returned is servable via the unauthenticated /public/photo/:key route
+  // (see handlePublic) so it can go straight into a property's photos/
+  // gallery_urls array, render on the public site, and be fetched by the
+  // brochure generator's headless browser without a session.
+  if (path === '/photos/upload' && req.method === 'POST') {
+    const filename = url.searchParams.get('filename') || 'photo'
+    const safeName = filename.replace(/[^a-zA-Z0-9._-]/g, '_')
+    const key = `photos/${crypto.randomUUID()}-${safeName}`
+    const contentType = req.headers.get('Content-Type') || 'application/octet-stream'
+    if (!contentType.startsWith('image/')) return json({ error: 'Only image uploads are allowed' }, 400, headers)
+    const body = await req.arrayBuffer()
+    if (body.byteLength === 0) return json({ error: 'Empty file' }, 400, headers)
+    if (body.byteLength > 25 * 1024 * 1024) return json({ error: 'File too large (25MB max)' }, 413, headers)
+
+    await env.DOCS.put(key, body, { httpMetadata: { contentType } })
+
+    return json({
+      key,
+      filename: safeName,
+      size: body.byteLength,
+      contentType,
+      url: `/public/photo/${encodeURIComponent(key)}`,
+    }, 200, headers)
+  }
+
   if (path === '/documents/upload' && req.method === 'POST') {
     const filename = url.searchParams.get('filename') || 'file'
     const safeName = filename.replace(/[^a-zA-Z0-9._-]/g, '_')
@@ -504,7 +530,7 @@ export default {
       return handlePublic(req, env, url.pathname, origin)
     }
 
-    if (url.pathname.startsWith('/documents/upload') || url.pathname.startsWith('/documents/file/')) {
+    if (url.pathname.startsWith('/documents/upload') || url.pathname.startsWith('/documents/file/') || url.pathname === '/photos/upload') {
       return handleDocumentFiles(req, env, url, url.pathname, origin)
     }
 
