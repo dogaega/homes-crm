@@ -168,12 +168,19 @@ function dpeGauge(rating: string | null | undefined): string {
 export function renderBrochureHtml(p: BrochureProperty, lang: Lang): string {
   const t = DICT[lang]
   const gallery = [...toArray(p.gallery_urls), ...toArray(p.photos)]
-  const cover = gallery[0]
-  const descPhoto = gallery[1] || gallery[0]
-  const interior = gallery.slice(2, 6)
-  const privatePhotos = gallery.slice(6, 10)
-  const locMain = gallery[10] || gallery[gallery.length - 1]
-  const locSecondary = gallery[11] || gallery[0]
+  // This template has ~12 photo slots across 5 pages, but a real listing
+  // often has far fewer photos (sometimes just 1-3). Rather than a mostly
+  // empty-placeholder brochure, cycle through whatever photos exist —
+  // repeating them as needed — so every slot shows a real photo as long as
+  // at least one exists; only a genuinely photo-less property (0 URLs)
+  // falls back to the blank placeholder everywhere.
+  const pick = (index: number) => (gallery.length > 0 ? gallery[index % gallery.length] : undefined)
+  const cover = pick(0)
+  const descPhoto = pick(1)
+  const interior = [pick(2), pick(3), pick(4), pick(5)]
+  const privatePhotos = [pick(6), pick(7), pick(8), pick(9)]
+  const locMain = pick(10)
+  const locSecondary = pick(11)
 
   const name = p.property_name || p.address
   const priceStr = p.price != null ? `${Number(p.price).toLocaleString(lang === 'ru' ? 'ru-RU' : 'en-US')} €` : ''
