@@ -38,8 +38,6 @@ interface AdvancedMetrics {
   competitiveAnalysis: {
     marketPosition: string
     averageDaysOnMarket: number
-    priceAccuracy: number
-    marketShare: number
   }
   clientSatisfactionMetrics: {
     responseTime: number
@@ -217,8 +215,6 @@ export default function AdvancedAnalytics() {
         competitiveAnalysis: {
           marketPosition: overallScore > 80 ? 'Top Performer' : overallScore > 60 ? 'Above Average' : 'Needs Improvement',
           averageDaysOnMarket: Math.round(averageDaysOnMarket),
-          priceAccuracy: 95, // Simplified
-          marketShare: 12 // Simplified percentage
         },
         clientSatisfactionMetrics: {
           responseTime: avgResponseTime,
@@ -396,26 +392,19 @@ export default function AdvancedAnalytics() {
           <CardTitle className="text-gray-900">AI-Powered Insights & Recommendations</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div className="text-center">
               <div className="text-3xl font-bold text-green-600 mb-2">
                 {metrics.predictiveInsights.expectedSalesThisMonth}
               </div>
               <p className="text-sm text-gray-700 font-medium">Expected Sales This Month</p>
             </div>
-            
+
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-600 mb-2">
                 {metrics.competitiveAnalysis.averageDaysOnMarket}
               </div>
               <p className="text-sm text-gray-700 font-medium">Avg Days on Market</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="text-3xl font-bold text-purple-600 mb-2">
-                {metrics.competitiveAnalysis.marketShare}%
-              </div>
-              <p className="text-sm text-gray-700 font-medium">Market Share</p>
             </div>
           </div>
 
