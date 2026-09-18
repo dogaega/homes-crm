@@ -73,7 +73,7 @@ export default function MainNavigation({ title = 'Real Estate CRM' }: MainNaviga
           {/* Left side - Logo/Title and Navigation */}
           <div className="flex items-center space-x-8">
             <div className="flex items-center space-x-3">
-              <h1 className="text-xl font-semibold text-foreground">{title}</h1>
+              <h1 className="text-xl font-semibold text-foreground whitespace-nowrap">{title}</h1>
             </div>
             
             <nav className="hidden sm:flex space-x-1">

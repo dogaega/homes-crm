@@ -498,7 +498,7 @@ export default function ReportsDashboard() {
               <BarChart data={data.pipelineData} layout="horizontal">
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis type="number" />
-                <YAxis dataKey="stage" type="category" />
+                <YAxis dataKey="stage" type="category" width={90} />
                 <Tooltip />
                 <Bar dataKey="value" fill="#3B82F6" />
               </BarChart>
