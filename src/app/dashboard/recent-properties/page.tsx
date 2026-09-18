@@ -264,7 +264,7 @@ export default function RecentPropertiesPage() {
                       {property.square_feet && (
                         <div className="flex items-center">
                           <Square className="w-4 h-4 mr-1" />
-                          {property.square_feet.toLocaleString()} sqft
+                          {property.square_feet.toLocaleString()} m²
                         </div>
                       )}
                     </div>

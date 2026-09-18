@@ -89,7 +89,6 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
         return
       }
 
-      // First, try to fetch the property without agent filtering
       const { data: propertyData, error: propertyError } = await supabase
         .from('properties')
         .select('*')
@@ -102,12 +101,8 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
         return
       }
 
-      // Check if the property belongs to the current agent
-      if (propertyData.assigned_agent_id !== agent.id) {
-        setError('You do not have permission to view this property')
-        return
-      }
-
+      // Team-wide shared visibility (Mark's decision, 2026-09-17): every
+      // agent can view any property, not just their own.
       setProperty(propertyData)
       setAgentId(agent.id)
     } catch (err) {
@@ -351,7 +346,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                   </div>
                   <div className="flex items-center space-x-2">
                     <Square className="h-5 w-5 text-gray-600" />
-                    <span className="text-sm text-gray-600">Sq Ft</span>
+                    <span className="text-sm text-gray-600">m²</span>
                     <span className="font-semibold">{property.square_feet?.toLocaleString()}</span>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -457,7 +452,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                 </div>
                 {property.price && property.square_feet && (
                   <div className="text-sm text-gray-600">
-                    ${Math.round(property.price / property.square_feet)} per sq ft
+                    ${Math.round(property.price / property.square_feet)} per m²
                   </div>
                 )}
               </CardContent>

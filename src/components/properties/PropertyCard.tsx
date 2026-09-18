@@ -73,7 +73,7 @@ export default function PropertyCard({ property, onView, onEdit, onDelete }: Pro
           </div>
           <div className="flex items-center">
             <Square className="w-4 h-4 mr-1" />
-            {property.square_feet?.toLocaleString() || 0} sq ft
+            {property.square_feet?.toLocaleString() || 0} m²
           </div>
         </div>
 

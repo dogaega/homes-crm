@@ -581,7 +581,7 @@ export default function PropertyForm({ onClose, onSuccess, initialData }: Proper
             />
 
             <Input
-              label="Square Feet"
+              label="Square Meters (m²)"
               name="square_feet"
               type="number"
               value={formData.square_feet}
