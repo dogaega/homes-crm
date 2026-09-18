@@ -232,6 +232,23 @@ async function handlePublic(req: Request, env: Env, path: string, origin: string
     return json(parseJsonCols('properties', row), 200, headers)
   }
 
+  // Property/marketing photos an agent has uploaded to our own storage
+  // (rather than pasting an external URL) — unlike /documents/file/:key,
+  // this is deliberately unauthenticated: property photos are meant to be
+  // publicly visible (on the public site, and fetched by the brochure
+  // generator's headless-browser render, which has no user session), same
+  // R2 bucket as documents, distinct route so private documents stay gated.
+  const photoMatch = path.match(/^\/public\/photo\/([^/]+)$/)
+  if (photoMatch) {
+    const key = decodeURIComponent(photoMatch[1])
+    const object = await env.DOCS.get(key)
+    if (!object) return json({ error: 'Not found' }, 404, headers)
+    const fileHeaders = new Headers(headers)
+    fileHeaders.set('Content-Type', object.httpMetadata?.contentType || 'application/octet-stream')
+    fileHeaders.set('Cache-Control', 'public, max-age=86400')
+    return new Response(object.body, { status: 200, headers: fileHeaders })
+  }
+
   return json({ error: 'Not found' }, 404, headers)
 }
 

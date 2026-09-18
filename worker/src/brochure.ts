@@ -19,6 +19,7 @@ const DICT = {
     objectEyebrow: 'ОБЪЕКТ',
     descHeading: 'Описание и характеристики',
     periodLabel: 'ПЕРИОД АРЕНДЫ',
+    priceLabel: 'ЦЕНА',
     characteristics: 'ХАРАКТЕРИСТИКИ',
     propertyType: 'ТИП ОБЪЕКТА',
     rentalType: 'ТИП АРЕНДЫ',
@@ -55,6 +56,7 @@ const DICT = {
     objectEyebrow: 'PROPERTY',
     descHeading: 'Description & Characteristics',
     periodLabel: 'RENTAL PERIOD',
+    priceLabel: 'PRICE',
     characteristics: 'CHARACTERISTICS',
     propertyType: 'PROPERTY TYPE',
     rentalType: 'RENTAL TYPE',
@@ -175,6 +177,10 @@ export function renderBrochureHtml(p: BrochureProperty, lang: Lang): string {
 
   const name = p.property_name || p.address
   const priceStr = p.price != null ? `${Number(p.price).toLocaleString(lang === 'ru' ? 'ru-RU' : 'en-US')} €` : ''
+  // Whether this reads as a rental ("/ month") or a sale price: infer from
+  // fields that only make sense for a rental, since the schema doesn't have
+  // an explicit sale/rental flag — a sale listing wouldn't set these.
+  const isRental = Boolean(p.rental_type || p.availability_period)
   const areaStr = p.square_feet != null ? `${p.square_feet} м²` : ''
 
   const interiorGrid = [0, 1, 2, 3].map((i) => photoBlock(interior[i], 'grid-photo', 'interior')).join('')
@@ -306,7 +312,7 @@ export function renderBrochureHtml(p: BrochureProperty, lang: Lang): string {
   <div class="spec-bar">
     <div class="spec-price-col">
       <div class="rlabel">${esc(p.listing_type_label || t.longTermRental)}</div>
-      <div class="price">${esc(priceStr)} ${priceStr ? `<small>${esc(t.perMonth)}</small>` : ''}</div>
+      <div class="price">${esc(priceStr)} ${priceStr && isRental ? `<small>${esc(t.perMonth)}</small>` : ''}</div>
     </div>
     <div class="stat-cols">
       ${areaStr ? `<div class="stat-col"><div class="val">${esc(areaStr)}</div><div class="slabel">${esc(t.area)}</div></div>` : ''}
@@ -332,8 +338,8 @@ export function renderBrochureHtml(p: BrochureProperty, lang: Lang): string {
     <div class="col-desc">
       ${descParas.map((para) => `<p>${esc(para)}</p>`).join('') || `<p>${esc(p.description || '')}</p>`}
       ${p.availability_period || priceStr ? `<div class="callout">
-        <div class="clabel">${t.periodLabel}</div>
-        <div class="cvalue">${esc(p.availability_period || '')}${p.availability_period && priceStr ? ' · ' : ''}${priceStr ? esc(priceStr) + ' ' + esc(t.perMonth) : ''}</div>
+        <div class="clabel">${isRental ? t.periodLabel : t.priceLabel}</div>
+        <div class="cvalue">${esc(p.availability_period || '')}${p.availability_period && priceStr ? ' · ' : ''}${priceStr ? esc(priceStr) + (isRental ? ' ' + esc(t.perMonth) : '') : ''}</div>
       </div>` : ''}
     </div>
     <div class="col-char">
