@@ -211,6 +211,33 @@ const PUBLIC_PROPERTY_COLUMNS = `
   virtual_tour_url
 `
 
+// Public listings show an approximate pin, not the exact address — standard
+// real-estate practice so a client can't just show up uninvited, and so the
+// exact coordinates aren't sitting in a public, unauthenticated API response
+// for anyone to read from the network tab. The shift must happen here, not
+// just in the frontend's map render, or the true lat/lng still leaks in the
+// JSON. Deterministic per-property (seeded by id) so the pin doesn't jump
+// around on every reload, but not reversible to the real point without the
+// seed.
+function jitterCoords(id: string, lat: number, lng: number): { lat: number; lng: number } {
+  let h = 0
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0
+  const angle = (h % 3600) / 3600 * 2 * Math.PI
+  const distanceM = 100 + (h % 200) // 100-300m, deterministic per property
+  const dLat = (distanceM * Math.cos(angle)) / 111_320
+  const dLng = (distanceM * Math.sin(angle)) / (111_320 * Math.cos(lat * Math.PI / 180))
+  return { lat: lat + dLat, lng: lng + dLng }
+}
+
+function withJitteredCoords(row: any): any {
+  if (row.map_lat != null && row.map_lng != null) {
+    const { lat, lng } = jitterCoords(row.id, row.map_lat, row.map_lng)
+    row.map_lat = lat
+    row.map_lng = lng
+  }
+  return row
+}
+
 async function handlePublic(req: Request, env: Env, path: string, origin: string | null): Promise<Response> {
   const headers = corsHeaders(origin, env)
   if (req.method !== 'GET') return json({ error: 'Method not allowed' }, 405, headers)
@@ -219,7 +246,7 @@ async function handlePublic(req: Request, env: Env, path: string, origin: string
     const { results } = await env.DB.prepare(
       `SELECT ${PUBLIC_PROPERTY_COLUMNS} FROM properties WHERE public_listing = 1 ORDER BY featured DESC, created_at DESC`
     ).all()
-    return json((results || []).map((r: any) => parseJsonCols('properties', r)), 200, headers)
+    return json((results || []).map((r: any) => withJitteredCoords(parseJsonCols('properties', r))), 200, headers)
   }
 
   const detailMatch = path.match(/^\/public\/properties\/([^/]+)$/)
@@ -229,7 +256,7 @@ async function handlePublic(req: Request, env: Env, path: string, origin: string
       `SELECT ${PUBLIC_PROPERTY_COLUMNS} FROM properties WHERE slug = ? AND public_listing = 1`
     ).bind(slug).first()
     if (!row) return json({ error: 'Not found' }, 404, headers)
-    return json(parseJsonCols('properties', row), 200, headers)
+    return json(withJitteredCoords(parseJsonCols('properties', row)), 200, headers)
   }
 
   // Property/marketing photos an agent has uploaded to our own storage
