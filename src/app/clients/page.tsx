@@ -64,11 +64,11 @@ function ClientsPageContent() {
 
       setAgentId(agent.id)
 
-      // Fetch clients
+      // Fetch clients — team-wide shared visibility (Mark's decision,
+      // 2026-09-17): every agent sees every client, not just their own.
       const { data: clientsData } = await supabase
         .from('clients')
         .select('*')
-        .eq('assigned_agent_id', agent.id)
         .order('created_at', { ascending: false })
 
       if (clientsData) {

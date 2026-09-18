@@ -86,10 +86,11 @@ export default function ClientPropertyInterests({
     try {
       setIsLoading(true)
 
+      // Team-wide shared visibility — any active/pending property is
+      // selectable here, not just ones assigned to this agent.
       const { data, error: propertiesError } = await supabase
         .from('properties')
         .select('*')
-        .eq('assigned_agent_id', currentAgentId)
         .in('listing_status', ['active', 'pending'])
         .order('created_at', { ascending: false })
 

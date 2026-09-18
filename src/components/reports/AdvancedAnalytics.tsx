@@ -78,27 +78,24 @@ export default function AdvancedAnalytics() {
         communicationsResult,
         tasksResult,
         showingsResult
+      // Team-wide shared visibility — analytics reflect the whole team,
+      // not just whatever's assigned to the logged-in agent.
       ] = await Promise.all([
         supabase
           .from('properties')
-          .select('*')
-          .eq('assigned_agent_id', agent.id),
+          .select('*'),
         supabase
           .from('clients')
-          .select('*')
-          .eq('assigned_agent_id', agent.id),
+          .select('*'),
         supabase
           .from('communications')
-          .select('*')
-          .eq('agent_id', agent.id),
+          .select('*'),
         supabase
           .from('tasks')
-          .select('*')
-          .eq('assigned_to', agent.id),
+          .select('*'),
         supabase
           .from('showings')
           .select('*')
-          .eq('agent_id', agent.id)
       ])
 
       const properties = propertiesResult.data || []

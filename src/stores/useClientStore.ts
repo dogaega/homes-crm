@@ -55,9 +55,9 @@ export const useClientStore = create<ClientStore>((set, get) => ({
           .select('*')
           .order('created_at', { ascending: false })
 
-        if (agentId) {
-          query = query.eq('assigned_agent_id', agentId)
-        }
+        // Team-wide shared visibility (Mark's decision, 2026-09-17): every
+        // agent sees every client. `agentId` is still accepted for API
+        // compatibility with existing callers but no longer used to filter.
 
         const { status, clientType, search } = get().filters
 

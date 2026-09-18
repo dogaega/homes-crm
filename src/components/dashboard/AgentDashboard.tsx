@@ -77,25 +77,24 @@ export default function AgentDashboard() {
         fetchDocuments(agent.id)
       ])
 
-      // Fetch properties
+      // Fetch properties — team-wide shared visibility (Mark's decision,
+      // 2026-09-17): the dashboard shows the whole team's numbers, not
+      // just whatever's assigned to the logged-in agent.
       const { data: properties } = await supabase
         .from('properties')
         .select('*')
-        .eq('assigned_agent_id', agent.id)
         .order('created_at', { ascending: false })
 
       // Fetch clients
       const { data: clients } = await supabase
         .from('clients')
         .select('*')
-        .eq('assigned_agent_id', agent.id)
         .order('created_at', { ascending: false })
 
       // Fetch showings
       const { data: showings } = await supabase
         .from('showings')
         .select('*')
-        .eq('agent_id', agent.id)
         .gte('showing_date', new Date().toISOString().split('T')[0])
         .order('showing_date', { ascending: true })
 

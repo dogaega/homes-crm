@@ -201,21 +201,18 @@ export default function LeadScoringSystem() {
 
       if (!agent) return
 
-      // Fetch all data
+      // Fetch all data — team-wide shared visibility, not just this agent's own
       const [clientsResult, communicationsResult, showingsResult] = await Promise.all([
         supabase
           .from('clients')
           .select('*')
-          .eq('assigned_agent_id', agent.id)
           .eq('status', 'active'),
         supabase
           .from('communications')
-          .select('*')
-          .eq('agent_id', agent.id),
+          .select('*'),
         supabase
           .from('showings')
           .select('*')
-          .eq('agent_id', agent.id)
       ])
 
       const clients = clientsResult.data || []

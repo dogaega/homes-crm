@@ -78,12 +78,11 @@ export default function ClientDetailPage({ params }: ClientDetailPageProps) {
 
       setAgentId(agent.id)
 
-      // Fetch client
+      // Fetch client — team-wide shared visibility, not just this agent's own
       const { data: clientData, error: clientError } = await supabase
         .from('clients')
         .select('*')
         .eq('id', id)
-        .eq('assigned_agent_id', agent.id)
         .single()
 
       if (clientError) {

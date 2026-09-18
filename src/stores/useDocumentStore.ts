@@ -43,6 +43,8 @@ export const useDocumentStore = create<DocumentStore>((set, get) => ({
       try {
         addBreadcrumb('Starting document fetch', 'query', 'info', { agentId });
         
+        // Team-wide shared visibility (Mark's decision, 2026-09-17): every
+        // agent sees every document, not just their own.
         const { data, error } = await supabase
           .from('documents')
           .select(`
@@ -51,7 +53,6 @@ export const useDocumentStore = create<DocumentStore>((set, get) => ({
             properties(address),
             document_templates(name, document_type)
           `)
-          .eq('agent_id', agentId)
           .order('created_at', { ascending: false });
 
         if (error) {

@@ -72,11 +72,10 @@ export default function RecentActivities() {
 
       if (!agent) return
 
-      // Fetch recent activities
+      // Fetch recent activities — team-wide shared visibility
       const { data: activitiesData } = await supabase
         .from('activity_logs')
         .select('*')
-        .eq('agent_id', agent.id)
         .order('created_at', { ascending: false })
         .limit(10)
 

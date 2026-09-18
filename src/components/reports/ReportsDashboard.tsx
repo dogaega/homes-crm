@@ -110,29 +110,26 @@ export default function ReportsDashboard() {
         communicationsResult,
         tasksResult,
         showingsResult
+      // Team-wide shared visibility — reports reflect the whole team, not
+      // just whatever's assigned to the logged-in agent.
       ] = await Promise.all([
         supabase
           .from('properties')
-          .select('*')
-          .eq('assigned_agent_id', agent.id),
+          .select('*'),
         supabase
           .from('clients')
-          .select('*')
-          .eq('assigned_agent_id', agent.id),
+          .select('*'),
         supabase
           .from('communications')
           .select('*')
-          .eq('agent_id', agent.id)
           .gte('created_at', startDate.toISOString()),
         supabase
           .from('tasks')
           .select('*')
-          .eq('assigned_to', agent.id)
           .gte('created_at', startDate.toISOString()),
         supabase
           .from('showings')
           .select('*')
-          .eq('agent_id', agent.id)
           .gte('showing_date', startDate.toISOString().split('T')[0])
       ])
 

@@ -89,10 +89,10 @@ export default function RecentActivitiesPage() {
 
       if (!agent) return
 
+      // Team-wide shared visibility — every agent sees the whole team's activity
       const { data: activitiesData } = await supabase
         .from('activity_logs')
         .select('*')
-        .eq('agent_id', agent.id)
         .order('created_at', { ascending: false })
         .limit(100) // Get last 100 activities
 

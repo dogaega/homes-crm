@@ -85,10 +85,11 @@ export default function PropertyInterestedClients({
     try {
       setIsLoading(true)
 
+      // Team-wide shared visibility — any active client is selectable
+      // here, not just ones assigned to this agent.
       const { data, error: clientsError } = await supabase
         .from('clients')
         .select('*')
-        .eq('assigned_agent_id', currentAgentId)
         .eq('status', 'active')
         .order('first_name')
 

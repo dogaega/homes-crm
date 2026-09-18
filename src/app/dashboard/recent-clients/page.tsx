@@ -52,10 +52,10 @@ export default function RecentClientsPage() {
 
       if (!agent) return
 
+      // Team-wide shared visibility — every agent sees every client
       const { data: clientsData } = await supabase
         .from('clients')
         .select('*')
-        .eq('assigned_agent_id', agent.id)
         .order('created_at', { ascending: false })
         .limit(50) // Get last 50 clients
 
