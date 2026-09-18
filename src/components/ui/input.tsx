@@ -2,9 +2,23 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-function Input({ className, type, ...props }: React.ComponentProps<"input">) {
-  return (
+interface InputProps extends React.ComponentProps<"input"> {
+  label?: string
+}
+
+// Several call sites (PropertyForm.tsx and others) pass a `label` prop
+// expecting a visible field label above the input — a real, shipped
+// feature they were built against, not dead code. This component used to
+// silently drop it (only spreading unknown props onto the raw <input>),
+// so every one of those fields rendered as an unlabeled blank box with no
+// indication of what it was for.
+function Input({ className, type, label, id, ...props }: InputProps) {
+  const generatedId = React.useId()
+  const inputId = id || (label ? generatedId : undefined)
+
+  const input = (
     <input
+      id={inputId}
       type={type}
       data-slot="input"
       className={cn(
@@ -15,6 +29,18 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
       )}
       {...props}
     />
+  )
+
+  if (!label) return input
+
+  return (
+    <div className="space-y-1.5">
+      <label htmlFor={inputId} className="text-sm font-medium text-foreground">
+        {label}
+        {props.required && <span className="text-destructive"> *</span>}
+      </label>
+      {input}
+    </div>
   )
 }
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/api'
+import { useAuth } from '@/contexts/AuthContext'
 import { AlertCircle, CheckCircle, RefreshCw } from 'lucide-react'
 
 interface ConnectionStatus {
@@ -11,6 +12,7 @@ interface ConnectionStatus {
 }
 
 export default function ConnectionMonitor() {
+  const { user, loading: authLoading } = useAuth()
   const [status, setStatus] = useState<ConnectionStatus>({
     isConnected: true,
     lastChecked: new Date()
@@ -21,18 +23,28 @@ export default function ConnectionMonitor() {
     try {
       // Simple query to test connection
       const { error } = await supabase.from('agents').select('id').limit(1)
-      
+
+      // A 401 here means "not logged in" (or the session cookie hadn't
+      // propagated yet on a fresh redirect), not a real connectivity
+      // problem — this component previously treated the two the same,
+      // which meant every fresh login briefly showed a scary "Connection
+      // Issue / Unauthorized" banner that (a) was wrong, since the user
+      // genuinely was connected, and (b) visually sat on top of the nav
+      // bar, hiding the Reports link and the "Welcome back" greeting.
+      const isAuthError = error?.code === '401'
+      const realError = error && !isAuthError ? error : undefined
+
       setStatus({
-        isConnected: !error,
+        isConnected: !realError,
         lastChecked: new Date(),
-        error: error?.message
+        error: realError?.message
       })
-      
-      // Show notification only if there's an error
-      setIsVisible(!!error)
-      
+
+      // Show notification only for a genuine (non-auth) error
+      setIsVisible(!!realError)
+
       // Auto-hide success notifications
-      if (!error && isVisible) {
+      if (!realError && isVisible) {
         setTimeout(() => setIsVisible(false), 3000)
       }
     } catch (err) {
@@ -46,6 +58,11 @@ export default function ConnectionMonitor() {
   }
 
   useEffect(() => {
+    // Don't probe the connection until we actually know whether the user
+    // is logged in — otherwise this races AuthContext's own session check
+    // and can fire before the session cookie has propagated.
+    if (authLoading || !user) return
+
     // Initial check
     checkConnection()
 
@@ -79,12 +96,12 @@ export default function ConnectionMonitor() {
       window.removeEventListener('online', handleOnline)
       window.removeEventListener('offline', handleOffline)
     }
-  }, [])
+  }, [authLoading, user])
 
   if (!isVisible) return null
 
   return (
-    <div className={`fixed top-4 right-4 z-50 max-w-sm ${
+    <div className={`fixed top-20 right-4 z-50 max-w-sm ${
       status.isConnected ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'
     } border rounded-lg shadow-lg p-4`}>
       <div className="flex items-start space-x-3">
