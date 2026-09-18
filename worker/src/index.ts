@@ -10,9 +10,14 @@
 // dance needed for the primary path. CORS headers are still emitted for
 // direct-to-worker calls (e.g. curl, tests) using ALLOWED_ORIGINS.
 
+import puppeteer from '@cloudflare/puppeteer'
+import { PDFDocument } from 'pdf-lib'
+import { renderBrochureHtml, brochureFilename, type Lang } from './brochure'
+
 export interface Env {
   DB: D1Database
   DOCS: R2Bucket
+  BROWSER: Fetcher
   ALLOWED_ORIGINS: string
   SIGNUP_INVITE_CODE: string
 }
@@ -269,6 +274,70 @@ async function handleDocumentFiles(req: Request, env: Env, url: URL, path: strin
   return json({ error: 'Not found' }, 404, headers)
 }
 
+async function handleBrochure(req: Request, env: Env, id: string, origin: string | null, url: URL): Promise<Response> {
+  const headers = corsHeaders(origin, env)
+  const user = await getSessionUser(req, env)
+  if (!user) return json({ error: 'Unauthorized' }, 401, headers)
+  if (req.method !== 'POST' && req.method !== 'GET') return json({ error: 'Method not allowed' }, 405, headers)
+
+  const row = await env.DB.prepare('SELECT * FROM properties WHERE id = ?').bind(id).first<any>()
+  if (!row) return json({ error: 'Not found' }, 404, headers)
+  const property = parseJsonCols('properties', row)
+
+  const langParam = (url.searchParams.get('lang') || 'ru').toLowerCase()
+  const lang: Lang = langParam === 'en' ? 'en' : 'ru'
+
+  const html = renderBrochureHtml(property, lang)
+
+  let browser
+  try {
+    browser = await puppeteer.launch(env.BROWSER)
+    const page = await browser.newPage()
+    // Chromium's print-to-PDF pipeline (page.pdf()) re-rasterizes every
+    // photo losslessly regardless of viewport/deviceScaleFactor — a known
+    // limitation, not something print options control — which produced a
+    // >20MB PDF from ~6 source photos (the reference brochure is 1.7MB).
+    // Instead: render at a real print resolution (2x A4/96dpi ≈ print
+    // quality), screenshot each `.page` section individually as a
+    // compressed JPEG (Puppeteer's screenshot encoder, unlike page.pdf(),
+    // honors JPEG quality), then assemble those JPEGs into a PDF with
+    // pdf-lib — full control over the actual output size.
+    const scale = 2
+    await page.setViewport({ width: 794 * scale, height: 1123 * scale, deviceScaleFactor: 1 })
+    await page.setContent(html, { waitUntil: 'networkidle0', timeout: 30000 })
+
+    const sectionHandles = await page.$$('.page')
+    if (sectionHandles.length === 0) throw new Error('Brochure template produced no .page sections')
+
+    const pdfDoc = await PDFDocument.create()
+    const A4_WIDTH_PT = 595.28
+    const A4_HEIGHT_PT = 841.89
+
+    for (const handle of sectionHandles) {
+      const jpegBytes = await handle.screenshot({ type: 'jpeg', quality: 82 }) as Buffer
+      const jpegImage = await pdfDoc.embedJpg(jpegBytes)
+      const pdfPage = pdfDoc.addPage([A4_WIDTH_PT, A4_HEIGHT_PT])
+      pdfPage.drawImage(jpegImage, { x: 0, y: 0, width: A4_WIDTH_PT, height: A4_HEIGHT_PT })
+    }
+
+    const pdfBuffer = Buffer.from(await pdfDoc.save())
+    await browser.close()
+
+    const filename = brochureFilename(property, lang)
+    return new Response(pdfBuffer, {
+      status: 200,
+      headers: {
+        ...headers,
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': `attachment; filename="${filename}"`,
+      },
+    })
+  } catch (err: any) {
+    if (browser) { try { await browser.close() } catch { /* ignore */ } }
+    return json({ error: 'Brochure generation failed', detail: String(err?.message || err) }, 500, headers)
+  }
+}
+
 // Deliberate: any authenticated agent can read/write any other agent's
 // clients/properties/tasks/documents/etc — Mark chose team-wide shared
 // visibility for now (2026-09-17), with per-agent scoping planned as a
@@ -398,6 +467,11 @@ export default {
     const parts = url.pathname.replace(/^\//, '').split('/')
     const table = parts[0] as TableName
     const id = parts[1] || null
+
+    if (table === 'properties' && id && parts[2] === 'brochure') {
+      return handleBrochure(req, env, id, origin, url)
+    }
+
     if (TABLES.includes(table)) {
       return handleRest(req, env, url, table, id, origin)
     }

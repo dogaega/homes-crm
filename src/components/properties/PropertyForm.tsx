@@ -147,6 +147,20 @@ export default function PropertyForm({ onClose, onSuccess, initialData }: Proper
     map_lng: (initialData as any)?.map_lng?.toString() || '',
     featured: !!(initialData as any)?.featured,
     public_listing: !!(initialData as any)?.public_listing,
+    // Brochure fields
+    property_name: (initialData as any)?.property_name || '',
+    room_count: (initialData as any)?.room_count?.toString() || '',
+    parking_spaces: (initialData as any)?.parking_spaces?.toString() || '',
+    condition_rating: (initialData as any)?.condition_rating || '',
+    dpe_rating: (initialData as any)?.dpe_rating || '',
+    terrace_description: (initialData as any)?.terrace_description || '',
+    availability_period: (initialData as any)?.availability_period || '',
+    reference_number: (initialData as any)?.reference_number || '',
+    rental_type: (initialData as any)?.rental_type || '',
+    listing_type_label: (initialData as any)?.listing_type_label || '',
+    view_description: (initialData as any)?.view_description || '',
+    district: (initialData as any)?.district || '',
+    distance_to_monaco: (initialData as any)?.distance_to_monaco || '',
   })
 
   const [roomLayout, setRoomLayout] = useState<{ name: string; description: string }[]>(
@@ -373,6 +387,20 @@ export default function PropertyForm({ onClose, onSuccess, initialData }: Proper
         map_lng: formData.map_lng ? parseFloat(formData.map_lng) : null,
         featured: formData.featured ? 1 : 0,
         public_listing: formData.public_listing ? 1 : 0,
+        // Brochure fields
+        property_name: formData.property_name || null,
+        room_count: formData.room_count ? parseInt(formData.room_count) : null,
+        parking_spaces: formData.parking_spaces ? parseInt(formData.parking_spaces) : null,
+        condition_rating: formData.condition_rating || null,
+        dpe_rating: formData.dpe_rating || null,
+        terrace_description: formData.terrace_description || null,
+        availability_period: formData.availability_period || null,
+        reference_number: formData.reference_number || null,
+        rental_type: formData.rental_type || null,
+        listing_type_label: formData.listing_type_label || null,
+        view_description: formData.view_description || null,
+        district: formData.district || null,
+        distance_to_monaco: formData.distance_to_monaco || null,
       } as any
 
       let result
@@ -618,6 +646,32 @@ export default function PropertyForm({ onClose, onSuccess, initialData }: Proper
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Property description..."
             />
+          </div>
+
+          <div className="border-t pt-6 mt-2">
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">Brochure Fields</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Field label="Property Name (brochure title)" name="property_name" value={formData.property_name} onChange={handleInputChange} />
+              <Field label="Listing Type Label (e.g. Long-term rental)" name="listing_type_label" value={formData.listing_type_label} onChange={handleInputChange} />
+              <Field label="Rental Type (e.g. Furnished)" name="rental_type" value={formData.rental_type} onChange={handleInputChange} />
+              <Field label="Room Count (total rooms)" name="room_count" type="number" value={formData.room_count} onChange={handleInputChange} />
+              <Field label="Parking Spaces" name="parking_spaces" type="number" value={formData.parking_spaces} onChange={handleInputChange} />
+              <Field label="Condition Rating" name="condition_rating" value={formData.condition_rating} onChange={handleInputChange} />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">DPE Rating (A–G)</label>
+                <select name="dpe_rating" value={formData.dpe_rating} onChange={handleInputChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option value="">—</option>
+                  {['A','B','C','D','E','F','G'].map(l => <option key={l} value={l}>{l}</option>)}
+                </select>
+              </div>
+              <Field label="View Description" name="view_description" value={formData.view_description} onChange={handleInputChange} />
+              <Field label="District" name="district" value={formData.district} onChange={handleInputChange} />
+              <Field label="Distance to Monaco" name="distance_to_monaco" value={formData.distance_to_monaco} onChange={handleInputChange} />
+              <Field label="Terrace Description" name="terrace_description" value={formData.terrace_description} onChange={handleInputChange} />
+              <Field label="Availability Period" name="availability_period" value={formData.availability_period} onChange={handleInputChange} />
+              <Field label="Reference Number" name="reference_number" value={formData.reference_number} onChange={handleInputChange} />
+            </div>
           </div>
 
           <div className="border-t pt-6 mt-2">

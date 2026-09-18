@@ -52,6 +52,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
   const [agentId, setAgentId] = useState<string>('')
   const [isAgentManagerExpanded, setIsAgentManagerExpanded] = useState(false)
   const [isClientsExpanded, setIsClientsExpanded] = useState(false)
+  const [isGeneratingBrochure, setIsGeneratingBrochure] = useState(false)
 
   useEffect(() => {
     if (!loading && !user) {
@@ -129,6 +130,38 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
 
   const handleEditClose = () => {
     setShowEditForm(false)
+  }
+
+  const handleGenerateBrochure = async (lang: 'ru' | 'en') => {
+    if (!property) return
+    setIsGeneratingBrochure(true)
+    try {
+      const res = await fetch(`/api/backend/properties/${property.id}/brochure?lang=${lang}`, {
+        method: 'POST',
+        credentials: 'include',
+      })
+      if (!res.ok) {
+        const text = await res.text().catch(() => '')
+        throw new Error(text || `Brochure generation failed (${res.status})`)
+      }
+      const blob = await res.blob()
+      const disposition = res.headers.get('Content-Disposition') || ''
+      const match = disposition.match(/filename="([^"]+)"/)
+      const filename = match ? match[1] : `brochure_${lang}.pdf`
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = filename
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+      window.URL.revokeObjectURL(url)
+    } catch (err) {
+      console.error('Brochure generation error:', err)
+      alert(err instanceof Error ? err.message : 'Failed to generate brochure')
+    } finally {
+      setIsGeneratingBrochure(false)
+    }
   }
 
   const handleDelete = async () => {
@@ -219,6 +252,24 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
               {property.address}
             </h1>
             <div className="flex space-x-2">
+              <Button
+                variant="outline"
+                disabled={isGeneratingBrochure}
+                onClick={() => handleGenerateBrochure('ru')}
+                className="flex items-center space-x-2"
+              >
+                <FileText className="h-4 w-4" />
+                <span>{isGeneratingBrochure ? 'Generating…' : 'Brochure (RU)'}</span>
+              </Button>
+              <Button
+                variant="outline"
+                disabled={isGeneratingBrochure}
+                onClick={() => handleGenerateBrochure('en')}
+                className="flex items-center space-x-2"
+              >
+                <FileText className="h-4 w-4" />
+                <span>{isGeneratingBrochure ? 'Generating…' : 'Brochure (EN)'}</span>
+              </Button>
               <Button
                 variant="outline"
                 onClick={handleEdit}

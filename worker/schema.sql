@@ -196,7 +196,20 @@ CREATE TABLE properties (
   map_lat REAL,
   map_lng REAL,
   featured INTEGER DEFAULT 0,
-  public_listing INTEGER DEFAULT 0
+  public_listing INTEGER DEFAULT 0,
+  room_count INTEGER,
+  parking_spaces INTEGER,
+  condition_rating TEXT,
+  dpe_rating TEXT,
+  terrace_description TEXT,
+  availability_period TEXT,
+  reference_number TEXT,
+  rental_type TEXT,
+  listing_type_label TEXT,
+  property_name TEXT,
+  view_description TEXT,
+  district TEXT,
+  distance_to_monaco TEXT
 );
 
 CREATE TABLE sessions (
