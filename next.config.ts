@@ -9,6 +9,14 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'react-hook-form'],
   },
+  images: {
+    // The Workers runtime has no sharp binary, so Next's built-in image
+    // optimizer can't run there — serve remote images as-is instead.
+    unoptimized: true,
+    remotePatterns: [
+      { protocol: 'https', hostname: '*.workers.dev' },
+    ],
+  },
   async rewrites() {
     // Same-origin proxy to the Cloudflare Worker API so the httpOnly
     // session cookie works without CORS. WORKER_URL points at

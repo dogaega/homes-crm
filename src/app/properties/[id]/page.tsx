@@ -452,7 +452,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                 </div>
                 {property.price && property.square_feet && (
                   <div className="text-sm text-gray-600">
-                    ${Math.round(property.price / property.square_feet)} per m²
+                    {Math.round(property.price / property.square_feet)}€ per m²
                   </div>
                 )}
               </CardContent>

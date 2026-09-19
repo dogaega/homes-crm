@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { supabase } from '@/lib/api'
 import { useAuth } from '@/contexts/AuthContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { Database } from '@/types/database'
 import { Home, Users, Calendar, TrendingUp, DollarSign, Phone, MapPin, Mail, Building } from 'lucide-react'
 import RecentActivities from './RecentActivities'
@@ -29,6 +30,7 @@ interface DashboardStats {
 
 export default function AgentDashboard() {
   const { user } = useAuth()
+  const { t } = useLanguage()
   const router = useRouter()
   const { fetchProperties } = usePropertyStore()
   const { fetchClients } = useClientStore()
@@ -169,13 +171,13 @@ export default function AgentDashboard() {
           onClick={() => handleCardClick('/properties')}
         >
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">Total Properties</CardTitle>
+            <CardTitle className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">{t('dashboard.totalProperties')}</CardTitle>
             <Home className="h-4 w-4 text-gray-600 group-hover:text-blue-600 transition-colors duration-200" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-gray-900">{stats.totalProperties}</div>
             <p className="text-xs text-gray-600 font-medium">
-              {stats.activeProperties} active listings
+              {stats.activeProperties} {t('dashboard.activeListings')}
             </p>
           </CardContent>
         </Card>
@@ -185,13 +187,13 @@ export default function AgentDashboard() {
           onClick={() => handleCardClick('/clients')}
         >
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">Total Clients</CardTitle>
+            <CardTitle className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">{t('dashboard.totalClients')}</CardTitle>
             <Users className="h-4 w-4 text-gray-600 group-hover:text-blue-600 transition-colors duration-200" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-gray-900">{stats.totalClients}</div>
             <p className="text-xs text-gray-600 font-medium">
-              Active client relationships
+              {t('dashboard.activeClientRelationships')}
             </p>
           </CardContent>
         </Card>
@@ -201,13 +203,13 @@ export default function AgentDashboard() {
           onClick={() => handleCardClick('/properties')}
         >
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">Upcoming Showings</CardTitle>
+            <CardTitle className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">{t('dashboard.upcomingShowings')}</CardTitle>
             <Calendar className="h-4 w-4 text-gray-600 group-hover:text-blue-600 transition-colors duration-200" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-gray-900">{stats.pendingShowings}</div>
             <p className="text-xs text-gray-600 font-medium">
-              Scheduled this week
+              {t('dashboard.scheduledThisWeek')}
             </p>
           </CardContent>
         </Card>
@@ -217,13 +219,13 @@ export default function AgentDashboard() {
           onClick={() => handleCardClick('/tasks')}
         >
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">Pending Tasks</CardTitle>
+            <CardTitle className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">{t('dashboard.pendingTasks')}</CardTitle>
             <TrendingUp className="h-4 w-4 text-gray-600 group-hover:text-blue-600 transition-colors duration-200" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-gray-900">{stats.pendingTasks}</div>
             <p className="text-xs text-gray-600 font-medium">
-              Require your attention
+              {t('dashboard.requireAttention')}
             </p>
           </CardContent>
         </Card>
@@ -233,15 +235,15 @@ export default function AgentDashboard() {
           onClick={() => handleCardClick('/reports')}
         >
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">Monthly Revenue</CardTitle>
+            <CardTitle className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">{t('dashboard.monthlyRevenue')}</CardTitle>
             <DollarSign className="h-4 w-4 text-gray-600 group-hover:text-blue-600 transition-colors duration-200" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-gray-900">
-              ${stats.monthlyRevenue.toLocaleString()}
+              {stats.monthlyRevenue.toLocaleString()}€
             </div>
             <p className="text-xs text-gray-600 font-medium">
-              Commission earned
+              {t('dashboard.commissionEarned')}
             </p>
           </CardContent>
         </Card>
@@ -254,7 +256,7 @@ export default function AgentDashboard() {
             <CardTitle className="text-gray-900">
               <Link href="/dashboard/recent-properties" className="flex items-center space-x-2 hover:text-blue-600 transition-colors">
                 <Home className="w-5 h-5" />
-                <span>Recent Properties</span>
+                <span>{t('dashboard.recentProperties')}</span>
               </Link>
             </CardTitle>
           </CardHeader>
@@ -277,7 +279,7 @@ export default function AgentDashboard() {
                     </div>
                   </div>
                   <div className="text-sm font-semibold text-gray-900">
-                    ${property.price?.toLocaleString() || 'N/A'}
+                    {property.price ? `${property.price.toLocaleString()}€` : 'N/A'}
                   </div>
                 </div>
               ))}
@@ -290,7 +292,7 @@ export default function AgentDashboard() {
             <CardTitle className="text-gray-900">
               <Link href="/dashboard/recent-clients" className="flex items-center space-x-2 hover:text-blue-600 transition-colors">
                 <Users className="w-5 h-5" />
-                <span>Recent Clients</span>
+                <span>{t('dashboard.recentClients')}</span>
               </Link>
             </CardTitle>
           </CardHeader>

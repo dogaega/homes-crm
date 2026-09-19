@@ -334,7 +334,7 @@ function ClientsPageContent() {
                     </div>
                     {client.budget_range && typeof client.budget_range === 'object' && (
                       <div className="text-sm text-gray-600">
-                        Budget: ${(client.budget_range as { min?: number; max?: number }).min?.toLocaleString()} - ${(client.budget_range as { min?: number; max?: number }).max?.toLocaleString()}
+                        Budget: {(client.budget_range as { min?: number; max?: number }).min?.toLocaleString()}€ - {(client.budget_range as { min?: number; max?: number }).max?.toLocaleString()}€
                       </div>
                     )}
                   </div>

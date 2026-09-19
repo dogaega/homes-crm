@@ -1,6 +1,7 @@
 'use client'
 
 import { useAuth } from '@/contexts/AuthContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import AgentDashboard from '@/components/dashboard/AgentDashboard'
@@ -10,6 +11,7 @@ import { PageErrorBoundary } from '@/components/error/withErrorBoundary'
 
 function DashboardPageContent() {
   const { user, loading } = useAuth()
+  const { t } = useLanguage()
   const router = useRouter()
   const isHydrated = useHydration()
 
@@ -28,7 +30,7 @@ function DashboardPageContent() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading dashboard...</p>
+          <p className="text-gray-600">{t('dashboard.loadingDashboard')}</p>
           <p className="text-sm text-gray-500 mt-2">
             Hydrated: {isHydrated ? 'Yes' : 'No'}, Auth: {loading ? 'Loading' : 'Ready'}
           </p>
@@ -44,7 +46,7 @@ function DashboardPageContent() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Redirecting to login...</p>
+          <p className="text-gray-600">{t('dashboard.redirectingToLogin')}</p>
         </div>
       </div>
     )
@@ -54,7 +56,7 @@ function DashboardPageContent() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <MainNavigation title="Dashboard" />
+      <MainNavigation title={t('nav.dashboard')} />
       <main>
         <AgentDashboard />
       </main>

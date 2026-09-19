@@ -4,6 +4,7 @@ import ErrorBoundary from '@/components/layout/ErrorBoundary'
 import SentryErrorBoundary from '@/components/error/SentryErrorBoundary'
 import NoSSR from '@/components/layout/NoSSR'
 import { AuthProvider } from '@/contexts/AuthContext'
+import { LanguageProvider } from '@/contexts/LanguageContext'
 import ClientLayout from '@/components/layout/ClientLayout'
 import { Toaster } from '@/components/ui/sonner'
 import { ThemeProvider } from '@/hooks/useTheme'
@@ -18,12 +19,14 @@ export default function SafeRootLayout({ children }: SafeRootLayoutProps) {
       <ErrorBoundary>
         <NoSSR>
           <ThemeProvider>
-            <AuthProvider>
-              <ClientLayout>
-                {children}
-              </ClientLayout>
-              <Toaster />
-            </AuthProvider>
+            <LanguageProvider>
+              <AuthProvider>
+                <ClientLayout>
+                  {children}
+                </ClientLayout>
+                <Toaster />
+              </AuthProvider>
+            </LanguageProvider>
           </ThemeProvider>
         </NoSSR>
       </ErrorBoundary>

@@ -529,7 +529,7 @@ export default function LeadScoringSystem() {
                   <DollarSign className="h-4 w-4 text-gray-700" />
                   <span className="text-gray-900">
                     {client.budget_range 
-                      ? `$${(client.budget_range as { min?: number; max?: number })?.max?.toLocaleString() || 'N/A'}`
+                      ? `${(client.budget_range as { min?: number; max?: number })?.max?.toLocaleString() || 'N/A'}€`
                       : 'No budget'
                     }
                   </span>

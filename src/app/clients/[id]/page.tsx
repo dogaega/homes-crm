@@ -282,7 +282,7 @@ export default function ClientDetailPage({ params }: ClientDetailPageProps) {
                 </CardHeader>
                 <CardContent>
                   <div className="text-lg font-bold text-gray-900">
-                    ${(client.budget_range as { min?: number; max?: number }).min?.toLocaleString() || 'N/A'} - ${(client.budget_range as { min?: number; max?: number }).max?.toLocaleString() || 'N/A'}
+                    {(client.budget_range as { min?: number; max?: number }).min?.toLocaleString() || 'N/A'}€ - {(client.budget_range as { min?: number; max?: number }).max?.toLocaleString() || 'N/A'}€
                   </div>
                 </CardContent>
               </Card>

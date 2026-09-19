@@ -264,7 +264,7 @@ export default function RecentActivities() {
                       {activity.metadata.price && (
                         <div className="flex items-center space-x-1">
                           <span className="text-green-600 font-medium">
-                            ${activity.metadata.price.toLocaleString()}
+                            {activity.metadata.price.toLocaleString()}€
                           </span>
                         </div>
                       )}

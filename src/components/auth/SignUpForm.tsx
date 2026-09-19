@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
@@ -16,6 +17,7 @@ export default function SignUpForm() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const { signUp } = useAuth()
+  const { t } = useLanguage()
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -26,13 +28,13 @@ export default function SignUpForm() {
 
     // Validation
     if (password !== confirmPassword) {
-      setError('Passwords do not match')
+      setError(t('auth.passwordsNoMatch'))
       setLoading(false)
       return
     }
 
     if (password.length < 6) {
-      setError('Password must be at least 6 characters long')
+      setError(t('auth.passwordTooShort'))
       setLoading(false)
       return
     }
@@ -48,14 +50,14 @@ export default function SignUpForm() {
       if (error) {
         setError(error.message)
       } else {
-        setSuccess('Account created successfully! Redirecting to login...')
+        setSuccess(t('auth.accountCreated'))
         // Redirect to login after a delay
         setTimeout(() => {
           router.push('/login')
         }, 3000)
       }
     } catch {
-      setError('An unexpected error occurred')
+      setError(t('auth.unexpectedError'))
     } finally {
       setLoading(false)
     }
@@ -63,7 +65,7 @@ export default function SignUpForm() {
 
   return (
     <div className="max-w-md mx-auto bg-card rounded-lg shadow-md p-6">
-      <h2 className="text-2xl font-bold text-center mb-6 text-card-foreground">Create Account</h2>
+      <h2 className="text-2xl font-bold text-center mb-6 text-card-foreground">{t('auth.createAccount')}</h2>
       
       {error && (
         <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded mb-4">
@@ -80,7 +82,7 @@ export default function SignUpForm() {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="agentName" className="block text-sm font-medium text-foreground">
-            Full Name
+            {t('auth.fullName')}
           </label>
           <input
             id="agentName"
@@ -94,7 +96,7 @@ export default function SignUpForm() {
 
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-foreground">
-            Email
+            {t('auth.emailLabel')}
           </label>
           <input
             id="email"
@@ -108,7 +110,7 @@ export default function SignUpForm() {
 
         <div>
           <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-            Phone Number
+            {t('auth.phoneNumber')}
           </label>
           <input
             id="phone"
@@ -121,7 +123,7 @@ export default function SignUpForm() {
 
         <div>
           <label htmlFor="inviteCode" className="block text-sm font-medium text-gray-700">
-            Invite Code
+            {t('auth.inviteCode')}
           </label>
           <input
             id="inviteCode"
@@ -135,7 +137,7 @@ export default function SignUpForm() {
 
         <div>
           <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-            Password
+            {t('auth.passwordLabel')}
           </label>
           <input
             id="password"
@@ -150,7 +152,7 @@ export default function SignUpForm() {
 
         <div>
           <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-            Confirm Password
+            {t('auth.confirmPassword')}
           </label>
           <input
             id="confirmPassword"
@@ -168,15 +170,15 @@ export default function SignUpForm() {
           disabled={loading}
           className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
         >
-          {loading ? 'Creating Account...' : 'Create Account'}
+          {loading ? t('auth.creatingAccount') : t('auth.createAccount')}
         </button>
       </form>
 
       <div className="mt-6 text-center">
         <p className="text-sm text-gray-600">
-          Already have an account?{' '}
+          {t('auth.alreadyHaveAccount')}{' '}
           <Link href="/login" className="text-blue-600 hover:text-blue-500">
-            Sign in here
+            {t('auth.signInHere')}
           </Link>
         </p>
       </div>

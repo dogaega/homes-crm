@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
@@ -11,6 +12,7 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const { signIn, user, loading: authLoading } = useAuth()
+  const { t } = useLanguage()
   const router = useRouter()
 
   // Redirect if already logged in
@@ -33,7 +35,7 @@ export default function LoginForm() {
         router.push('/dashboard')
       }
     } catch (err) {
-      setError('An unexpected error occurred')
+      setError(t('auth.unexpectedError'))
     } finally {
       setLoading(false)
     }
@@ -42,7 +44,7 @@ export default function LoginForm() {
   // Always render the form, don't wait for auth loading
   return (
     <div className="max-w-md mx-auto bg-card rounded-lg shadow-lg border border-border p-6">
-      <h2 className="text-2xl font-bold text-center mb-6 text-card-foreground">Sign In</h2>
+      <h2 className="text-2xl font-bold text-center mb-6 text-card-foreground">{t('auth.signInTitle')}</h2>
       
       {error && (
         <div className="bg-destructive/10 border-2 border-destructive/20 text-destructive px-4 py-3 rounded mb-4 font-medium">
@@ -53,7 +55,7 @@ export default function LoginForm() {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="email" className="block text-sm font-semibold text-foreground">
-            Email
+            {t('auth.emailLabel')}
           </label>
           <input
             id="email"
@@ -63,14 +65,14 @@ export default function LoginForm() {
             required
             disabled={loading}
             className="mt-1 block w-full px-3 py-2 border-2 border-input rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring text-foreground font-medium disabled:bg-muted disabled:cursor-not-allowed"
-            placeholder="Enter your email"
+            placeholder={t('auth.emailPlaceholder')}
             autoComplete="email"
           />
         </div>
 
         <div>
           <label htmlFor="password" className="block text-sm font-semibold text-foreground">
-            Password
+            {t('auth.passwordLabel')}
           </label>
           <input
             id="password"
@@ -80,7 +82,7 @@ export default function LoginForm() {
             required
             disabled={loading}
             className="mt-1 block w-full px-3 py-2 border-2 border-input rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring text-foreground font-medium disabled:bg-muted disabled:cursor-not-allowed"
-            placeholder="Enter your password"
+            placeholder={t('auth.passwordPlaceholder')}
             autoComplete="current-password"
           />
         </div>
@@ -96,19 +98,19 @@ export default function LoginForm() {
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              Signing in...
+              {t('auth.signingIn')}
             </span>
           ) : (
-            'Sign In'
+            t('auth.signIn')
           )}
         </button>
       </form>
 
       <div className="mt-6 text-center">
         <p className="text-sm text-muted-foreground font-medium">
-          Don't have an account?{' '}
+          {t('auth.noAccount')}{' '}
           <Link href="/signup" className="text-primary hover:text-primary/80 font-semibold">
-            Sign up here
+            {t('auth.signUpHere')}
           </Link>
         </p>
       </div>

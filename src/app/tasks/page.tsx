@@ -1050,7 +1050,7 @@ export default function TasksPage() {
                             <div className="flex items-center space-x-2">
                               <DollarSign className="w-4 h-4 text-gray-600" />
                               <span className="text-gray-800">
-                                ${selectedTaskDetail.property.price.toLocaleString()}
+                                {selectedTaskDetail.property.price.toLocaleString()}€
                               </span>
                             </div>
                           )}

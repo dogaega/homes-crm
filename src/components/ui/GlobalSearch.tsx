@@ -105,7 +105,7 @@ export default function GlobalSearch() {
           id: property.id,
           type: 'property',
           title: `${property.address}, ${property.city}`,
-          subtitle: `${property.property_id} • $${property.price?.toLocaleString() || 'N/A'}`,
+          subtitle: `${property.property_id} • ${property.price ? property.price.toLocaleString() + '€' : 'N/A'}`,
           url: `/properties/${property.id}`
         })
       })

@@ -427,10 +427,10 @@ export default function ReportsDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-gray-900">
-              ${data.salesMetrics.totalCommission.toLocaleString()}
+              {data.salesMetrics.totalCommission.toLocaleString()}€
             </div>
             <p className="text-xs text-gray-700 font-medium">
-              Avg: ${data.salesMetrics.averageSalePrice.toLocaleString()} per sale
+              Avg: {data.salesMetrics.averageSalePrice.toLocaleString()}€ per sale
             </p>
           </CardContent>
         </Card>
@@ -543,7 +543,7 @@ export default function ReportsDashboard() {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />
                 <YAxis />
-                <Tooltip formatter={(value) => [`$${Number(value).toLocaleString()}`, 'Commission']} />
+                <Tooltip formatter={(value) => [`${Number(value).toLocaleString()}€`, 'Commission']} />
                 <Area type="monotone" dataKey="commission" stroke="#10B981" fill="#10B981" fillOpacity={0.3} />
               </AreaChart>
             </ResponsiveContainer>

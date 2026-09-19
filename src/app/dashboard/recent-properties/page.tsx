@@ -232,7 +232,7 @@ export default function RecentPropertiesPage() {
                         <span className="text-sm">Price</span>
                       </div>
                       <span className="font-semibold text-gray-900">
-                        ${property.price?.toLocaleString() || 'N/A'}
+                        {property.price ? `${property.price.toLocaleString()}€` : 'N/A'}
                       </span>
                     </div>
 
