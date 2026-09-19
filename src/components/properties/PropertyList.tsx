@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { usePropertyStore } from '@/stores/usePropertyStore'
 import { useAuth } from '@/contexts/AuthContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 import PropertyCard from './PropertyCard'
 import PropertyForm from './PropertyForm'
 import { Button } from '@/components/ui/button'
@@ -17,6 +18,7 @@ type Property = Database['public']['Tables']['properties']['Row']
 
 export default function PropertyList() {
   const { user } = useAuth()
+  const { t } = useLanguage()
   const router = useRouter()
   const {
     properties,
@@ -67,7 +69,7 @@ export default function PropertyList() {
   }
 
   const handleDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this property?')) {
+    if (window.confirm(t('properties.confirmDelete'))) {
       await deleteProperty(id)
     }
   }
@@ -106,10 +108,10 @@ export default function PropertyList() {
     <div className="p-6 space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Properties</h1>
+        <h1 className="text-2xl font-bold">{t('properties.title')}</h1>
         <Button onClick={() => setShowForm(true)}>
           <Plus className="w-4 h-4 mr-2" />
-          Add Property
+          {t('properties.addProperty')}
         </Button>
       </div>
 
@@ -117,7 +119,7 @@ export default function PropertyList() {
       <div className="relative">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
         <Input
-          placeholder="Search properties by address, city, or MLS number..."
+          placeholder={t('properties.searchByAddressCityMls')}
           value={filters.search || ''}
           onChange={(e) => handleFilterChange('search', e.target.value)}
           className="pl-10"
@@ -130,7 +132,7 @@ export default function PropertyList() {
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center">
               <Filter className="w-4 h-4 mr-2" />
-              Filters
+              {t('common.filters')}
             </CardTitle>
             <button
               onClick={() => setFilters({
@@ -144,7 +146,7 @@ export default function PropertyList() {
               })}
               className="text-sm text-blue-600 hover:text-blue-800"
             >
-              Clear All
+              {t('properties.clearAll')}
             </button>
           </div>
         </CardHeader>
@@ -152,44 +154,44 @@ export default function PropertyList() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-900 mb-1">
-                Status
+                {t('common.status')}
               </label>
               <select
                 value={filters.status}
                 onChange={(e) => handleFilterChange('status', e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 font-medium"
               >
-                <option value="all">All Status</option>
-                <option value="active">Active</option>
-                <option value="pending">Pending</option>
-                <option value="sold">Sold</option>
-                <option value="withdrawn">Withdrawn</option>
+                <option value="all">{t('properties.allStatus')}</option>
+                <option value="active">{t('status.active')}</option>
+                <option value="pending">{t('status.pending')}</option>
+                <option value="sold">{t('status.sold')}</option>
+                <option value="withdrawn">{t('status.withdrawn')}</option>
               </select>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-900 mb-1">
-                Property Type
+                {t('properties.propertyType')}
               </label>
               <select
                 value={filters.propertyType}
                 onChange={(e) => handleFilterChange('propertyType', e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 font-medium"
               >
-                <option value="all">All Types</option>
-                <option value="single_family">Single Family</option>
-                <option value="condo">Condo</option>
-                <option value="townhouse">Townhouse</option>
-                <option value="multi_family">Multi Family</option>
+                <option value="all">{t('properties.allTypes')}</option>
+                <option value="single_family">{t('properties.singleFamily')}</option>
+                <option value="condo">{t('properties.condo')}</option>
+                <option value="townhouse">{t('properties.townhouse')}</option>
+                <option value="multi_family">{t('properties.multiFamily')}</option>
               </select>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-900 mb-1">
-                City
+                {t('properties.city')}
               </label>
               <Input
-                placeholder="Enter city..."
+                placeholder={t('properties.enterCity')}
                 value={filters.city}
                 onChange={(e) => handleFilterChange('city', e.target.value)}
               />
@@ -197,18 +199,18 @@ export default function PropertyList() {
 
             <div>
               <label className="block text-sm font-medium text-gray-900 mb-1">
-                Price Range
+                {t('properties.priceRange')}
               </label>
               <div className="flex space-x-2">
                 <Input
                   type="number"
-                  placeholder="Min"
+                  placeholder={t('properties.min')}
                   value={filters.minPrice || ''}
                   onChange={(e) => handleFilterChange('minPrice', e.target.value ? Number(e.target.value) : null)}
                 />
                 <Input
                   type="number"
-                  placeholder="Max"
+                  placeholder={t('properties.max')}
                   value={filters.maxPrice || ''}
                   onChange={(e) => handleFilterChange('maxPrice', e.target.value ? Number(e.target.value) : null)}
                 />
@@ -217,14 +219,14 @@ export default function PropertyList() {
 
             <div>
               <label className="block text-sm font-medium text-gray-900 mb-1">
-                Bedrooms
+                {t('properties.bedrooms')}
               </label>
               <select
                 value={filters.bedrooms || 'all'}
                 onChange={(e) => handleFilterChange('bedrooms', e.target.value === 'all' ? null : Number(e.target.value))}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 font-medium"
               >
-                <option value="all">Any</option>
+                <option value="all">{t('properties.any')}</option>
                 <option value="1">1+</option>
                 <option value="2">2+</option>
                 <option value="3">3+</option>
@@ -239,10 +241,10 @@ export default function PropertyList() {
       {/* Results Summary */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-gray-600">
-          Showing {properties.length} properties
+          {t('properties.showingProperties').replace('{count}', String(properties.length))}
           {(filters.search || filters.status !== 'all' || filters.city || filters.minPrice || filters.maxPrice || filters.propertyType !== 'all' || filters.bedrooms) && (
             <span className="text-blue-600 ml-2">
-              (filtered)
+              ({t('properties.filtered')})
             </span>
           )}
         </p>
@@ -264,8 +266,8 @@ export default function PropertyList() {
       {/* Properties Grid */}
       {properties.length === 0 ? (
         <div className="text-center py-12">
-          <h3 className="text-lg font-medium text-gray-900">No properties found</h3>
-          <p className="text-gray-500 mt-2">Try adjusting your filters or add a new property.</p>
+          <h3 className="text-lg font-medium text-gray-900">{t('properties.noPropertiesFound')}</h3>
+          <p className="text-gray-500 mt-2">{t('properties.tryAdjustingFilters')}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -286,7 +288,7 @@ export default function PropertyList() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-2 text-center">Loading...</p>
+            <p className="mt-2 text-center">{t('common.loading')}</p>
           </div>
         </div>
       )}

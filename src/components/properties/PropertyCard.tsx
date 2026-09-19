@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { formatCurrency } from '@/lib/utils'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { Database } from '@/types/database'
 import { MapPin, Bed, Bath, Square, Calendar, Eye } from 'lucide-react'
 import Image from 'next/image'
@@ -17,6 +18,7 @@ interface PropertyCardProps {
 }
 
 export default function PropertyCard({ property, onView, onEdit, onDelete }: PropertyCardProps) {
+  const { t } = useLanguage()
   const photos = property.photos as string[] || []
 
   return (
@@ -32,7 +34,7 @@ export default function PropertyCard({ property, onView, onEdit, onDelete }: Pro
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gray-100">
-            <span className="text-gray-500">No image</span>
+            <span className="text-gray-500">{t('properties.noImage')}</span>
           </div>
         )}
         <div className="absolute top-2 right-2">
@@ -51,7 +53,7 @@ export default function PropertyCard({ property, onView, onEdit, onDelete }: Pro
         <div className="flex justify-between items-start">
           <div>
             <CardTitle className="text-lg">
-              {property.price ? formatCurrency(property.price) : 'Price not set'}
+              {property.price ? formatCurrency(property.price) : t('properties.priceNotSet')}
             </CardTitle>
             <p className="text-sm text-gray-600 flex items-center mt-1">
               <MapPin className="w-4 h-4 mr-1" />
@@ -65,11 +67,11 @@ export default function PropertyCard({ property, onView, onEdit, onDelete }: Pro
         <div className="grid grid-cols-3 gap-4 text-sm text-gray-600 mb-4">
           <div className="flex items-center">
             <Bed className="w-4 h-4 mr-1" />
-            {property.bedrooms || 0} bed
+            {property.bedrooms || 0} {t('properties.bed')}
           </div>
           <div className="flex items-center">
             <Bath className="w-4 h-4 mr-1" />
-            {property.bathrooms || 0} bath
+            {property.bathrooms || 0} {t('properties.bath')}
           </div>
           <div className="flex items-center">
             <Square className="w-4 h-4 mr-1" />
@@ -86,7 +88,7 @@ export default function PropertyCard({ property, onView, onEdit, onDelete }: Pro
         <div className="flex justify-between items-center">
           <div className="flex items-center text-xs text-gray-500">
             <Calendar className="w-3 h-3 mr-1" />
-            Listed: {property.created_at ? new Date(property.created_at).toLocaleDateString() : 'N/A'}
+            {t('properties.listed')}: {property.created_at ? new Date(property.created_at).toLocaleDateString() : t('properties.notAvailable')}
           </div>
           
           <div className="flex space-x-2">
@@ -98,7 +100,7 @@ export default function PropertyCard({ property, onView, onEdit, onDelete }: Pro
                 className="flex items-center"
               >
                 <Eye className="w-4 h-4 mr-1" />
-                View
+                {t('properties.view')}
               </Button>
             )}
             {onEdit && (
@@ -107,7 +109,7 @@ export default function PropertyCard({ property, onView, onEdit, onDelete }: Pro
                 size="sm"
                 onClick={() => onEdit(property)}
               >
-                Edit
+                {t('common.edit')}
               </Button>
             )}
             {onDelete && (
@@ -116,7 +118,7 @@ export default function PropertyCard({ property, onView, onEdit, onDelete }: Pro
                 size="sm"
                 onClick={() => onDelete(property.id)}
               >
-                Delete
+                {t('common.delete')}
               </Button>
             )}
           </div>
