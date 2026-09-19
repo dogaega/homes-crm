@@ -1,6 +1,7 @@
 'use client'
 
 import { useAuth } from '@/contexts/AuthContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import ReportsDashboard from '@/components/reports/ReportsDashboard'
@@ -9,6 +10,7 @@ import MainNavigation from '@/components/navigation/MainNavigation'
 
 export default function ReportsPage() {
   const { user, loading } = useAuth()
+  const { t } = useLanguage()
   const router = useRouter()
   const isHydrated = useHydration()
 
@@ -38,7 +40,7 @@ export default function ReportsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <MainNavigation title="Reports & Analytics" />
+      <MainNavigation title={t('reports.reportsAndAnalytics')} />
       <main>
         <ReportsDashboard />
       </main>

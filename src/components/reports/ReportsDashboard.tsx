@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { supabase } from '@/lib/api'
 import { useAuth } from '@/contexts/AuthContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { Database } from '@/types/database'
 import { 
   LineChart, Line, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
@@ -73,6 +74,7 @@ const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#06B6D4'
 
 export default function ReportsDashboard() {
   const { user } = useAuth()
+  const { t } = useLanguage()
   const [data, setData] = useState<ReportsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [timeRange, setTimeRange] = useState<'3m' | '6m' | '12m'>('6m')
@@ -308,7 +310,7 @@ export default function ReportsDashboard() {
   const handleExport = () => {
     // This would typically generate a PDF or CSV report
     console.log('Exporting report...', data)
-    alert('Export functionality would be implemented here')
+    alert(t('reports.exportNotImplemented'))
   }
 
   if (loading) {
@@ -331,7 +333,7 @@ export default function ReportsDashboard() {
   if (!data) {
     return (
       <div className="p-6 text-center">
-        <p className="text-gray-600">Unable to load reports data</p>
+        <p className="text-gray-600">{t('reports.unableToLoad')}</p>
       </div>
     )
   }
@@ -341,8 +343,8 @@ export default function ReportsDashboard() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Reports & Analytics</h1>
-          <p className="text-gray-700">Performance insights and business metrics</p>
+          <h1 className="text-2xl font-bold text-gray-900">{t('reports.reportsAndAnalytics')}</h1>
+          <p className="text-gray-700">{t('reports.performanceInsights')}</p>
         </div>
         
         <div className="flex items-center gap-3">
@@ -353,24 +355,24 @@ export default function ReportsDashboard() {
               onChange={(e) => setTimeRange(e.target.value as '3m' | '6m' | '12m')}
               className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 font-medium"
             >
-              <option value="3m">Last 3 months</option>
-              <option value="6m">Last 6 months</option>
-              <option value="12m">Last 12 months</option>
+              <option value="3m">{t('reports.last3Months')}</option>
+              <option value="6m">{t('reports.last6Months')}</option>
+              <option value="12m">{t('reports.last12Months')}</option>
             </select>
           </div>
-          
-          <Button 
-            onClick={handleRefresh} 
+
+          <Button
+            onClick={handleRefresh}
             disabled={refreshing}
             className="flex items-center gap-2"
           >
             <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
-            Refresh
+            {t('reports.refresh')}
           </Button>
-          
+
           <Button onClick={handleExport} variant="outline" className="flex items-center gap-2">
             <Download className="h-4 w-4" />
-            Export
+            {t('reports.export')}
           </Button>
         </div>
       </div>
@@ -386,7 +388,7 @@ export default function ReportsDashboard() {
                 : 'border-transparent text-gray-600 hover:text-blue-600 hover:border-blue-300 hover:bg-blue-50'
             }`}
           >
-            Overview
+            {t('reports.overview')}
           </button>
           <button
             onClick={() => setActiveTab('advanced')}
@@ -396,7 +398,7 @@ export default function ReportsDashboard() {
                 : 'border-transparent text-gray-600 hover:text-blue-600 hover:border-blue-300 hover:bg-blue-50'
             }`}
           >
-            Advanced Analytics
+            {t('reports.advancedAnalytics')}
           </button>
         </nav>
       </div>
@@ -408,21 +410,21 @@ export default function ReportsDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-gray-900">Total Sales</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-900">{t('reports.totalSales')}</CardTitle>
             <Award className="h-4 w-4 text-gray-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-gray-900">{data.salesMetrics.totalSales}</div>
             <p className="text-xs text-gray-700 font-medium">
               {data.salesMetrics.salesThisMonth > data.salesMetrics.salesLastMonth ? '+' : ''}
-              {data.salesMetrics.salesThisMonth - data.salesMetrics.salesLastMonth} from last month
+              {data.salesMetrics.salesThisMonth - data.salesMetrics.salesLastMonth} {t('reports.fromLastMonth')}
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-gray-900">Total Commission</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-900">{t('reports.totalCommission')}</CardTitle>
             <DollarSign className="h-4 w-4 text-gray-600" />
           </CardHeader>
           <CardContent>
@@ -430,14 +432,14 @@ export default function ReportsDashboard() {
               {data.salesMetrics.totalCommission.toLocaleString()}€
             </div>
             <p className="text-xs text-gray-700 font-medium">
-              Avg: {data.salesMetrics.averageSalePrice.toLocaleString()}€ per sale
+              {t('reports.avgPerSale').replace('{amount}', data.salesMetrics.averageSalePrice.toLocaleString())}
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-gray-900">Conversion Rate</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-900">{t('reports.conversionRate')}</CardTitle>
             <Target className="h-4 w-4 text-gray-600" />
           </CardHeader>
           <CardContent>
@@ -445,20 +447,20 @@ export default function ReportsDashboard() {
               {data.salesMetrics.conversionRate.toFixed(1)}%
             </div>
             <p className="text-xs text-gray-700 font-medium">
-              Leads to sales conversion
+              {t('reports.leadsToSalesConversion')}
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-gray-900">Active Listings</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-900">{t('reports.activeListings')}</CardTitle>
             <Home className="h-4 w-4 text-gray-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-gray-900">{data.activityMetrics.activeListings}</div>
             <p className="text-xs text-gray-700 font-medium">
-              {data.activityMetrics.newClients} new clients this period
+              {t('reports.newClientsThisPeriod').replace('{count}', String(data.activityMetrics.newClients))}
             </p>
           </CardContent>
         </Card>
@@ -468,7 +470,7 @@ export default function ReportsDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle className="text-gray-900">Performance Trends</CardTitle>
+            <CardTitle className="text-gray-900">{t('reports.performanceTrends')}</CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
@@ -488,7 +490,7 @@ export default function ReportsDashboard() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-gray-900">Sales Pipeline</CardTitle>
+            <CardTitle className="text-gray-900">{t('reports.salesPipeline')}</CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
@@ -508,7 +510,7 @@ export default function ReportsDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle className="text-gray-900">Communication Breakdown</CardTitle>
+            <CardTitle className="text-gray-900">{t('reports.communicationBreakdown')}</CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
@@ -535,7 +537,7 @@ export default function ReportsDashboard() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-gray-900">Commission Trends</CardTitle>
+            <CardTitle className="text-gray-900">{t('reports.commissionTrends')}</CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
@@ -543,7 +545,7 @@ export default function ReportsDashboard() {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />
                 <YAxis />
-                <Tooltip formatter={(value) => [`${Number(value).toLocaleString()}€`, 'Commission']} />
+                <Tooltip formatter={(value) => [`${Number(value).toLocaleString()}€`, t('reports.commission')]} />
                 <Area type="monotone" dataKey="commission" stroke="#10B981" fill="#10B981" fillOpacity={0.3} />
               </AreaChart>
             </ResponsiveContainer>
@@ -554,7 +556,7 @@ export default function ReportsDashboard() {
       {/* Activity Timeline */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-gray-900">Daily Activity (Last 30 Days)</CardTitle>
+          <CardTitle className="text-gray-900">{t('reports.dailyActivity')}</CardTitle>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={300}>
@@ -578,13 +580,13 @@ export default function ReportsDashboard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-gray-900">
               <Phone className="h-5 w-5" />
-              Communication Summary
+              {t('reports.communicationSummary')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
               <div className="flex justify-between">
-                <span className="text-sm text-gray-700 font-medium">Total Communications</span>
+                <span className="text-sm text-gray-700 font-medium">{t('reports.totalCommunications')}</span>
                 <span className="font-bold text-gray-900">{data.activityMetrics.totalCommunications}</span>
               </div>
               {data.communicationData.map((item) => (
@@ -601,7 +603,7 @@ export default function ReportsDashboard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-gray-900">
               <Users className="h-5 w-5" />
-              Client Breakdown
+              {t('reports.clientBreakdown')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -620,21 +622,21 @@ export default function ReportsDashboard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-gray-900">
               <Clock className="h-5 w-5" />
-              Task Performance
+              {t('reports.taskPerformance')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
               <div className="flex justify-between">
-                <span className="text-sm text-gray-700 font-medium">Completed Tasks</span>
+                <span className="text-sm text-gray-700 font-medium">{t('reports.completedTasks')}</span>
                 <span className="font-bold text-gray-900">{data.activityMetrics.completedTasks}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-sm text-gray-700 font-medium">Scheduled Showings</span>
+                <span className="text-sm text-gray-700 font-medium">{t('reports.scheduledShowings')}</span>
                 <span className="font-bold text-gray-900">{data.activityMetrics.scheduledShowings}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-sm text-gray-700 font-medium">New Clients</span>
+                <span className="text-sm text-gray-700 font-medium">{t('reports.newClients')}</span>
                 <span className="font-bold text-gray-900">{data.activityMetrics.newClients}</span>
               </div>
             </div>
