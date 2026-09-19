@@ -378,25 +378,39 @@ Return JSON matching this shape exactly (all fields optional, omit unknown ones)
 Also return a top-level "confidence": "high" | "medium" | "low" — "high" only if address, price, and size are all explicitly stated; "low" if you had to infer most fields from vague text.`
 
 async function extractWithGroq(env: Env, rawText: string): Promise<{ fields: Record<string, unknown>; confidence: 'high' | 'medium' | 'low' }> {
-  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${env.GROQ_API_KEY}`,
-    },
-    body: JSON.stringify({
-      model: 'openai/gpt-oss-120b',
-      messages: [
-        { role: 'system', content: EXTRACTION_SYSTEM_PROMPT },
-        { role: 'user', content: rawText.slice(0, 15000) },
-      ],
-      response_format: { type: 'json_object' },
-      temperature: 0,
-    }),
-  })
-  if (!res.ok) {
-    const text = await res.text().catch(() => '')
-    throw new Error(`Groq extraction failed (${res.status}): ${text.slice(0, 300)}`)
+  let res: Response | null = null
+  let lastErrorText = ''
+  // Bulk scraping runs (dozens of extractions/minute) hit Groq's per-minute
+  // rate limit regularly — retry with backoff instead of failing the whole
+  // intake document on a transient 429.
+  for (let attempt = 0; attempt < 4; attempt++) {
+    res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${env.GROQ_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'openai/gpt-oss-120b',
+        messages: [
+          { role: 'system', content: EXTRACTION_SYSTEM_PROMPT },
+          { role: 'user', content: rawText.slice(0, 15000) },
+        ],
+        response_format: { type: 'json_object' },
+        temperature: 0,
+      }),
+    })
+    if (res.ok) break
+    if (res.status !== 429) {
+      lastErrorText = await res.text().catch(() => '')
+      break
+    }
+    lastErrorText = await res.text().catch(() => '')
+    const retryAfter = Number(res.headers.get('Retry-After')) || (2 ** attempt)
+    await new Promise(r => setTimeout(r, Math.min(retryAfter, 15) * 1000))
+  }
+  if (!res || !res.ok) {
+    throw new Error(`Groq extraction failed (${res?.status}): ${lastErrorText.slice(0, 300)}`)
   }
   const data = await res.json<any>()
   const content = data.choices?.[0]?.message?.content

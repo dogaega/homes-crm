@@ -187,7 +187,7 @@ export function renderBrochureHtml(p: BrochureProperty, lang: Lang): string {
   // Whether this reads as a rental ("/ month") or a sale price: infer from
   // fields that only make sense for a rental, since the schema doesn't have
   // an explicit sale/rental flag — a sale listing wouldn't set these.
-  const isRental = Boolean(p.rental_type || p.availability_period)
+  const isRental = p.rental_type ? p.rental_type.toLowerCase() === 'rent' : Boolean(p.availability_period)
   const areaStr = p.square_feet != null ? `${p.square_feet} м²` : ''
 
   const interiorGrid = [0, 1, 2, 3].map((i) => photoBlock(interior[i], 'grid-photo', 'interior')).join('')
@@ -310,7 +310,7 @@ export function renderBrochureHtml(p: BrochureProperty, lang: Lang): string {
   <div class="cover-wrap">
     ${photoBlock(cover, 'cover-photo', name)}
     <div class="cover-overlay">
-      <div class="loc-line">${esc((p.district ? p.district.toUpperCase() + ' · ' : '') + p.city.toUpperCase() + ' · FRANCE')}</div>
+      <div class="loc-line">${esc((p.district ? p.district.toUpperCase() + ' · ' : '') + p.city.toUpperCase() + (p.city.toLowerCase() === 'monaco' ? '' : ' · FRANCE'))}</div>
       <h1>${esc(name)}</h1>
       ${p.description ? `<div class="subtitle">${esc(descParas[0] || '').slice(0, 90)}</div>` : ''}
       <div class="rule"></div>
@@ -318,7 +318,7 @@ export function renderBrochureHtml(p: BrochureProperty, lang: Lang): string {
   </div>
   <div class="spec-bar">
     <div class="spec-price-col">
-      <div class="rlabel">${esc(p.listing_type_label || t.longTermRental)}</div>
+      <div class="rlabel">${esc(p.listing_type_label || (isRental ? t.longTermRental : t.saleLabel))}</div>
       <div class="price">${esc(priceStr)} ${priceStr && isRental ? `<small>${esc(t.perMonth)}</small>` : ''}</div>
     </div>
     <div class="stat-cols">
