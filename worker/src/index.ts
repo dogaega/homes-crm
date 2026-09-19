@@ -20,13 +20,15 @@ export interface Env {
   BROWSER: Fetcher
   ALLOWED_ORIGINS: string
   SIGNUP_INVITE_CODE: string
+  GROQ_API_KEY: string
 }
 
 const TABLES = [
   'agents', 'clients', 'properties', 'tasks', 'task_comments',
   'task_templates', 'documents', 'document_templates', 'document_signatures',
   'communications', 'showings', 'inquiries', 'client_property_interests',
-  'activity_logs',
+  'activity_logs', 'agencies', 'agency_contacts', 'intake_documents',
+  'property_sources',
 ] as const
 type TableName = typeof TABLES[number]
 
@@ -40,6 +42,10 @@ const JSON_COLUMNS: Record<string, string[]> = {
   document_templates: ['template_fields'],
   inquiries: ['preferred_locations'],
   activity_logs: ['metadata'],
+  agencies: [],
+  agency_contacts: [],
+  intake_documents: ['extracted_fields'],
+  property_sources: [],
 }
 
 function corsHeaders(origin: string | null, env: Env) {
@@ -344,6 +350,199 @@ async function handleDocumentFiles(req: Request, env: Env, url: URL, path: strin
   return json({ error: 'Not found' }, 404, headers)
 }
 
+// Property intake pipeline: a PDF/pasted-text listing comes in, we extract
+// text (PDF via unpdf, which is pure-JS and runs in the Workers isolate —
+// no native deps, unlike pdf-parse/pdfjs's Node build), then Groq turns
+// that raw text into structured property fields. Nothing touches the
+// `properties` table until a human approves it via /intake/:id/approve.
+const EXTRACTION_SYSTEM_PROMPT = `You extract real-estate listing data from raw text (agency PDFs, emails, pasted messages) into strict JSON. Only include fields you are confident about — omit anything not stated or implied by the text, never guess or invent a value.
+
+Return JSON matching this shape exactly (all fields optional, omit unknown ones):
+{
+  "address": string,        // street/building, as specific as the text allows
+  "city": string,
+  "zip_code": string,
+  "price": number,          // numeric only, no currency symbol
+  "rental_type": "sale" | "rent",
+  "bedrooms": number,
+  "bathrooms": number,
+  "square_feet": number,    // the real size in SQUARE METERS (not sqft) — this DB column is misnamed but always holds m²
+  "property_type": string,  // e.g. "condo", "villa", "studio"
+  "description": string,    // a clean 2-4 sentence summary in the source language
+  "agency_name": string,
+  "agency_phone": string,
+  "agency_email": string,
+  "reference_number": string
+}
+
+Also return a top-level "confidence": "high" | "medium" | "low" — "high" only if address, price, and size are all explicitly stated; "low" if you had to infer most fields from vague text.`
+
+async function extractWithGroq(env: Env, rawText: string): Promise<{ fields: Record<string, unknown>; confidence: 'high' | 'medium' | 'low' }> {
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${env.GROQ_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model: 'openai/gpt-oss-120b',
+      messages: [
+        { role: 'system', content: EXTRACTION_SYSTEM_PROMPT },
+        { role: 'user', content: rawText.slice(0, 15000) },
+      ],
+      response_format: { type: 'json_object' },
+      temperature: 0,
+    }),
+  })
+  if (!res.ok) {
+    const text = await res.text().catch(() => '')
+    throw new Error(`Groq extraction failed (${res.status}): ${text.slice(0, 300)}`)
+  }
+  const data = await res.json<any>()
+  const content = data.choices?.[0]?.message?.content
+  if (!content) throw new Error('Groq returned no content')
+  const parsed = JSON.parse(content)
+  const { confidence, ...fields } = parsed
+  return {
+    fields,
+    confidence: confidence === 'high' || confidence === 'medium' || confidence === 'low' ? confidence : 'low',
+  }
+}
+
+async function handleIntake(req: Request, env: Env, url: URL, path: string, origin: string | null): Promise<Response> {
+  const headers = corsHeaders(origin, env)
+  const user = await getSessionUser(req, env)
+  if (!user) return json({ error: 'Unauthorized' }, 401, headers)
+  const agent = await env.DB.prepare('SELECT id FROM agents WHERE user_id = ?').bind(user.id).first<{ id: string }>()
+  if (!agent) return json({ error: 'Agent not found' }, 404, headers)
+
+  if (path === '/intake/upload' && req.method === 'POST') {
+    const sourceType = url.searchParams.get('source_type') || 'manual'
+    if (!['pdf', 'email', 'whatsapp', 'url', 'manual'].includes(sourceType)) {
+      return json({ error: 'Invalid source_type' }, 400, headers)
+    }
+
+    let rawText: string | null = null
+    let fileKey: string | null = null
+    const contentType = req.headers.get('Content-Type') || ''
+
+    if (sourceType === 'pdf') {
+      const body = await req.arrayBuffer()
+      if (body.byteLength === 0) return json({ error: 'Empty file' }, 400, headers)
+      if (body.byteLength > 25 * 1024 * 1024) return json({ error: 'File too large (25MB max)' }, 413, headers)
+      const filename = url.searchParams.get('filename') || 'listing.pdf'
+      const safeName = filename.replace(/[^a-zA-Z0-9._-]/g, '_')
+      fileKey = `intake/${crypto.randomUUID()}-${safeName}`
+      await env.DOCS.put(fileKey, body, { httpMetadata: { contentType: 'application/pdf' } })
+
+      try {
+        const { extractText } = await import('unpdf')
+        const { text } = await extractText(new Uint8Array(body), { mergePages: true })
+        rawText = text
+      } catch (err) {
+        return json({ error: `PDF text extraction failed: ${err instanceof Error ? err.message : String(err)}` }, 422, headers)
+      }
+    } else {
+      const body = await req.json<{ raw_text?: string; source_url?: string }>()
+      rawText = body.raw_text || null
+      if (!rawText && sourceType !== 'url') return json({ error: 'raw_text is required for this source_type' }, 400, headers)
+    }
+
+    const id = crypto.randomUUID()
+    const now = new Date().toISOString()
+    const sourceUrl = url.searchParams.get('source_url') || null
+    await env.DB.prepare(
+      `INSERT INTO intake_documents (id, source_type, raw_text, file_key, source_url, status, created_by, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, 'pending', ?, ?, ?)`
+    ).bind(id, sourceType, rawText, fileKey, sourceUrl, agent.id, now, now).run()
+
+    return json({ id, source_type: sourceType, raw_text: rawText, status: 'pending' }, 201, headers)
+  }
+
+  const extractMatch = path.match(/^\/intake\/([^/]+)\/extract$/)
+  if (extractMatch && req.method === 'POST') {
+    const docId = extractMatch[1]
+    const doc = await env.DB.prepare('SELECT * FROM intake_documents WHERE id = ?').bind(docId).first<any>()
+    if (!doc) return json({ error: 'Not found' }, 404, headers)
+    if (!doc.raw_text) return json({ error: 'No text to extract from (empty raw_text)' }, 400, headers)
+
+    let result
+    try {
+      result = await extractWithGroq(env, doc.raw_text)
+    } catch (err) {
+      return json({ error: err instanceof Error ? err.message : String(err) }, 502, headers)
+    }
+
+    const now = new Date().toISOString()
+    await env.DB.prepare(
+      `UPDATE intake_documents SET extracted_fields = ?, extraction_confidence = ?, status = 'extracted', updated_at = ? WHERE id = ?`
+    ).bind(JSON.stringify(result.fields), result.confidence, now, docId).run()
+
+    return json({ id: docId, extracted_fields: result.fields, confidence: result.confidence, status: 'extracted' }, 200, headers)
+  }
+
+  // Human reviews/edits the extracted fields, then this creates the real
+  // property row plus a property_sources record — nothing before this
+  // point ever touched `properties`.
+  const approveMatch = path.match(/^\/intake\/([^/]+)\/approve$/)
+  if (approveMatch && req.method === 'POST') {
+    const docId = approveMatch[1]
+    const doc = await env.DB.prepare('SELECT * FROM intake_documents WHERE id = ?').bind(docId).first<any>()
+    if (!doc) return json({ error: 'Not found' }, 404, headers)
+
+    const body = await req.json<Record<string, any>>()
+    const fields = { ...(doc.extracted_fields ? JSON.parse(doc.extracted_fields) : {}), ...body }
+
+    if (!fields.address || !fields.city) {
+      return json({ error: 'address and city are required to create a property' }, 400, headers)
+    }
+
+    const propId = crypto.randomUUID()
+    const now = new Date().toISOString()
+    const lastProp = await env.DB.prepare(
+      `SELECT property_id FROM properties ORDER BY property_id DESC LIMIT 1`
+    ).first<{ property_id: string }>()
+    const lastNum = lastProp?.property_id?.match(/PROP-(\d+)/)
+    const nextPropertyId = `PROP-${((lastNum ? parseInt(lastNum[1]) : 0) + 1).toString().padStart(3, '0')}`
+
+    await env.DB.prepare(
+      `INSERT INTO properties (id, property_id, address, city, state, zip_code, price, bedrooms, bathrooms, square_feet, property_type, description, listing_status, assigned_agent_id, created_by, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', ?, ?, ?, ?)`
+    ).bind(
+      propId, nextPropertyId, fields.address, fields.city, fields.state || fields.city, fields.zip_code || '',
+      fields.price ?? null, fields.bedrooms ?? null, fields.bathrooms ?? null, fields.square_feet ?? null,
+      fields.property_type || null, fields.description || null, agent.id, agent.id, now, now
+    ).run()
+
+    let agencyId: string | null = null
+    if (fields.agency_name) {
+      const existing = await env.DB.prepare('SELECT id FROM agencies WHERE name = ?').bind(fields.agency_name).first<{ id: string }>()
+      if (existing) {
+        agencyId = existing.id
+      } else {
+        agencyId = crypto.randomUUID()
+        await env.DB.prepare(
+          `INSERT INTO agencies (id, name, phone, email, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)`
+        ).bind(agencyId, fields.agency_name, fields.agency_phone || null, fields.agency_email || null, now, now).run()
+      }
+    }
+
+    await env.DB.prepare(
+      `INSERT INTO property_sources (id, property_id, intake_document_id, agency_id, source_type, source_url, price_at_source, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(crypto.randomUUID(), propId, docId, agencyId, doc.source_type, doc.source_url, fields.price ?? null, now).run()
+
+    await env.DB.prepare(
+      `UPDATE intake_documents SET status = 'reviewed', property_id = ?, updated_at = ? WHERE id = ?`
+    ).bind(propId, now, docId).run()
+
+    const property = await env.DB.prepare('SELECT * FROM properties WHERE id = ?').bind(propId).first()
+    return json(parseJsonCols('properties', property), 201, headers)
+  }
+
+  return json({ error: 'Not found' }, 404, headers)
+}
+
 async function handleBrochure(req: Request, env: Env, id: string, origin: string | null, url: URL): Promise<Response> {
   const headers = corsHeaders(origin, env)
   const user = await getSessionUser(req, env)
@@ -532,6 +731,10 @@ export default {
 
     if (url.pathname.startsWith('/documents/upload') || url.pathname.startsWith('/documents/file/') || url.pathname === '/photos/upload') {
       return handleDocumentFiles(req, env, url, url.pathname, origin)
+    }
+
+    if (url.pathname.startsWith('/intake/')) {
+      return handleIntake(req, env, url, url.pathname, origin)
     }
 
     const parts = url.pathname.replace(/^\//, '').split('/')
