@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { useRouter } from 'next/navigation';
 import { useDocumentStore } from '@/stores/useDocumentStore';
 import { Button } from '@/components/ui/button';
@@ -15,6 +16,7 @@ import DocumentsSidebar from '@/components/documents/DocumentsSidebar';
 
 export default function DocumentsPage() {
   const { user, agent, loading } = useAuth();
+  const { t } = useLanguage();
   const router = useRouter();
   const isHydrated = useHydration();
   const [selectedTab, setSelectedTab] = useState<'all' | 'draft' | 'finalized' | 'signed'>('all');
@@ -106,7 +108,7 @@ export default function DocumentsPage() {
   };
 
   const handleDeleteDocument = async (documentId: string) => {
-    if (confirm('Are you sure you want to delete this document?')) {
+    if (confirm(t('documents.confirmDeleteDocument'))) {
       await deleteDocument(documentId);
     }
   };
@@ -131,39 +133,39 @@ export default function DocumentsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <MainNavigation title="Documents" />
+      <MainNavigation title={t('nav.documents')} />
       <main>
         <div className="max-w-7xl mx-auto">
           {/* Page Header */}
           <div className="bg-white shadow-sm border-b px-6 py-4">
             <div className="flex justify-between items-center">
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Document Management</h1>
-                <p className="text-gray-600 mt-1">Manage your real estate documents and agreements</p>
+                <h1 className="text-2xl font-bold text-gray-900">{t('documents.documentManagement')}</h1>
+                <p className="text-gray-600 mt-1">{t('documents.manageDocuments')}</p>
               </div>
               <div className="flex items-center space-x-3">
                 <Link href="/documents/create">
                   <Button>
                     <Plus className="w-4 h-4 mr-2" />
-                    Create Document
+                    {t('documents.createDocument')}
                   </Button>
                 </Link>
                 <Link href="/documents/templates/create">
                   <Button variant="outline">
                     <FileText className="w-4 h-4 mr-2" />
-                    Create Template
+                    {t('documents.createTemplate')}
                   </Button>
                 </Link>
                 <Link href="/documents/templates">
                   <Button variant="outline">
                     <Settings className="w-4 h-4 mr-2" />
-                    Browse Templates
+                    {t('documents.browseTemplates')}
                   </Button>
                 </Link>
                 <Link href="/documents/signed">
                   <Button variant="outline" className="border-green-400 text-green-800 hover:bg-green-50">
                     <CheckCircle className="w-4 h-4 mr-2" />
-                    Signed Documents
+                    {t('documents.signedDocuments')}
                   </Button>
                 </Link>
               </div>
@@ -185,7 +187,7 @@ export default function DocumentsPage() {
                 <div className="flex items-center">
                   <FileText className="w-8 h-8 text-blue-500" />
                   <div className="ml-3">
-                    <p className="text-sm font-medium text-gray-500">Total Documents</p>
+                    <p className="text-sm font-medium text-gray-500">{t('documents.totalDocuments')}</p>
                     <p className="text-2xl font-bold text-gray-900">{documentStats.total}</p>
                   </div>
                 </div>
@@ -197,7 +199,7 @@ export default function DocumentsPage() {
                 <div className="flex items-center">
                   <Clock className="w-8 h-8 text-yellow-500" />
                   <div className="ml-3">
-                    <p className="text-sm font-medium text-gray-500">Drafts</p>
+                    <p className="text-sm font-medium text-gray-500">{t('documents.drafts')}</p>
                     <p className="text-2xl font-bold text-gray-900">{documentStats.draft}</p>
                   </div>
                 </div>
@@ -209,7 +211,7 @@ export default function DocumentsPage() {
                 <div className="flex items-center">
                   <AlertCircle className="w-8 h-8 text-blue-500" />
                   <div className="ml-3">
-                    <p className="text-sm font-medium text-gray-500">Finalized</p>
+                    <p className="text-sm font-medium text-gray-500">{t('documents.finalized')}</p>
                     <p className="text-2xl font-bold text-gray-900">{documentStats.finalized}</p>
                   </div>
                 </div>
@@ -221,7 +223,7 @@ export default function DocumentsPage() {
                 <div className="flex items-center">
                   <CheckCircle className="w-8 h-8 text-green-500" />
                   <div className="ml-3">
-                    <p className="text-sm font-medium text-gray-500">Signed</p>
+                    <p className="text-sm font-medium text-gray-500">{t('documents.signed')}</p>
                     <p className="text-2xl font-bold text-gray-900">{documentStats.signed}</p>
                   </div>
                 </div>
@@ -239,7 +241,7 @@ export default function DocumentsPage() {
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                     <input
                       type="text"
-                      placeholder="Search documents, clients, or properties..."
+                      placeholder={t('documents.searchDocsClientsProperties')}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -254,7 +256,7 @@ export default function DocumentsPage() {
                     onChange={(e) => setDocumentTypeFilter(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="all">All Document Types</option>
+                    <option value="all">{t('documents.allDocumentTypes')}</option>
                     {documentTypes.map((type) => (
                       <option key={type} value={type || ''}>
                         {(type || '').replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
@@ -274,12 +276,12 @@ export default function DocumentsPage() {
                     }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="created_at-desc">Newest First</option>
-                    <option value="created_at-asc">Oldest First</option>
-                    <option value="title-asc">Title A-Z</option>
-                    <option value="title-desc">Title Z-A</option>
-                    <option value="document_status-asc">Status A-Z</option>
-                    <option value="document_status-desc">Status Z-A</option>
+                    <option value="created_at-desc">{t('documents.newestFirst')}</option>
+                    <option value="created_at-asc">{t('documents.oldestFirst')}</option>
+                    <option value="title-asc">{t('documents.titleAZ')}</option>
+                    <option value="title-desc">{t('documents.titleZA')}</option>
+                    <option value="document_status-asc">{t('documents.statusAZ')}</option>
+                    <option value="document_status-desc">{t('documents.statusZA')}</option>
                   </select>
                 </div>
               </div>
@@ -289,10 +291,10 @@ export default function DocumentsPage() {
           {/* Enhanced Tabs */}
           <div className="flex flex-wrap gap-2 mb-6">
             {[
-              { key: 'all', label: 'All Documents', count: documentStats.total, icon: FileText },
-              { key: 'draft', label: 'Drafts', count: documentStats.draft, icon: Clock },
-              { key: 'finalized', label: 'Finalized', count: documentStats.finalized, icon: AlertCircle },
-              { key: 'signed', label: 'Signed', count: documentStats.signed, icon: CheckCircle }
+              { key: 'all', label: t('documents.allDocuments'), count: documentStats.total, icon: FileText },
+              { key: 'draft', label: t('documents.drafts'), count: documentStats.draft, icon: Clock },
+              { key: 'finalized', label: t('documents.finalized'), count: documentStats.finalized, icon: AlertCircle },
+              { key: 'signed', label: t('documents.signed'), count: documentStats.signed, icon: CheckCircle }
             ].map((tab) => {
               const IconComponent = tab.icon;
               return (
@@ -323,12 +325,12 @@ export default function DocumentsPage() {
           {searchTerm || documentTypeFilter !== 'all' ? (
             <div className="mb-4">
               <p className="text-sm text-gray-600">
-                Showing {filteredDocuments.length} of {documents.length} documents
+                {t('documents.showingOfDocuments').replace('{shown}', String(filteredDocuments.length)).replace('{total}', String(documents.length))}
                 {searchTerm && (
-                  <span> matching "{searchTerm}"</span>
+                  <span> {t('documents.matching')} "{searchTerm}"</span>
                 )}
                 {documentTypeFilter !== 'all' && (
-                  <span> in {documentTypeFilter.replace(/_/g, ' ')}</span>
+                  <span> {t('documents.in')} {documentTypeFilter.replace(/_/g, ' ')}</span>
                 )}
               </p>
             </div>
@@ -360,16 +362,16 @@ export default function DocumentsPage() {
             {filteredDocuments.length === 0 ? (
               <div className="col-span-full text-center py-12">
                 <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No documents found</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">{t('documents.noDocumentsFound')}</h3>
                 <p className="text-gray-500">
-                  {searchTerm || documentTypeFilter !== 'all' 
-                    ? 'Try adjusting your filters or search terms' 
-                    : 'Create your first document to get started'}
+                  {searchTerm || documentTypeFilter !== 'all'
+                    ? t('documents.tryAdjustingFilters')
+                    : t('documents.createFirstDocument')}
                 </p>
                 <Link href="/documents/create" className="inline-block mt-4">
                   <Button>
                     <Plus className="w-4 h-4 mr-2" />
-                    Create Document
+                    {t('documents.createDocument')}
                   </Button>
                 </Link>
               </div>
@@ -386,11 +388,11 @@ export default function DocumentsPage() {
                           </h3>
                         </div>
                         <p className="text-sm text-gray-600 font-medium mb-1">
-                          {(document as any).document_templates?.name || document.document_type?.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || 'Unknown Type'}
+                          {(document as any).document_templates?.name || document.document_type?.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || t('documents.unknownType')}
                         </p>
                         <div className="flex items-center gap-2 text-xs text-gray-500">
                           <Clock className="w-3 h-3" />
-                          Created {formatDate(document.created_at || '')}
+                          {t('documents.created')} {formatDate(document.created_at || '')}
                         </div>
                       </div>
                       <div className="flex flex-col items-end gap-2">
@@ -408,7 +410,7 @@ export default function DocumentsPage() {
                         {document.document_status === 'draft' && (
                           <div className="flex items-center gap-1 text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded-full">
                             <AlertCircle className="w-3 h-3" />
-                            Needs attention
+                            {t('documents.needsAttention')}
                           </div>
                         )}
                       </div>
@@ -421,21 +423,21 @@ export default function DocumentsPage() {
                       {(document as any).clients && (
                         <div className="flex items-center gap-2 text-sm">
                           <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                          <span className="text-gray-600">Client:</span>
+                          <span className="text-gray-600">{t('documents.client')}:</span>
                           <span className="font-medium text-gray-900">{(document as any).clients.first_name} {(document as any).clients.last_name}</span>
                         </div>
                       )}
                       {(document as any).properties && (
                         <div className="flex items-center gap-2 text-sm">
                           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                          <span className="text-gray-600">Property:</span>
+                          <span className="text-gray-600">{t('documents.property')}:</span>
                           <span className="font-medium text-gray-900 truncate">{(document as any).properties.address}</span>
                         </div>
                       )}
                       {document.finalized_at && (
                         <div className="flex items-center gap-2 text-sm">
                           <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                          <span className="text-gray-600">Finalized:</span>
+                          <span className="text-gray-600">{t('documents.finalizedLabel')}:</span>
                           <span className="font-medium text-gray-900">{formatDate(document.finalized_at)}</span>
                         </div>
                       )}
@@ -446,38 +448,38 @@ export default function DocumentsPage() {
                       <Link href={`/documents/${document.id}`} className="flex-1 min-w-0">
                         <Button variant="outline" size="sm" className="w-full justify-center hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-colors">
                           <Eye className="w-4 h-4 mr-1" />
-                          View
+                          {t('documents.view')}
                         </Button>
                       </Link>
-                      
+
                       {document.document_status === 'draft' && (
                         <Link href={`/documents/${document.id}/edit`} className="flex-1 min-w-0">
                           <Button variant="outline" size="sm" className="w-full justify-center hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700 transition-colors">
                             <Edit className="w-4 h-4 mr-1" />
-                            Edit
+                            {t('common.edit')}
                           </Button>
                         </Link>
                       )}
 
                       {document.pdf_url ? (
-                        <Button 
-                          variant="outline" 
+                        <Button
+                          variant="outline"
                           size="sm"
                           onClick={() => window.open(document.pdf_url!, '_blank')}
                           className="flex-1 min-w-0 justify-center hover:bg-green-50 hover:border-green-300 hover:text-green-700 transition-colors"
                         >
                           <Download className="w-4 h-4 mr-1" />
-                          PDF
+                          {t('documents.pdf')}
                         </Button>
                       ) : (
-                        <Button 
-                          variant="outline" 
+                        <Button
+                          variant="outline"
                           size="sm"
                           onClick={() => handleGeneratePDF(document.id)}
                           className="flex-1 min-w-0 justify-center hover:bg-green-50 hover:border-green-300 hover:text-green-700 transition-colors"
                         >
                           <Download className="w-4 h-4 mr-1" />
-                          Generate PDF
+                          {t('documents.generatePdf')}
                         </Button>
                       )}
 
