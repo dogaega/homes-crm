@@ -1,6 +1,7 @@
 'use client'
 
 import { useAuth } from '@/contexts/AuthContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -51,6 +52,7 @@ interface TaskWithDetails extends Task {
 
 export default function TasksPage() {
   const { user, loading } = useAuth()
+  const { t } = useLanguage()
   const router = useRouter()
   const isHydrated = useHydration()
   const [tasks, setTasks] = useState<EnhancedTask[]>([])
@@ -340,7 +342,7 @@ export default function TasksPage() {
       ))
     } catch (error) {
       console.error('Error updating task status:', error)
-      alert('Failed to update task status')
+      alert(t('tasks.failedToUpdateStatus'))
     }
   }
 
@@ -477,7 +479,7 @@ export default function TasksPage() {
       console.error('Error details:', JSON.stringify(error, null, 2))
       console.error('Error keys:', Object.keys(error || {}))
       
-      let errorMessage = 'Unknown error'
+      let errorMessage = t('tasks.unknownError')
       if (error && typeof error === 'object') {
         if ('message' in error) {
           errorMessage = String(error.message)
@@ -489,8 +491,8 @@ export default function TasksPage() {
           errorMessage = String(error.hint)
         }
       }
-      
-      alert(`Failed to update task: ${errorMessage}`)
+
+      alert(`${t('tasks.failedToUpdateTask')}: ${errorMessage}`)
     } finally {
       setIsUpdatingTask(false)
     }
@@ -555,17 +557,17 @@ export default function TasksPage() {
   }
 
   const formatDate = (dateString: string | null) => {
-    if (!dateString) return 'No due date'
+    if (!dateString) return t('tasks.noDueDate')
     const date = new Date(dateString)
     const now = new Date()
     const diffTime = date.getTime() - now.getTime()
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
 
-    if (diffDays === 0) return 'Due today'
-    if (diffDays === 1) return 'Due tomorrow'
-    if (diffDays === -1) return 'Due yesterday'
-    if (diffDays < 0) return `Overdue by ${Math.abs(diffDays)} days`
-    return `Due in ${diffDays} days`
+    if (diffDays === 0) return t('tasks.dueToday')
+    if (diffDays === 1) return t('tasks.dueTomorrow')
+    if (diffDays === -1) return t('tasks.dueYesterday')
+    if (diffDays < 0) return t('tasks.overdueBy').replace('{days}', String(Math.abs(diffDays)))
+    return t('tasks.dueIn').replace('{days}', String(diffDays))
   }
 
   const formatCreatedDate = (dateString: string) => {
@@ -573,13 +575,13 @@ export default function TasksPage() {
     const now = new Date()
     const diffTime = now.getTime() - date.getTime()
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
-    
-    if (diffDays === 0) return 'Today'
-    if (diffDays === 1) return 'Yesterday'
-    if (diffDays < 7) return `${diffDays} days ago`
-    if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`
-    if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`
-    return `${Math.floor(diffDays / 365)} years ago`
+
+    if (diffDays === 0) return t('tasks.today')
+    if (diffDays === 1) return t('tasks.yesterday')
+    if (diffDays < 7) return t('tasks.daysAgo').replace('{days}', String(diffDays))
+    if (diffDays < 30) return t('tasks.weeksAgo').replace('{weeks}', String(Math.floor(diffDays / 7)))
+    if (diffDays < 365) return t('tasks.monthsAgo').replace('{months}', String(Math.floor(diffDays / 30)))
+    return t('tasks.yearsAgo').replace('{years}', String(Math.floor(diffDays / 365)))
   }
 
   const isOverdue = (dueDate: string | null) => {
@@ -607,22 +609,22 @@ export default function TasksPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <MainNavigation title="Tasks" />
+      <MainNavigation title={t('nav.tasks')} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Tasks</h1>
-            <p className="text-gray-800 font-medium">Manage your tasks and workflows</p>
+            <h1 className="text-2xl font-bold text-gray-900">{t('nav.tasks')}</h1>
+            <p className="text-gray-800 font-medium">{t('tasks.manageWorkflows')}</p>
           </div>
           <div className="flex space-x-3">
-            <Button 
+            <Button
               variant="outline"
               onClick={() => setShowTemplateManager(!showTemplateManager)}
             >
               <Settings className="w-4 h-4 mr-2 text-gray-800" />
-              {showTemplateManager ? 'Hide Templates' : 'Manage Templates'}
+              {showTemplateManager ? t('tasks.hideTemplates') : t('tasks.manageTemplates')}
             </Button>
           </div>
         </div>
@@ -640,7 +642,7 @@ export default function TasksPage() {
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700 w-4 h-4" />
               <Input
-                placeholder="Search tasks, clients, or properties..."
+                placeholder={t('tasks.searchTasksClientsProperties')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"
@@ -652,33 +654,33 @@ export default function TasksPage() {
                 onChange={(e) => setSelectedStatus(e.target.value)}
                 className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 font-medium"
               >
-                <option value="all">All Status</option>
-                <option value="pending">Pending</option>
-                <option value="in_progress">In Progress</option>
-                <option value="completed">Completed</option>
-                <option value="cancelled">Cancelled</option>
+                <option value="all">{t('tasks.allStatus')}</option>
+                <option value="pending">{t('tasks.pending')}</option>
+                <option value="in_progress">{t('tasks.inProgress')}</option>
+                <option value="completed">{t('tasks.completed')}</option>
+                <option value="cancelled">{t('tasks.cancelled')}</option>
               </select>
               <select
                 value={selectedPriority}
                 onChange={(e) => setSelectedPriority(e.target.value)}
                 className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 font-medium"
               >
-                <option value="all">All Priority</option>
-                <option value="urgent">Urgent</option>
-                <option value="high">High</option>
-                <option value="medium">Medium</option>
-                <option value="low">Low</option>
+                <option value="all">{t('tasks.allPriority')}</option>
+                <option value="urgent">{t('tasks.urgent')}</option>
+                <option value="high">{t('tasks.high')}</option>
+                <option value="medium">{t('tasks.medium')}</option>
+                <option value="low">{t('tasks.low')}</option>
               </select>
               <select
                 value={selectedRecency}
                 onChange={(e) => setSelectedRecency(e.target.value)}
                 className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 font-medium"
               >
-                <option value="all">All Time</option>
-                <option value="today">Today</option>
-                <option value="week">Last Week</option>
-                <option value="month">Last Month</option>
-                <option value="quarter">Last Quarter</option>
+                <option value="all">{t('tasks.allTime')}</option>
+                <option value="today">{t('tasks.today')}</option>
+                <option value="week">{t('tasks.lastWeek')}</option>
+                <option value="month">{t('tasks.lastMonth')}</option>
+                <option value="quarter">{t('tasks.lastQuarter')}</option>
               </select>
             </div>
           </div>
@@ -687,10 +689,10 @@ export default function TasksPage() {
         {/* Results Summary */}
         <div className="mb-6 flex items-center justify-between">
           <p className="text-sm text-gray-900 font-medium">
-            Showing {paginatedTasks.length} of {filteredTasks.length} tasks
+            {t('tasks.showingOfTasks').replace('{shown}', String(paginatedTasks.length)).replace('{filtered}', String(filteredTasks.length))}
             {(searchTerm || selectedStatus !== 'all' || selectedPriority !== 'all' || selectedRecency !== 'all') && (
               <span className="text-blue-600 ml-2">
-                (filtered from {tasks.length} total)
+                ({t('tasks.filteredFromTotal').replace('{total}', String(tasks.length))})
               </span>
             )}
           </p>
@@ -704,7 +706,7 @@ export default function TasksPage() {
               }}
               className="text-sm text-blue-600 hover:text-blue-800"
             >
-              Clear Filters
+              {t('common.clearFilters')}
             </button>
           )}
         </div>
@@ -725,11 +727,11 @@ export default function TasksPage() {
           <Card>
             <CardContent className="p-12 text-center">
               <CheckSquare className="w-16 h-16 text-gray-700 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No tasks found</h3>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">{t('tasks.noTasksFound')}</h3>
               <p className="text-gray-800 mb-4">
                 {searchTerm || selectedStatus !== 'all' || selectedPriority !== 'all' || selectedRecency !== 'all'
-                  ? 'Try adjusting your search or filters'
-                  : 'Use task templates to create tasks for your workflow'
+                  ? t('tasks.tryAdjustingFilters')
+                  : t('tasks.useTemplatesToCreate')
                 }
               </p>
               <Button
@@ -737,7 +739,7 @@ export default function TasksPage() {
                 className="bg-blue-600 hover:bg-blue-700 text-white"
               >
                 <Settings className="w-4 h-4 mr-2 text-white" />
-                Manage Templates
+                {t('tasks.manageTemplates')}
               </Button>
             </CardContent>
           </Card>
@@ -778,23 +780,23 @@ export default function TasksPage() {
                         </div>
                         <div className="flex items-center space-x-1">
                           <CalendarDays className="w-4 h-4 text-gray-600" />
-                          <span className="text-gray-600">Created: {task.created_at ? formatCreatedDate(task.created_at) : 'Unknown'}</span>
+                          <span className="text-gray-600">{t('tasks.created')}: {task.created_at ? formatCreatedDate(task.created_at) : t('tasks.unknown')}</span>
                         </div>
                         {task.task_type && (
                           <div className="flex items-center space-x-1">
-                            <span>Type: {task.task_type}</span>
+                            <span>{t('tasks.type')}: {task.task_type}</span>
                           </div>
                         )}
                         {task.client_name && (
                           <div className="flex items-center space-x-1">
                             <User className="w-4 h-4 text-gray-800" />
-                            <span>Client: {task.client_name}</span>
+                            <span>{t('tasks.client')}: {task.client_name}</span>
                           </div>
                         )}
                         {task.property_address && (
                           <div className="flex items-center space-x-1">
                             <Home className="w-4 h-4 text-gray-800" />
-                            <span>Property: {task.property_address}</span>
+                            <span>{t('tasks.property')}: {task.property_address}</span>
                           </div>
                         )}
                       </div>
@@ -803,7 +805,7 @@ export default function TasksPage() {
                         <div className="mt-3 p-3 bg-gray-50 rounded-lg">
                           <div className="flex items-center space-x-2 mb-2">
                             <FileText className="w-4 h-4 text-gray-600" />
-                            <span className="text-sm font-medium text-gray-900">Comment:</span>
+                            <span className="text-sm font-medium text-gray-900">{t('tasks.comment')}:</span>
                           </div>
                           <p className="text-sm text-gray-800">{task.comments}</p>
                         </div>
@@ -817,7 +819,7 @@ export default function TasksPage() {
                           onClick={() => handleStartTask(task)}
                           className="bg-blue-600 hover:bg-blue-700 text-white"
                         >
-                          Start
+                          {t('tasks.start')}
                         </Button>
                       )}
                       {task.status === 'in_progress' && (
@@ -826,7 +828,7 @@ export default function TasksPage() {
                           onClick={() => updateTaskStatus(task.id, 'completed')}
                           className="bg-green-600 hover:bg-green-700 text-white"
                         >
-                          Complete
+                          {t('tasks.complete')}
                         </Button>
                       )}
                       {task.status !== 'completed' && task.status !== 'cancelled' && (
@@ -835,7 +837,7 @@ export default function TasksPage() {
                           variant="outline"
                           onClick={() => handleCancelTask(task)}
                         >
-                          Cancel
+                          {t('tasks.cancel')}
                         </Button>
                       )}
                       <Button
@@ -845,7 +847,7 @@ export default function TasksPage() {
                         className="text-blue-600 hover:text-blue-700 border-blue-200 hover:border-blue-300"
                       >
                         <FileText className="w-4 h-4 mr-1" />
-                        Add Comment
+                        {t('tasks.addComment')}
                       </Button>
                     </div>
                   </div>
@@ -876,17 +878,17 @@ export default function TasksPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              {isAddingComment ? 'Add Comment to Task' : 'Start Task'}
+              {isAddingComment ? t('tasks.addCommentToTask') : t('tasks.startTask')}
             </h3>
-            
+
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-900 mb-2">
-                Add a comment (optional)
+                {t('tasks.addCommentOptional')}
               </label>
               <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
-                placeholder="Enter any notes or comments about starting this task..."
+                placeholder={t('tasks.commentPlaceholder')}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                 rows={4}
               />
@@ -898,14 +900,14 @@ export default function TasksPage() {
                 onClick={handleCloseCommentModal}
                 disabled={isUpdatingTask}
               >
-                Cancel
+                {t('common.cancel')}
               </Button>
               <Button
                 onClick={handleStartTaskWithComment}
                 disabled={isUpdatingTask}
                 className="bg-blue-600 hover:bg-blue-700 text-white"
               >
-                {isUpdatingTask ? (isAddingComment ? 'Adding...' : 'Starting...') : (isAddingComment ? 'Add Comment' : 'Start Task')}
+                {isUpdatingTask ? (isAddingComment ? t('tasks.adding') : t('tasks.starting')) : (isAddingComment ? t('tasks.addComment') : t('tasks.startTask'))}
               </Button>
             </div>
           </div>
@@ -917,11 +919,11 @@ export default function TasksPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Cancel Task
+              {t('tasks.cancelTask')}
             </h3>
-            
+
             <p className="text-gray-800 mb-6">
-              Are you sure you want to cancel the task "{taskToCancel.title}"? This action cannot be undone.
+              {t('tasks.confirmCancelTask').replace('{title}', taskToCancel.title)}
             </p>
 
             <div className="flex justify-end space-x-3">
@@ -929,13 +931,13 @@ export default function TasksPage() {
                 variant="outline"
                 onClick={() => setShowCancelConfirmation(false)}
               >
-                Keep Task
+                {t('tasks.keepTask')}
               </Button>
               <Button
                 onClick={confirmCancelTask}
                 className="bg-red-600 hover:bg-red-700 text-white"
               >
-                Cancel Task
+                {t('tasks.cancelTask')}
               </Button>
             </div>
           </div>
@@ -972,25 +974,25 @@ export default function TasksPage() {
                 {/* Task Information */}
                 <div className="space-y-6">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Task Details</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">{t('tasks.taskDetails')}</h3>
                     <div className="space-y-3">
                       {selectedTaskDetail.description && (
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">{t('tasks.description')}</label>
                           <p className="text-gray-800">{selectedTaskDetail.description}</p>
                         </div>
                       )}
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">{t('tasks.dueDate')}</label>
                         <p className="text-gray-800">{formatDate(selectedTaskDetail.due_date)}</p>
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
-                        <p className="text-gray-800">{selectedTaskDetail.task_type || 'Not specified'}</p>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">{t('tasks.type')}</label>
+                        <p className="text-gray-800">{selectedTaskDetail.task_type || t('tasks.notSpecified')}</p>
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Created</label>
-                        <p className="text-gray-800">{selectedTaskDetail.created_at ? new Date(selectedTaskDetail.created_at).toLocaleDateString() : 'Unknown'}</p>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">{t('tasks.created')}</label>
+                        <p className="text-gray-800">{selectedTaskDetail.created_at ? new Date(selectedTaskDetail.created_at).toLocaleDateString() : t('tasks.unknown')}</p>
                       </div>
                     </div>
                   </div>
@@ -998,7 +1000,7 @@ export default function TasksPage() {
                   {/* Related Client */}
                   {selectedTaskDetail.client && (
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-3">Related Client</h3>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">{t('tasks.relatedClient')}</h3>
                       <div className="bg-blue-50 p-4 rounded-lg">
                         <div className="flex items-center space-x-2 mb-2">
                           <User className="w-5 h-5 text-blue-600" />
@@ -1019,7 +1021,7 @@ export default function TasksPage() {
                           )}
                           {selectedTaskDetail.client.client_type && (
                             <div className="flex items-center space-x-2">
-                              <span className="text-gray-600">Type:</span>
+                              <span className="text-gray-600">{t('tasks.type')}:</span>
                               <span className="text-gray-800 capitalize">{selectedTaskDetail.client.client_type}</span>
                             </div>
                           )}
@@ -1031,7 +1033,7 @@ export default function TasksPage() {
                   {/* Related Property */}
                   {selectedTaskDetail.property && (
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-3">Related Property</h3>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">{t('tasks.relatedProperty')}</h3>
                       <div className="bg-green-50 p-4 rounded-lg">
                         <div className="flex items-center space-x-2 mb-2">
                           <Home className="w-5 h-5 text-green-600" />
@@ -1056,7 +1058,7 @@ export default function TasksPage() {
                           )}
                           {selectedTaskDetail.property.property_type && (
                             <div className="flex items-center space-x-2">
-                              <span className="text-gray-600">Type:</span>
+                              <span className="text-gray-600">{t('tasks.type')}:</span>
                               <span className="text-gray-800 capitalize">{selectedTaskDetail.property.property_type.replace('_', ' ')}</span>
                             </div>
                           )}
@@ -1068,17 +1070,17 @@ export default function TasksPage() {
 
                 {/* Comments Section */}
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Comments</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">{t('tasks.comments')}</h3>
                   <div className="space-y-4 max-h-96 overflow-y-auto">
                     {selectedTaskDetail.task_comments.length === 0 ? (
-                      <p className="text-gray-500 text-center py-8">No comments yet</p>
+                      <p className="text-gray-500 text-center py-8">{t('tasks.noCommentsYet')}</p>
                     ) : (
                       selectedTaskDetail.task_comments.map((comment: any) => (
                         <div key={comment.id} className="bg-gray-50 p-4 rounded-lg">
                           <div className="flex items-center space-x-2 mb-2">
                             <MessageCircle className="w-4 h-4 text-gray-600" />
                             <span className="text-sm font-medium text-gray-900">
-                              {comment.agents?.agent_name || 'Agent'}
+                              {comment.agents?.agent_name || t('tasks.agent')}
                             </span>
                             <span className="text-xs text-gray-500">
                               {new Date(comment.created_at).toLocaleDateString()} at {new Date(comment.created_at).toLocaleTimeString()}
