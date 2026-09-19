@@ -1,6 +1,7 @@
 'use client'
 
 import { useAuth } from '@/contexts/AuthContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState, use } from 'react'
 import { supabase } from '@/lib/api'
@@ -42,6 +43,7 @@ interface PropertyDetailPageProps {
 
 export default function PropertyDetailPage({ params }: PropertyDetailPageProps) {
   const { user, loading } = useAuth()
+  const { t } = useLanguage()
   const router = useRouter()
   const isHydrated = useHydration()
   const { id } = use(params)
@@ -137,7 +139,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
       })
       if (!res.ok) {
         const text = await res.text().catch(() => '')
-        throw new Error(text || `Brochure generation failed (${res.status})`)
+        throw new Error(text || `${t('properties.failedToGenerateBrochure')} (${res.status})`)
       }
       const blob = await res.blob()
       const disposition = res.headers.get('Content-Disposition') || ''
@@ -153,14 +155,14 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
       window.URL.revokeObjectURL(url)
     } catch (err) {
       console.error('Brochure generation error:', err)
-      alert(err instanceof Error ? err.message : 'Failed to generate brochure')
+      alert(err instanceof Error ? err.message : t('properties.failedToGenerateBrochure'))
     } finally {
       setIsGeneratingBrochure(false)
     }
   }
 
   const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this property?')) return
+    if (!confirm(t('properties.confirmDeleteProperty'))) return
 
     try {
       const { error } = await supabase
@@ -170,14 +172,14 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
 
       if (error) {
         console.error('Error deleting property:', error)
-        alert('Failed to delete property')
+        alert(t('properties.failedToDeleteProperty'))
         return
       }
 
       router.push('/properties')
     } catch (err) {
       console.error('Error:', err)
-      alert('An unexpected error occurred')
+      alert(t('auth.unexpectedError'))
     }
   }
 
@@ -202,12 +204,12 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <MainNavigation title="Property Details" />
+        <MainNavigation title={t('properties.propertyDetailsTitle')} />
         <main className="container mx-auto px-4 py-8">
-          <BackNavigation fallbackPath="/properties" fallbackText="Properties" />
+          <BackNavigation fallbackPath="/properties" fallbackText={t('nav.properties')} />
           <div className="text-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading property details...</p>
+            <p className="text-gray-600">{t('properties.loadingPropertyDetails')}</p>
           </div>
         </main>
       </div>
@@ -217,15 +219,15 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
   if (error || !property) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <MainNavigation title="Property Details" />
+        <MainNavigation title={t('properties.propertyDetailsTitle')} />
         <main className="container mx-auto px-4 py-8">
-          <BackNavigation fallbackPath="/properties" fallbackText="Properties" />
+          <BackNavigation fallbackPath="/properties" fallbackText={t('nav.properties')} />
           <div className="text-center py-12">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              {error || 'Property not found'}
+              {error || t('properties.propertyNotFound')}
             </h2>
             <Button onClick={() => router.push('/properties')}>
-              Return to Properties
+              {t('properties.returnToProperties')}
             </Button>
           </div>
         </main>
@@ -237,9 +239,9 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <MainNavigation title="Property Details" />
+      <MainNavigation title={t('properties.propertyDetailsTitle')} />
       <main className="container mx-auto px-4 py-8">
-        <BackNavigation fallbackPath="/properties" fallbackText="Properties" />
+        <BackNavigation fallbackPath="/properties" fallbackText={t('nav.properties')} />
         
         <div className="mb-6">
           <div className="flex items-center justify-between mb-4">
@@ -254,7 +256,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                 className="flex items-center space-x-2"
               >
                 <FileText className="h-4 w-4" />
-                <span>{isGeneratingBrochure ? 'Generating…' : 'Brochure (RU)'}</span>
+                <span>{isGeneratingBrochure ? t('properties.generating') : t('properties.brochureRu')}</span>
               </Button>
               <Button
                 variant="outline"
@@ -263,7 +265,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                 className="flex items-center space-x-2"
               >
                 <FileText className="h-4 w-4" />
-                <span>{isGeneratingBrochure ? 'Generating…' : 'Brochure (EN)'}</span>
+                <span>{isGeneratingBrochure ? t('properties.generating') : t('properties.brochureEn')}</span>
               </Button>
               <Button
                 variant="outline"
@@ -271,7 +273,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                 className="flex items-center space-x-2"
               >
                 <Edit className="h-4 w-4" />
-                <span>Edit</span>
+                <span>{t('common.edit')}</span>
               </Button>
               <Button
                 variant="outline"
@@ -279,7 +281,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                 className="flex items-center space-x-2 text-red-600 hover:text-red-700 border-red-200 hover:border-red-300"
               >
                 <Trash2 className="h-4 w-4" />
-                <span>Delete</span>
+                <span>{t('common.delete')}</span>
               </Button>
             </div>
           </div>
@@ -303,7 +305,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     <Images className="h-5 w-5 mr-2" />
-                    Photos
+                    {t('properties.photos')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -329,19 +331,19 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <Home className="h-5 w-5 mr-2" />
-                  Property Details
+                  {t('properties.propertyDetails')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                   <div className="flex items-center space-x-2">
                     <Bed className="h-5 w-5 text-gray-600" />
-                    <span className="text-sm text-gray-600">Bedrooms</span>
+                    <span className="text-sm text-gray-600">{t('properties.bedrooms')}</span>
                     <span className="font-semibold">{property.bedrooms}</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Bath className="h-5 w-5 text-gray-600" />
-                    <span className="text-sm text-gray-600">Bathrooms</span>
+                    <span className="text-sm text-gray-600">{t('properties.bathrooms')}</span>
                     <span className="font-semibold">{property.bathrooms}</span>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -351,42 +353,42 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                   </div>
                   <div className="flex items-center space-x-2">
                     <Ruler className="h-5 w-5 text-gray-600" />
-                    <span className="text-sm text-gray-600">Lot Size</span>
+                    <span className="text-sm text-gray-600">{t('properties.lotSize')}</span>
                     <span className="font-semibold">{property.lot_size}</span>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Property Information</h4>
+                    <h4 className="font-semibold text-gray-900 mb-2">{t('properties.propertyInformation')}</h4>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Type:</span>
+                        <span className="text-gray-600">{t('properties.type')}:</span>
                         <span className="font-medium">{property.property_type}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Year Built:</span>
+                        <span className="text-gray-600">{t('properties.yearBuilt')}:</span>
                         <span className="font-medium">{property.year_built}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-600">MLS Number:</span>
+                        <span className="text-gray-600">{t('properties.mlsNumber')}:</span>
                         <span className="font-medium">{property.mls_number}</span>
                       </div>
                     </div>
                   </div>
 
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Listing Information</h4>
+                    <h4 className="font-semibold text-gray-900 mb-2">{t('properties.listingInformation')}</h4>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Listed:</span>
+                        <span className="text-gray-600">{t('properties.listed')}:</span>
                         <span className="font-medium">
-                          {property.listing_date ? new Date(property.listing_date).toLocaleDateString() : 'N/A'}
+                          {property.listing_date ? new Date(property.listing_date).toLocaleDateString() : t('properties.notAvailable')}
                         </span>
                       </div>
                       {property.sold_date && (
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Sold:</span>
+                          <span className="text-gray-600">{t('properties.sold')}:</span>
                           <span className="font-medium">
                             {new Date(property.sold_date).toLocaleDateString()}
                           </span>
@@ -404,7 +406,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     <TreePine className="h-5 w-5 mr-2" />
-                    Features
+                    {t('properties.features')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -426,7 +428,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     <FileText className="h-5 w-5 mr-2" />
-                    Description
+                    {t('properties.description')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -443,16 +445,16 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <DollarSign className="h-5 w-5 mr-2" />
-                  Price
+                  {t('properties.price')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold text-gray-900 mb-2">
-                  {property.price ? formatCurrency(property.price) : 'Price not set'}
+                  {property.price ? formatCurrency(property.price) : t('properties.priceNotSet')}
                 </div>
                 {property.price && property.square_feet && (
                   <div className="text-sm text-gray-600">
-                    {Math.round(property.price / property.square_feet)}€ per m²
+                    {Math.round(property.price / property.square_feet)}€ {t('properties.perSqm')}
                   </div>
                 )}
               </CardContent>
@@ -462,14 +464,14 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
             {property.virtual_tour_url && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Virtual Tour</CardTitle>
+                  <CardTitle>{t('properties.virtualTour')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <Button
                     onClick={() => window.open(property.virtual_tour_url!, '_blank')}
                     className="w-full"
                   >
-                    View Virtual Tour
+                    {t('properties.viewVirtualTour')}
                   </Button>
                 </CardContent>
               </Card>
@@ -477,12 +479,12 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
 
             {/* Agent Management */}
             <Card>
-              <CardHeader 
+              <CardHeader
                 className="cursor-pointer hover:bg-gray-50 transition-colors"
                 onClick={() => setIsAgentManagerExpanded(!isAgentManagerExpanded)}
               >
                 <div className="flex items-center justify-between">
-                  <CardTitle>Agent Management</CardTitle>
+                  <CardTitle>{t('properties.agentManagement')}</CardTitle>
                   {isAgentManagerExpanded ? (
                     <ChevronUp className="w-5 h-5 text-gray-500" />
                   ) : (
@@ -508,7 +510,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                 onClick={() => setIsClientsExpanded(!isClientsExpanded)}
               >
                 <div className="flex items-center justify-between">
-                  <CardTitle>Interested Clients</CardTitle>
+                  <CardTitle>{t('properties.interestedClients')}</CardTitle>
                   {isClientsExpanded ? (
                     <ChevronUp className="w-5 h-5 text-gray-500" />
                   ) : (
@@ -529,7 +531,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
             {/* Quick Actions */}
             <Card>
               <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
+                <CardTitle>{t('properties.quickActions')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
                 <Button
@@ -538,7 +540,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                   className="w-full justify-start"
                 >
                   <FileText className="h-4 w-4 mr-2" />
-                  Print Details
+                  {t('properties.printDetails')}
                 </Button>
               </CardContent>
             </Card>
