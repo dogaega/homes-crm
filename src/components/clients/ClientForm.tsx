@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useAutoSave } from '@/hooks/useAutoSave'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { supabase } from '@/lib/api'
 import { Database } from '@/types/database'
 import { showToast } from '@/lib/toast'
@@ -36,6 +37,7 @@ interface ClientFormData {
 }
 
 export default function ClientForm({ client, onSave, onCancel, agentId }: ClientFormProps) {
+  const { t } = useLanguage()
   const [formData, setFormData] = useState<ClientFormData>({
     first_name: client?.first_name || '',
     last_name: client?.last_name || '',
@@ -72,7 +74,7 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
     onRestore: (savedData) => {
       if (!isEditing && savedData) {
         setFormData(savedData)
-        showToast.success('Draft restored from auto-save')
+        showToast.success(t('clients.draftRestored'))
       }
     },
   })
@@ -105,28 +107,28 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
     const newErrors: Record<string, string> = {}
 
     if (!formData.first_name.trim()) {
-      newErrors.first_name = 'First name is required'
+      newErrors.first_name = t('clients.firstNameRequired')
     }
 
     if (!formData.last_name.trim()) {
-      newErrors.last_name = 'Last name is required'
+      newErrors.last_name = t('clients.lastNameRequired')
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required'
+      newErrors.email = t('clients.emailRequired')
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address'
+      newErrors.email = t('clients.emailInvalid')
     }
 
     if (formData.phone && !/^\+?[\d\s\-\(\)]+$/.test(formData.phone)) {
-      newErrors.phone = 'Please enter a valid phone number'
+      newErrors.phone = t('clients.phoneInvalid')
     }
 
     if (formData.budget_min && formData.budget_max) {
       const min = parseInt(formData.budget_min)
       const max = parseInt(formData.budget_max)
       if (min > max) {
-        newErrors.budget_max = 'Maximum budget must be greater than minimum budget'
+        newErrors.budget_max = t('clients.maxBudgetError')
       }
     }
 
@@ -196,7 +198,7 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
       onSave(result.data)
     } catch (error) {
       console.error('Error saving client:', error)
-      alert('Failed to save client. Please try again.')
+      alert(t('clients.failedToSave'))
     } finally {
       setIsSubmitting(false)
     }
@@ -208,7 +210,7 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
         <Card className="border-0">
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="text-xl">
-              {client ? 'Edit Client' : 'Add New Client'}
+              {client ? t('clients.editClient') : t('clients.addNewClient')}
             </CardTitle>
             <Button
               variant="ghost"
@@ -226,12 +228,12 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     <User className="w-4 h-4 inline mr-1" />
-                    First Name *
+                    {t('clients.firstName')} *
                   </label>
                   <Input
                     value={formData.first_name}
                     onChange={(e) => handleInputChange('first_name', e.target.value)}
-                    placeholder="Enter first name"
+                    placeholder={t('clients.enterFirstName')}
                     className={errors.first_name ? 'border-red-500' : ''}
                   />
                   {errors.first_name && (
@@ -242,12 +244,12 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     <User className="w-4 h-4 inline mr-1" />
-                    Last Name *
+                    {t('clients.lastName')} *
                   </label>
                   <Input
                     value={formData.last_name}
                     onChange={(e) => handleInputChange('last_name', e.target.value)}
-                    placeholder="Enter last name"
+                    placeholder={t('clients.enterLastName')}
                     className={errors.last_name ? 'border-red-500' : ''}
                   />
                   {errors.last_name && (
@@ -261,13 +263,13 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     <Mail className="w-4 h-4 inline mr-1" />
-                    Email *
+                    {t('common.email')} *
                   </label>
                   <Input
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    placeholder="Enter email address"
+                    placeholder={t('clients.enterEmailAddress')}
                     className={errors.email ? 'border-red-500' : ''}
                   />
                   {errors.email && (
@@ -278,13 +280,13 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     <Phone className="w-4 h-4 inline mr-1" />
-                    Phone
+                    {t('common.phone')}
                   </label>
                   <Input
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => handleInputChange('phone', e.target.value)}
-                    placeholder="Enter phone number"
+                    placeholder={t('clients.enterPhoneNumber')}
                     className={errors.phone ? 'border-red-500' : ''}
                   />
                   {errors.phone && (
@@ -297,12 +299,12 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   <MapPin className="w-4 h-4 inline mr-1" />
-                  Address
+                  {t('clients.address')}
                 </label>
                 <Input
                   value={formData.address}
                   onChange={(e) => handleInputChange('address', e.target.value)}
-                  placeholder="Enter full address"
+                  placeholder={t('clients.enterFullAddress')}
                 />
               </div>
 
@@ -310,49 +312,49 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Client Type
+                    {t('clients.clientType')}
                   </label>
                   <select
                     value={formData.client_type}
                     onChange={(e) => handleInputChange('client_type', e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="buyer">Buyer</option>
-                    <option value="seller">Seller</option>
-                    <option value="renter">Renter</option>
-                    <option value="investor">Investor</option>
+                    <option value="buyer">{t('clients.buyer')}</option>
+                    <option value="seller">{t('clients.seller')}</option>
+                    <option value="renter">{t('clients.renter')}</option>
+                    <option value="investor">{t('clients.investor')}</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Status
+                    {t('common.status')}
                   </label>
                   <select
                     value={formData.status}
                     onChange={(e) => handleInputChange('status', e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="prospect">Prospect</option>
-                    <option value="active">Active</option>
-                    <option value="closed">Closed</option>
-                    <option value="inactive">Inactive</option>
+                    <option value="prospect">{t('clients.prospect')}</option>
+                    <option value="active">{t('status.active')}</option>
+                    <option value="closed">{t('status.closed')}</option>
+                    <option value="inactive">{t('clients.inactive')}</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Preferred Contact
+                    {t('clients.preferredContact')}
                   </label>
                   <select
                     value={formData.preferred_contact_method}
                     onChange={(e) => handleInputChange('preferred_contact_method', e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="email">Email</option>
-                    <option value="phone">Phone</option>
+                    <option value="email">{t('common.email')}</option>
+                    <option value="phone">{t('common.phone')}</option>
                     <option value="text">Text</option>
-                    <option value="any">Any</option>
+                    <option value="any">{t('clients.any')}</option>
                   </select>
                 </div>
               </div>
@@ -362,26 +364,26 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     <DollarSign className="w-4 h-4 inline mr-1" />
-                    Budget Minimum
+                    {t('clients.budgetMinimum')}
                   </label>
                   <Input
                     type="number"
                     value={formData.budget_min}
                     onChange={(e) => handleInputChange('budget_min', e.target.value)}
-                    placeholder="Enter minimum budget"
+                    placeholder={t('clients.enterMinBudget')}
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     <DollarSign className="w-4 h-4 inline mr-1" />
-                    Budget Maximum
+                    {t('clients.budgetMaximum')}
                   </label>
                   <Input
                     type="number"
                     value={formData.budget_max}
                     onChange={(e) => handleInputChange('budget_max', e.target.value)}
-                    placeholder="Enter maximum budget"
+                    placeholder={t('clients.enterMaxBudget')}
                     className={errors.budget_max ? 'border-red-500' : ''}
                   />
                   {errors.budget_max && (
@@ -393,20 +395,20 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
               {/* Source */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Lead Source
+                  {t('clients.leadSource')}
                 </label>
                 <select
                   value={formData.source}
                   onChange={(e) => handleInputChange('source', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="website">Website</option>
-                  <option value="referral">Referral</option>
-                  <option value="social_media">Social Media</option>
-                  <option value="cold_call">Cold Call</option>
-                  <option value="open_house">Open House</option>
-                  <option value="advertisement">Advertisement</option>
-                  <option value="other">Other</option>
+                  <option value="website">{t('clients.website')}</option>
+                  <option value="referral">{t('clients.referral')}</option>
+                  <option value="social_media">{t('clients.socialMedia')}</option>
+                  <option value="cold_call">{t('clients.coldCall')}</option>
+                  <option value="open_house">{t('clients.openHouse')}</option>
+                  <option value="advertisement">{t('clients.advertisement')}</option>
+                  <option value="other">{t('clients.other')}</option>
                 </select>
               </div>
 
@@ -414,7 +416,7 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   <Tag className="w-4 h-4 inline mr-1" />
-                  Tags
+                  {t('clients.tags')}
                 </label>
                 <div className="flex flex-wrap gap-2 mb-2">
                   {formData.tags.map((tag, index) => (
@@ -437,11 +439,11 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
                   <Input
                     value={newTag}
                     onChange={(e) => setNewTag(e.target.value)}
-                    placeholder="Add a tag"
+                    placeholder={t('clients.addTag')}
                     onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
                   />
                   <Button type="button" onClick={addTag} variant="outline">
-                    Add
+                    {t('common.add')}
                   </Button>
                 </div>
               </div>
@@ -449,12 +451,12 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
               {/* Preferences */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Preferences & Notes
+                  {t('clients.preferencesAndNotes')}
                 </label>
                 <textarea
                   value={formData.preferences}
                   onChange={(e) => handleInputChange('preferences', e.target.value)}
-                  placeholder="e.g. Wants 3 bedrooms, prefers a pool, budget flexible for the right view..."
+                  placeholder={t('clients.preferencesPlaceholder')}
                   rows={4}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
@@ -463,22 +465,22 @@ export default function ClientForm({ client, onSave, onCancel, agentId }: Client
               {/* Form Actions */}
               <div className="flex justify-end space-x-3 pt-4 border-t">
                 <Button type="button" variant="outline" onClick={onCancel}>
-                  Cancel
+                  {t('common.cancel')}
                 </Button>
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   disabled={isSubmitting}
                   className="bg-blue-600 hover:bg-blue-700 text-white"
                 >
                   {isSubmitting ? (
                     <>
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                      Saving...
+                      {t('clients.saving')}
                     </>
                   ) : (
                     <>
                       <Save className="w-4 h-4 mr-2" />
-                      {client ? 'Update Client' : 'Create Client'}
+                      {client ? t('clients.updateClient') : t('clients.createClient')}
                     </>
                   )}
                 </Button>

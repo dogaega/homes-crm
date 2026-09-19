@@ -1,6 +1,7 @@
 'use client'
 
 import { useAuth } from '@/contexts/AuthContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState, useCallback } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -20,6 +21,7 @@ type Client = Database['public']['Tables']['clients']['Row']
 
 function ClientsPageContent() {
   const { user, loading } = useAuth()
+  const { t } = useLanguage()
   const router = useRouter()
   const isHydrated = useHydration()
   const [clients, setClients] = useState<Client[]>([])
@@ -174,7 +176,7 @@ function ClientsPageContent() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <MainNavigation title="Clients" />
+      <MainNavigation title={t('nav.clients')} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Tabs */}
@@ -188,7 +190,7 @@ function ClientsPageContent() {
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
-                Client List
+                {t('clients.clientList')}
               </button>
               <button
                 onClick={() => setActiveTab('scoring')}
@@ -198,7 +200,7 @@ function ClientsPageContent() {
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
-                Lead Scoring
+                {t('clients.leadScoring')}
               </button>
             </nav>
           </div>
@@ -212,7 +214,7 @@ function ClientsPageContent() {
                   className="bg-blue-600 hover:bg-blue-700 text-white"
                 >
                   <Plus className="w-4 h-4 mr-2" />
-                  Add Client
+                  {t('clients.addClient')}
                 </Button>
               </div>
         {/* Search and Filters */}
@@ -221,7 +223,7 @@ function ClientsPageContent() {
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
               <Input
-                placeholder="Search clients by name, email, or phone..."
+                placeholder={t('clients.searchByNameEmailPhone')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"
@@ -233,22 +235,22 @@ function ClientsPageContent() {
                 onChange={(e) => setSelectedType(e.target.value)}
                 className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 font-medium"
               >
-                <option value="all">All Types</option>
-                <option value="buyer">Buyer</option>
-                <option value="seller">Seller</option>
-                <option value="renter">Renter</option>
-                <option value="investor">Investor</option>
+                <option value="all">{t('clients.allTypes')}</option>
+                <option value="buyer">{t('clients.buyer')}</option>
+                <option value="seller">{t('clients.seller')}</option>
+                <option value="renter">{t('clients.renter')}</option>
+                <option value="investor">{t('clients.investor')}</option>
               </select>
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
                 className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 font-medium"
               >
-                <option value="all">All Status</option>
-                <option value="active">Active</option>
-                <option value="prospect">Prospect</option>
-                <option value="closed">Closed</option>
-                <option value="inactive">Inactive</option>
+                <option value="all">{t('clients.allStatus')}</option>
+                <option value="active">{t('status.active')}</option>
+                <option value="prospect">{t('clients.prospect')}</option>
+                <option value="closed">{t('status.closed')}</option>
+                <option value="inactive">{t('clients.inactive')}</option>
               </select>
             </div>
           </div>
@@ -257,10 +259,10 @@ function ClientsPageContent() {
         {/* Results Summary */}
         <div className="mb-6 flex items-center justify-between">
           <p className="text-sm text-gray-600">
-            Showing {filteredClients.length} of {clients.length} clients
+            {t('clients.showingOf').replace('{filtered}', String(filteredClients.length)).replace('{total}', String(clients.length))}
             {(searchTerm || selectedType !== 'all' || selectedStatus !== 'all') && (
               <span className="text-blue-600 ml-2">
-                (filtered)
+                ({t('clients.filtered')})
               </span>
             )}
           </p>
@@ -273,7 +275,7 @@ function ClientsPageContent() {
               }}
               className="text-sm text-blue-600 hover:text-blue-800"
             >
-              Clear Filters
+              {t('common.clearFilters')}
             </button>
           )}
         </div>
@@ -334,7 +336,7 @@ function ClientsPageContent() {
                     </div>
                     {client.budget_range && typeof client.budget_range === 'object' && (
                       <div className="text-sm text-gray-600">
-                        Budget: {(client.budget_range as { min?: number; max?: number }).min?.toLocaleString()}€ - {(client.budget_range as { min?: number; max?: number }).max?.toLocaleString()}€
+                        {t('clients.budget')}: {(client.budget_range as { min?: number; max?: number }).min?.toLocaleString()}€ - {(client.budget_range as { min?: number; max?: number }).max?.toLocaleString()}€
                       </div>
                     )}
                   </div>
@@ -355,16 +357,16 @@ function ClientsPageContent() {
                         onClick={() => router.push(`/clients/${client.id}`)}
                         className="flex-1 border-gray-200 text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 transition-all duration-200 hover:scale-105 hover:shadow-md"
                       >
-                        View Details
+                        {t('clients.viewDetails')}
                       </Button>
-                      <Button 
-                        size="sm" 
-                        variant="outline" 
+                      <Button
+                        size="sm"
+                        variant="outline"
                         onClick={() => handleEditClient(client)}
                         className="flex-1 border-blue-200 text-blue-600 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-all duration-200 hover:scale-105 hover:shadow-md"
                       >
                         <Edit className="w-4 h-4 mr-1" />
-                        Edit
+                        {t('common.edit')}
                       </Button>
                     </div>
                   </div>
@@ -378,19 +380,19 @@ function ClientsPageContent() {
         {!isLoading && filteredClients.length === 0 && (
           <div className="text-center py-12">
             <User className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No clients found</h3>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">{t('clients.noClientsFound')}</h3>
             <p className="text-gray-600 mb-4">
-              {searchTerm || selectedType !== 'all' || selectedStatus !== 'all' 
-                ? 'Try adjusting your search or filters'
-                : 'Get started by adding your first client'
+              {searchTerm || selectedType !== 'all' || selectedStatus !== 'all'
+                ? t('clients.tryAdjustingFilters')
+                : t('clients.getStartedFirstClient')
               }
             </p>
-            <Button 
+            <Button
               onClick={handleAddClient}
               className="bg-blue-600 hover:bg-blue-700 text-white"
             >
               <Plus className="w-4 h-4 mr-2" />
-              Add Client
+              {t('clients.addClient')}
             </Button>
           </div>
         )}

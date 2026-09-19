@@ -3,6 +3,7 @@
 import { useEffect, useState, use, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { supabase } from '@/lib/api'
@@ -39,6 +40,7 @@ interface ClientDetailPageProps {
 
 export default function ClientDetailPage({ params }: ClientDetailPageProps) {
   const { user, loading } = useAuth()
+  const { t } = useLanguage()
   const router = useRouter()
   const isHydrated = useHydration()
   const { id } = use(params)
@@ -156,12 +158,12 @@ export default function ClientDetailPage({ params }: ClientDetailPageProps) {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <MainNavigation title="Client Details" />
+        <MainNavigation title={t('clients.clientDetailsTitle')} />
         <main className="container mx-auto px-4 py-8">
-          <BackNavigation fallbackPath="/clients" fallbackText="Clients" />
+          <BackNavigation fallbackPath="/clients" fallbackText={t('nav.clients')} />
           <div className="text-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading client details...</p>
+            <p className="text-gray-600">{t('clients.loadingClientDetails')}</p>
           </div>
         </main>
       </div>
@@ -171,15 +173,15 @@ export default function ClientDetailPage({ params }: ClientDetailPageProps) {
   if (error || !client) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <MainNavigation title="Client Details" />
+        <MainNavigation title={t('clients.clientDetailsTitle')} />
         <main className="container mx-auto px-4 py-8">
-          <BackNavigation fallbackPath="/clients" fallbackText="Clients" />
+          <BackNavigation fallbackPath="/clients" fallbackText={t('nav.clients')} />
           <div className="text-center py-12">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              {error || 'Client not found'}
+              {error || t('clients.clientNotFound')}
             </h2>
             <Button onClick={() => router.push('/clients')}>
-              Return to Clients
+              {t('clients.returnToClients')}
             </Button>
           </div>
         </main>
@@ -192,7 +194,7 @@ export default function ClientDetailPage({ params }: ClientDetailPageProps) {
       <MainNavigation title={`${client.first_name} ${client.last_name}`} />
       
       <div className="flex items-center justify-between mb-6">
-        <BackNavigation fallbackPath="/clients" fallbackText="Clients" />
+        <BackNavigation fallbackPath="/clients" fallbackText={t('nav.clients')} />
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-3">
             {getClientTypeIcon(client.client_type || 'buyer')}
@@ -211,7 +213,7 @@ export default function ClientDetailPage({ params }: ClientDetailPageProps) {
             />
             <Button variant="outline" size="sm">
               <Edit className="w-4 h-4 mr-2" />
-              Edit
+              {t('common.edit')}
             </Button>
           </div>
         </div>
@@ -223,7 +225,7 @@ export default function ClientDetailPage({ params }: ClientDetailPageProps) {
           <div className="lg:col-span-1 space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Contact Information</CardTitle>
+                <CardTitle>{t('clients.contactInformation')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center space-x-3">
@@ -247,30 +249,30 @@ export default function ClientDetailPage({ params }: ClientDetailPageProps) {
 
             <Card>
               <CardHeader>
-                <CardTitle>Client Details</CardTitle>
+                <CardTitle>{t('clients.clientDetailsTitle')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-gray-900">Type:</span>
+                  <span className="text-sm font-semibold text-gray-900">{t('clients.type')}:</span>
                   <span className="text-sm font-medium text-gray-800">{client.client_type}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-gray-900">Status:</span>
+                  <span className="text-sm font-semibold text-gray-900">{t('common.status')}:</span>
                   <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(client.status || 'prospect')}`}>
                     {client.status || 'prospect'}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-gray-900">Contact Method:</span>
+                  <span className="text-sm font-semibold text-gray-900">{t('clients.contactMethod')}:</span>
                   <span className="text-sm font-medium text-gray-800">{client.preferred_contact_method}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-gray-900">Source:</span>
+                  <span className="text-sm font-semibold text-gray-900">{t('clients.source')}:</span>
                   <span className="text-sm font-medium text-gray-800">{client.source}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-gray-900">Created:</span>
-                  <span className="text-sm font-medium text-gray-800">{client.created_at ? formatDate(client.created_at) : 'Unknown'}</span>
+                  <span className="text-sm font-semibold text-gray-900">{t('clients.created')}:</span>
+                  <span className="text-sm font-medium text-gray-800">{client.created_at ? formatDate(client.created_at) : t('clients.unknown')}</span>
                 </div>
               </CardContent>
             </Card>
@@ -278,11 +280,11 @@ export default function ClientDetailPage({ params }: ClientDetailPageProps) {
             {client.budget_range && typeof client.budget_range === 'object' && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Budget Range</CardTitle>
+                  <CardTitle>{t('clients.budgetRange')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-lg font-bold text-gray-900">
-                    {(client.budget_range as { min?: number; max?: number }).min?.toLocaleString() || 'N/A'}€ - {(client.budget_range as { min?: number; max?: number }).max?.toLocaleString() || 'N/A'}€
+                    {(client.budget_range as { min?: number; max?: number }).min?.toLocaleString() || t('common.none')}€ - {(client.budget_range as { min?: number; max?: number }).max?.toLocaleString() || t('common.none')}€
                   </div>
                 </CardContent>
               </Card>
@@ -291,7 +293,7 @@ export default function ClientDetailPage({ params }: ClientDetailPageProps) {
             {client.tags && client.tags.length > 0 && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Tags</CardTitle>
+                  <CardTitle>{t('clients.tags')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
@@ -311,7 +313,7 @@ export default function ClientDetailPage({ params }: ClientDetailPageProps) {
             {client.preferences && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Preferences & Notes</CardTitle>
+                  <CardTitle>{t('clients.preferencesAndNotes')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-sm text-gray-800 font-medium whitespace-pre-wrap">
@@ -336,7 +338,7 @@ export default function ClientDetailPage({ params }: ClientDetailPageProps) {
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center space-x-2">
                     <MessageSquare className="w-5 h-5 text-blue-600" />
-                    <span>Client Tasks</span>
+                    <span>{t('clients.clientTasks')}</span>
                   </CardTitle>
                   {isTasksExpanded ? (
                     <ChevronUp className="w-5 h-5 text-gray-500" />
@@ -366,7 +368,7 @@ export default function ClientDetailPage({ params }: ClientDetailPageProps) {
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center space-x-2">
                     <Calendar className="w-5 h-5 text-green-600" />
-                    <span>Communication History</span>
+                    <span>{t('clients.communicationHistory')}</span>
                   </CardTitle>
                   {isTimelineExpanded ? (
                     <ChevronUp className="w-5 h-5 text-gray-500" />
@@ -395,7 +397,7 @@ export default function ClientDetailPage({ params }: ClientDetailPageProps) {
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center space-x-2">
                     <Heart className="w-5 h-5 text-red-600" />
-                    <span>Property Interests</span>
+                    <span>{t('clients.propertyInterests')}</span>
                   </CardTitle>
                   {isInterestsExpanded ? (
                     <ChevronUp className="w-5 h-5 text-gray-500" />
@@ -423,7 +425,7 @@ export default function ClientDetailPage({ params }: ClientDetailPageProps) {
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center space-x-2">
                     <FileText className="w-5 h-5 text-purple-600" />
-                    <span>Apply Task Templates</span>
+                    <span>{t('clients.applyTaskTemplates')}</span>
                   </CardTitle>
                   {isTemplatesExpanded ? (
                     <ChevronUp className="w-5 h-5 text-gray-500" />
