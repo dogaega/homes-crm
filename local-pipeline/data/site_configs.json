@@ -1,0 +1,6689 @@
+[
+ {
+  "site_key": "web-bc-properties-com",
+  "agency": "BC PROPERTIES MONACO",
+  "website": "https://bc-properties.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://bc-properties.com/listing/?sale_type=rent"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?bc\\-properties\\.com/property/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/property/{slug}",
+  "links_seen": 165,
+  "index_source": "sitemap",
+  "samples": [
+   {
+    "url": "https://www.bc-properties.com/property/2-bedroom-apartment-bd-des-moulins/",
+    "hint": null,
+    "score": 4,
+    "missing": [
+     "transaction",
+     "area",
+     "ref",
+     "desc"
+    ],
+    "sample": {
+     "transaction_type": null,
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "2 BEDROOM APARTMENT - BD DES MOULINS",
+     "agent_name": "Théo GARNIER",
+     "agent_phone": "+33 6 73 54 38 24",
+     "agent_email": null,
+     "photos": 30
+    }
+   },
+   {
+    "url": "https://www.bc-properties.com/property/renovated-one-bedroom-apartment-with-sea-view/",
+    "hint": null,
+    "score": 5,
+    "missing": [
+     "area",
+     "ref",
+     "desc"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": 1,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "RENOVATED ONE BEDROOM APARTMENT WITH SEA VIEW",
+     "agent_name": "Benoit BRIZZI Managing",
+     "agent_phone": "+33 6 20 03 62 24",
+     "agent_email": null,
+     "photos": 32
+    }
+   }
+  ],
+  "quality": 4
+ },
+ {
+  "site_key": "web-petrini-mc",
+  "agency": "Petrini Exclusive Real Estate Monaco",
+  "website": "https://www.petrini.mc/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.petrini.mc/fr/ventes/monaco/"
+   ],
+   "rent": [
+    "https://www.petrini.mc/fr/locations/monaco/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?petrini\\.mc/fr/produit\\-vente/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?petrini\\.mc/fr/produit\\-location/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/produit-vente/{id-slug} | /fr/produit-location/{id-slug}",
+  "links_seen": 21,
+  "samples": [
+   {
+    "url": "https://www.petrini.mc/fr/produit-vente/126976-la-radieuse-appartements-3-pieces/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 3800000,
+     "living_area_sqm": 90,
+     "rooms": 3,
+     "bedrooms": null,
+     "floor": 2,
+     "external_ref": null,
+     "quarter": "La Rousse - Saint Roman",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 20
+    }
+   },
+   {
+    "url": "https://www.petrini.mc/fr/produit-vente/113103-le-montaigne-b-c-appartements-studios/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 3400000,
+     "living_area_sqm": 37,
+     "rooms": 1,
+     "bedrooms": 0,
+     "floor": 0,
+     "external_ref": null,
+     "quarter": "Carré d'Or",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 6
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-valeri-agency-com",
+  "agency": "Barnes I Valeri Agency",
+  "website": "https://www.valeri-agency.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.valeri-agency.com/fr/ventes/monaco/",
+    "https://www.valeri-agency.com/fr/ventes-commerciales"
+   ],
+   "rent": [
+    "https://www.valeri-agency.com/fr/locations?type_offer=7",
+    "https://www.valeri-agency.com/fr/locations-commerciales"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?valeri\\-agency\\.com/fr/produit\\-vente/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?valeri\\-agency\\.com/fr/produit\\-location/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/produit-vente/{id-slug} | /fr/produit-location/{id-slug}",
+  "links_seen": 24,
+  "samples": [
+   {
+    "url": "https://www.valeri-agency.com/fr/produit-vente/127506-moneghetti-fonds-de-commerce/",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 380000,
+     "living_area_sqm": 35,
+     "rooms": null,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": "C1097-2C",
+     "quarter": "Moneghetti",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 6
+    }
+   },
+   {
+    "url": "https://www.valeri-agency.com/fr/produit-vente/108159-fontvieille-parkings/",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 225000,
+     "living_area_sqm": 10,
+     "rooms": null,
+     "bedrooms": 4,
+     "floor": null,
+     "external_ref": "V1593",
+     "quarter": "Fontvieille",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 9
+    }
+   }
+  ],
+  "quality": 7
+ },
+ {
+  "site_key": "web-carat-properties-com",
+  "agency": "Carat Properties",
+  "website": "https://carat-properties.com/",
+  "runner": "local",
+  "status": "unreachable",
+  "immotoolbox": false,
+  "error": "https://carat-properties.com/: SSLError"
+ },
+ {
+  "site_key": "web-miells-com",
+  "agency": "Miells Monaco Real Estate",
+  "website": "https://www.miells.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.miells.com/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?miells\\.com/de/leben\\-in\\-monaco/nachrichten/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/de/leben-in-monaco/nachrichten/{slug}",
+  "links_seen": 37,
+  "index_source": "sitemap",
+  "samples": [
+   {
+    "url": "https://www.miells.com/de/leben-in-monaco/nachrichten/gewerbeimmobilien-in-monaco-praxis-mietvertraege-und-rechtliche-rahmenbedingungen/",
+    "hint": null,
+    "score": 3,
+    "missing": [
+     "transaction",
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": null,
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Gewerbeimmobilien in Monaco: Praxis, Mietverträge und rechtliche Rahmenbedingungen",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 3
+    }
+   },
+   {
+    "url": "https://www.miells.com/de/leben-in-monaco/nachrichten/welche-immobilienanlagestrategien-sollte-man-2026-in-monaco-waehlen/",
+    "hint": null,
+    "score": 3,
+    "missing": [
+     "transaction",
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": null,
+     "price": 57569,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Welche Immobilienanlagestrategien sollte man 2026 in Monaco wählen?",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 3
+    }
+   }
+  ],
+  "quality": 3
+ },
+ {
+  "site_key": "web-vcb-mc",
+  "agency": "Viviani Champfleury Barco",
+  "website": "https://www.vcb.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://vcb.mc/sales/"
+   ],
+   "rent": [
+    "https://vcb.mc/rentals/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?vcb\\.mc/bien/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/bien/{slug}",
+  "links_seen": 29,
+  "samples": [
+   {
+    "url": "https://vcb.mc/bien/the-future-of-the-principality-the-extension-on-the-sea/",
+    "hint": "sale",
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "The future of the Principality : the extension on the sea",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 5
+    }
+   },
+   {
+    "url": "https://vcb.mc/bien/unique-world-class-penthouse-in-monacos-golden-square-with-sea-views/",
+    "hint": "sale",
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Unique world class penthouse in Monaco’s Golden Square with sea views",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 5
+    }
+   }
+  ],
+  "quality": 3
+ },
+ {
+  "site_key": "web-monacoproperties-mc",
+  "agency": "Monaco Properties",
+  "website": "https://www.monacoproperties.mc/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.monacoproperties.mc/fr/ventes"
+   ],
+   "rent": [
+    "https://www.monacoproperties.mc/fr/locations"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?monacoproperties\\.mc/fr/produit\\-vente/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?monacoproperties\\.mc/fr/produit\\-location/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/produit-vente/{id-slug} | /fr/produit-location/{id-slug}",
+  "links_seen": 12,
+  "samples": [
+   {
+    "url": "https://www.monacoproperties.mc/fr/produit-vente/89843-monaco-ville-proprietes/",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 75000000,
+     "living_area_sqm": 440,
+     "rooms": 5,
+     "bedrooms": 5,
+     "floor": null,
+     "external_ref": "VM0223-9",
+     "quarter": "MONACO-VILLE | PROPRIÉTÉ SUR QUATRE NIVEAUX AVEC VUE PANORAMIQUE",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 51
+    }
+   },
+   {
+    "url": "https://www.monacoproperties.mc/fr/produit-vente/42415-villa-san-carlo-penthouses-roofs-4-pieces/",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 16800000,
+     "living_area_sqm": 150,
+     "rooms": 4,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": "VM04-16",
+     "quarter": "Monte-Carlo – San Carlo – Penthouse rénové avec toit-terrasse et vue mer",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 37
+    }
+   }
+  ],
+  "quality": 7
+ },
+ {
+  "site_key": "web-groupesmir-com",
+  "agency": "Groupe S.M.I.R.",
+  "website": "https://www.groupesmir.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.groupesmir.com/fr/achats-monaco",
+    "https://www.groupesmir.com/fr/ventes-monaco"
+   ],
+   "rent": [
+    "https://www.groupesmir.com/fr/locations",
+    "https://www.groupesmir.com/fr/locations-monaco"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?groupesmir\\.com/fr/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/{slug}",
+  "links_seen": 4,
+  "samples": [
+   {
+    "url": "https://www.groupesmir.com/fr/regime-fiscal-a-monaco",
+    "hint": "rent",
+    "score": 4,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Le régime fiscal à Monaco",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 13
+    }
+   },
+   {
+    "url": "https://www.groupesmir.com/fr/regime-fiscal-a-monaco",
+    "hint": "rent",
+    "score": 4,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Le régime fiscal à Monaco",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 13
+    }
+   }
+  ],
+  "quality": 4
+ },
+ {
+  "site_key": "web-mazza-immobilier-com",
+  "agency": "Mazza Immobilier",
+  "website": "https://mazza-immobilier.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://mazza-immobilier.com/fr/ventes"
+   ],
+   "rent": [
+    "https://mazza-immobilier.com/fr/locations"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?mazza\\-immobilier\\.com/fr/propri%C3%A9t%C3%A9/\\d{3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/propri%C3%A9t%C3%A9/{id}",
+  "links_seen": 27,
+  "samples": [
+   {
+    "url": "https://mazza-immobilier.com/fr/propri%C3%A9t%C3%A9/87341577",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 850000,
+     "living_area_sqm": 67.37,
+     "rooms": 3,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Vivez le charme de la Côte d'Azur à Éze",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 10
+    }
+   },
+   {
+    "url": "https://mazza-immobilier.com/fr/propri%C3%A9t%C3%A9/87315729",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 2200000,
+     "living_area_sqm": 1,
+     "rooms": 1,
+     "bedrooms": 0,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Studio à Fontvieille — Projet de rénovation",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 8
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-john-taylor-mc",
+  "agency": "John Taylor",
+  "website": "https://www.john-taylor.mc/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.john-taylor.mc/fr/ventes"
+   ],
+   "rent": [
+    "https://www.john-taylor.mc/fr/locations"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?john\\-taylor\\.mc/fr/propriete/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/propriete/{id-slug}",
+  "links_seen": 20,
+  "samples": [
+   {
+    "url": "https://www.john-taylor.mc/fr/propriete/vente+appartement+monaco+jardin-exotique-les-ligures-elegant-2-pieces-renove-avec-terrasse-et-vue-mer+87363577",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 4800000,
+     "living_area_sqm": 70,
+     "rooms": 2,
+     "bedrooms": 1,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Jardin Exotique - Les Ligures – Élégant 2 pièces rénové avec terrasse et vue mer",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 15
+    }
+   },
+   {
+    "url": "https://www.john-taylor.mc/fr/propriete/vente+appartement+monaco+superbe-studio-meuble-a-la-rousse-monaco+87239016",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 2300000,
+     "living_area_sqm": 39,
+     "rooms": 1,
+     "bedrooms": 0,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Superbe studio meublé à La Rousse, Monaco",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 14
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-westrope-monaco-com",
+  "agency": "Westrope Real Estate",
+  "website": "https://www.westrope-monaco.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.westrope-monaco.com/index.php?page=liste&type=location",
+    "https://www.westrope-monaco.com/index.php?page=liste&type=vente"
+   ],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-dameno-mc",
+  "agency": "DAMENO | MONACO REAL ESTATE",
+  "website": "https://www.dameno.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://dameno.mc/buy-in-monaco/",
+    "https://dameno.mc/fr/ventes-monaco/"
+   ],
+   "rent": [
+    "https://dameno.mc/fr/locations/",
+    "https://dameno.mc/fr/locations-monaco/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?dameno\\.mc/fr/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?dameno\\.mc/fr/properties/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/{slug} | /fr/properties/{slug}",
+  "links_seen": 24,
+  "samples": [
+   {
+    "url": "https://dameno.mc/fr/programmes-neufs-a-monaco/",
+    "hint": "rent",
+    "score": 4,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Programmes neufs à Monaco",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 43
+    }
+   },
+   {
+    "url": "https://dameno.mc/fr/biens-commerciaux-a-monaco/",
+    "hint": "rent",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": 30,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Biens commerciaux à Monaco",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   }
+  ],
+  "quality": 4
+ },
+ {
+  "site_key": "web-lorenzavonstein-com",
+  "agency": "Lorenza von Stein Monaco",
+  "website": "https://www.lorenzavonstein.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.lorenzavonstein.com/fr/ventes"
+   ],
+   "rent": [
+    "https://www.lorenzavonstein.com/fr/locations"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?lorenzavonstein\\.com/fr/propriete/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/propriete/{id-slug}",
+  "links_seen": 18,
+  "samples": [
+   {
+    "url": "https://www.lorenzavonstein.com/fr/propriete/vente+appartement+monaco+projet-de-villa-d-exception-dans-le-carre-d-or+87321412",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 19000000,
+     "living_area_sqm": 390,
+     "rooms": 7,
+     "bedrooms": 4,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Projet de villa d’exception dans le Carré d’Or",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 6
+    }
+   },
+   {
+    "url": "https://www.lorenzavonstein.com/fr/propriete/vente+appartement+monaco+le-renzo-prestigieux-appartement-de-4-5-pieces+87284840",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 63000000,
+     "living_area_sqm": 411,
+     "rooms": 4,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Le Renzo – Prestigieux appartement de 4/5 pieces",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 12
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-aibb-mc",
+  "agency": "A.I.B.B. Real Estate",
+  "website": "https://www.aibb.mc/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.aibb.mc/ventes-monaco",
+    "https://www.aibb.mc/propertysearch/?nsearch%5Btype%5D=sale&nsearch%5Bdistrict%5D%5B%5D=1"
+   ],
+   "rent": [
+    "https://www.aibb.mc/locations-monaco",
+    "https://aibb.mc/accompagnement/location/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?aibb\\.mc/property\\-details/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/property-details/{id-slug}",
+  "links_seen": 38,
+  "samples": [
+   {
+    "url": "https://aibb.mc/property-details/96976-appartement-la-rousse-saint-roman-monaco/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1950000,
+     "living_area_sqm": 40.5,
+     "rooms": 2,
+     "bedrooms": 1,
+     "floor": null,
+     "external_ref": "CB-2 P AUTEUIL bloc B",
+     "quarter": "Monaco - La Rousse - Saint Roman",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 16
+    }
+   },
+   {
+    "url": "https://aibb.mc/property-details/82779-appartement-larvotto-monaco/",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1995000,
+     "living_area_sqm": 45,
+     "rooms": 2,
+     "bedrooms": 1,
+     "floor": null,
+     "external_ref": "YC-V.TL",
+     "quarter": "Monaco - Larvotto",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 16
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-heritageproperties-mc",
+  "agency": "Heritage Properties",
+  "website": "https://www.heritageproperties.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.heritageproperties.mc/fr/recherche/achat/grid",
+    "https://www.heritageproperties.mc/fr/recherche/achat/v_port/grid"
+   ],
+   "rent": [
+    "https://www.heritageproperties.mc/fr/recherche/location/grid",
+    "https://www.heritageproperties.mc/fr/recherche/location/v_port/grid"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?heritageproperties\\.mc/fr/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/{slug}",
+  "links_seen": 4,
+  "samples": [
+   {
+    "url": "https://www.heritageproperties.mc/fr/les-quartiers-de-monaco-43",
+    "hint": "rent",
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Guide des quartiers de Monaco",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 0
+    }
+   },
+   {
+    "url": "https://www.heritageproperties.mc/fr/les-quartiers-de-monaco-43",
+    "hint": "rent",
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Guide des quartiers de Monaco",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 0
+    }
+   }
+  ],
+  "quality": 3
+ },
+ {
+  "site_key": "web-carolineolds-com",
+  "agency": "Caroline Olds Real Estate",
+  "website": "https://www.carolineolds.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://carolineolds.com/for-sale/"
+   ],
+   "rent": [
+    "https://carolineolds.com/for-rent/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?carolineolds\\.com/property/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/property/{slug}",
+  "links_seen": 59,
+  "samples": [
+   {
+    "url": "https://carolineolds.com/property/lexotique-jardin-exotique-2-bed-for-sale-in-monaco/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 12900000,
+     "living_area_sqm": 210,
+     "rooms": null,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "LUXURIOUS APARTMENT | NEW DEVELOPMENT | L'EXOTIQUE",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 25
+    }
+   },
+   {
+    "url": "https://carolineolds.com/property/le-renzo-mareterra-3-bed-for-sale-in-monaco/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 76500000,
+     "living_area_sqm": 674,
+     "rooms": null,
+     "bedrooms": 3,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "BEAUTIFUL & GRAND, BRAND NEW, 3-BEDROOM PROPERTY",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 16
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-exclusive-estate-mc",
+  "agency": "Exclusive Estate Monaco",
+  "website": "https://www.exclusive-estate.mc/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.exclusive-estate.mc/fr/ventes/",
+    "https://www.exclusive-estate.mc/fr/ventes-monaco/"
+   ],
+   "rent": [
+    "https://www.exclusive-estate.mc/fr/locations/",
+    "https://www.exclusive-estate.mc/fr/locations-monaco/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?exclusive\\-estate\\.mc/fr/produit/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/produit/{id-slug}",
+  "links_seen": 42,
+  "samples": [
+   {
+    "url": "https://www.exclusive-estate.mc/fr/produit/123778-vente-monaco-luxury-living-overlooking-monaco%E2%80%99s-port",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 10300000,
+     "living_area_sqm": 185,
+     "rooms": null,
+     "bedrooms": 4,
+     "floor": null,
+     "external_ref": "ES-EEM-V263",
+     "quarter": "Carré d'Or",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 9
+    }
+   },
+   {
+    "url": "https://www.exclusive-estate.mc/fr/produit/127064-vente-monaco-exclusivite-fonds-de-commerce-condamine",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "rooms",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 680000,
+     "living_area_sqm": 55,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": "NRMF - 042",
+     "quarter": "Condamine",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 3
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-gramaglia-mc",
+  "agency": "Agence Gramaglia",
+  "website": "https://www.gramaglia.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-25lcp-com",
+  "agency": "La Costa Properties Monaco",
+  "website": "https://www.25lcp.com/",
+  "runner": "local",
+  "status": "unreachable",
+  "immotoolbox": false,
+  "error": "https://www.25lcp.com/: HTTP 202"
+ },
+ {
+  "site_key": "web-marsanimmobiliermonaco-mc",
+  "agency": "Marsan Immobilier Monaco",
+  "website": "https://www.marsanimmobiliermonaco.mc/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.marsanimmobiliermonaco.mc/fr/ventes-commerciales",
+    "https://www.marsanimmobiliermonaco.mc/fr/ventes-residentielles"
+   ],
+   "rent": [
+    "https://www.marsanimmobiliermonaco.mc/fr/locations-commerciales",
+    "https://www.marsanimmobiliermonaco.mc/fr/locations-residentielles"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?marsanimmobiliermonaco\\.mc/fr/produit\\-vente/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?marsanimmobiliermonaco\\.mc/fr/produit\\-location/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/produit-vente/{id-slug} | /fr/produit-location/{id-slug}",
+  "links_seen": 22,
+  "samples": [
+   {
+    "url": "https://www.marsanimmobiliermonaco.mc/fr/produit-vente/112922-le-thales-bureaux/",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "rooms"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 13250000,
+     "living_area_sqm": 398,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": 7,
+     "external_ref": "MIMTHALES3",
+     "quarter": "Fontvieille",
+     "agent_name": "Aurélia Jofroit",
+     "agent_phone": null,
+     "agent_email": "info@marsanimmobiliermonaco.mc",
+     "photos": 8
+    }
+   },
+   {
+    "url": "https://www.marsanimmobiliermonaco.mc/fr/produit-vente/105880-le-michelangelo-bureaux/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "rooms",
+     "photos"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 2756000,
+     "living_area_sqm": 87,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": "MIMMICH70",
+     "quarter": "Fontvieille",
+     "agent_name": "Aurélia Jofroit",
+     "agent_phone": null,
+     "agent_email": "info@marsanimmobiliermonaco.mc",
+     "photos": 1
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-afim-mc",
+  "agency": "AFIM SAM",
+  "website": "https://www.afim.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.afim.mc/vente-appartement.html",
+    "https://www.afim.mc/vente-studio-monaco.html"
+   ],
+   "rent": [
+    "https://www.afim.mc/location-parking,garage.html",
+    "https://www.afim.mc/location-appartement-studio.html"
+   ]
+  }
+ },
+ {
+  "site_key": "web-montecarlo-sothebysrealty-com",
+  "agency": "Monte-Carlo Sotheby's International Realty",
+  "website": "https://www.montecarlo-sothebysrealty.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.montecarlo-sothebysrealty.com/fr/vente-penthouse-monaco/&new_research=1",
+    "https://www.montecarlo-sothebysrealty.com/fr/vente-appartement-monaco/&new_research=1"
+   ],
+   "rent": [
+    "https://www.montecarlo-sothebysrealty.com/fr/location-bureau-monaco/&new_research=1",
+    "https://www.montecarlo-sothebysrealty.com/fr/location-appartement-monaco/&new_research=1"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?montecarlo\\-sothebysrealty\\.com/fr/immobilier\\-luxe\\-monaco/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?montecarlo\\-sothebysrealty\\.com/fr/[a-z0-9]+(?:-[a-z0-9]+){3,}/\\&new_research=1/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/immobilier-luxe-monaco/{id-slug}/{id-slug} | /fr/{slug}/&new_research=1",
+  "links_seen": 22,
+  "samples": [
+   {
+    "url": "https://www.montecarlo-sothebysrealty.com/fr/immobilier-luxe-monaco/ref-mc2-1187/vente-appartement-monaco-3-pieces-2-chambres-98000/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": 253.3,
+     "rooms": 3,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Carré d'Or, Port",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 2
+    }
+   },
+   {
+    "url": "https://www.montecarlo-sothebysrealty.com/fr/immobilier-luxe-monaco/ref-mc2-1176/vente-bureaux-monaco-98000/",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 6300000,
+     "living_area_sqm": 226.4,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Jardin Exotique",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 2
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-houseandco-mc",
+  "agency": "House & Co.",
+  "website": "https://www.houseandco.mc/",
+  "runner": "local",
+  "status": "unreachable",
+  "immotoolbox": false,
+  "error": "https://www.houseandco.mc/: SSLError"
+ },
+ {
+  "site_key": "web-eticimmobilier-com",
+  "agency": "Coldwell Banker Etic Realty",
+  "website": "https://www.eticimmobilier.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.eticimmobilier.com/vente+immobilier.html",
+    "https://www.eticimmobilier.com/vente+parking-garage-box.html"
+   ],
+   "rent": [
+    "https://www.eticimmobilier.com/location+immobilier.html"
+   ]
+  }
+ },
+ {
+  "site_key": "web-caroli-realestate-com",
+  "agency": "Caroli Real Estate",
+  "website": "https://www.caroli-realestate.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.caroli-realestate.com/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?caroli\\-realestate\\.com/fr/produit\\-vente/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/produit-vente/{id-slug}",
+  "links_seen": 26,
+  "index_source": "sitemap",
+  "samples": [
+   {
+    "url": "https://www.caroli-realestate.com/fr/produit-vente/93570-parc-saint-roman-duplex-2-pieces/",
+    "hint": null,
+    "score": 6,
+    "missing": [
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 4150000,
+     "living_area_sqm": 90,
+     "rooms": 2,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": "PSR-100",
+     "quarter": "La Rousse - Saint Roman",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 41
+    }
+   },
+   {
+    "url": "https://www.caroli-realestate.com/fr/produit-vente/126640-grande-bretagne-appartements-4-pieces/",
+    "hint": null,
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 9000000,
+     "living_area_sqm": 116,
+     "rooms": 4,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": "GB1",
+     "quarter": "Monte-Carlo",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 27
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-town-sea-com",
+  "agency": "AAA Monaco Town & Sea Immobilier",
+  "website": "https://www.town-sea.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.town-sea.com/fr/ventes/",
+    "https://www.town-sea.com/fr/ventes-monaco/"
+   ],
+   "rent": [
+    "https://www.town-sea.com/fr/locations/",
+    "https://www.town-sea.com/fr/locations-monaco/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?town\\-sea\\.com/fr/produit/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/produit/{id-slug}",
+  "links_seen": 48,
+  "samples": [
+   {
+    "url": "https://www.town-sea.com/fr/produit/108342-vente-chalet-a-la-vente-limone-piemonte",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": 300,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": null,
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 14
+    }
+   },
+   {
+    "url": "https://www.town-sea.com/fr/produit/115129-vente-monaco-joyau-immobilier-au-coeur-du-larvotto",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 22800000,
+     "living_area_sqm": 238,
+     "rooms": 4,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": null,
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 5
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-prime-estate-mc",
+  "agency": "PRIME Estate",
+  "website": "https://prime-estate.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-fcfrealestate-com",
+  "agency": "FCF Cristea-Flandrin Immobilier",
+  "website": "https://www.fcfrealestate.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.fcfrealestate.com/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?fcfrealestate\\.com/fr/produit\\-vente/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/produit-vente/{id-slug}",
+  "links_seen": 6,
+  "samples": [
+   {
+    "url": "https://www.fcfrealestate.com/fr/produit-vente/127347-patio-palace-appartements-studios/",
+    "hint": null,
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1900000,
+     "living_area_sqm": 41,
+     "rooms": 1,
+     "bedrooms": 0,
+     "floor": 9,
+     "external_ref": "FFV1072",
+     "quarter": "Jardin Exotique",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 18
+    }
+   },
+   {
+    "url": "https://www.fcfrealestate.com/fr/produit-vente/127283-eden-park-appartements-2-pieces/",
+    "hint": null,
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 2090000,
+     "living_area_sqm": 45,
+     "rooms": 2,
+     "bedrooms": 1,
+     "floor": 0,
+     "external_ref": "FFV1071",
+     "quarter": "Jardin Exotique",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 18
+    }
+   }
+  ],
+  "quality": 7
+ },
+ {
+  "site_key": "web-dotta-mc",
+  "agency": "Dotta Immobilier",
+  "website": "https://www.dotta.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.dotta.mc/monaco/vente/",
+    "https://www.dotta.mc/retail-vente/"
+   ],
+   "rent": [
+    "https://www.dotta.mc/monaco/location/",
+    "https://www.dotta.mc/retail-location/"
+   ]
+  }
+ },
+ {
+  "site_key": "web-volumes-mc",
+  "agency": "Volumes",
+  "website": "https://www.volumes.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.volumes.mc/index.php?page=liste&search=Location",
+    "https://www.volumes.mc/index.php?page=liste&search=Vente"
+   ],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-mycrownestates-mc",
+  "agency": "MyCrown Estates",
+  "website": "https://www.mycrownestates.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.mycrownestates.mc/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?mycrownestates\\.mc/proprietes/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/proprietes/{slug}",
+  "links_seen": 3,
+  "samples": [
+   {
+    "url": "https://www.mycrownestates.mc/proprietes/appartement-luxueusement-renove-avec-vue-sur-la-mer",
+    "hint": null,
+    "score": 5,
+    "missing": [
+     "transaction",
+     "area",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": null,
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": "MCE203",
+     "quarter": "Appartement luxueusement rÃ©novÃ© avec vue sur la mer",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   },
+   {
+    "url": "https://www.mycrownestates.mc/proprietes/3-pieces-le-suffren",
+    "hint": null,
+    "score": 5,
+    "missing": [
+     "transaction",
+     "area",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": null,
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": "MCE203",
+     "quarter": "3 PIÃCES - LE SUFFREN",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-agencenouvellemonaco-com",
+  "agency": "Agence Nouvelle",
+  "website": "https://www.agencenouvellemonaco.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.agencenouvellemonaco.com/fr/ventes/grid"
+   ],
+   "rent": [
+    "https://www.agencenouvellemonaco.com/fr/locations/grid"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?agencenouvellemonaco\\.com/fr/bien/\\d{3,}/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/bien/{id}/{slug}",
+  "links_seen": 25,
+  "samples": [
+   {
+    "url": "https://www.agencenouvellemonaco.com/fr/bien/125671/monte-carlo-palace-double-emplacement-de-parking",
+    "hint": "sale",
+    "score": 4,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 800000,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "MONTE CARLO PALACE - DOUBLE EMPLACEMENT DE PARKING",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 5
+    }
+   },
+   {
+    "url": "https://www.agencenouvellemonaco.com/fr/bien/125688/monaco-ville-charmant-studio",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 950000,
+     "living_area_sqm": 25,
+     "rooms": 1,
+     "bedrooms": 0,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "MONACO VILLE - CHARMANT STUDIO",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 27
+    }
+   }
+  ],
+  "quality": 4
+ },
+ {
+  "site_key": "web-segond-immobilier-com",
+  "agency": "Segond Immobilier",
+  "website": "https://www.segond-immobilier.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.segond-immobilier.com/statut/vente/"
+   ],
+   "rent": [
+    "https://www.segond-immobilier.com/statut/location/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?segond\\-immobilier\\.com/tous\\-nos\\-biens/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/tous-nos-biens/{slug}",
+  "links_seen": 46,
+  "samples": [
+   {
+    "url": "https://www.segond-immobilier.com/tous-nos-biens/exclusivite-vente-3p-carre-dor-vue-panoramique/",
+    "hint": "sale",
+    "score": 4,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Exclusivité - Vente 3P, Carré d'Or Vue Panoramique",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   },
+   {
+    "url": "https://www.segond-immobilier.com/tous-nos-biens/vente-exclusivite-grand-studio-meuble-a-la-condamine-monaco/",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "area",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 2700000,
+     "living_area_sqm": null,
+     "rooms": 1,
+     "bedrooms": 0,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Vente Exclusivité grand studio meublé à la Condamine Monaco",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   }
+  ],
+  "quality": 4
+ },
+ {
+  "site_key": "web-colettirealestate-com",
+  "agency": "Coletti Real Estate",
+  "website": "https://www.colettirealestate.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.colettirealestate.com/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?colettirealestate\\.com/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}",
+  "links_seen": 16,
+  "samples": [
+   {
+    "url": "https://colettirealestate.com/properties-for-sale-monaco/",
+    "hint": null,
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": 104,
+     "rooms": null,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Luxury Property Monaco | Coletti Real Estate",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 35
+    }
+   },
+   {
+    "url": "https://colettirealestate.com/apartments-for-rent-monaco/",
+    "hint": null,
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": 211,
+     "rooms": null,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Apartments For Rent Monaco | Coletti Real Estate",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 25
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-wolf-estates-com",
+  "agency": "WOLF ESTATES",
+  "website": "https://wolf-estates.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://wolf-estates.com/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?wolf\\-estates\\.com/properties/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/properties/{slug}",
+  "links_seen": 3,
+  "samples": [
+   {
+    "url": "https://wolf-estates.com/properties/charming-apartment-at-villa-milton-steps-from-casino-square/",
+    "hint": null,
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 3950000,
+     "living_area_sqm": 110,
+     "rooms": null,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Charming Apartment at Villa Milton, Steps from Casino Square",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 28
+    }
+   },
+   {
+    "url": "https://wolf-estates.com/properties/sumptuous-5-bedroom-apartment-for-rent-carre-dor-petite-afrique/",
+    "hint": null,
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": 715,
+     "rooms": null,
+     "bedrooms": 5,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Sumptuous 5 bedroom apartment for rent – Carré d’Or – La Petite Afrique",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 30
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-magreymonaco-com",
+  "agency": "Magrey And Sons Monaco",
+  "website": "https://www.magreymonaco.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.magreymonaco.com/sale-apartment-monaco-port-a33.html"
+   ],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-intermedia-mc",
+  "agency": "Intermedia",
+  "website": "https://www.intermedia.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.intermedia.mc/vente-studio-monaco.html",
+    "https://www.intermedia.mc/vente-appartement-a-monaco.html"
+   ],
+   "rent": [
+    "https://www.intermedia.mc/location+vacances,location-appartement,maison-monaco.html",
+    "https://www.intermedia.mc/location+vacances,location-appartement,maison-international.html"
+   ]
+  }
+ },
+ {
+  "site_key": "web-slamonaco-com",
+  "agency": "SL AGENCY",
+  "website": "https://www.slamonaco.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.slamonaco.com/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?slamonaco\\.com/fr/propriete/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/propriete/{id-slug}",
+  "links_seen": 3,
+  "samples": [
+   {
+    "url": "https://www.slamonaco.com/fr/propriete/location+bureau+monaco+87403429",
+    "hint": null,
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 25000,
+     "living_area_sqm": 293,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Location immobilière : Bureau à Monaco , quartier Fontvieille 293 m² 25 000 € / Mois- SL Agency.",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 8
+    }
+   },
+   {
+    "url": "https://www.slamonaco.com/fr/propriete/vente+appartement+monaco+appartement-3-pieces-avec-vue-port-et-grand-prix+86010857",
+    "hint": null,
+    "score": 7,
+    "missing": [
+     "ref"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 6950000,
+     "living_area_sqm": 86,
+     "rooms": 3,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Appartement 3 pièces avec vue port et Grand Prix",
+     "agent_name": "Franck\n\t\t\t\t\t\t\t\t\tDAMENO",
+     "agent_phone": "+33607932896",
+     "agent_email": "fdameno@slamonaco.com",
+     "photos": 11
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-icon-property-com",
+  "agency": "Icon Property",
+  "website": "https://www.icon-property.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.icon-property.com/sales/",
+    "https://www.icon-property.com/monaco-districts/fontvieille/sales/"
+   ],
+   "rent": [
+    "https://www.icon-property.com/rentals/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?icon\\-property\\.com/property/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/property/{id-slug}",
+  "links_seen": 43,
+  "samples": [
+   {
+    "url": "https://www.icon-property.com/property/125101-apartment-port-monaco/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 13500000,
+     "living_area_sqm": 126,
+     "rooms": null,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Monaco - Port",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 42
+    }
+   },
+   {
+    "url": "https://www.icon-property.com/property/112416-apartment-fontvieille-monaco/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 2480000,
+     "living_area_sqm": 44,
+     "rooms": 1,
+     "bedrooms": 0,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Monaco - Fontvieille",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 24
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-ageprim-com",
+  "agency": "AGEPRIM",
+  "website": "https://www.ageprim.com/",
+  "runner": "local",
+  "status": "unreachable",
+  "immotoolbox": false,
+  "error": "https://www.ageprim.com/: HTTP 202"
+ },
+ {
+  "site_key": "web-monacolegendproperties-com",
+  "agency": "Monaco Legend Properties",
+  "website": "https://monacolegendproperties.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://monacolegendproperties.com/sale/"
+   ],
+   "rent": [
+    "https://monacolegendproperties.com/rental/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?monacolegendproperties\\.com/property/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/property/{id-slug}",
+  "links_seen": 27,
+  "samples": [
+   {
+    "url": "https://monacolegendproperties.com/property/86910-penthouse-roof-carre-dor-monaco/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 8450000,
+     "living_area_sqm": 80,
+     "rooms": 3,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Carré d'Or",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 23
+    }
+   },
+   {
+    "url": "https://monacolegendproperties.com/property/124640-parking-la-rousse-saint-roman-monaco/",
+    "hint": "sale",
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 395000,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "La Rousse – Saint Roman",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 3
+    }
+   }
+  ],
+  "quality": 3
+ },
+ {
+  "site_key": "web-faggionatoimmo-com",
+  "agency": "Faggionato Real Estate",
+  "website": "https://www.faggionatoimmo.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-continentale-mc",
+  "agency": "Agence Continentale",
+  "website": "https://www.continentale.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://continentale.mc/bien_a/acheter/",
+    "https://continentale.mc/bien_immobilier/2-pieces-moderne-en-duplex-au-stella-en-vente-a-condamine-monaco-monaco-ref2p_stella/"
+   ],
+   "rent": [
+    "https://continentale.mc/bien_a/louer/",
+    "https://continentale.mc/bien_immobilier/full-floor-apartment-one-monte-carlo-en-location-a-carre-dor-monaco-monaco-ref2pl_one-b10/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?continentale\\.mc/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}",
+  "links_seen": 12,
+  "samples": [
+   {
+    "url": "https://continentale.mc/off-market-immeubles-a-monaco/",
+    "hint": "rent",
+    "score": 4,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Immobilier Off-Market à Monaco, accédez à l’invisible",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 4
+    }
+   },
+   {
+    "url": "https://continentale.mc/a-propos-agence-continentale-monaco/",
+    "hint": "rent",
+    "score": 4,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Une histoire de confiance et d’excellence à Monaco",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 26
+    }
+   }
+  ],
+  "quality": 4
+ },
+ {
+  "site_key": "web-stars-real-estate-com",
+  "agency": "Stars Real Estate",
+  "website": "https://www.stars-real-estate.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.stars-real-estate.com/fr/ventes"
+   ],
+   "rent": [
+    "https://www.stars-real-estate.com/fr/locations"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?stars\\-real\\-estate\\.com/fr/ventes/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?stars\\-real\\-estate\\.com/fr/locations/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/ventes/{id-slug} | /fr/locations/{id-slug}",
+  "links_seen": 12,
+  "samples": [
+   {
+    "url": "https://www.stars-real-estate.com/fr/ventes/117369-riviera-palace-appartements-3-pieces/",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "ref"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 9800000,
+     "living_area_sqm": 114.3,
+     "rooms": 3,
+     "bedrooms": 2,
+     "floor": 6,
+     "external_ref": null,
+     "quarter": "Monte-Carlo",
+     "agent_name": "Michela Dattilo Fonction",
+     "agent_phone": "+33 6 77 69 71 39",
+     "agent_email": null,
+     "photos": 60
+    }
+   },
+   {
+    "url": "https://www.stars-real-estate.com/fr/ventes/119486-monaco-ville-appartements-3-pieces/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 2600000,
+     "living_area_sqm": 58,
+     "rooms": 3,
+     "bedrooms": 2,
+     "floor": 1,
+     "external_ref": null,
+     "quarter": "Monaco-Ville",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 25
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-lifeproperties-mc",
+  "agency": "LIFE PROPERTIES",
+  "website": "https://www.lifeproperties.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.lifeproperties.mc/properties?category=rental",
+    "https://www.lifeproperties.mc/properties?category=sale"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?lifeproperties\\.mc/properties/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/properties/{id-slug}",
+  "links_seen": 58,
+  "samples": [
+   {
+    "url": "https://www.lifeproperties.mc/properties/private-offices-mercator-office-fontvieille-127392",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": 25,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": "127392",
+     "quarter": "PRIVATE OFFICES – MERCATOR OFFICE, FONTVIEILLE",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 5
+    }
+   },
+   {
+    "url": "https://www.lifeproperties.mc/properties/off-market-3-bedroom-apartment-condamine-126627",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": 132,
+     "rooms": null,
+     "bedrooms": 3,
+     "floor": null,
+     "external_ref": "126627",
+     "quarter": "OFF MARKET – 3-BEDROOM APARTMENT – CONDAMINE",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 5
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-wolzok-com",
+  "agency": "Wolzok Immobilier",
+  "website": "https://www.wolzok.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.wolzok.com/fr/ventes/"
+   ],
+   "rent": [
+    "https://www.wolzok.com/fr/locations/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?wolzok\\.com/fr/produit/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/produit/{id-slug}",
+  "links_seen": 21,
+  "samples": [
+   {
+    "url": "https://www.wolzok.com/fr/produit/121933-vente-monaco-millefiori-r%C3%A9union-de-trois-caves-%C3%A0-vendre",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "rooms",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 220000,
+     "living_area_sqm": 20,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": 6,
+     "external_ref": "VWI-MILLCV1898",
+     "quarter": "Monte-Carlo",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 6
+    }
+   },
+   {
+    "url": "https://www.wolzok.com/fr/produit/97707-vente-monaco-les-lierres-appartement-bourgeois-%C3%A0-deux-pas-du-casino",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "rooms",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 3600000,
+     "living_area_sqm": 75,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": 2,
+     "external_ref": "VWI-LLIERBX586-1123",
+     "quarter": "Monte-Carlo",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 8
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-realestatemontecarlo-mc",
+  "agency": "Real Estate Monte Carlo",
+  "website": "https://www.realestatemontecarlo.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.realestatemontecarlo.mc/fr/offers?rent=true",
+    "https://www.realestatemontecarlo.mc/fr/offers?rent=true&room_1=true"
+   ],
+   "rent": [
+    "https://www.realestatemontecarlo.mc/fr/offers/rent?rent=true",
+    "https://www.realestatemontecarlo.mc/fr/helpyou/rent"
+   ]
+  }
+ },
+ {
+  "site_key": "web-montecarlotransactions-com",
+  "agency": "Monte-Carlo Transactions",
+  "website": "https://www.montecarlotransactions.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.montecarlotransactions.com/propertysearch/?nsearch%5Btype%5D=rental&amp;nsearch%5Bdistrict%5D=&amp;nsearch%5Brooms%5D=&amp;nsearch%5Bprice%5D="
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?montecarlotransactions\\.com/property/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/property/{id-slug}",
+  "links_seen": 4,
+  "samples": [
+   {
+    "url": "https://montecarlotransactions.com/property/41041-appartement-la-rousse-saint-roman-monaco/",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 11000,
+     "living_area_sqm": 115,
+     "rooms": 3,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "La Rousse - Saint Roman",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 6
+    }
+   },
+   {
+    "url": "https://montecarlotransactions.com/property/124728-appartement-carre-dor-monaco/",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 4500,
+     "living_area_sqm": 30,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Carré d'Or",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 8
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-harrochrealestate-com",
+  "agency": "Harroch Real Estate Monaco",
+  "website": "https://www.harrochrealestate.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-baldorealtygroup-com",
+  "agency": "BALDO REALTY GROUP",
+  "website": "https://www.baldorealtygroup.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://baldorealtygroup.com/search-property/?location%5B%5D=fontvieille",
+    "https://baldorealtygroup.com/properties-sale-monaco/"
+   ],
+   "rent": [
+    "https://baldorealtygroup.com/properties-rent-monaco/",
+    "https://baldorealtygroup.com/project-location/monaco-projects/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?baldorealtygroup\\.com/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}",
+  "links_seen": 4,
+  "samples": [
+   {
+    "url": "https://baldorealtygroup.com/monaco-residency-in-2026-the-real-world-timeline-documents-and-common-mistakes/",
+    "hint": "rent",
+    "score": 4,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 500000,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Monaco Residency in 2026: the Real-World Timeline, Documents, and Common Mistakes",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 3
+    }
+   },
+   {
+    "url": "https://baldorealtygroup.com/monaco-residency-in-2026-the-real-world-timeline-documents-and-common-mistakes/",
+    "hint": "rent",
+    "score": 4,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 500000,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Monaco Residency in 2026: the Real-World Timeline, Documents, and Common Mistakes",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 3
+    }
+   }
+  ],
+  "quality": 4
+ },
+ {
+  "site_key": "web-revimmo-mc",
+  "agency": "REVIMMO",
+  "website": "https://www.revimmo.mc/",
+  "runner": "local",
+  "status": "unreachable",
+  "immotoolbox": false,
+  "error": "https://www.revimmo.mc/: ProxyError"
+ },
+ {
+  "site_key": "web-capitalrealestate-mc",
+  "agency": "Capital Real Estate",
+  "website": "https://www.capitalrealestate.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=1&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+    "https://www.capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=15&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC"
+   ],
+   "rent": [
+    "https://capitalrealestate.mc/properties-for-rent",
+    "https://www.capitalrealestate.mc/properties-for-rent"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?capitalrealestate\\.mc/property/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/property/{id-slug}",
+  "links_seen": 6,
+  "samples": [
+   {
+    "url": "https://capitalrealestate.mc/property/127427-apartment-condamine-monaco/",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 5950000,
+     "living_area_sqm": 107.51,
+     "rooms": 0,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Capital Real Estate",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 10
+    }
+   },
+   {
+    "url": "https://capitalrealestate.mc/property/119229-apartment-condamine-monaco/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 5950000,
+     "living_area_sqm": 113.97,
+     "rooms": 4,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Beautiful and New appartment in the PORT HERCULES",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 13
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-europagence-mc",
+  "agency": "Europagence",
+  "website": "https://www.europagence.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.europagence.mc/index.php?page=liste&type=location",
+    "https://www.europagence.mc/index.php?page=liste&type=vente"
+   ],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-pirasimmobilier-com",
+  "agency": "Piras Immobilier",
+  "website": "https://www.pirasimmobilier.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.pirasimmobilier.com/fr/ventes"
+   ],
+   "rent": [
+    "https://www.pirasimmobilier.com/fr/locations"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?pirasimmobilier\\.com/fr/propriete/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/propriete/{id-slug}",
+  "links_seen": 24,
+  "samples": [
+   {
+    "url": "https://www.pirasimmobilier.com/fr/propriete/vente-appartement-monaco-bien-d-exception-off-market-87195348",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": 500,
+     "rooms": 6,
+     "bedrooms": 5,
+     "floor": null,
+     "external_ref": "V-PH-OFF",
+     "quarter": "Annonce Vente Bien d'exception - Off market 1000 m² | PIRAS IMMOBILIER",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 2
+    }
+   },
+   {
+    "url": "https://www.pirasimmobilier.com/fr/propriete/vente-appartement-monaco-les-jardins-d-eau-mareterra-86143207",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": 330,
+     "rooms": 5,
+     "bedrooms": 4,
+     "floor": null,
+     "external_ref": "V-5P-JD",
+     "quarter": "Annonce Vente Les Jardins d'Eau - MareTerra 430 m² | PIRAS IMMOBILIER",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 8
+    }
+   }
+  ],
+  "quality": 7
+ },
+ {
+  "site_key": "web-panorama-mc",
+  "agency": "Panorama Properties",
+  "website": "https://www.panorama.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-cm-monaco-com",
+  "agency": "CM MONACO REAL ESTATE",
+  "website": "https://www.cm-monaco.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.cm-monaco.com/fr/ventes/",
+    "https://www.cm-monaco.com/fr/ventes-monaco/"
+   ],
+   "rent": [
+    "https://www.cm-monaco.com/fr/locations/",
+    "https://www.cm-monaco.com/fr/locations-monaco/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?cm\\-monaco\\.com/fr/produit/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/produit/{id-slug}",
+  "links_seen": 30,
+  "samples": [
+   {
+    "url": "https://www.cm-monaco.com/fr/produit/127324-vente-monaco-studio-avec-une-belle-vue-blv-de-belgique",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1900000,
+     "living_area_sqm": 28,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": null,
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 5
+    }
+   },
+   {
+    "url": "https://www.cm-monaco.com/fr/produit/101744-vente-monaco-studio-le-moins-cher-de-monaco-sous-loi-1235",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 865000,
+     "living_area_sqm": 25,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": null,
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 8
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-lamonegasqueimmobilier-mc",
+  "agency": "La Monégasque Immobilier",
+  "website": "https://lamonegasqueimmobilier.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://lamonegasqueimmobilier.mc/fr/ventes/grid"
+   ],
+   "rent": [
+    "https://lamonegasqueimmobilier.mc/fr/locations/grid"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?lamonegasqueimmobilier\\.mc/fr/bien/\\d{3,}/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/bien/{id}/{slug}",
+  "links_seen": 12,
+  "samples": [
+   {
+    "url": "https://lamonegasqueimmobilier.mc/fr/bien/126716/emplacement-de-parking-grand-large-fontvieille",
+    "hint": "sale",
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 275000,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "EMPLACEMENT DE PARKING - GRAND LARGE - FONTVIEILLE",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 5
+    }
+   },
+   {
+    "url": "https://lamonegasqueimmobilier.mc/fr/bien/122010/grand-large-superbe-5p-entierement-refait",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 20500000,
+     "living_area_sqm": 287,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "GRAND LARGE SUPERBE 5P ENTIEREMENT REFAIT",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 7
+    }
+   }
+  ],
+  "quality": 3
+ },
+ {
+  "site_key": "web-pastor-immobilier-com",
+  "agency": "PASTOR IMMOBILIER",
+  "website": "https://pastor-immobilier.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://pastor-immobilier.com/ventes/",
+    "https://pastor-immobilier.com/service/vente/"
+   ],
+   "rent": [
+    "https://pastor-immobilier.com/locations/",
+    "https://pastor-immobilier.com/service/location/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?pastor\\-immobilier\\.com/ventes/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?pastor\\-immobilier\\.com/locations/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/ventes/{slug} | /locations/{slug}",
+  "links_seen": 25,
+  "samples": [
+   {
+    "url": "https://pastor-immobilier.com/ventes/bien-a-la-vente/?ref=87017402",
+    "hint": "sale",
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "EXCEPTIONNEL EXCLUSIVITE LE TOWNHOUSE À MONTE-CARLO",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 4
+    }
+   },
+   {
+    "url": "https://pastor-immobilier.com/ventes/bien-a-la-vente/?ref=8115788",
+    "hint": "sale",
+    "score": 4,
+    "missing": [
+     "area",
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 3300000,
+     "living_area_sqm": null,
+     "rooms": 3,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Beau 3 pièces – Villa Bellevue -Condamine",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 10
+    }
+   }
+  ],
+  "quality": 3
+ },
+ {
+  "site_key": "web-savills-mc",
+  "agency": "Savills Monaco Real Estate",
+  "website": "https://www.savills.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.savills.mc/landing-pages/achat-appartement-monaco.aspx",
+    "https://www.savills.mc/landing-pages/propriete-a-la-vente-a-monaco.aspx"
+   ],
+   "rent": [
+    "https://www.savills.mc/louer-appartement-monaco--monte-carlo/",
+    "https://www.savills.mc/landing-pages/appartements-a-louer-a-monaco.aspx"
+   ]
+  }
+ },
+ {
+  "site_key": "web-elliman-mc",
+  "agency": "Elliman Monaco",
+  "website": "https://elliman.mc/",
+  "runner": "local",
+  "status": "unreachable",
+  "immotoolbox": false,
+  "error": "https://elliman.mc/: HTTP 403"
+ },
+ {
+  "site_key": "web-astralproperties-mc",
+  "agency": "ASTRAL PROPERTIES SAM",
+  "website": "https://www.astralproperties.mc/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.astralproperties.mc/status/for-sale/"
+   ],
+   "rent": [
+    "https://www.astralproperties.mc/status/for-rent/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?astralproperties\\.mc/property/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/property/{slug}",
+  "links_seen": 14,
+  "samples": [
+   {
+    "url": "https://www.astralproperties.mc/property/monte-carlo-star-2-pieces-duplex/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 5450000,
+     "living_area_sqm": 105,
+     "rooms": 2,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "MONTE CARLO STAR – 2 PIECES – DUPLEX",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 15
+    }
+   },
+   {
+    "url": "https://www.astralproperties.mc/property/top-floor-4-bedroom-apartment/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 4900000,
+     "living_area_sqm": 90,
+     "rooms": 4,
+     "bedrooms": 3,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "TOP FLOOR 4-BEDROOM APARTMENT",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 8
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-balkin-mc",
+  "agency": "Balkin Estates",
+  "website": "https://www.balkin.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.balkin.mc/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?balkin\\.mc/fr/nos\\-proprietes/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/nos-proprietes/{slug}",
+  "links_seen": 4,
+  "samples": [
+   {
+    "url": "https://www.balkin.mc/fr/nos-proprietes/maison-de-la-baie-69wuk",
+    "hint": null,
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 25000000,
+     "living_area_sqm": 235,
+     "rooms": 5,
+     "bedrooms": 4,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Bayhouse - Superbe appartement de 5 pièces - Agence immobilière Balkin - Vente",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   },
+   {
+    "url": "https://www.balkin.mc/fr/nos-proprietes/terrasses-du-port-dqyey",
+    "hint": null,
+    "score": 5,
+    "missing": [
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 45000,
+     "living_area_sqm": 398,
+     "rooms": 5,
+     "bedrooms": 3,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Terrasses du Port - Agence immobilière Balkin",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-rocagency-com",
+  "agency": "Roc Agency",
+  "website": "https://www.rocagency.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.rocagency.com/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?rocagency\\.com/fr/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/{slug}",
+  "links_seen": 9,
+  "samples": [
+   {
+    "url": "https://www.rocagency.com/fr/ventes-proprietes-a-vendre",
+    "hint": null,
+    "score": 4,
+    "missing": [
+     "rooms",
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1090000,
+     "living_area_sqm": 25,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "VENTE BIEN IMMOBILIER",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 22
+    }
+   },
+   {
+    "url": "https://www.rocagency.com/fr/locations-appartements-a-louer",
+    "hint": null,
+    "score": 2,
+    "missing": [
+     "area",
+     "rooms",
+     "photos",
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "LOCATION BIEN IMMOBILIER",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 1
+    }
+   }
+  ],
+  "quality": 2
+ },
+ {
+  "site_key": "web-pacificagency-mc",
+  "agency": "Pacific Agency",
+  "website": "https://www.pacificagency.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://pacificagency.mc/vente/"
+   ],
+   "rent": [
+    "https://pacificagency.mc/location/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?pacificagency\\.mc/property\\-details/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/property-details/{id-slug}",
+  "links_seen": 14,
+  "samples": [
+   {
+    "url": "https://pacificagency.mc/property-details/124277-appartement-la-rousse-saint-roman-monaco/",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 2650000,
+     "living_area_sqm": 45,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Détail du bien - PacificAgency",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 19
+    }
+   },
+   {
+    "url": "https://pacificagency.mc/property-details/124339-appartement-la-rousse-saint-roman-monaco/",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 3150000,
+     "living_area_sqm": 60,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Détail du bien - PacificAgency",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 11
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-pcm-realestate-com",
+  "agency": "Property Concept Monaco",
+  "website": "https://www.pcm-realestate.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.pcm-realestate.com/fr/ventes"
+   ],
+   "rent": [
+    "https://www.pcm-realestate.com/fr/locations"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?pcm\\-realestate\\.com/fr/produit\\-vente/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/produit-vente/{id-slug}",
+  "links_seen": 12,
+  "samples": [
+   {
+    "url": "https://www.pcm-realestate.com/fr/produit-vente/126819-ambassador-appartements-2-pieces/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 2695000,
+     "living_area_sqm": 51,
+     "rooms": 2,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Monte-Carlo",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 13
+    }
+   },
+   {
+    "url": "https://www.pcm-realestate.com/fr/produit-vente/126800-tenao-inferieur-penthouses-roofs-5-pieces/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1390000,
+     "living_area_sqm": 117,
+     "rooms": 5,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Tenao Inferieur",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 21
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-homesmontecarlo-com",
+  "agency": "HOMES Sandro Piras Real Estate",
+  "website": "https://www.homesmontecarlo.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "rent": [
+    "https://www.homesmontecarlo.com/offices-for-rent/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?homesmontecarlo\\.com/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}",
+  "links_seen": 5,
+  "samples": [
+   {
+    "url": "https://www.homesmontecarlo.com/our-properties-for-rent/",
+    "hint": "rent",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": 376,
+     "rooms": null,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "414.00 sqm",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 5
+    }
+   },
+   {
+    "url": "https://www.homesmontecarlo.com/our-properties-for-sale/",
+    "hint": "rent",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": 510,
+     "rooms": null,
+     "bedrooms": 4,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "630.00 sqm",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 22
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-pvnrealestate-com",
+  "agency": "Pieter van Naeltwijck Real Estate Investments",
+  "website": "https://www.pvnrealestate.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-agencegaremonaco-com",
+  "agency": "Agence de la Gare",
+  "website": "https://www.agencegaremonaco.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.agencegaremonaco.com/ventes"
+   ],
+   "rent": [
+    "https://www.agencegaremonaco.com/locations"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?agencegaremonaco\\.com/biens/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/biens/{slug}",
+  "links_seen": 15,
+  "samples": [
+   {
+    "url": "https://www.agencegaremonaco.com/biens/30-tres-beau-studio-renove-meuble-avec-apercu-mer",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 2300000,
+     "living_area_sqm": 37,
+     "rooms": 1,
+     "bedrooms": 0,
+     "floor": 12,
+     "external_ref": "V1409202601",
+     "quarter": "La Rousse - Saint Roman",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 18
+    }
+   },
+   {
+    "url": "https://www.agencegaremonaco.com/biens/29-magnifique-villa-d-architecte-renovee-avec-superbe-vue-mer",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 3190000,
+     "living_area_sqm": 250,
+     "rooms": 5,
+     "bedrooms": 4,
+     "floor": null,
+     "external_ref": "V1109202601",
+     "quarter": "Beausoleil Superieur",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 37
+    }
+   }
+  ],
+  "quality": 7
+ },
+ {
+  "site_key": "web-deplanche-immobilier-com",
+  "agency": "Deplanche Immobilier",
+  "website": "https://www.deplanche-immobilier.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.deplanche-immobilier.com/fr/ventes/grid"
+   ],
+   "rent": [
+    "https://www.deplanche-immobilier.com/fr/locations/grid"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?deplanche\\-immobilier\\.com/fr/bien/\\d{3,}/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/bien/{id}/{slug}",
+  "links_seen": 3,
+  "samples": [
+   {
+    "url": "https://www.deplanche-immobilier.com/fr/bien/124198/achat-cave-local-avec-de-grandes-vitrines-regardant-la-mer",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 2600000,
+     "living_area_sqm": 86,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Local avec de grandes vitrines regardant la mer",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 4
+    }
+   },
+   {
+    "url": "https://www.deplanche-immobilier.com/fr/bien/122071/achat-commerce-belle-vitrine-pour-le-pas-de-porte-de-ce-local-bien-entretenu-de-la-condamine",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 490000,
+     "living_area_sqm": 50,
+     "rooms": 2,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Belle vitrine pour le pas de porte de ce local bien entretenu de la Condamine",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 3
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-pp-mc-com",
+  "agency": "PREMIUM PROPERTIES MC",
+  "website": "https://www.pp-mc.com/",
+  "runner": "local",
+  "status": "unreachable",
+  "immotoolbox": false,
+  "error": "https://www.pp-mc.com/: SSLError"
+ },
+ {
+  "site_key": "web-prestigeproperties-mc",
+  "agency": "Prestige Properties",
+  "website": "https://www.prestigeproperties.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.prestigeproperties.mc/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?prestigeproperties\\.mc/bien/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/bien/{slug}",
+  "links_seen": 7,
+  "samples": [
+   {
+    "url": "https://prestigeproperties.mc/bien/opportunite-rare-appartement-meuble-dexception-a-la-petite-afrique/",
+    "hint": null,
+    "score": 5,
+    "missing": [
+     "transaction",
+     "rooms",
+     "ref"
+    ],
+    "sample": {
+     "transaction_type": null,
+     "price": null,
+     "living_area_sqm": 488,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Opportunité rare - Appartement meublé d'exception à La Petite Afrique",
+     "agent_name": "Location Opportunité",
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   },
+   {
+    "url": "https://prestigeproperties.mc/bien/propriete-de-prestige-aux-volumes-et-panorama-dexception-au-bay-house/",
+    "hint": null,
+    "score": 5,
+    "missing": [
+     "transaction",
+     "rooms",
+     "ref"
+    ],
+    "sample": {
+     "transaction_type": null,
+     "price": null,
+     "living_area_sqm": 724,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Propriété de prestige aux volumes et panorama d’exception au Bay House",
+     "agent_name": "Vente Propriété",
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-soma-monaco-com",
+  "agency": "Soma International Realty",
+  "website": "https://soma-monaco.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-agence-thomas-com",
+  "agency": "Agence Thomas",
+  "website": "https://www.agence-thomas.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.agence-thomas.com/ventes/monaco/"
+   ],
+   "rent": [
+    "https://www.agence-thomas.com/locations/monaco/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?agence\\-thomas\\.com/produit\\-vente/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?agence\\-thomas\\.com/produit\\-location/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/produit-vente/{id-slug} | /produit-location/{id-slug}",
+  "links_seen": 12,
+  "samples": [
+   {
+    "url": "https://www.agence-thomas.com/produit-vente/125265-chateau-perigord-appartements-3-pieces/",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 7150000,
+     "living_area_sqm": 96,
+     "rooms": 3,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": "AG-08",
+     "quarter": "La Rousse - Saint Roman",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 23
+    }
+   },
+   {
+    "url": "https://www.agence-thomas.com/produit-vente/125255-chateau-amiral-appartements-studios/",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 2300000,
+     "living_area_sqm": 38,
+     "rooms": 1,
+     "bedrooms": 0,
+     "floor": null,
+     "external_ref": "AG-07",
+     "quarter": "La Rousse - Saint Roman",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 35
+    }
+   }
+  ],
+  "quality": 7
+ },
+ {
+  "site_key": "web-planb-monaco-com",
+  "agency": "Agence Plan B",
+  "website": "https://planb-monaco.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://planb-monaco.com/fr/acheter/"
+   ],
+   "rent": [
+    "https://planb-monaco.com/louer/",
+    "https://planb-monaco.com/fr/louer/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?planb\\-monaco\\.com/fr/propriété/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/propriété/{slug}",
+  "links_seen": 19,
+  "samples": [
+   {
+    "url": "https://planb-monaco.com/fr/propriété/beverly-palace-tres-beau-3-pieces-renove/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 8900000,
+     "living_area_sqm": 115,
+     "rooms": 3,
+     "bedrooms": 2,
+     "floor": 6,
+     "external_ref": null,
+     "quarter": "Jardin Exotique",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 10
+    }
+   },
+   {
+    "url": "https://planb-monaco.com/fr/propriété/monte-carlo-sun-magnifique-3-4-pieces-avec-vue-mer/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 13000000,
+     "living_area_sqm": 119,
+     "rooms": 3,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "La Rousse - Saint Roman",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 11
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-berettarealestate-mc",
+  "agency": "Beretta Real Estate",
+  "website": "https://www.berettarealestate.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.berettarealestate.mc/fr/ventes",
+    "https://www.berettarealestate.mc/fr/acheter-un-appartement-a-monaco.html"
+   ],
+   "rent": [
+    "https://www.berettarealestate.mc/fr/locations",
+    "https://www.berettarealestate.mc/fr/louer-un-appartement-a-monaco.html"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?berettarealestate\\.mc/fr/produit\\-vente/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?berettarealestate\\.mc/fr/produit\\-location/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/produit-vente/{id-slug} | /fr/produit-location/{id-slug}",
+  "links_seen": 13,
+  "samples": [
+   {
+    "url": "https://www.berettarealestate.mc/fr/produit-vente/117970-park-palace-appartements-3-pieces/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 11500000,
+     "living_area_sqm": 133,
+     "rooms": 3,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Carré d'Or",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 19
+    }
+   },
+   {
+    "url": "https://www.berettarealestate.mc/fr/produit-vente/123638-park-palace-parkings/",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 800000,
+     "living_area_sqm": 24,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Carré d'Or",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 9
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-rosengart-mc",
+  "agency": "Rosengart Luxury Real Estate",
+  "website": "https://www.rosengart.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "rent": [
+    "https://www.rosengart.mc/apartment-rentals-monaco"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?rosengart\\.mc/[a-z0-9]+(?:-[a-z0-9]+){3,}/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?rosengart\\.mc/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}/{id-slug} | /{slug}",
+  "links_seen": 26,
+  "index_source": "sitemap",
+  "samples": [
+   {
+    "url": "https://www.rosengart.mc/apartments-for-sale-monaco/10367-odeon-tower-luxurious-living-to-dazzling-new-heights",
+    "hint": null,
+    "score": 5,
+    "missing": [
+     "area",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": 10,
+     "bedrooms": 6,
+     "floor": null,
+     "external_ref": "10367",
+     "quarter": "Saint Roman / Larvotto",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 24
+    }
+   },
+   {
+    "url": "https://www.rosengart.mc/apartments-for-sale-monaco/10476-luxurious-modern-house-close-from-monaco",
+    "hint": null,
+    "score": 6,
+    "missing": [
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 6350000,
+     "living_area_sqm": 550,
+     "rooms": 8,
+     "bedrooms": 4,
+     "floor": null,
+     "external_ref": "10476",
+     "quarter": "Luxurious Villa Near Monaco with large 8 Car Garage",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-mcprivilege-immobilier-com",
+  "agency": "Monte Carlo Privilège",
+  "website": "https://www.mcprivilege-immobilier.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.mcprivilege-immobilier.com/sales/"
+   ],
+   "rent": [
+    "https://www.mcprivilege-immobilier.com/rentals/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?mcprivilege\\-immobilier\\.com/property/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/property/{id-slug}",
+  "links_seen": 19,
+  "samples": [
+   {
+    "url": "https://www.mcprivilege-immobilier.com/property/117581-apartment-carre-dor-monaco/",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 5500000,
+     "living_area_sqm": 108,
+     "rooms": 5,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Great apartment in the Golden Square",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 9
+    }
+   },
+   {
+    "url": "https://www.mcprivilege-immobilier.com/property/113117-apartment-monte-carlo-monaco/",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 3590000,
+     "living_area_sqm": 80,
+     "rooms": 3,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Apartment under law in the Monte Carlo district in a bourgeois building",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 13
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-universalmonaco-com",
+  "agency": "Universal Office",
+  "website": "https://www.universalmonaco.com/",
+  "runner": "local",
+  "status": "unreachable",
+  "immotoolbox": false,
+  "error": "https://www.universalmonaco.com/: SSLError"
+ },
+ {
+  "site_key": "web-solamito-properties-real-estate-mc",
+  "agency": "SOLAMITO PROPERTIES",
+  "website": "https://www.solamito-properties-real-estate.mc/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.solamito-properties-real-estate.mc/ventes/"
+   ],
+   "rent": [
+    "https://www.solamito-properties-real-estate.mc/locations/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?solamito\\-properties\\-real\\-estate\\.mc/properties/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/properties/{slug}",
+  "links_seen": 6,
+  "samples": [
+   {
+    "url": "https://www.solamito-properties-real-estate.mc/properties/villa-san-carlo-rooftop-3-4-pieces/",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "ref"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 16800000,
+     "living_area_sqm": 290,
+     "rooms": 4,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "« VILLA SAN CARLO »",
+     "agent_name": "Kelly URQUHART",
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 21
+    }
+   },
+   {
+    "url": "https://www.solamito-properties-real-estate.mc/properties/seaside-plaza-3-pieces/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 8900000,
+     "living_area_sqm": 147,
+     "rooms": 3,
+     "bedrooms": null,
+     "floor": 3,
+     "external_ref": null,
+     "quarter": "« SEASIDE PLAZA »",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 21
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-atlantic-monte-carlo-mc",
+  "agency": "Atlantic Agency",
+  "website": "https://www.atlantic.monte-carlo.mc/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.atlantic.monte-carlo.mc/fr/ventes"
+   ],
+   "rent": [
+    "https://www.atlantic.monte-carlo.mc/fr/locations"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?atlantic\\.monte\\-carlo\\.mc/fr/produit\\-vente/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?atlantic\\.monte\\-carlo\\.mc/fr/produit\\-location/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/produit-vente/{id-slug} | /fr/produit-location/{id-slug}",
+  "links_seen": 7,
+  "samples": [
+   {
+    "url": "https://www.atlantic.monte-carlo.mc/fr/produit-vente/93303-rue-grimaldi-cessions-de-droit-au-bail-3-pieces/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 800000,
+     "living_area_sqm": 65,
+     "rooms": 3,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Condamine",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 2
+    }
+   },
+   {
+    "url": "https://www.atlantic.monte-carlo.mc/fr/produit-vente/89983-41-boulevard-du-jardin-exotique-appartements-2-pieces/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1599000,
+     "living_area_sqm": 39,
+     "rooms": 2,
+     "bedrooms": null,
+     "floor": 2,
+     "external_ref": null,
+     "quarter": "Moneghetti",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 14
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-abkrealestatemonaco-com",
+  "agency": "ABK Real Estate",
+  "website": "https://www.abkrealestatemonaco.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.abkrealestatemonaco.com/fr/ventes-appartements/",
+    "https://www.abkrealestatemonaco.com/fr/ventes-commerces-bureaux/"
+   ],
+   "rent": [
+    "https://www.abkrealestatemonaco.com/fr/locations-appartements/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?abkrealestatemonaco\\.com/fr/annonce/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/annonce/{id-slug}",
+  "links_seen": 8,
+  "samples": [
+   {
+    "url": "https://www.abkrealestatemonaco.com/fr/annonce/127027-vente-monaco-magnifique-appartement-bourgeois-en-penthouse-vue-mer",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": 90,
+     "rooms": 2,
+     "bedrooms": null,
+     "floor": 3,
+     "external_ref": "ABK-JO",
+     "quarter": "Monte-Carlo",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 13
+    }
+   },
+   {
+    "url": "https://www.abkrealestatemonaco.com/fr/annonce/124255-vente-monaco-victoria-palace-2-pieces-a-renover",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "price",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": 74,
+     "rooms": 2,
+     "bedrooms": null,
+     "floor": 3,
+     "external_ref": "ABK-VT",
+     "quarter": "Monte-Carlo",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 9
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-agence-laetitia-com",
+  "agency": "Agence Laetitia",
+  "website": "https://www.agence-laetitia.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.agence-laetitia.com/fr/ventes"
+   ],
+   "rent": [
+    "https://www.agence-laetitia.com/fr/locations"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?agence\\-laetitia\\.com/fr/propriete/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/propriete/{id-slug}",
+  "links_seen": 14,
+  "samples": [
+   {
+    "url": "https://www.agence-laetitia.com/fr/propriete/vente+appartement+monaco+appartement-2-3-pieces-en-etage-eleve-avec-terrasse-et-parking+87332372",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 3800000,
+     "living_area_sqm": 60,
+     "rooms": 3,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Appartement 2/3 pièces en étage élevé avec terrasse et parking",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 10
+    }
+   },
+   {
+    "url": "https://www.agence-laetitia.com/fr/propriete/vente+commerce+monaco+droit-au-bail-commerce-condamine+87252487",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 385000,
+     "living_area_sqm": 36,
+     "rooms": 2,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Droit au bail – Commerce – Condamine",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 6
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-eip-mc",
+  "agency": "Agence EIP",
+  "website": "https://www.eip.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.eip.mc/fr/ventes"
+   ],
+   "rent": [
+    "https://www.eip.mc/fr/locations"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?eip\\.mc/fr/produit\\-vente/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/produit-vente/{id-slug}",
+  "links_seen": 12,
+  "samples": [
+   {
+    "url": "https://www.eip.mc/fr/produit-vente/87173-condamine/",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1000000,
+     "living_area_sqm": 65,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": 0,
+     "external_ref": null,
+     "quarter": "Condamine",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 7
+    }
+   },
+   {
+    "url": "https://www.eip.mc/fr/produit-vente/113088-condamine/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": 75,
+     "rooms": 2,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Condamine",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 4
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-agorarealestate-mc",
+  "agency": "Agora Real Estate",
+  "website": "https://agorarealestate.mc/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://agorarealestate.mc/fr/ventes",
+    "https://agorarealestate.mc/fr/ventes-residentielles"
+   ],
+   "rent": [
+    "https://agorarealestate.mc/fr/locations",
+    "https://agorarealestate.mc/fr/locations-residentielles"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?agorarealestate\\.mc/fr/produit\\-vente/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?agorarealestate\\.mc/fr/produit\\-location/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/produit-vente/{id-slug} | /fr/produit-location/{id-slug}",
+  "links_seen": 17,
+  "samples": [
+   {
+    "url": "https://agorarealestate.mc/fr/produit-vente/115363-le-parador-appartements-4-pieces/",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 7200000,
+     "living_area_sqm": 132,
+     "rooms": 4,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": "AGVEN015",
+     "quarter": "Condamine",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 43
+    }
+   },
+   {
+    "url": "https://agorarealestate.mc/fr/produit-vente/114888-le-bristol-bureaux-2-pieces/",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 6500000,
+     "living_area_sqm": 58,
+     "rooms": 2,
+     "bedrooms": null,
+     "floor": 7,
+     "external_ref": "AGVEN008",
+     "quarter": "Condamine",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 16
+    }
+   }
+  ],
+  "quality": 7
+ },
+ {
+  "site_key": "web-luxhome-mc",
+  "agency": "Lux Home",
+  "website": "https://www.luxhome.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://luxhome.mc/search-results/?country%5B%5D=&amp;status%5B%5D=acheter&amp;bedrooms=&amp;min-price=&amp;max-price=",
+    "https://luxhome.mc/status/acheter/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?luxhome\\.mc/property/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/property/{slug}",
+  "links_seen": 5,
+  "samples": [
+   {
+    "url": "https://luxhome.mc/property/spacieux-3-pieces-boulevard-du-larvotto/",
+    "score": 0,
+    "error": "NotFound('https://luxhome.mc/property/spacieux-3-pieces-boulevard-du-larvotto/')"
+   },
+   {
+    "url": "https://luxhome.mc/property/appartement-au-villa-joseph-josephine-50mq/",
+    "score": 0,
+    "error": "NotFound('https://luxhome.mc/property/appartement-au-villa-joseph-josephine-50mq/')"
+   }
+  ],
+  "quality": 0
+ },
+ {
+  "site_key": "web-agencemarchetti-com",
+  "agency": "Agence Marchetti Monaco",
+  "website": "https://www.agencemarchetti.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.agencemarchetti.com/fr/ventes-residentielles"
+   ],
+   "rent": [
+    "https://www.agencemarchetti.com/fr/locations-residentielles"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?agencemarchetti\\.com/fr/ventes\\-residentielles/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?agencemarchetti\\.com/fr/produit\\-vente/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/ventes-residentielles/{slug} | /fr/produit-vente/{id-slug}",
+  "links_seen": 6,
+  "samples": [
+   {
+    "url": "https://www.agencemarchetti.com/fr/ventes-residentielles/r-2-2-pieces/",
+    "hint": "rent",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 13000000,
+     "living_area_sqm": 170,
+     "rooms": 2,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Nos 2 pièces à la vente",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 6
+    }
+   },
+   {
+    "url": "https://www.agencemarchetti.com/fr/ventes-residentielles/r-3-3-pieces/",
+    "hint": "rent",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 13000000,
+     "living_area_sqm": 170,
+     "rooms": 3,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Nos 3 pièces à la vente",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 6
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-oneproperties-mc",
+  "agency": "One Properties",
+  "website": "https://www.oneproperties.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-pastor-reiss-com",
+  "agency": "Pastor & Reiss",
+  "website": "https://www.pastor-reiss.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.pastor-reiss.com/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?pastor\\-reiss\\.com/properties/sale/apartment/monaco/monaco\\-ville/\\d{3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/properties/sale/apartment/monaco/monaco-ville/{id}",
+  "links_seen": 16,
+  "index_source": "sitemap",
+  "samples": [
+   {
+    "url": "https://www.pastor-reiss.com/properties/sale/apartment/monaco/monaco-ville/6488230/",
+    "hint": null,
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Expect Exceptional",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 0
+    }
+   },
+   {
+    "url": "https://www.pastor-reiss.com/properties/sale/apartment/monaco/monaco-ville/6511832/",
+    "hint": null,
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Expect Exceptional",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 0
+    }
+   }
+  ],
+  "quality": 3
+ },
+ {
+  "site_key": "web-rey-nouvion-com",
+  "agency": "Rey  & Nouvion Immobilier",
+  "website": "https://www.rey-nouvion.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.rey-nouvion.com/fr/ventes/"
+   ],
+   "rent": [
+    "https://www.rey-nouvion.com/fr/locations/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?rey\\-nouvion\\.com/fr/produit/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/produit/{id-slug}",
+  "links_seen": 14,
+  "samples": [
+   {
+    "url": "https://www.rey-nouvion.com/fr/produit/50468-vente-monaco-appartements-de-luxe-dans-la-tour-od%C3%A9on",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 17750000,
+     "living_area_sqm": 168,
+     "rooms": 4,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": null,
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 10
+    }
+   },
+   {
+    "url": "https://www.rey-nouvion.com/fr/produit/127093-vente-monaco-appartement-bourgeois-avec-jardin-dans-le-centre-ville",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 11500000,
+     "living_area_sqm": 222,
+     "rooms": 4,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": null,
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 1
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-izadora-group-com",
+  "agency": "Izadora Realty",
+  "website": "https://www.izadora-group.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-theagency-mc",
+  "agency": "The Agency",
+  "website": "https://theagency.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://theagency.mc/properties-for-sale/"
+   ],
+   "rent": [
+    "https://theagency.mc/properties-for-rent/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?theagency\\.mc/property/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?theagency\\.mc/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/property/{id-slug} | /{slug}",
+  "links_seen": 10,
+  "samples": [
+   {
+    "url": "https://theagency.mc/property/126979-house-monaco-ville-monaco/",
+    "hint": "sale",
+    "score": 4,
+    "missing": [
+     "rooms",
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": 450,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Property details",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 2
+    }
+   },
+   {
+    "url": "https://theagency.mc/property/127089-parking-la-rousse-saint-roman-monaco/",
+    "hint": "sale",
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Property details",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 2
+    }
+   }
+  ],
+  "quality": 3
+ },
+ {
+  "site_key": "web-as-estate-mc",
+  "agency": "A&S Estate",
+  "website": "https://www.as-estate.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-bureauaffairesimmobilieres-com",
+  "agency": "Bureau d'Affaires Immobilières",
+  "website": "https://www.bureauaffairesimmobilieres.com/",
+  "runner": "local",
+  "status": "unreachable",
+  "immotoolbox": false,
+  "error": "https://www.bureauaffairesimmobilieres.com/: SSLError"
+ },
+ {
+  "site_key": "web-capi-mc",
+  "agency": "CAPI",
+  "website": "https://www.capi.mc/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.capi.mc/vente/1",
+    "https://www.capi.mc/commerces/vente/monaco/1"
+   ],
+   "rent": [
+    "https://www.capi.mc/location/1",
+    "https://www.capi.mc/location/monaco/1"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?capi\\.mc/vente/monaco/20\\-autre/t/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/vente/monaco/20-autre/t/{id-slug}",
+  "links_seen": 3,
+  "samples": [
+   {
+    "url": "https://www.capi.mc/vente/monaco/20-autre/t/161-l-edelweiss-jardin-exotique/",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 3250000,
+     "living_area_sqm": 97,
+     "rooms": 3,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": "EDELWEISS---3-PIECES",
+     "quarter": "L'EDELWEISS - JARDIN EXOTIQUE Monaco (98000)",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 36
+    }
+   },
+   {
+    "url": "https://www.capi.mc/vente/monaco/20-autre/t/146-monaco-le-trocadero/",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 6100000,
+     "living_area_sqm": 158,
+     "rooms": 3,
+     "bedrooms": null,
+     "floor": 1,
+     "external_ref": "1C2-TROCADERO",
+     "quarter": "MONACO - LE TROCADERO Monaco (98000)",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   }
+  ],
+  "quality": 7
+ },
+ {
+  "site_key": "web-ccrg-mc",
+  "agency": "CCRG",
+  "website": "https://www.ccrg.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-agedigroup-com",
+  "agency": "AGEDI",
+  "website": "https://www.agedigroup.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.agedigroup.com/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?agedigroup\\.com/it\\-projects/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/it-projects/{slug}",
+  "links_seen": 16,
+  "index_source": "sitemap",
+  "samples": [
+   {
+    "url": "https://www.agedigroup.com/it-projects/accordo-quadro-con-la-conferenza-episcopale-italiana-cei",
+    "hint": null,
+    "score": 3,
+    "missing": [
+     "transaction",
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": null,
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Accordo quadro con la Conferenza Episcopale Italiana-CEI",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 28
+    }
+   },
+   {
+    "url": "https://www.agedigroup.com/it-projects/buyers-representation-per-immobile-direzionale-a-bergamo",
+    "hint": null,
+    "score": 4,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Buyer’s representation per immobile direzionale a Bergamo",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 8
+    }
+   }
+  ],
+  "quality": 3
+ },
+ {
+  "site_key": "web-cote-mc",
+  "agency": "Cote investissement",
+  "website": "https://www.cote.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.cote.mc/?page=detail&step2=27B3B2DB-5E84-44E5-90A7-6A3A2B28DB0E&type=Location"
+   ],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-palmero-mc",
+  "agency": "Cabinet P. Palmero",
+  "website": "https://www.palmero.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://palmero.mc/categorie-produit/ventes/"
+   ],
+   "rent": [
+    "https://palmero.mc/categorie-produit/locations/"
+   ]
+  }
+ },
+ {
+  "site_key": "web-kretzrealestate-com",
+  "agency": "Kretz Family Real Estate",
+  "website": "https://kretzrealestate.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://kretzrealestate.com/fr/acheter/"
+   ],
+   "rent": [
+    "https://kretzrealestate.com/fr/louer/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?kretzrealestate\\.com/fr/annonce/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/villa/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/annonce/{id-slug}/villa",
+  "links_seen": 5,
+  "samples": [
+   {
+    "url": "https://kretzrealestate.com/fr/annonce/kp1-15083/villa/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "photos",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 42000000,
+     "living_area_sqm": 1132,
+     "rooms": 14,
+     "bedrooms": 8,
+     "floor": null,
+     "external_ref": "KP1-15083",
+     "quarter": "Villa unique à Cannes, 1 130 m² avec vue mer panoramique",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 1
+    }
+   },
+   {
+    "url": "https://kretzrealestate.com/fr/annonce/kp1-8823/villa/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "photos",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 38880000,
+     "living_area_sqm": 800,
+     "rooms": 14,
+     "bedrooms": 9,
+     "floor": null,
+     "external_ref": "KP1-8823",
+     "quarter": "Propriété unique et confidentielle sur les hauteurs de Lurin, face a la baie de Saint-Jean",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 1
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-ri-properties-com",
+  "agency": "RI Properties",
+  "website": "https://www.ri-properties.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.ri-properties.com/fr/ventes",
+    "https://www.ri-properties.com/sales.php"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?ri\\-properties\\.com/fr/ventes/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/ventes/{id-slug}",
+  "links_seen": 10,
+  "samples": [
+   {
+    "url": "https://www.ri-properties.com/fr/ventes/111775-auteuil-appartements-3-pieces/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 6350000,
+     "living_area_sqm": 120,
+     "rooms": 3,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "La Rousse - Saint Roman",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 16
+    }
+   },
+   {
+    "url": "https://www.ri-properties.com/fr/ventes/117428-riviera-palace-appartements-4-pieces/",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 14900000,
+     "living_area_sqm": 181.2,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Monte-Carlo",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 12
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-17keysrealestate-mc",
+  "agency": "Parkings and cellars for sale Monaco",
+  "website": "https://www.17keysrealestate.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-blu-mc",
+  "agency": "Blu Immobilier",
+  "website": "https://www.blu.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.blu.mc/fr/ventes/monaco/",
+    "https://www.blu.mc/fr/ventes/international/"
+   ],
+   "rent": [
+    "https://www.blu.mc/fr/locations/monaco/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?blu\\.mc/fr/ventes/monaco/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/ventes/monaco/{slug}",
+  "links_seen": 15,
+  "samples": [
+   {
+    "url": "https://www.blu.mc/fr/ventes/monaco/r-2-2-pieces/",
+    "hint": "rent",
+    "score": 5,
+    "missing": [
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 4150000,
+     "living_area_sqm": 72,
+     "rooms": 2,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Produits à la vente à Monaco",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 1
+    }
+   },
+   {
+    "url": "https://www.blu.mc/fr/ventes/monaco/r-3-3-pieces/",
+    "hint": "rent",
+    "score": 4,
+    "missing": [
+     "area",
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": 3,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Produits à la vente à Monaco",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 0
+    }
+   }
+  ],
+  "quality": 4
+ },
+ {
+  "site_key": "web-fpmc-agency-com",
+  "agency": "Fine Properties Monte Carlo",
+  "website": "https://www.fpmc-agency.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-bollati-immobilier-mc",
+  "agency": "Bollati Immobilier",
+  "website": "https://www.bollati-immobilier.mc/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.bollati-immobilier.mc/fr/ventes",
+    "https://www.bollati-immobilier.mc/fr/type/vente"
+   ],
+   "rent": [
+    "https://www.bollati-immobilier.mc/fr/locations",
+    "https://www.bollati-immobilier.mc/fr/type/location"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?bollati\\-immobilier\\.mc/fr/[a-z0-9]+(?:-[a-z0-9]+){3,}/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?bollati\\-immobilier\\.mc/fr/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/{slug}/{id-slug} | /fr/{slug}",
+  "links_seen": 12,
+  "samples": [
+   {
+    "url": "https://bollati-immobilier.mc/fr/details-de-l-annonce/124754-appartement-monte-carlo-monaco/",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 2800000,
+     "living_area_sqm": 75,
+     "rooms": 3,
+     "bedrooms": null,
+     "floor": 2,
+     "external_ref": "124754 Appartement Type de bien 3 Pièces 75.00 m² PDF",
+     "quarter": "3 PIECES - IDÉAL PIED À TERRE",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 3
+    }
+   },
+   {
+    "url": "https://bollati-immobilier.mc/fr/details-de-l-annonce/82401-appartement-fontvieille-monaco/",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 2200000,
+     "living_area_sqm": 35,
+     "rooms": 1,
+     "bedrooms": 0,
+     "floor": 0,
+     "external_ref": "82401",
+     "quarter": "GRAND STUDIO FONTVIEILLE",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 7
+    }
+   }
+  ],
+  "quality": 7
+ },
+ {
+  "site_key": "web-accesspropertiesmonaco-com",
+  "agency": "Access Properties Monaco",
+  "website": "https://www.accesspropertiesmonaco.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.accesspropertiesmonaco.com/fr/sale"
+   ],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-beton57-com",
+  "agency": "Beton57",
+  "website": "https://www.beton57.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.beton57.com/fr/vente"
+   ],
+   "rent": [
+    "https://www.beton57.com/fr/location",
+    "https://www.beton57.com/fr/location-monaco"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?beton57\\.com/fr/propriete/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/propriete/{id-slug}",
+  "links_seen": 22,
+  "samples": [
+   {
+    "url": "https://www.beton57.com/fr/propriete/vente+appartement+monaco+4-pieces-l-exotique+87071269",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 16500000,
+     "living_area_sqm": 179,
+     "rooms": 4,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "4 pièces l'Exotique",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 21
+    }
+   },
+   {
+    "url": "https://www.beton57.com/fr/propriete/vente+appartement+monaco+off-market-mareterra+86884235",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "area",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": 5,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Off market Mareterra",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 3
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-sogestmar-mc",
+  "agency": "Sogestmar SARL",
+  "website": "https://www.sogestmar.mc/",
+  "runner": "local",
+  "status": "unreachable",
+  "immotoolbox": false,
+  "error": "https://www.sogestmar.mc/: HTTP 202"
+ },
+ {
+  "site_key": "web-lofrealestate-com",
+  "agency": "López de la Osa & Franco Real Estate",
+  "website": "https://www.lofrealestate.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.lofrealestate.com/fr/ventes"
+   ],
+   "rent": [
+    "https://www.lofrealestate.com/fr/locations"
+   ]
+  }
+ },
+ {
+  "site_key": "web-biairealestate-com",
+  "agency": "Agence B.I.A.I.",
+  "website": "https://www.biairealestate.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.biairealestate.com/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?biairealestate\\.com/property/[a-z0-9]+(?:-[a-z0-9]+){3,}/\\d{3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/property/{slug}/{id}",
+  "links_seen": 163,
+  "index_source": "sitemap",
+  "samples": [
+   {
+    "url": "https://www.biairealestate.com/property/1-bedroom-flat-in-the-golden-square-rented/13598411",
+    "hint": null,
+    "score": 5,
+    "missing": [
+     "area",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 7500,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": 1,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "1 bedroom flat in the golden square - RENTED",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 3
+    }
+   },
+   {
+    "url": "https://www.biairealestate.com/property/1-bedroom-apartment-for-rent-in-monte-carlo-rented/13897327",
+    "hint": null,
+    "score": 5,
+    "missing": [
+     "area",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 4500,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": 1,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "1 bedroom apartment for rent in Monte Carlo - RENTED",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 3
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-eliteimmo-com",
+  "agency": "Elite International",
+  "website": "https://www.eliteimmo.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.eliteimmo.com/fr/recherche/vente"
+   ],
+   "rent": [
+    "https://www.eliteimmo.com/fr/recherche/location"
+   ]
+  }
+ },
+ {
+  "site_key": "web-iris-mc",
+  "agency": "IRIS Real Estate",
+  "website": "https://www.iris.mc/",
+  "runner": "local",
+  "status": "unreachable",
+  "immotoolbox": false,
+  "error": "https://www.iris.mc/: HTTP 202"
+ },
+ {
+  "site_key": "web-bertola-mc",
+  "agency": "BERTOLA Real Estate",
+  "website": "https://www.bertola.mc/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.bertola.mc/properties?type=rent",
+    "https://www.bertola.mc/properties?type=sale"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?bertola\\.mc/properties/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/properties/{slug}",
+  "links_seen": 4,
+  "samples": [
+   {
+    "url": "https://www.bertola.mc/properties/unique-maison-de-maitre-jardin-exotique",
+    "hint": "sale",
+    "score": 8,
+    "missing": [],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": 800,
+     "rooms": null,
+     "bedrooms": 5,
+     "floor": null,
+     "external_ref": "006V",
+     "quarter": "L'ultime adresse \"pieds dans l'eau\"",
+     "agent_name": "Fontvieille Plus",
+     "agent_phone": "+377 377 05 888",
+     "agent_email": null,
+     "photos": 2
+    }
+   },
+   {
+    "url": "https://www.bertola.mc/properties/rare-grand-appartement-rocher",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "price",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": 330,
+     "rooms": 6,
+     "bedrooms": 4,
+     "floor": null,
+     "external_ref": "005V",
+     "quarter": "Résidence d’Exception à Fontvieille – Appartement de Prestige avec Vue Mer Panoramique",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 5
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-findr-mc",
+  "agency": "Findr. by Interalia",
+  "website": "https://www.findr.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.findr.mc/properties/for-sale"
+   ],
+   "rent": [
+    "https://www.findr.mc/properties/for-rent"
+   ]
+  }
+ },
+ {
+  "site_key": "web-lbmc-properties-com",
+  "agency": "LBMC Properties",
+  "website": "https://www.lbmc-properties.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.lbmc-properties.com/properties/sale"
+   ],
+   "rent": [
+    "https://www.lbmc-properties.com/properties/rental"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?lbmc\\-properties\\.com/property/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/property/{id-slug}",
+  "links_seen": 16,
+  "samples": [
+   {
+    "url": "https://www.lbmc-properties.com/property/126880-3-rooms-in-a-new-residence-in-la-condamine",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 6800000,
+     "living_area_sqm": 134,
+     "rooms": 3,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "3 Rooms in a new residence in La Condamine",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   },
+   {
+    "url": "https://www.lbmc-properties.com/property/122019-renovated-2-beds-in-the-vallespir",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 4800000,
+     "living_area_sqm": 86,
+     "rooms": 3,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Renovated 2-Beds in the Vallespir",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-infinityhomes-mc",
+  "agency": "Infinity Homes",
+  "website": "https://www.infinityhomes.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.infinityhomes.mc/buy",
+    "https://www.infinityhomes.mc/homes?transaction=rent"
+   ],
+   "rent": [
+    "https://www.infinityhomes.mc/rent",
+    "https://www.infinityhomes.mc/stories/renting-property-monaco"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?infinityhomes\\.mc/homes/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?infinityhomes\\.mc/stories/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/homes/{id-slug} | /stories/{slug}",
+  "links_seen": 3,
+  "index_source": "sitemap",
+  "samples": [
+   {
+    "url": "https://www.infinityhomes.mc/homes/monaco-ih-lc-125544",
+    "hint": "rent",
+    "score": 5,
+    "missing": [
+     "price",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": 250,
+     "rooms": 5,
+     "bedrooms": 4,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Vallespir · Rooftop",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 11
+    }
+   },
+   {
+    "url": "https://www.infinityhomes.mc/homes/monaco-ih-lc-125544",
+    "hint": "rent",
+    "score": 5,
+    "missing": [
+     "price",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": 250,
+     "rooms": 5,
+     "bedrooms": 4,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Vallespir · Rooftop",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 11
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-azurapropertiesmonaco-com",
+  "agency": "Azura Properties Monaco",
+  "website": "https://www.azurapropertiesmonaco.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://azurapropertiesmonaco.com/sales"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?azurapropertiesmonaco\\.com/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}",
+  "links_seen": 8,
+  "samples": [
+   {
+    "url": "https://azurapropertiesmonaco.com/very-beautiful-studio-in-carre-dor-monaco",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 3900000,
+     "living_area_sqm": 2.4,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": null,
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   },
+   {
+    "url": "https://azurapropertiesmonaco.com/saint-roman-bright-2-bedroom-apartment",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 3950000,
+     "living_area_sqm": 92,
+     "rooms": null,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": null,
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-wentz-mc",
+  "agency": "J&K Wentz Real Estate Monaco",
+  "website": "https://www.wentz.mc/",
+  "runner": "local",
+  "status": "unreachable",
+  "immotoolbox": false,
+  "error": "https://www.wentz.mc/: SSLError"
+ },
+ {
+  "site_key": "web-vallat-mc",
+  "agency": "FY Real Estate",
+  "website": "https://vallat.mc/",
+  "runner": "local",
+  "status": "unreachable",
+  "immotoolbox": false,
+  "error": "https://vallat.mc/: SSLError"
+ },
+ {
+  "site_key": "web-jvpastor-realestate-com",
+  "agency": "JV PASTOR REAL ESTATE",
+  "website": "https://www.jvpastor-realestate.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-regalestates-mc",
+  "agency": "Regal Estates Monaco",
+  "website": "https://www.regalestates.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.regalestates.mc/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?regalestates\\.mc/properties/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/properties/{slug}",
+  "links_seen": 3,
+  "index_source": "sitemap",
+  "samples": [
+   {
+    "url": "https://regalestates.mc/properties/off-market-property-on-mareterra",
+    "hint": null,
+    "score": 3,
+    "missing": [
+     "transaction",
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": null,
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Off-Market Property on Mareterra",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 3
+    }
+   },
+   {
+    "url": "https://regalestates.mc/properties/off-market-property-in-the-heart-of-monaco",
+    "hint": null,
+    "score": 3,
+    "missing": [
+     "transaction",
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": null,
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Off-Market Property - La Petite Afrique",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 3
+    }
+   }
+  ],
+  "quality": 3
+ },
+ {
+  "site_key": "web-zrealinvest-com",
+  "agency": "ZREALInvest",
+  "website": "https://www.zrealinvest.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.zrealinvest.com/biens-immobilier/?nsearch%5Bcountry%5D=&amp;nsearch%5Btype%5D=rental"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?zrealinvest\\.com/detail\\-bien/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/detail-bien/{id-slug}",
+  "links_seen": 10,
+  "samples": [
+   {
+    "url": "https://www.zrealinvest.com/detail-bien/114871-penthouse-roof-monte-carlo-monaco/",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 34900000,
+     "living_area_sqm": 85,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Exceptionnel penthouse – Domaine de Roqueville, Monaco",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 56
+    }
+   },
+   {
+    "url": "https://www.zrealinvest.com/detail-bien/98995-appartement-la-rousse-saint-roman-monaco/",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 3300000,
+     "living_area_sqm": 89,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "La Radieuse - Monaco - Quatre pièces rénové proche des plages",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 20
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-goldensquaremonaco-com",
+  "agency": "SARL GOLDEN SQUARE",
+  "website": "https://www.goldensquaremonaco.com/",
+  "runner": "local",
+  "status": "unreachable",
+  "immotoolbox": false,
+  "error": "https://www.goldensquaremonaco.com/: HTTP 503"
+ },
+ {
+  "site_key": "web-waldhof-fr",
+  "agency": "Waldhof Real Estate",
+  "website": "https://waldhof.fr/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://waldhof.fr/fr/ventes"
+   ],
+   "rent": [
+    "https://waldhof.fr/fr/location",
+    "https://waldhof.fr/fr/location-longue-duree"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?waldhof\\.fr/fr/propriete/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/propriete/{id-slug}",
+  "links_seen": 27,
+  "samples": [
+   {
+    "url": "https://waldhof.fr/fr/propriete/vente+maison+ramatuelle+villa-provencale-d-exception-avec-heliport-et-prestations-exclusives+86450064",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 19800000,
+     "living_area_sqm": 500,
+     "rooms": null,
+     "bedrooms": 7,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Villa Provençale d’Exception avec Héliport et Prestations exclusives",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 24
+    }
+   },
+   {
+    "url": "https://waldhof.fr/fr/propriete/location+maison+mougins+villa-neuve-ultra-luxe-mougins+86649960",
+    "hint": "rent",
+    "score": 7,
+    "missing": [
+     "ref"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": 475,
+     "rooms": 8,
+     "bedrooms": 6,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "VILLA NEUVE ULTRA LUXE MOUGINS",
+     "agent_name": "Etienne\n\t\t\t\t\t\t\t\t\tDARRAS",
+     "agent_phone": "+33651318572",
+     "agent_email": "etienne@waldhof.fr",
+     "photos": 19
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-hammerdraff-com",
+  "agency": "Hammer Draff",
+  "website": "https://www.hammerdraff.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.hammerdraff.com/properties-sale-monaco"
+   ],
+   "rent": [
+    "https://www.hammerdraff.com/properties-rent-monaco"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?hammerdraff\\.com/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}",
+  "links_seen": 4,
+  "samples": [
+   {
+    "url": "https://www.hammerdraff.com/real-estate-agency-monaco",
+    "hint": "rent",
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": null,
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 1
+    }
+   },
+   {
+    "url": "https://hammerdraff.com/real-estate-terms-and-conditions",
+    "hint": "rent",
+    "score": 2,
+    "missing": [
+     "area",
+     "rooms",
+     "photos",
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": null,
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 0
+    }
+   }
+  ],
+  "quality": 2
+ },
+ {
+  "site_key": "web-edenagency-mc",
+  "agency": "Eden Agency",
+  "website": "https://www.edenagency.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.edenagency.mc/fr/ventes"
+   ],
+   "rent": [
+    "https://www.edenagency.mc/fr/locations"
+   ]
+  }
+ },
+ {
+  "site_key": "web-dama-agency-com",
+  "agency": "DAMA Monaco",
+  "website": "https://dama-agency.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://dama-agency.com/vente"
+   ],
+   "rent": [
+    "https://dama-agency.com/location"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?dama\\-agency\\.com/location/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/location/{slug}",
+  "links_seen": 18,
+  "index_source": "sitemap",
+  "samples": [
+   {
+    "url": "https://dama-agency.com/location/luxueuse-villa-avec-piscine-et-tennis-saint-paul-de-vence",
+    "hint": null,
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": 2300,
+     "rooms": null,
+     "bedrooms": 4,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Luxueuse Villa à Louer avec Piscine et Tennis Privé Saint-Paul de Vence",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   },
+   {
+    "url": "https://dama-agency.com/location/villa-neuve-aux-prestations-exceptionnelles-villfranche-sur-mer",
+    "hint": null,
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": 450,
+     "rooms": null,
+     "bedrooms": 5,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Villa flambant neuve aux prestations exceptionnelles Villefranche-sur-Mer",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 49
+    }
+   }
+  ],
+  "quality": 6
+ },
+ {
+  "site_key": "web-immosoft-mc",
+  "agency": "ImmoSoft",
+  "website": "https://www.immosoft.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-agencelephare-com",
+  "agency": "Agence Le Phare",
+  "website": "https://www.agencelephare.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.agencelephare.com/vente/1/",
+    "https://www.agencelephare.com/fr/vente/1/"
+   ],
+   "rent": [
+    "https://www.agencelephare.com/location/1/",
+    "https://www.agencelephare.com/fr/location/1/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?agencelephare\\.com/fr/vente/1/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/vente/1/{id-slug}",
+  "links_seen": 5,
+  "samples": [
+   {
+    "url": "https://www.agencelephare.com/fr/vente/1/2014289-appartement-cherbourg-en-cotentin-50100",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 205744,
+     "living_area_sqm": 70,
+     "rooms": 3,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Cherbourg-en-Cotentin",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 21
+    }
+   },
+   {
+    "url": "https://www.agencelephare.com/fr/vente/1/2003015-garage-cherbourg-en-cotentin-50130",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 23000,
+     "living_area_sqm": 10,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Vente Garage Cherbourg-en-Cotentin",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 3
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-amber-international-com",
+  "agency": "Amber International",
+  "website": "https://www.amber-international.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.amber-international.com/condo/?for=rent",
+    "https://amber-international.com/projects/?location=Asoke"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?amber\\-international\\.com/condo/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/condo/{slug}",
+  "links_seen": 4,
+  "samples": [
+   {
+    "url": "https://amber-international.com/condo/chapter-charoennakhon-riverside-2/",
+    "hint": "sale",
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Chapter Charoennakhon–Riverside",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 14
+    }
+   },
+   {
+    "url": "https://amber-international.com/condo/banyan-tree-residence-2/",
+    "hint": "sale",
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Banyan Tree Residence",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 14
+    }
+   }
+  ],
+  "quality": 3
+ },
+ {
+  "site_key": "web-apartments-for-rent-monaco-com",
+  "agency": "Apartments for Rent Monaco",
+  "website": "https://www.apartments-for-rent-monaco.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.apartments-for-rent-monaco.com/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?apartments\\-for\\-rent\\-monaco\\.com/apartment/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/apartment/{slug}",
+  "links_seen": 12,
+  "samples": [
+   {
+    "url": "https://www.apartments-for-rent-monaco.com/apartment/x4lkg-elegant-2-bedroom-apartment-seaview-fontvieille",
+    "hint": null,
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 17500,
+     "living_area_sqm": 120,
+     "rooms": null,
+     "bedrooms": 2,
+     "floor": 2,
+     "external_ref": null,
+     "quarter": "Fontvieille (Monaco)",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 15
+    }
+   },
+   {
+    "url": "https://www.apartments-for-rent-monaco.com/apartment/x4jlk-under-offer-le-monte-carlo-palace-boulevard-des-moulins",
+    "hint": null,
+    "score": 4,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 380,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": 3,
+     "external_ref": null,
+     "quarter": "Carré d'Or (Monaco)",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 7
+    }
+   }
+  ],
+  "quality": 4
+ },
+ {
+  "site_key": "web-agencedumidi-mc",
+  "agency": "Du Midi Agency",
+  "website": "https://www.agencedumidi.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-festainvestments-com",
+  "agency": "Festa Real Estate",
+  "website": "https://www.festainvestments.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-hermitageriviera-com",
+  "agency": "Hermitage Riviera",
+  "website": "https://www.hermitageriviera.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://hermitageriviera.com/sale/"
+   ],
+   "rent": [
+    "https://hermitageriviera.com/rental/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?hermitageriviera\\.com/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}",
+  "links_seen": 35,
+  "samples": [
+   {
+    "url": "https://hermitageriviera.com/villa-for-sale-beaulieu-sur-mer-swimming-pool-garden-sea-and-mountain-views-hr2934",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "ref"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1950000,
+     "living_area_sqm": 100,
+     "rooms": 4,
+     "bedrooms": 3,
+     "floor": 0,
+     "external_ref": null,
+     "quarter": "Swimming Pool – Garden – Sea and Mountain Views",
+     "agent_name": "Philip Klein Managing",
+     "agent_phone": "+33 (0)6 78 45 45 94",
+     "agent_email": "philip@hermitageriviera.com",
+     "photos": 60
+    }
+   },
+   {
+    "url": "https://hermitageriviera.com/apartment-for-sale-beaulieu-sur-mer-renovated-terrace-sea-view-close-to-center-hr3019",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "ref"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 990000,
+     "living_area_sqm": 65,
+     "rooms": 3,
+     "bedrooms": 2,
+     "floor": 7,
+     "external_ref": null,
+     "quarter": "Renovated - Terrace - Sea view - Close to center",
+     "agent_name": "Viktoriya Zhovannik",
+     "agent_phone": "+33 (0)6 72 16 88 40",
+     "agent_email": "viktoriya@hermitageriviera.com",
+     "photos": 60
+    }
+   }
+  ],
+  "quality": 7
+ },
+ {
+  "site_key": "web-knightfrank-com",
+  "agency": "Knight Frank Monaco",
+  "website": "https://www.knightfrank.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.knightfrank.com/buying-property",
+    "https://www.knightfrank.com/property-for-sale"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?knightfrank\\.com/properties/residential/for\\-sale/[a-z0-9]+(?:-[a-z0-9]+){3,}/all\\-types/all\\-beds/?(?:[?#].*)?$)",
+  "listing_shape": "/properties/residential/for-sale/{slug}/all-types/all-beds",
+  "links_seen": 4,
+  "samples": [
+   {
+    "url": "https://www.knightfrank.com/properties/residential/for-sale/hong-kong-sar-hk/all-types/all-beds",
+    "hint": "sale",
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": null,
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 0
+    }
+   },
+   {
+    "url": "https://www.knightfrank.com/properties/residential/for-sale/united-states-of-america/all-types/all-beds",
+    "hint": "sale",
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": null,
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 0
+    }
+   }
+  ],
+  "quality": 3
+ },
+ {
+  "site_key": "web-properties-lefigaro-com",
+  "agency": "Le Figaro Properties",
+  "website": "https://properties.lefigaro.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://properties.lefigaro.com/announces/house-real+estate-properties+for+sale-are/",
+    "https://properties.lefigaro.com/announces/villa-real+estate-properties+for+sale-are/"
+   ],
+   "rent": [
+    "https://properties.lefigaro.com/rental/",
+    "https://properties.lefigaro.com/holidays-rental/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?properties\\.lefigaro\\.com/announces/villa\\-real\\+estate\\-dubai\\-are/\\d{3,}/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?properties\\.lefigaro\\.com/holidays\\-rental/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/announces/villa-real+estate-dubai-are/{id} | /holidays-rental/{slug}",
+  "links_seen": 57,
+  "samples": [
+   {
+    "url": "https://properties.lefigaro.com/announces/villa-real+estate-dubai-are/101351915/",
+    "hint": "sale",
+    "score": 4,
+    "missing": [
+     "area",
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": 5,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Seaside villa with terrace",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 0
+    }
+   },
+   {
+    "url": "https://properties.lefigaro.com/announces/villa-real+estate-dubai-are/93428275/",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": 929,
+     "rooms": 16,
+     "bedrooms": 5,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "929 m²",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 0
+    }
+   }
+  ],
+  "quality": 4
+ },
+ {
+  "site_key": "web-livein-mc",
+  "agency": "Livein Monaco",
+  "website": "https://www.livein.mc/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.livein.mc/fr/vente"
+   ],
+   "rent": [
+    "https://www.livein.mc/fr/location"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?livein\\.mc/fr/vente/appartement/monaco/\\d{3,}/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?livein\\.mc/fr/location/appartement/monaco/\\d{3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/vente/appartement/monaco/{id} | /fr/location/appartement/monaco/{id}",
+  "links_seen": 18,
+  "samples": [
+   {
+    "url": "https://www.livein.mc/fr/vente/appartement/monaco/1531961",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": 295,
+     "rooms": 8,
+     "bedrooms": 5,
+     "floor": null,
+     "external_ref": "VMC1542",
+     "quarter": "Vente Duplex Monaco La Rousse #VMC1542 | Livein.mc",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 19
+    }
+   },
+   {
+    "url": "https://www.livein.mc/fr/vente/appartement/monaco/86418501",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": 868,
+     "rooms": 8,
+     "bedrooms": 7,
+     "floor": null,
+     "external_ref": "VMC2281",
+     "quarter": "Vente Appartement Monaco #VMC2281 | Livein.mc",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 14
+    }
+   }
+  ],
+  "quality": 7
+ },
+ {
+  "site_key": "web-meridian-mc",
+  "agency": "Meridian Real Estate",
+  "website": "https://www.meridian.mc/",
+  "runner": "local",
+  "status": "unreachable",
+  "immotoolbox": false,
+  "error": "https://www.meridian.mc/: HTTP 403"
+ },
+ {
+  "site_key": "web-monaco-villas-com",
+  "agency": "Monaco Villas",
+  "website": "https://www.monaco-villas.com/",
+  "runner": "local",
+  "status": "unreachable",
+  "immotoolbox": false,
+  "error": "https://www.monaco-villas.com/: ConnectionError"
+ },
+ {
+  "site_key": "web-phoenix-mc",
+  "agency": "Phoenix Properties",
+  "website": "https://www.phoenix.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
+ },
+ {
+  "site_key": "web-quantum-mc",
+  "agency": "Quantum Properties",
+  "website": "https://www.quantum.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://quantum.mc/index.php/shop/sale?id=3536",
+    "https://quantum.mc/index.php/p/hair-care-finder/?currentPage=1"
+   ],
+   "rent": []
+  }
+ }
+]

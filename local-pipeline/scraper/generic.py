@@ -36,16 +36,20 @@ LABELS: list[tuple[str, re.Pattern]] = [(k, re.compile(v, re.I)) for k, v in [
     ("rooms", r"^(?:nb\.? de )?(?:pi[eè]ces?|rooms?|nombre de pi[eè]ces|locali|vani|комнат)"),
     ("bathrooms", r"^(?:nb\.? de )?(?:salles? de bains?|salles? d.eau|bathrooms?|baths?|bagni|ванн)"),
     ("terrace", r"^(?:superf(?:icie|\.)? )?(?:terrasses?|terraces?|balcon|balcony|loggia|terrazz)"),
+    ("living_hab", r"^(?:surface habitable|superf(?:icie|\.)? ?hab|surf\.? hab|living area|living space|surface utile|"
+                   r"interior|internal area|superficie interna|жилая)"),
     ("living", r"^(?:surface|superficie|superf\.|living area|living space|area|size|surface habitable|"
                r"surface totale|total area|interior|superficie interna|площадь|m²|sqm|sq\.? ?m)"),
     ("floor", r"^(?:[eé]tage|floor|level|niveau|piano|этаж)\b"),
     ("parking", r"^(?:parkings?|garages?|parking spaces?|box|posti auto|парковк)"),
     ("cellar", r"^(?:caves?|cellars?|cantina|storage)\b"),
     ("reference", r"^(?:r[ée]f(?:[ée]rence)?\.?|reference|ref\.?|mandat|riferimento|id)\b"),
-    ("type", r"^(?:type(?: de bien)?|property type|typology|tipologia|type of property|тип)"),
+    ("transaction", r"^(?:transaction|contract|type de transaction|type of transaction|offre|contrat)\b"),
+    ("type", r"^(?:type(?! de transaction| of transaction)(?: de (?:bien|produit))?|property type|typology|tipologia|"
+             r"type of property|тип)"),
     ("quarter", r"^(?:quartier|district|neighbou?rhood|area|secteur|zone|quartiere|район|location|localisation)\b"),
     ("building", r"^(?:immeuble|r[ée]sidence|building|residence|palazzo|здание)\b"),
-    ("transaction", r"^(?:transaction|contract|type de transaction|offre)\b"),
+
 ]]
 
 AGENT_SECTION = re.compile(r"(votre\s+(?:contact|conseill[eè]re?|agent|interlocut)|your\s+(?:contact|agent|advisor|"
@@ -155,6 +159,9 @@ def label_pairs(b: BeautifulSoup) -> list[tuple[str, str]]:
             continue
         if len(kids) == 2 and not kids[0].find_all(recursive=False):
             pairs.append((kids[0].get_text(" ", strip=True), kids[1].get_text(" ", strip=True)))
+        # <li>Référence <span>VMC2290</span></li>
+        if len(kids) == 1 and el.contents and isinstance(el.contents[0], str) and el.contents[0].strip():
+            pairs.append((el.contents[0].strip(), kids[0].get_text(" ", strip=True)))
         m = re.match(r"^([^:：]{2,40})\s*[:：]\s*(.{1,60})$", text)
         if m:
             pairs.append((m.group(1), m.group(2)))
@@ -263,9 +270,23 @@ NOISE = re.compile(r"similar|related|recommend|other-propert|autres|also-like|fo
 ITB_ID = re.compile(r"/(\d{5,6})(?:[-_/]|$)")
 
 
+RAW_IMG = re.compile(r"(https?:)?(//[^\s\"'()<>]+?\.(?:jpe?g|png|webp))(?:\?[^\s\"'()<>]*)?", re.I)
+
+
+def raw_images(html: str, base: str) -> list[str]:
+    """Gallery URLs that only live in JS (sliders, JSON blobs), same site or CDN."""
+    out: list[str] = []
+    for m in RAW_IMG.finditer(html.replace("\\/", "/")):
+        u = urljoin(base, (m.group(1) or "https:") + m.group(2))
+        if not IMG_JUNK.search(u) and u not in out:
+            out.append(u)
+    return out
+
+
 def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None = None) -> dict:
     b = soup(html)
     ld = jsonld(b)
+    js_photos = raw_images(html, url)
     for t in b.find_all(["script", "style", "noscript", "header", "footer", "nav", "aside", "form"]):
         if not t.decomposed:
             t.decompose()
@@ -292,11 +313,28 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
         desc = clean(blocks[0]) if blocks and len(blocks[0]) > 150 else None
 
     transaction = transaction_from(url, text, labels) or hint
-    price_text = sel("price") or labels.get("rent_price") or labels.get("price")
+    # A business lease for sale also shows its monthly rent: pick by transaction.
+    price_text = sel("price") or (labels.get("rent_price") or labels.get("price") if transaction == "rent"
+                                  else labels.get("price") or (labels.get("rent_price") if transaction is None else None))
     price = parse_number(price_text) if price_text else ld.get("price")
     if price is None:
-        m = re.search(r"(\d[\d\s.,  ]{3,})\s*(?:€|eur\b)|€\s*(\d[\d\s.,  ]{3,})", text, re.I)
-        price = parse_number(m.group(1) or m.group(2)) if m else None
+        # Templates mark the headline price with a price/prix class.
+        for el in b.find_all(True, attrs={"class": re.compile(r"price|prix|prezzo", re.I)}):
+            t = el.get_text(" ", strip=True)
+            if re.search(r"\d", t) and re.search(r"€|eur", t, re.I) and len(t) < 60 and not re.search(r"/\s*mois|month|charges", t, re.I):
+                price = parse_number(t)
+                break
+    if price is None:
+        amounts = [parse_number(m.group(1) or m.group(2)) for m in
+                   re.finditer(r"(\d[\d\s.,\u00a0\u202f]{3,})\s*(?:€|eur\b)|€\s*(\d[\d\s.,\u00a0\u202f]{3,})", text[:6000], re.I)]
+        amounts = [a for a in amounts if a]
+        if amounts:
+            price = max(amounts) if transaction == "sale" else amounts[0]
+    if transaction is None and price:
+        if re.search(r"par mois|/\s*mois|per month|/\s*month|monthly|mensuel", text[:4000], re.I):
+            transaction = "rent"
+        elif price >= 150000:
+            transaction = "sale"
     por = bool(re.search(r"prix sur demande|price on request|sur demande|on application|p\.o\.a", (price_text or "") + " " + text[:3000], re.I))
     if por and not price_text:
         price = None
@@ -305,7 +343,7 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
         v = sel(key) or labels.get(key)
         return parse_number(v) if v else ld.get(key)
 
-    living = num("living")
+    living = num("living_hab") or num("living")
     if living is None:
         m = re.search(r"(\d[\d.,]*)\s*(?:m²|m2|sqm|sq\.? ?m)\b", text, re.I)
         living = parse_number(m.group(1)) if m else None
@@ -314,10 +352,20 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
         int(parse_number(floor_raw)) if floor_raw and parse_number(floor_raw) is not None else ld.get("floor"))
 
     flags = keyword_flags(f"{title or ''}\n{desc or ''}")
+    tt = f"{title or ''} {og.get('og:title') or ''}"
+    m = re.search(r"(\d+)\s*(?:-|\s)?\s*(?:pi[eè]ces|rooms?|locali|комнат)", tt, re.I)
+    title_rooms = int(m.group(1)) if m else (1 if re.search(r"\bstudio\b", tt, re.I) else None)
+    m = re.search(r"(\d+)\s*(?:-|\s)?\s*(?:chambres?|bed(?:room)?s?|camere|спал)", tt, re.I)
+    title_beds = int(m.group(1)) if m else (0 if re.search(r"\bstudio\b", tt, re.I) else None)
     agent = {k: v for k, v in ld.items() if k.startswith("agent_") and v}
     if not agent:
         agent = find_agent(b, agency.get("phone"), agency.get("name"))
     photos = [u for u in (ld.get("images") or []) if isinstance(u, str)] or images(b, url)
+    if len(photos) < 2:
+        # Keep URLs that look like listing media (share a path with the ones we have, or mention the id).
+        lid = re.search(r"\d{4,}", urlparse(url).path)
+        extra = [u for u in js_photos if (lid and lid.group(0) in u) or re.search(r"/(?:photos?|images?|media|uploads|annonces?|biens?|propert)", u, re.I)]
+        photos = list(dict.fromkeys(photos + extra))[:60]
     as_int = lambda v: int(v) if isinstance(v, (int, float)) else None  # noqa: E731
 
     listing = {
@@ -331,8 +379,8 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
         "title": title,
         "description": desc,
         "property_type": (clean(labels.get("type")) or "").lower() or None,
-        "rooms": as_int(num("rooms")),
-        "bedrooms": as_int(num("bedrooms")),
+        "rooms": as_int(num("rooms")) if num("rooms") is not None else title_rooms,
+        "bedrooms": as_int(num("bedrooms")) if num("bedrooms") is not None else title_beds,
         "bathrooms": as_int(num("bathrooms")),
         "living_area_sqm": living,
         "terrace_sqm": num("terrace"),
@@ -364,6 +412,21 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
 
 # ── index ───────────────────────────────────────────────────────────────
 
+def page_url(start: str, u: str) -> str | None:
+    from urllib.parse import parse_qsl, urlencode
+    pu, ps = urlparse(u), urlparse(start)
+    m = re.search(r"/page/(\d+)", pu.path)
+    if m:
+        return f"{pu.scheme}://{pu.netloc}{pu.path}" + (f"?{ps.query}" if ps.query else "")
+    q = dict(parse_qsl(pu.query))
+    num = next(((k, q[k]) for k in ("page", "p", "pg", "paged") if q.get(k, "").isdigit()), None)
+    if not num:
+        return None
+    keep = dict(parse_qsl(ps.query))
+    keep[num[0]] = num[1]
+    return f"{pu.scheme}://{pu.netloc}{pu.path}?{urlencode(keep)}"
+
+
 def crawl_index(f: PoliteFetcher, cfg: dict) -> list[dict]:
     """Every listing URL across the configured index pages, following
     rel=next / numbered pagination within the same index path — or, for
@@ -371,7 +434,8 @@ def crawl_index(f: PoliteFetcher, cfg: dict) -> list[dict]:
     pattern = re.compile(cfg["listing_pattern"])
     if cfg.get("index_source") == "sitemap":
         from scraper.autoconfig import sitemap_urls
-        urls = [u for u in dict.fromkeys(sitemap_urls(f, cfg["website"], limit=20)) if pattern.search(u)]
+        plain = f if isinstance(f, PoliteFetcher) else PoliteFetcher()  # raw XML, not a rendered viewer
+        urls = [u for u in dict.fromkeys(sitemap_urls(plain, cfg["website"], limit=20)) if pattern.search(u)]
         if not urls:
             raise RuntimeError("sitemap returned no listing URLs")  # never report an empty index as complete
         return [{"source_url": u, "transaction_hint": None} for u in urls]
@@ -394,12 +458,15 @@ def crawl_index(f: PoliteFetcher, cfg: dict) -> list[dict]:
                         found[u] = {"source_url": u, "transaction_hint": transaction}
                         new += 1
                 nxt = b.select_one('link[rel="next"], a[rel="next"]')
-                cands = [urljoin(page, nxt["href"])] if nxt and nxt.get("href") else []
+                raw = [urljoin(page, nxt["href"])] if nxt and nxt.get("href") else []
                 base_path = urlparse(start).path.rstrip("/")
                 for a in b.find_all("a", href=True):
                     u = urljoin(page, a["href"])
                     if urlparse(u).path.startswith(base_path) and re.search(r"(?:[?&](?:page|p|pg|paged)=\d+|/page/\d+)", u):
-                        cands.append(u)
+                        raw.append(u)
+                # Sort options and #anchors multiply one page into dozens of
+                # URLs: keep the start page's own query + the page number only.
+                cands = list(dict.fromkeys(filter(None, (page_url(start, u) for u in raw))))
                 if new or page == start:
                     queue += [c for c in cands if c not in seen_pages and c not in queue]
     return list(found.values())

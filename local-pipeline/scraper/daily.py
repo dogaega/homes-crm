@@ -59,7 +59,11 @@ def family_mcre(client, mode: str, results: list, match=None) -> None:
 
 def web_site(client, mode: str, cfg: dict, agency: dict) -> dict:
     from scraper.autoconfig import OUTSIDE
-    f = PoliteFetcher()
+    if cfg.get("render"):
+        from scraper.browser import BrowserFetcher
+        f = BrowserFetcher()
+    else:
+        f = PoliteFetcher()
     hints: dict[str, str] = {}
 
     def index() -> list[dict]:
@@ -74,7 +78,11 @@ def web_site(client, mode: str, cfg: dict, agency: dict) -> dict:
         return d
 
     info = {k: agency[k] for k in ("name", "cim_slug", "website", "phone", "email", "address") if agency.get(k)}
-    return run_site(f, client, cfg["site_key"], info, index, detail, mode=mode, runner=cfg.get("runner", "server"))
+    try:
+        return run_site(f, client, cfg["site_key"], info, index, detail, mode=mode, runner=cfg.get("runner", "server"))
+    finally:
+        if hasattr(f, "close"):
+            f.close()
 
 
 RUNNER = "server"

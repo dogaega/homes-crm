@@ -117,10 +117,22 @@ def score(d: dict) -> tuple[int, list[str]]:
     return sum(checks.values()), [k for k, v in checks.items() if not v]
 
 
-def build(site_recon: dict, agency: dict) -> dict:
+def build(site_recon: dict, agency: dict, render: bool = False) -> dict:
+    if render:
+        from scraper.browser import BrowserFetcher
+        bf = BrowserFetcher(delay=(1.5, 3), block_wait=10, retries=1)
+        try:
+            cfg = _build(site_recon, agency, bf)
+            cfg["render"] = True
+            return cfg
+        finally:
+            bf.close()
+    return _build(site_recon, agency, PoliteFetcher(delay=(1.5, 3), block_wait=10, retries=1, timeout=25))
+
+
+def _build(site_recon: dict, agency: dict, f) -> dict:
     site = site_recon["website"]
     host = urlparse(site).netloc
-    f = PoliteFetcher(delay=(1.5, 3), block_wait=10, retries=1, timeout=25)
     cfg = {"site_key": "web-" + re.sub(r"[^a-z0-9]+", "-", host.removeprefix("www.").lower()).strip("-")[:50],
            "agency": agency["name"], "website": site, "runner": "server", "status": "draft",
            "immotoolbox": "immotoolbox" in (site_recon.get("platforms") or [])}
@@ -131,7 +143,8 @@ def build(site_recon: dict, agency: dict) -> dict:
         cfg.update(status="unreachable", error=str(e)[:200], runner="local")
         return cfg
     cand = [u for u in dict.fromkeys((site_recon.get("index_candidates") or []) + links(home, site, site))
-            if not NOT_INDEX.search(urlparse(u).path) and not OUTSIDE.search(u) and (SALE.search(u) or RENT.search(u))]
+            if not NOT_INDEX.search(urlparse(u).path) and not OUTSIDE.search(u) and (SALE.search(u) or RENT.search(u))
+            and "{" not in shape(u)]  # a listing page is not an index page
     # Shortest paths first: "/fr/ventes" beats "/fr/ventes/monaco/t-1-appartement".
     cand.sort(key=lambda u: (len(urlparse(u).path), u))
     index = {"sale": [], "rent": []}
@@ -141,6 +154,7 @@ def build(site_recon: dict, agency: dict) -> dict:
             index[kind].append(u)
     pages = index["sale"] + index["rent"] or [site]
     shapes: Counter = Counter()
+    kind_shapes: dict[str, Counter] = {"sale": Counter(), "rent": Counter()}
     examples: dict[str, list[str]] = {}
     found_on: dict[str, list[str]] = {"sale": [], "rent": []}
     for p in pages[:4]:
@@ -153,6 +167,8 @@ def build(site_recon: dict, agency: dict) -> dict:
             sh = shape(u)
             if "{" in sh and not NOT_INDEX.search(urlparse(u).path) and not ASSET.search(u):
                 shapes[sh] += 1
+                if p != site:
+                    kind_shapes[kind][sh] += 1
                 examples.setdefault(sh, []).append(u)
                 if p != site:
                     found_on[kind].append(u)
@@ -170,8 +186,14 @@ def build(site_recon: dict, agency: dict) -> dict:
         cfg.update(status="no_listing_links", index_urls=index)
         return cfg
     sh, n = shapes.most_common(1)[0]
+    # Sale and rent listings often live under different paths
+    # (/produit-vente/ vs /produit-location/): cover the top shape of each.
+    chosen = [sh] + [ks.most_common(1)[0][0] for ks in kind_shapes.values()
+                     if ks and ks.most_common(1)[0][1] >= 2 and ks.most_common(1)[0][0] != sh]
+    chosen = list(dict.fromkeys(chosen))
     cfg.update(index_urls={k: v for k, v in index.items() if v} or {"sale": [site]},
-               listing_pattern=shape_regex(host, sh), listing_shape=sh, links_seen=n)
+               listing_pattern="|".join(f"(?:{shape_regex(host, c)})" for c in chosen),
+               listing_shape=" | ".join(chosen), links_seen=n)
     if use_sitemap:
         cfg["index_source"] = "sitemap"
     samples = [u for u in examples[sh] if not OUTSIDE.search(u)][:2] or examples[sh][:2]
@@ -181,7 +203,7 @@ def build(site_recon: dict, agency: dict) -> dict:
         try:
             d = generic.parse_detail(f.get(u), u, cfg, agency, hint=hints.get(u))
             s, missing = score(d)
-            results.append({"url": u, "score": s, "missing": missing,
+            results.append({"url": u, "hint": hints.get(u), "score": s, "missing": missing,
                             "sample": {k: d.get(k) for k in ("transaction_type", "price", "living_area_sqm", "rooms",
                                                                 "bedrooms", "floor", "external_ref", "quarter",
                                                                 "agent_name", "agent_phone", "agent_email")}
@@ -194,12 +216,48 @@ def build(site_recon: dict, agency: dict) -> dict:
     return cfg
 
 
+def rescore(cfg: dict, agency: dict) -> dict:
+    """Re-parse the stored sample URLs with the current extractor."""
+    if not cfg.get("samples"):
+        return cfg
+    f = PoliteFetcher(delay=(1.5, 3), block_wait=10, retries=1, timeout=25)
+    results = []
+    for smp in cfg["samples"]:
+        u = smp["url"]
+        try:
+            d = generic.parse_detail(f.get(u), u, cfg, agency, hint=smp.get("hint"))
+            sc, missing = score(d)
+            results.append({"url": u, "hint": smp.get("hint"), "score": sc, "missing": missing,
+                            "sample": {k: d.get(k) for k in ("transaction_type", "price", "living_area_sqm", "rooms",
+                                                                "bedrooms", "floor", "external_ref", "quarter",
+                                                                "agent_name", "agent_phone", "agent_email")}
+                            | {"photos": len(d.get("photo_urls") or []), "cim_id": (d.get("extra") or {}).get("cim_id")}})
+        except Exception as e:
+            results.append({"url": u, "hint": smp.get("hint"), "score": 0, "error": repr(e)[:150]})
+    cfg["samples"] = results
+    cfg["quality"] = min((r["score"] for r in results), default=0)
+    if cfg["status"] in ("ok", "weak"):
+        cfg["status"] = "ok" if cfg["quality"] >= 6 else "weak"
+    return cfg
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--name", action="append")
     ap.add_argument("--workers", type=int, default=6)
     ap.add_argument("--redo", help="comma-separated statuses to rebuild, e.g. weak,no_listing_links")
+    ap.add_argument("--rescore", action="store_true", help="re-parse stored samples only")
+    ap.add_argument("--render", action="store_true", help="use headless Chromium (JS-rendered sites)")
     args = ap.parse_args()
+    if args.rescore:
+        agencies = {a["name"]: a for a in json.loads((DATA / "agencies.json").read_text())}
+        path = DATA / "site_configs.json"
+        cfgs = json.loads(path.read_text())
+        with ThreadPoolExecutor(max_workers=args.workers) as ex:
+            cfgs = list(ex.map(lambda c: rescore(c, agencies.get(c["agency"], {"name": c["agency"]})), cfgs))
+        path.write_text(json.dumps(cfgs, ensure_ascii=False, indent=1))
+        print(Counter(c["status"] for c in cfgs))
+        return
     if args.redo:
         redo = set(args.redo.split(","))
         args.name = [c["agency"] for c in json.loads((DATA / "site_configs.json").read_text()) if c["status"] in redo]
@@ -215,7 +273,7 @@ def main() -> None:
             seen.add(host)
             todo.append(r)
     with ThreadPoolExecutor(max_workers=args.workers) as ex:
-        cfgs = list(ex.map(lambda r: build(r, agencies.get(r["name"], {"name": r["name"]})), todo))
+        cfgs = list(ex.map(lambda r: build(r, agencies.get(r["name"], {"name": r["name"]}), args.render), todo))
     path = DATA / "site_configs.json"
     existing = {c["site_key"]: c for c in json.loads(path.read_text())} if path.exists() and args.name else {}
     for c in cfgs:

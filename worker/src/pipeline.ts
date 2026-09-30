@@ -41,12 +41,12 @@ export interface QuarterRow { id: string; aliases: string; centroid_lat: number 
 // Longest alias wins so "la rousse/saint roman" beats "rousse".
 export function resolveQuarter(text: string | null | undefined, quarters: QuarterRow[]): string | null {
   if (!text) return null
-  const t = ' ' + stripAccents(text).toLowerCase().replace(/^q_/, '').replace(/[_-]/g, ' ').replace(/\s+/g, ' ') + ' '
+  const t = ' ' + stripAccents(text).toLowerCase().replace(/[’‘`´]/g, "'").replace(/^q_/, '').replace(/[_–—-]/g, ' ').replace(/\s+/g, ' ') + ' '
   let best: { id: string; len: number } | null = null
   for (const q of quarters) {
     if (t.trim() === q.id.replace(/-/g, ' ')) return q.id
     for (const raw of JSON.parse(q.aliases) as string[]) {
-      const a = stripAccents(raw).toLowerCase().replace(/[_-]/g, ' ')
+      const a = stripAccents(raw).toLowerCase().replace(/[’‘`´]/g, "'").replace(/[_–—-]/g, ' ')
       if (t.includes(' ' + a + ' ') || t.includes(' ' + a + ',') || t.includes(' ' + a + '/')) {
         if (!best || a.length > best.len) best = { id: q.id, len: a.length }
       }
@@ -499,7 +499,8 @@ async function ingestListing(ctx: Ctx, run: any, agencyId: string, agentId: stri
 async function detailColumns(ctx: Ctx, l: ListingPayload): Promise<Record<string, unknown>> {
   const quarters = await ctx.getQuarters()
   const building = await ctx.findBuilding(l.building_name)
-  const quarter = resolveQuarter(l.quarter, quarters) ?? resolveQuarter(l.address, quarters) ?? building?.quarter ?? null
+  const quarter = resolveQuarter(l.quarter, quarters) ?? resolveQuarter(l.address, quarters) ?? building?.quarter
+    ?? resolveQuarter(l.title, quarters) ?? resolveQuarter((l.description || '').slice(0, 300), quarters) ?? null
   let lat: number | null = null, lng: number | null = null, coordSource: string | null = null
   if (inMonaco(l.lat, l.lng)) { lat = round5(l.lat!); lng = round5(l.lng!); coordSource = 'listing' }
   else if (building?.lat != null) { lat = building.lat; lng = building.lng; coordSource = 'building' }
