@@ -1,15 +1,131 @@
 [
- {"site_key": "web-westrope-monaco-com", "agency": "Westrope Real Estate", "website": "https://www.westrope-monaco.com/",
-  "status": "verified", "runner": "server",
-  "index_urls": {"sale": ["https://www.westrope-monaco.com/index.php?page=liste&type=vente"],
-                 "rent": ["https://www.westrope-monaco.com/index.php?page=liste&type=location"]},
-  "listing_pattern": "^https?://(?:www\\.)?westrope-monaco\\.com/index\\.php\\?page=liste&step2=detail&produit=[0-9A-Fa-f-]{36}$"},
- {"site_key": "web-gramaglia-mc", "agency": "Agence Gramaglia", "website": "https://www.gramaglia.mc/",
-  "status": "verified", "runner": "server",
-  "index_urls": {"sale": ["https://www.gramaglia.mc/fr/ventes/"], "rent": ["https://www.gramaglia.mc/fr/locations/"]},
-  "listing_pattern": "^https?://(?:www\\.)?gramaglia\\.mc/fr/produit/\\d{4,}-[^/?#]+/?$"},
- {"site_key": "web-dotta-mc", "agency": "Dotta Immobilier", "website": "https://www.dotta.mc/",
-  "status": "verified", "runner": "server",
-  "index_urls": {"sale": ["https://www.dotta.mc/monaco/vente/"], "rent": ["https://www.dotta.mc/monaco/location/"]},
-  "listing_pattern": "^https?://(?:www\\.)?dotta\\.mc/monaco/(?:vente|location)/[a-z]{1,4}\\d+/[^/?#]+/?$"}
+ {
+  "site_key": "web-westrope-monaco-com",
+  "agency": "Westrope Real Estate",
+  "website": "https://www.westrope-monaco.com/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.westrope-monaco.com/index.php?page=liste&type=vente"
+   ],
+   "rent": [
+    "https://www.westrope-monaco.com/index.php?page=liste&type=location"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?westrope-monaco\\.com/index\\.php\\?page=liste&step2=detail&produit=[0-9A-Fa-f-]{36}$"
+ },
+ {
+  "site_key": "web-gramaglia-mc",
+  "agency": "Agence Gramaglia",
+  "website": "https://www.gramaglia.mc/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.gramaglia.mc/fr/ventes/"
+   ],
+   "rent": [
+    "https://www.gramaglia.mc/fr/locations/"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?gramaglia\\.mc/fr/produit/\\d{4,}-[^/?#]+/?$"
+ },
+ {
+  "site_key": "web-dotta-mc",
+  "agency": "Dotta Immobilier",
+  "website": "https://www.dotta.mc/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.dotta.mc/monaco/vente/"
+   ],
+   "rent": [
+    "https://www.dotta.mc/monaco/location/"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?dotta\\.mc/monaco/(?:vente|location)/[a-z]{1,4}\\d+/[^/?#]+/?$"
+ },
+ {
+  "site_key": "web-intermedia-mc",
+  "agency": "Intermedia",
+  "website": "https://www.intermedia.mc/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.intermedia.mc/vente-appartement,maison-monaco.html",
+    "https://www.intermedia.mc/autres+biens-monaco.html"
+   ],
+   "rent": [
+    "https://www.intermedia.mc/location+vacances,location-appartement,maison-monaco.html"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?intermedia\\.mc/(?:vente|location)[^/?#]*-\\d+v\\d+a\\.html$"
+ },
+ {
+  "site_key": "web-afim-mc",
+  "agency": "AFIM SAM",
+  "website": "https://www.afim.mc/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.afim.mc/vente-appartement.html"
+   ],
+   "rent": [
+    "https://www.afim.mc/location-appartement.html"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?afim\\.mc/(?:vente|location)[^/?#]*-\\d+v\\d+a\\.html$"
+ },
+ {
+  "site_key": "web-eticimmobilier-com",
+  "agency": "Coldwell Banker Etic Realty",
+  "website": "https://www.eticimmobilier.com/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.eticimmobilier.com/vente+immobilier+monaco+com98.html"
+   ],
+   "rent": [
+    "https://www.eticimmobilier.com/location+immobilier.html"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?eticimmobilier\\.com/monaco\\+98\\+[^/?#]*\\+r\\d+\\.html(?:\\?.*)?$"
+ },
+ {
+  "site_key": "web-homesmontecarlo-com",
+  "agency": "HOMES Sandro Piras Real Estate",
+  "website": "https://www.homesmontecarlo.com/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.homesmontecarlo.com/our-properties-for-sale/"
+   ],
+   "rent": [
+    "https://www.homesmontecarlo.com/our-properties-for-rent/"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?homesmontecarlo\\.com/property/\\d{4,}-[^/?#]+/?$"
+ },
+ {
+  "site_key": "web-groupesmir-com",
+  "agency": "Groupe S.M.I.R.",
+  "website": "https://www.groupesmir.com/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.groupesmir.com/fr/ventes-monaco"
+   ],
+   "rent": [
+    "https://www.groupesmir.com/fr/locations-monaco"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?groupesmir\\.com/fr/detail/(?:sale|rent|location)/[A-Za-z0-9]{10,}$"
+ }
 ]

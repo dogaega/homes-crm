@@ -15,6 +15,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import re
 import sys
 import threading
 from collections import Counter
@@ -79,6 +80,14 @@ def web_site(client, mode: str, cfg: dict, agency: dict) -> dict:
     def detail(html: str, url: str) -> dict | None:
         d = generic.parse_detail(html, url, cfg, agency, hint=hints.get(url))
         if OUTSIDE.search(" ".join(str(d.get(k) or "") for k in ("title", "quarter"))) or not d.get("transaction_type"):
+            return None
+        # A listing has a price (or "on request") and some size: articles,
+        # category and agency pages never pass this.
+        has_price = d.get("price") is not None or bool(re.search(
+            r"prix sur demande|price on request|sur demande|on application", html[:200000], re.I))
+        has_size = any(d.get(k) is not None for k in ("living_area_sqm", "rooms", "bedrooms"))
+        if not (has_price and has_size):
+            log.info("%s: not a listing page, skipped: %s", cfg["site_key"], url)
             return None
         return d
 

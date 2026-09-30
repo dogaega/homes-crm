@@ -24,7 +24,7 @@ from urllib.parse import urljoin, urlparse
 
 from bs4 import BeautifulSoup
 
-from scraper.fetch import PoliteFetcher
+from scraper.fetch import NotFound, PoliteFetcher
 from scraper.text_rules import keyword_flags, parse_number
 
 # ── label dictionary ────────────────────────────────────────────────────
@@ -450,7 +450,12 @@ def crawl_index(f: PoliteFetcher, cfg: dict) -> list[dict]:
                 if page in seen_pages:
                     continue
                 seen_pages.add(page)
-                h = f.get(page)
+                try:
+                    h = f.get(page)
+                except NotFound:
+                    if page == start:
+                        raise
+                    continue  # a dead "next page" link just ends that pagination
                 b = soup(h)
                 new = 0
                 for a in b.find_all("a", href=True):

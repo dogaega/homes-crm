@@ -218,7 +218,7 @@
   "agency": "Miells Monaco Real Estate",
   "website": "https://www.miells.com/",
   "runner": "server",
-  "status": "weak",
+  "status": "bad_config",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
@@ -283,7 +283,8 @@
     }
    }
   ],
-  "quality": 3
+  "quality": 3,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-vcb-mc",
@@ -430,7 +431,7 @@
   "agency": "Groupe S.M.I.R.",
   "website": "https://www.groupesmir.com/",
   "runner": "server",
-  "status": "weak",
+  "status": "bad_config",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
@@ -497,7 +498,8 @@
     }
    }
   ],
-  "quality": 4
+  "quality": 4,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-mazza-immobilier-com",
@@ -865,7 +867,7 @@
   "agency": "Heritage Properties",
   "website": "https://www.heritageproperties.mc/",
   "runner": "server",
-  "status": "weak",
+  "status": "bad_config",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
@@ -934,7 +936,8 @@
     }
    }
   ],
-  "quality": 3
+  "quality": 3,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-carolineolds-com",
@@ -1169,7 +1172,7 @@
   "agency": "AFIM SAM",
   "website": "https://www.afim.mc/",
   "runner": "server",
-  "status": "ok",
+  "status": "bad_config",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
@@ -1232,7 +1235,8 @@
     }
    }
   ],
-  "quality": 6
+  "quality": 6,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-montecarlo-sothebysrealty-com",
@@ -1319,7 +1323,7 @@
   "agency": "Coldwell Banker Etic Realty",
   "website": "https://www.eticimmobilier.com/",
   "runner": "server",
-  "status": "weak",
+  "status": "bad_config",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
@@ -1382,7 +1386,8 @@
     }
    }
   ],
-  "quality": 5
+  "quality": 5,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-caroli-realestate-com",
@@ -1892,7 +1897,7 @@
   "agency": "Coletti Real Estate",
   "website": "https://www.colettirealestate.com/",
   "runner": "server",
-  "status": "ok",
+  "status": "bad_config",
   "immotoolbox": true,
   "index_urls": {
    "sale": [
@@ -1950,7 +1955,8 @@
     }
    }
   ],
-  "quality": 6
+  "quality": 6,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-wolf-estates-com",
@@ -2022,7 +2028,7 @@
   "agency": "Magrey And Sons Monaco",
   "website": "https://www.magreymonaco.com/",
   "runner": "server",
-  "status": "weak",
+  "status": "bad_config",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
@@ -2083,14 +2089,15 @@
     }
    }
   ],
-  "quality": 2
+  "quality": 2,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-intermedia-mc",
   "agency": "Intermedia",
   "website": "https://www.intermedia.mc/",
   "runner": "server",
-  "status": "ok",
+  "status": "bad_config",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
@@ -2149,7 +2156,8 @@
     }
    }
   ],
-  "quality": 6
+  "quality": 6,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-slamonaco-com",
@@ -2440,7 +2448,7 @@
   "agency": "Agence Continentale",
   "website": "https://www.continentale.mc/",
   "runner": "server",
-  "status": "weak",
+  "status": "bad_config",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
@@ -2507,7 +2515,8 @@
     }
    }
   ],
-  "quality": 4
+  "quality": 4,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-stars-real-estate-com",
@@ -2813,7 +2822,7 @@
   "agency": "BALDO REALTY GROUP",
   "website": "https://www.baldorealtygroup.com/",
   "runner": "server",
-  "status": "weak",
+  "status": "bad_config",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
@@ -2880,7 +2889,8 @@
     }
    }
   ],
-  "quality": 4
+  "quality": 4,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-revimmo-mc",
@@ -3493,7 +3503,7 @@
   "agency": "Roc Agency",
   "website": "https://www.rocagency.com/",
   "runner": "server",
-  "status": "weak",
+  "status": "bad_config",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
@@ -3557,7 +3567,8 @@
     }
    }
   ],
-  "quality": 2
+  "quality": 2,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-pacificagency-mc",
@@ -3702,7 +3713,7 @@
   "agency": "HOMES Sandro Piras Real Estate",
   "website": "https://www.homesmontecarlo.com/",
   "runner": "server",
-  "status": "ok",
+  "status": "bad_config",
   "immotoolbox": false,
   "index_urls": {
    "rent": [
@@ -3760,7 +3771,8 @@
     }
    }
   ],
-  "quality": 6
+  "quality": 6,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-pvnrealestate-com",
@@ -5205,7 +5217,7 @@
   "agency": "AGEDI",
   "website": "https://www.agedigroup.com/",
   "runner": "server",
-  "status": "weak",
+  "status": "bad_config",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
@@ -5269,7 +5281,8 @@
     }
    }
   ],
-  "quality": 3
+  "quality": 3,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-cote-mc",
@@ -5872,7 +5885,7 @@
   "agency": "Findr. by Interalia",
   "website": "https://www.findr.mc/",
   "runner": "server",
-  "status": "weak",
+  "status": "bad_config",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
@@ -5935,7 +5948,8 @@
     }
    }
   ],
-  "quality": 5
+  "quality": 5,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-lbmc-properties-com",
@@ -6405,7 +6419,7 @@
   "agency": "Hammer Draff",
   "website": "https://www.hammerdraff.com/",
   "runner": "server",
-  "status": "weak",
+  "status": "bad_config",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
@@ -6473,7 +6487,8 @@
     }
    }
   ],
-  "quality": 2
+  "quality": 2,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-edenagency-mc",
@@ -6648,7 +6663,7 @@
   "agency": "Amber International",
   "website": "https://www.amber-international.com/",
   "runner": "server",
-  "status": "weak",
+  "status": "bad_config",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
@@ -6713,7 +6728,8 @@
     }
    }
   ],
-  "quality": 3
+  "quality": 3,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-apartments-for-rent-monaco-com",
@@ -6966,7 +6982,7 @@
   "agency": "Le Figaro Properties",
   "website": "https://properties.lefigaro.com/",
   "runner": "server",
-  "status": "weak",
+  "status": "bad_config",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
@@ -7032,7 +7048,8 @@
     }
    }
   ],
-  "quality": 4
+  "quality": 4,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-livein-mc",
@@ -7123,7 +7140,7 @@
   "agency": "Phoenix Properties",
   "website": "https://www.phoenix.mc/",
   "runner": "server",
-  "status": "weak",
+  "status": "bad_config",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
@@ -7188,14 +7205,15 @@
    }
   ],
   "quality": 3,
-  "render": true
+  "render": true,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-quantum-mc",
   "agency": "Quantum Properties",
   "website": "https://www.quantum.mc/",
   "runner": "server",
-  "status": "weak",
+  "status": "bad_config",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
@@ -7258,7 +7276,8 @@
     }
    }
   ],
-  "quality": 4
+  "quality": 4,
+  "note": "auto shape matched non-listing pages (articles/categories); needs manual config"
  },
  {
   "site_key": "web-prime-mc",
