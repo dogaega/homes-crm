@@ -620,6 +620,7 @@ export type Database = {
           sold_date: string | null
           square_feet: number | null
           state: string
+          data_incomplete: boolean | null
           updated_at: string | null
           virtual_tour_url: string | null
           year_built: number | null
@@ -663,6 +664,7 @@ export type Database = {
           sold_date?: string | null
           square_feet?: number | null
           state: string
+          data_incomplete?: boolean | null
           updated_at?: string | null
           virtual_tour_url?: string | null
           year_built?: number | null
@@ -706,6 +708,7 @@ export type Database = {
           sold_date?: string | null
           square_feet?: number | null
           state?: string
+          data_incomplete?: boolean | null
           updated_at?: string | null
           virtual_tour_url?: string | null
           year_built?: number | null

@@ -21,6 +21,11 @@ export interface Env {
   ALLOWED_ORIGINS: string
   SIGNUP_INVITE_CODE: string
   GROQ_API_KEY: string
+  GROQ_API_KEYS: string
+  NVIDIA_API_KEY: string
+  // Shared secret for the local scraper pipeline (Bearer token on /sync/*).
+  // Set via `wrangler secret put SYNC_API_TOKEN` — never checked in.
+  SYNC_API_TOKEN: string
 }
 
 const TABLES = [
@@ -377,45 +382,98 @@ Return JSON matching this shape exactly (all fields optional, omit unknown ones)
 
 Also return a top-level "confidence": "high" | "medium" | "low" — "high" only if address, price, and size are all explicitly stated; "low" if you had to infer most fields from vague text.`
 
-async function extractWithGroq(env: Env, rawText: string): Promise<{ fields: Record<string, unknown>; confidence: 'high' | 'medium' | 'low' }> {
+// Shared low-level Groq call. Bulk scraping/backfill runs do many
+// extractions per minute and blow through a single key's per-minute rate
+// limit fast — rotate across every key in GROQ_API_KEYS (comma-separated;
+// falls back to the single GROQ_API_KEY if unset) and only fall back to
+// sleeping if every key is rate-limited on the same attempt.
+function groqKeys(env: Env): string[] {
+  const keys = (env.GROQ_API_KEYS || '').split(',').map(k => k.trim()).filter(Boolean)
+  return keys.length > 0 ? keys : [env.GROQ_API_KEY]
+}
+
+async function groqChatJSON(env: Env, systemPrompt: string, userContent: string): Promise<any> {
+  const keys = groqKeys(env)
   let res: Response | null = null
   let lastErrorText = ''
-  // Bulk scraping runs (dozens of extractions/minute) hit Groq's per-minute
-  // rate limit regularly — retry with backoff instead of failing the whole
-  // intake document on a transient 429.
-  for (let attempt = 0; attempt < 4; attempt++) {
+  let allKeysRateLimited = true
+  for (const key of keys) {
     res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${env.GROQ_API_KEY}`,
+        Authorization: `Bearer ${key}`,
       },
       body: JSON.stringify({
         model: 'openai/gpt-oss-120b',
         messages: [
-          { role: 'system', content: EXTRACTION_SYSTEM_PROMPT },
-          { role: 'user', content: rawText.slice(0, 15000) },
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userContent.slice(0, 15000) },
         ],
         response_format: { type: 'json_object' },
         temperature: 0,
       }),
     })
-    if (res.ok) break
-    if (res.status !== 429) {
-      lastErrorText = await res.text().catch(() => '')
-      break
-    }
+    if (res.ok) { allKeysRateLimited = false; break }
     lastErrorText = await res.text().catch(() => '')
-    const retryAfter = Number(res.headers.get('Retry-After')) || (2 ** attempt)
-    await new Promise(r => setTimeout(r, Math.min(retryAfter, 15) * 1000))
+    if (res.status !== 429) { allKeysRateLimited = false; break }
   }
+
+  // All Groq keys share one org-wide daily token budget, so rotating keys
+  // does nothing once that's exhausted (as opposed to a per-minute limit,
+  // where it helps) — fall over to NVIDIA's hosted gpt-oss-20b instead of
+  // failing the whole intake document.
+  if ((!res || !res.ok) && allKeysRateLimited && env.NVIDIA_API_KEY) {
+    res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${env.NVIDIA_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'openai/gpt-oss-20b',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userContent.slice(0, 15000) },
+        ],
+        response_format: { type: 'json_object' },
+        temperature: 0,
+      }),
+    })
+    if (!res.ok) lastErrorText = await res.text().catch(() => '')
+  }
+
   if (!res || !res.ok) {
-    throw new Error(`Groq extraction failed (${res?.status}): ${lastErrorText.slice(0, 300)}`)
+    throw new Error(`Groq/NVIDIA call failed (${res?.status}): ${lastErrorText.slice(0, 300)}`)
   }
   const data = await res.json<any>()
   const content = data.choices?.[0]?.message?.content
   if (!content) throw new Error('Groq returned no content')
-  const parsed = JSON.parse(content)
+  return JSON.parse(content)
+}
+
+const DESCRIPTION_CLEAN_PROMPT = `You write short, professional, client-facing property descriptions in Russian for a Monaco/French Riviera real-estate brochure. You will be given raw internal broker notes — these are NEVER shown to clients as-is.
+
+Write a clean 2-4 sentence Russian description covering only: location character, size/layout, condition, and genuine selling points (view, terrace, parking, renovation, etc). Warm but honest, no invented facts.
+
+STRIP COMPLETELY — never include any of these even if present in the source:
+- Client names or who the property was "sourced for"
+- Budgets, price negotiation status, "awaiting reply", "confirmed available" internal status notes
+- Agency names, contacts, commission splits
+- Internal qualifiers like "not genuine 1BR", "STUDIO" caveats, "kept for reference", comparisons to other listings
+- Anything written as a note-to-self rather than a description of the property
+
+If the source text has no real property information to describe (pure internal chatter), return an empty string.
+
+Return JSON: {"description": "..."}`
+
+async function generateClientDescription(env: Env, rawNotes: string): Promise<string> {
+  const result = await groqChatJSON(env, DESCRIPTION_CLEAN_PROMPT, rawNotes)
+  return typeof result.description === 'string' ? result.description.trim() : ''
+}
+
+async function extractWithGroq(env: Env, rawText: string): Promise<{ fields: Record<string, unknown>; confidence: 'high' | 'medium' | 'low' }> {
+  const parsed = await groqChatJSON(env, EXTRACTION_SYSTEM_PROMPT, rawText)
   const { confidence, ...fields } = parsed
   return {
     fields,
@@ -511,22 +569,74 @@ async function handleIntake(req: Request, env: Env, url: URL, path: string, orig
       return json({ error: 'address and city are required to create a property' }, 400, headers)
     }
 
-    const propId = crypto.randomUUID()
-    const now = new Date().toISOString()
-    const lastProp = await env.DB.prepare(
-      `SELECT property_id FROM properties ORDER BY property_id DESC LIMIT 1`
-    ).first<{ property_id: string }>()
-    const lastNum = lastProp?.property_id?.match(/PROP-(\d+)/)
-    const nextPropertyId = `PROP-${((lastNum ? parseInt(lastNum[1]) : 0) + 1).toString().padStart(3, '0')}`
+    // This CRM's convention (set by the existing data) is city='Monaco'
+    // with the actual quarter in `state`/district — but extraction has no
+    // way to know that and reasonably returns the quarter as the city
+    // (e.g. "Monte-Carlo", "Carre d'Or"). Normalize known Monaco quarters
+    // so city stays consistent for both display and the dedup check below.
+    const MONACO_QUARTERS = new Set([
+      'monte-carlo', 'monte carlo', 'la condamine', 'condamine', "carre d'or",
+      "carré d'or", 'moneghetti', 'fontvieille', 'mareterra', 'larvotto',
+      'monaco-ville', 'monaco ville', 'la rousse-saint roman', 'la rousse',
+      'saint roman', 'jardin exotique', "anse du portier",
+    ])
+    if (MONACO_QUARTERS.has(String(fields.city).trim().toLowerCase())) {
+      fields.state = fields.state || fields.city
+      fields.city = 'Monaco'
+    }
 
-    await env.DB.prepare(
-      `INSERT INTO properties (id, property_id, address, city, state, zip_code, price, bedrooms, bathrooms, square_feet, property_type, description, listing_status, assigned_agent_id, created_by, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', ?, ?, ?, ?)`
-    ).bind(
-      propId, nextPropertyId, fields.address, fields.city, fields.state || fields.city, fields.zip_code || '',
-      fields.price ?? null, fields.bedrooms ?? null, fields.bathrooms ?? null, fields.square_feet ?? null,
-      fields.property_type || null, fields.description || null, agent.id, agent.id, now, now
-    ).run()
+    const now = new Date().toISOString()
+
+    // Dedup: the same underlying unit shows up under multiple listing pages
+    // (co-listed by several agencies, or the aggregator re-lists it) with
+    // identical facts each time. Rather than creating a new property row
+    // per occurrence, attach the new source to the existing property when
+    // city + square_feet + price + bedrooms all match exactly — a
+    // coincidental match on all four at once is vanishingly unlikely.
+    let propId: string
+    let isNewProperty = true
+    const addressPrefix = String(fields.address).split(',')[0].trim()
+    const dupeMatch = (fields.square_feet != null && fields.price != null)
+      ? await env.DB.prepare(
+          `SELECT id FROM properties WHERE city = ? AND square_feet = ? AND price = ? AND (bedrooms = ? OR (bedrooms IS NULL AND ? IS NULL)) AND address LIKE ? LIMIT 1`
+        ).bind(fields.city, fields.square_feet, fields.price, fields.bedrooms ?? null, fields.bedrooms ?? null, `${addressPrefix}%`).first<{ id: string }>()
+      : null
+
+    if (dupeMatch) {
+      propId = dupeMatch.id
+      isNewProperty = false
+    } else {
+      propId = crypto.randomUUID()
+      const lastProp = await env.DB.prepare(
+        `SELECT property_id FROM properties ORDER BY property_id DESC LIMIT 1`
+      ).first<{ property_id: string }>()
+      const lastNum = lastProp?.property_id?.match(/PROP-(\d+)/)
+      const nextPropertyId = `PROP-${((lastNum ? parseInt(lastNum[1]) : 0) + 1).toString().padStart(3, '0')}`
+
+      // `description` stays as-is (the raw intake text — useful internal
+      // context for the team), but the brochure only ever reads
+      // `concept_description`, which is a Groq-cleaned client-safe rewrite
+      // with client names/budgets/agency/negotiation notes stripped out.
+      // Never skip this: a raw internal note reaching a client brochure is
+      // the actual bug this exists to prevent.
+      let clientDescription = ''
+      if (fields.description) {
+        try {
+          clientDescription = await generateClientDescription(env, fields.description)
+        } catch (err) {
+          console.error('Client description generation failed:', err)
+        }
+      }
+
+      await env.DB.prepare(
+        `INSERT INTO properties (id, property_id, address, city, state, zip_code, price, bedrooms, bathrooms, square_feet, property_type, description, concept_description, listing_status, assigned_agent_id, created_by, created_at, updated_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', ?, ?, ?, ?)`
+      ).bind(
+        propId, nextPropertyId, fields.address, fields.city, fields.state || fields.city, fields.zip_code || '',
+        fields.price ?? null, fields.bedrooms ?? null, fields.bathrooms ?? null, fields.square_feet ?? null,
+        fields.property_type || null, fields.description || null, clientDescription || null, agent.id, agent.id, now, now
+      ).run()
+    }
 
     let agencyId: string | null = null
     if (fields.agency_name) {
@@ -551,7 +661,7 @@ async function handleIntake(req: Request, env: Env, url: URL, path: string, orig
     ).bind(propId, now, docId).run()
 
     const property = await env.DB.prepare('SELECT * FROM properties WHERE id = ?').bind(propId).first()
-    return json(parseJsonCols('properties', property), 201, headers)
+    return json({ ...parseJsonCols('properties', property), deduped: !isNewProperty }, isNewProperty ? 201 : 200, headers)
   }
 
   return json({ error: 'Not found' }, 404, headers)
@@ -628,6 +738,248 @@ async function handleBrochure(req: Request, env: Env, id: string, origin: string
 // data-isolation bug, it isn't one yet — check with Mark before adding
 // ownership checks here, since flipping this changes what every existing
 // team member can see.
+// ── local scraper pipeline sync ──────────────────────────────────────
+// Authenticated via a shared Bearer token (SYNC_API_TOKEN), not a browser
+// session — this is machine-to-machine traffic from the local Camoufox/
+// dedup/inpainting pipeline, never a logged-in agent.
+//
+// Core rule, matching local-pipeline/dedup/cluster_logic.py: nothing is
+// ever rejected as a "duplicate". Every scraped listing always gets a
+// property_sources row. Coordinate+area clustering only decides which
+// `properties` parent it attaches to.
+
+function requireSyncAuth(req: Request, env: Env): boolean {
+  const auth = req.headers.get('Authorization') || ''
+  const token = auth.replace(/^Bearer\s+/i, '')
+  return !!env.SYNC_API_TOKEN && token === env.SYNC_API_TOKEN
+}
+
+const COORD_PRECISION = 5
+function round5(n: number): number {
+  return Math.round(n * 1e5) / 1e5
+}
+
+interface SyncChildPayload {
+  agency_name: string
+  original_listing_url: string
+  price: number
+  currency?: string
+  listing_title?: string
+  listing_description?: string
+  agent_name?: string
+  agent_phone?: string
+  agent_email?: string
+  source_type?: 'pdf' | 'email' | 'whatsapp' | 'url' | 'manual'
+}
+
+interface SyncParentPayload {
+  title: string
+  description?: string
+  address: string
+  city?: string
+  state?: string
+  zip_code?: string
+  latitude: number
+  longitude: number
+  living_area_sqm: number
+  district?: string
+  property_type?: string
+  bedrooms?: number
+  bathrooms?: number
+  created_by: string // agent id to attribute the property to
+}
+
+async function getOrCreateAgency(env: Env, name: string, now: string): Promise<string> {
+  const existing = await env.DB.prepare('SELECT id FROM agencies WHERE name = ?').bind(name).first<{ id: string }>()
+  if (existing) return existing.id
+  const id = crypto.randomUUID()
+  await env.DB.prepare(
+    `INSERT INTO agencies (id, name, created_at, updated_at) VALUES (?, ?, ?, ?)`
+  ).bind(id, name, now, now).run()
+  return id
+}
+
+async function handleSync(req: Request, env: Env, url: URL, path: string, origin: string | null): Promise<Response> {
+  const headers = corsHeaders(origin, env)
+  if (!requireSyncAuth(req, env)) return json({ error: 'Unauthorized' }, 401, headers)
+
+  // POST /sync/properties — ingest one scraped listing (parent + one child).
+  // Called once per listing found on any of the ~30-40 portals; called many
+  // times for the same physical property when different agencies list it.
+  if (path === '/sync/properties' && req.method === 'POST') {
+    const body = await req.json<{ parent: SyncParentPayload; child: SyncChildPayload }>()
+    const { parent, child } = body
+    if (!parent || !child) return json({ error: 'Both parent and child are required' }, 400, headers)
+    if (!parent.living_area_sqm || parent.living_area_sqm <= 0) {
+      return json({ error: 'parent.living_area_sqm must be a positive number' }, 400, headers)
+    }
+    if (!child.original_listing_url || !child.agency_name || child.price == null) {
+      return json({ error: 'child.original_listing_url, agency_name and price are required' }, 400, headers)
+    }
+
+    const now = new Date().toISOString()
+    const lat5 = round5(parent.latitude)
+    const lng5 = round5(parent.longitude)
+
+    // Find-or-create the parent property by spatial cluster. NEVER unique
+    // in the schema (see migration 0005) — enforced here, in application
+    // logic, so a race or retry updates the existing row instead of
+    // erroring and dropping the incoming listing.
+    let propertyId: string
+    let isNewProperty = true
+    const clusterMatch = await env.DB.prepare(
+      `SELECT id FROM properties WHERE map_lat = ? AND map_lng = ? AND living_area_sqm = ? LIMIT 1`
+    ).bind(lat5, lng5, parent.living_area_sqm).first<{ id: string }>()
+
+    if (clusterMatch) {
+      propertyId = clusterMatch.id
+      isNewProperty = false
+    } else {
+      propertyId = crypto.randomUUID()
+      const lastProp = await env.DB.prepare(
+        `SELECT property_id FROM properties ORDER BY property_id DESC LIMIT 1`
+      ).first<{ property_id: string }>()
+      const lastNum = lastProp?.property_id?.match(/PROP-(\d+)/)
+      const nextPropertyId = `PROP-${((lastNum ? parseInt(lastNum[1]) : 0) + 1).toString().padStart(3, '0')}`
+
+      await env.DB.prepare(
+        `INSERT INTO properties (
+           id, property_id, address, city, state, zip_code, description,
+           property_type, bedrooms, bathrooms, listing_status, pipeline_status,
+           map_lat, map_lng, living_area_sqm, created_by, created_at, updated_at
+         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', 'uncontacted', ?, ?, ?, ?, ?, ?)`
+      ).bind(
+        propertyId, nextPropertyId, parent.address, parent.city || 'Monaco',
+        parent.state || parent.district || '', parent.zip_code || '', parent.description || null,
+        parent.property_type || null, parent.bedrooms ?? null, parent.bathrooms ?? null,
+        lat5, lng5, parent.living_area_sqm, parent.created_by, now, now,
+      ).run()
+    }
+
+    const agencyId = await getOrCreateAgency(env, child.agency_name, now)
+
+    // Upsert the child by original_listing_url (UNIQUE in migration 0005).
+    // Seeing the same URL again means this agency's listing was re-scraped
+    // (price/description refresh) — update in place. A different URL, even
+    // against the same property cluster, is always a new competing agency
+    // and always gets appended as its own row.
+    const existingSource = await env.DB.prepare(
+      `SELECT id FROM property_sources WHERE source_url = ?`
+    ).bind(child.original_listing_url).first<{ id: string }>()
+
+    let sourceId: string
+    let isNewSource = true
+    if (existingSource) {
+      sourceId = existingSource.id
+      isNewSource = false
+      await env.DB.prepare(
+        `UPDATE property_sources SET
+           agency_id = ?, listing_title = ?, listing_description = ?, price_at_source = ?,
+           currency = ?, agent_name = ?, agent_phone = ?, agent_email = ?,
+           consecutive_404_count = 0, is_off_market = 0, last_checked_at = ?
+         WHERE id = ?`
+      ).bind(
+        agencyId, child.listing_title || null, child.listing_description || null, child.price,
+        child.currency || 'EUR', child.agent_name || null, child.agent_phone || null, child.agent_email || null,
+        now, sourceId,
+      ).run()
+    } else {
+      sourceId = crypto.randomUUID()
+      await env.DB.prepare(
+        `INSERT INTO property_sources (
+           id, property_id, agency_id, source_type, source_url, price_at_source,
+           currency, listing_title, listing_description, agent_name, agent_phone, agent_email,
+           status, last_checked_at, created_at
+         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', ?, ?)`
+      ).bind(
+        sourceId, propertyId, agencyId, child.source_type || 'url', child.original_listing_url, child.price,
+        child.currency || 'EUR', child.listing_title || null, child.listing_description || null,
+        child.agent_name || null, child.agent_phone || null, child.agent_email || null,
+        now, now,
+      ).run()
+    }
+
+    const property = await env.DB.prepare('SELECT * FROM properties WHERE id = ?').bind(propertyId).first()
+    return json(
+      { property: parseJsonCols('properties', property), source_id: sourceId, is_new_property: isNewProperty, is_new_source: isNewSource },
+      isNewProperty || isNewSource ? 201 : 200,
+      headers,
+    )
+  }
+
+  // GET /sync/properties/urls — every live (non-archived) listing URL, for
+  // the morning 404 sweep to check.
+  if (path === '/sync/properties/urls' && req.method === 'GET') {
+    const { results } = await env.DB.prepare(
+      `SELECT id, source_url, consecutive_404_count FROM property_sources WHERE is_off_market = 0 AND source_url IS NOT NULL`
+    ).all()
+    return json(results || [], 200, headers)
+  }
+
+  // POST /sync/sources/:id/checkin — the daily 404 sweep reports the result
+  // of checking one listing URL. 3 consecutive 404s -> auto off-market.
+  const checkinMatch = path.match(/^\/sync\/sources\/([^/]+)\/checkin$/)
+  if (checkinMatch && req.method === 'POST') {
+    const sourceId = checkinMatch[1]
+    const body = await req.json<{ found: boolean }>()
+    const now = new Date().toISOString()
+    const source = await env.DB.prepare('SELECT * FROM property_sources WHERE id = ?').bind(sourceId).first<any>()
+    if (!source) return json({ error: 'Not found' }, 404, headers)
+
+    if (body.found) {
+      await env.DB.prepare(
+        `UPDATE property_sources SET consecutive_404_count = 0, last_checked_at = ? WHERE id = ?`
+      ).bind(now, sourceId).run()
+      return json({ id: sourceId, consecutive_404_count: 0, is_off_market: false }, 200, headers)
+    }
+
+    const newCount = (source.consecutive_404_count || 0) + 1
+    const nowOffMarket = newCount >= 3
+    await env.DB.prepare(
+      `UPDATE property_sources SET consecutive_404_count = ?, is_off_market = ?, last_checked_at = ? WHERE id = ?`
+    ).bind(newCount, nowOffMarket ? 1 : 0, now, sourceId).run()
+
+    // If every source for this property is now off-market, archive the
+    // parent too — but only if nothing else is still live.
+    if (nowOffMarket) {
+      const stillActive = await env.DB.prepare(
+        `SELECT COUNT(*) AS n FROM property_sources WHERE property_id = ? AND is_off_market = 0`
+      ).bind(source.property_id).first<{ n: number }>()
+      if (!stillActive || stillActive.n === 0) {
+        await env.DB.prepare(
+          `UPDATE properties SET pipeline_status = 'off_market', listing_status = 'withdrawn', updated_at = ? WHERE id = ?`
+        ).bind(now, source.property_id).run()
+      }
+    }
+
+    return json({ id: sourceId, consecutive_404_count: newCount, is_off_market: nowOffMarket }, 200, headers)
+  }
+
+  // POST /sync/sources/:id/agree — the team confirmed the true mandate
+  // holder. Locks the parent's public display to this source; every
+  // sibling source under the same property silently flips to 'losing'
+  // (kept forever in the private log, never deleted).
+  const agreeMatch = path.match(/^\/sync\/sources\/([^/]+)\/agree$/)
+  if (agreeMatch && req.method === 'POST') {
+    const sourceId = agreeMatch[1]
+    const source = await env.DB.prepare('SELECT * FROM property_sources WHERE id = ?').bind(sourceId).first<any>()
+    if (!source) return json({ error: 'Not found' }, 404, headers)
+    const now = new Date().toISOString()
+
+    await env.DB.prepare(
+      `UPDATE property_sources SET status = CASE WHEN id = ? THEN 'agreed' ELSE 'losing' END WHERE property_id = ?`
+    ).bind(sourceId, source.property_id).run()
+    await env.DB.prepare(
+      `UPDATE properties SET pipeline_status = 'agreed', mandate_source_id = ?, updated_at = ? WHERE id = ?`
+    ).bind(sourceId, now, source.property_id).run()
+
+    const property = await env.DB.prepare('SELECT * FROM properties WHERE id = ?').bind(source.property_id).first()
+    return json(parseJsonCols('properties', property), 200, headers)
+  }
+
+  return json({ error: 'Not found' }, 404, headers)
+}
+
 async function handleRest(req: Request, env: Env, url: URL, table: TableName, id: string | null, origin: string | null): Promise<Response> {
   const headers = corsHeaders(origin, env)
   const user = await getSessionUser(req, env)
@@ -749,6 +1101,10 @@ export default {
 
     if (url.pathname.startsWith('/intake/')) {
       return handleIntake(req, env, url, url.pathname, origin)
+    }
+
+    if (url.pathname.startsWith('/sync/')) {
+      return handleSync(req, env, url, url.pathname, origin)
     }
 
     const parts = url.pathname.replace(/^\//, '').split('/')

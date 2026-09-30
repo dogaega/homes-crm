@@ -88,6 +88,7 @@ export interface BrochureProperty {
   address: string
   city: string
   description?: string | null
+  concept_description?: string | null
   property_type?: string | null
   price?: number | null
   listing_type_label?: string | null
@@ -214,7 +215,11 @@ export function renderBrochureHtml(p: BrochureProperty, lang: Lang): string {
     [t.terrace, p.terrace_description],
   ] as Array<[string, string | null | undefined]>).filter(([, v]) => v)
 
-  const descParas = (p.description || '').split(/\n+/).filter(Boolean)
+  // Only concept_description (Groq-cleaned, client-safe) is ever shown to
+  // a client — p.description is raw internal broker notes (client names,
+  // budgets, negotiation status) and must never render in a brochure.
+  const clientDesc = p.concept_description || ''
+  const descParas = clientDesc.split(/\n+/).filter(Boolean)
 
   return `<!DOCTYPE html>
 <html lang="${lang}">
@@ -312,7 +317,7 @@ export function renderBrochureHtml(p: BrochureProperty, lang: Lang): string {
     <div class="cover-overlay">
       <div class="loc-line">${esc((p.district ? p.district.toUpperCase() + ' · ' : '') + p.city.toUpperCase() + (p.city.toLowerCase() === 'monaco' ? '' : ' · FRANCE'))}</div>
       <h1>${esc(name)}</h1>
-      ${p.description ? `<div class="subtitle">${esc(descParas[0] || '').slice(0, 90)}</div>` : ''}
+      ${clientDesc ? `<div class="subtitle">${esc(descParas[0] || '').slice(0, 90)}</div>` : ''}
       <div class="rule"></div>
     </div>
   </div>
@@ -327,7 +332,7 @@ export function renderBrochureHtml(p: BrochureProperty, lang: Lang): string {
       ${p.room_count != null ? `<div class="stat-col"><div class="val">${esc(p.room_count)}</div><div class="slabel">${esc(t.rooms)}</div></div>` : ''}
       ${p.parking_spaces != null ? `<div class="stat-col"><div class="val">${esc(p.parking_spaces)}</div><div class="slabel">${esc(t.parking)}</div></div>` : ''}
     </div>
-    <div class="spec-desc">${esc(descParas[0] || p.description || '')}</div>
+    <div class="spec-desc">${esc(descParas[0] || '')}</div>
     <div class="spec-avail">
       ${p.availability_period ? esc(p.availability_period) + '<br/>' : ''}
       ${p.parking_spaces ? esc(lang === 'ru' ? 'ПАРКОВКА В РЕЗИДЕНЦИИ' : 'PARKING ON SITE') : ''}
@@ -343,7 +348,7 @@ export function renderBrochureHtml(p: BrochureProperty, lang: Lang): string {
   <div class="caption">${esc(lang === 'ru' ? 'ГОСТИНАЯ С ВЫХОДОМ НА ТЕРРАСУ' : 'LIVING ROOM WITH TERRACE ACCESS')}</div>
   <div class="two-col">
     <div class="col-desc">
-      ${descParas.map((para) => `<p>${esc(para)}</p>`).join('') || `<p>${esc(p.description || '')}</p>`}
+      ${descParas.map((para) => `<p>${esc(para)}</p>`).join('')}
       ${p.availability_period || priceStr ? `<div class="callout">
         <div class="clabel">${isRental ? t.periodLabel : t.priceLabel}</div>
         <div class="cvalue">${esc(p.availability_period || '')}${p.availability_period && priceStr ? ' · ' : ''}${priceStr ? esc(priceStr) + (isRental ? ' ' + esc(t.perMonth) : '') : ''}</div>

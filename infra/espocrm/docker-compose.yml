@@ -1,0 +1,138 @@
+# Monaco/Riviera CRM — EspoCRM deployment for a 3-person team.
+#
+# Three containers, three persistent app volumes (per the espocrm/espocrm
+# v10 image's own layout — do NOT mount the whole webroot, see below) plus one
+# for MySQL:
+#   espocrm           web app (Apache + PHP bundled in the official image)
+#   espocrm-daemon     background job runner (EspoCRM's scheduled jobs: email
+#                       sync, reminders, workflow, mass emails — required, not
+#                       optional; without it queued jobs just pile up forever)
+#   mysql               database
+#
+# Data safety: `espocrm-data-dir` holds uploaded files (listing photos land
+# in data/upload/) and app state, `espocrm-custom`/`espocrm-client-custom`
+# hold custom entities/metadata, `mysql-data` holds the database. All are
+# named Docker volumes, living outside the container lifecycle — `docker
+# compose down` never touches them; only an explicit `docker compose down -v`
+# or `docker volume rm` would. Back them up regularly regardless (see the
+# backup command at the bottom of this file).
+#
+# Usage:
+#   cp .env.example .env      # fill in real secrets, never commit .env
+#   docker compose up -d
+#   docker compose logs -f espocrm
+#
+# First-run install takes ~1-2 minutes (EspoCRM runs its own installer on
+# first boot using the ESPOCRM_* env vars below — no manual setup wizard
+# needed). Then log in at http://<host> with ESPOCRM_ADMIN_USERNAME /
+# ESPOCRM_ADMIN_PASSWORD and install the Real Estate extension from
+# Administration > Extensions (upload the .zip you licensed/downloaded from
+# the EspoCRM Extension Store — it is not bundled in the base image).
+
+services:
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${ESPOCRM_DATABASE_NAME}
+      MYSQL_USER: ${ESPOCRM_DATABASE_USER}
+      MYSQL_PASSWORD: ${ESPOCRM_DATABASE_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    command:
+      # utf8mb4 is required by EspoCRM (multi-language listing text, emoji in
+      # notes, etc.) — the MySQL image defaults to a narrower charset.
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  espocrm:
+    image: espocrm/espocrm:8-apache
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      ESPOCRM_DATABASE_PLATFORM: Mysql
+      ESPOCRM_DATABASE_HOST: mysql
+      ESPOCRM_DATABASE_PORT: 3306
+      ESPOCRM_DATABASE_NAME: ${ESPOCRM_DATABASE_NAME}
+      ESPOCRM_DATABASE_USER: ${ESPOCRM_DATABASE_USER}
+      ESPOCRM_DATABASE_PASSWORD: ${ESPOCRM_DATABASE_PASSWORD}
+      ESPOCRM_ADMIN_USERNAME: ${ESPOCRM_ADMIN_USERNAME}
+      ESPOCRM_ADMIN_PASSWORD: ${ESPOCRM_ADMIN_PASSWORD}
+      ESPOCRM_SITE_URL: ${ESPOCRM_SITE_URL}
+      # Sends outbound notification/workflow emails (task assignments, etc.).
+      # Leave unset and EspoCRM will just skip sending — not required to
+      # get the CRM itself running.
+      ESPOCRM_SMTP_HOST: ${ESPOCRM_SMTP_HOST:-}
+      ESPOCRM_SMTP_PORT: ${ESPOCRM_SMTP_PORT:-587}
+      ESPOCRM_SMTP_USERNAME: ${ESPOCRM_SMTP_USERNAME:-}
+      ESPOCRM_SMTP_PASSWORD: ${ESPOCRM_SMTP_PASSWORD:-}
+      ESPOCRM_SMTP_AUTH: ${ESPOCRM_SMTP_AUTH:-true}
+      ESPOCRM_SMTP_SECURITY: ${ESPOCRM_SMTP_SECURITY:-TLS}
+    volumes:
+      # Current image layout: app code ships baked into the image itself.
+      # Only these three directories are meant to be persisted separately —
+      # mounting the whole webroot (the old pattern) shadows the image's own
+      # code with an empty/wrong-permission volume and breaks the install.
+      - espocrm-custom:/var/www/html/custom
+      - espocrm-data-dir:/var/www/html/data
+      - espocrm-client-custom:/var/www/html/client/custom
+    ports:
+      - "8080:80"
+    healthcheck:
+      # NOTE: the official Docker Hub example uses `bin/command app-check`,
+      # but that CLI entry point doesn't exist on this image's v8 line (it
+      # was introduced later) — confirmed by testing, not assumed. Using an
+      # HTTP-based check instead: 401 from an unauthenticated request means
+      # the app is up and answering correctly (curl -f treats any 4xx as
+      # failure, so this checks the code explicitly rather than relying on
+      # curl's own exit status).
+      test: ["CMD-SHELL", "code=$$(curl -s -o /dev/null -w '%{http_code}' http://localhost/api/v1/App/user); [ \"$$code\" = \"200\" ] || [ \"$$code\" = \"401\" ]"]
+      start_period: 30s
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  espocrm-daemon:
+    image: espocrm/espocrm:8-apache
+    restart: unless-stopped
+    depends_on:
+      espocrm:
+        condition: service_healthy
+    # `entrypoint: docker-daemon.sh` matches EspoCRM's own official Docker
+    # Hub example exactly. `volumes_from: [espocrm]` (not repeating the
+    # three named volumes) is the load-bearing part of that pattern — it's
+    # what makes this container see the exact same application state the
+    # `espocrm` service already finished installing, instead of coming up
+    # as its own separate, not-yet-installed instance sharing only the
+    # data/custom directories. (Repeating the volumes individually, which
+    # LOOKS equivalent, produced a silent "Could not open input file:
+    # daemon.php" crash-loop in testing — this is the fix.)
+    entrypoint: docker-daemon.sh
+    volumes_from:
+      - espocrm
+
+volumes:
+  espocrm-custom:
+    name: monaco_riviera_espocrm_custom
+  espocrm-data-dir:
+    name: monaco_riviera_espocrm_data
+  espocrm-client-custom:
+    name: monaco_riviera_espocrm_client_custom
+  mysql-data:
+    name: monaco_riviera_espocrm_mysql_data
+
+# ------------------------------------------------------------------------
+# Backup (run on a cron on the host, not inside the compose stack):
+#
+#   docker compose exec mysql sh -c 'exec mysqldump -uroot -p"$MYSQL_ROOT_PASSWORD" '"$ESPOCRM_DATABASE_NAME"'' > backup_$(date +%F).sql
+#   docker run --rm -v monaco_riviera_espocrm_data:/data -v monaco_riviera_espocrm_custom:/custom \
+#     -v "$(pwd)":/backup alpine tar czf /backup/espocrm_data_$(date +%F).tar.gz -C / data custom
+# ------------------------------------------------------------------------

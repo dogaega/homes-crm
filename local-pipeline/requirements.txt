@@ -1,0 +1,8 @@
+pillow>=10.4.0
+boto3>=1.34.0
+numpy>=1.26.0
+simple-lama-inpainting>=0.1.2
+requests>=2.32.0
+camoufox[geoip]>=0.4.11
+beautifulsoup4>=4.12.0
+lxml>=5.2.0

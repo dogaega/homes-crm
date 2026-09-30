@@ -47,6 +47,13 @@ export default function PropertyCard({ property, onView, onEdit, onDelete }: Pro
             {property.listing_status?.replace('_', ' ').toUpperCase()}
           </span>
         </div>
+        {property.data_incomplete ? (
+          <div className="absolute top-2 left-2">
+            <span className="px-2 py-1 text-xs font-medium rounded bg-orange-100 text-orange-800 border border-orange-300">
+              {t('properties.incompleteData')}
+            </span>
+          </div>
+        ) : null}
       </div>
 
       <CardHeader className="pb-3">
