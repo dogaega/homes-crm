@@ -1,0 +1,4940 @@
+[
+ {
+  "name": "A&S Estate",
+  "url": "https://www.as-estate.com",
+  "host": "www.as-estate.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "ABK Real Estate",
+  "url": "https://www.abkrealestate.com",
+  "host": "www.abkrealestate.com",
+  "meta_redirect": "https://www.abkrealestate.com/lander",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.abkrealestate.com/lander",
+  "redirected_offsite": false,
+  "server": "openresty",
+  "cf_ray": false,
+  "html_bytes": 709,
+  "title": null,
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": true,
+  "third_party": [
+   "img1.wsimg.com"
+  ],
+  "nav": {
+   "sale": [],
+   "rent": [],
+   "listings": []
+  },
+  "langs": [],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.abkrealestate.com/sitemap.xml",
+    "https://www.abkrealestate.com/sitemap_index.xml"
+   ],
+   "urls_total": 1,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 1.2,
+  "tier": "js-rendered"
+ },
+ {
+  "name": "Access Properties",
+  "url": "https://www.accesspropertiesmonaco.com",
+  "host": "www.accesspropertiesmonaco.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.accesspropertiesmonaco.com/en",
+  "redirected_offsite": false,
+  "server": "Fly/6d530f8f2 (2026-09-29)",
+  "cf_ray": false,
+  "html_bytes": 32961,
+  "title": "Access Properties Monaco - Real Estate Agency Monaco",
+  "platforms": [
+   "Next.js"
+  ],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [],
+  "nav": {
+   "sale": [
+    "https://www.accesspropertiesmonaco.com/en/sale"
+   ],
+   "rent": [
+    "https://www.accesspropertiesmonaco.com/en/lease"
+   ],
+   "listings": [
+    "https://www.accesspropertiesmonaco.com/",
+    "https://www.accesspropertiesmonaco.com/en",
+    "https://www.accesspropertiesmonaco.com/en/sale",
+    "https://www.accesspropertiesmonaco.com/en/lease",
+    "https://www.accesspropertiesmonaco.com/en/contact",
+    "https://www.accesspropertiesmonaco.com/en/about",
+    "https://www.accesspropertiesmonaco.com/en/partner",
+    "https://www.accesspropertiesmonaco.com/en/offer"
+   ]
+  },
+  "langs": [],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://apmonaco-prod.fly.dev/sitemap.xml",
+    "https://www.accesspropertiesmonaco.com/sitemap.xml",
+    "https://www.accesspropertiesmonaco.com/sitemap_index.xml"
+   ],
+   "urls_total": 56,
+   "listing_like": 16,
+   "listing_samples": [
+    "https://apmonaco-prod.fly.dev/en/property/99267/3-rooms-park-palace",
+    "https://apmonaco-prod.fly.dev/en/property/65085/rare-2-rooms-in-fontvieille",
+    "https://apmonaco-prod.fly.dev/en/property/101087/charming-4-room-apartment-ideally-located-a-few-steps-from-the-beaches-of-monaco",
+    "https://apmonaco-prod.fly.dev/en/property/92718/very-nice-family-flat",
+    "https://apmonaco-prod.fly.dev/fr/property/99267/3-pieces-park-palace"
+   ]
+  },
+  "seconds": 0.9,
+  "tier": "open"
+ },
+ {
+  "name": "Acropole Real Estate",
+  "url": "https://www.acropolerealestate.com",
+  "host": "www.acropolerealestate.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Agence de la Gare",
+  "url": "https://www.agencedelagare.mc",
+  "host": "www.agencedelagare.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Agence des Ambassadeurs",
+  "url": "https://www.ambassadeurs-realestate.com",
+  "host": "www.ambassadeurs-realestate.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Agence des Etrangers",
+  "url": "https://www.agence-des-etrangers.com",
+  "host": "www.agence-des-etrangers.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Agence du Boulevard",
+  "url": "https://www.agenceboulevard.mc",
+  "host": "www.agenceboulevard.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Agence du Cap",
+  "url": "https://www.caprealestate.mc",
+  "host": "www.caprealestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Agence Florida",
+  "url": "https://www.agenceflorida.com",
+  "host": "www.agenceflorida.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Agence Horizon",
+  "url": "https://www.agence-horizon.mc",
+  "host": "www.agence-horizon.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Agence Imperator",
+  "url": "https://www.imperator-immobilier.com",
+  "host": "www.imperator-immobilier.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Agence Le Phare",
+  "url": "https://www.agencelephare.com",
+  "host": "www.agencelephare.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.agencelephare.com/fr/",
+  "redirected_offsite": false,
+  "server": "Apache",
+  "cf_ray": false,
+  "html_bytes": 151841,
+  "title": "Agence immobilière Cherbourg | Le Phare, experte en estimation",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "cdnjs.cloudflare.com",
+   "media.vitrinellis.net",
+   "cdn.jsdelivr.net",
+   "fonts.bunny.net",
+   "maxcdn.bootstrapcdn.com",
+   "w3schools.com",
+   "stackpath.bootstrapcdn.com",
+   "code.jquery.com",
+   "app.prospeneo.io",
+   "googletagmanager.com",
+   "connect.facebook.net",
+   "client.crisp.chat"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.agencelephare.com/fr/vente/1/",
+    "https://www.agencelephare.com/fr/vente/1/1821198-terrain-a-batir-maupertus-sur-mer-50330",
+    "https://www.agencelephare.com/fr/vente/1/1821202-atelier-valcanville-50760",
+    "https://www.agencelephare.com/fr/vente/1/1996357-grange-la-hague-50440",
+    "https://www.agencelephare.com/fr/vente/1/1959940-grange-la-hague-50460",
+    "https://www.agencelephare.com/fr/vente/1/1999310-terrain-constructible-la-hague-50440",
+    "https://www.agencelephare.com/fr/vente/1/1996356-grange-la-hague-50440",
+    "https://www.agencelephare.com/fr/vente/1/1962299-appartement-cherbourg-en-cotentin-50100"
+   ],
+   "rent": [
+    "https://www.agencelephare.com/fr/location/1/"
+   ],
+   "listings": [
+    "https://www.agencelephare.com/fr/da/agences-immobilieres/rating/726-nos-avis",
+    "https://www.agencelephare.com/fr/vendu/1/",
+    "https://www.agencelephare.com/fr/vente/1/",
+    "https://www.agencelephare.com/fr/location/1/",
+    "https://www.agencelephare.com/fr/v/estimation/1",
+    "https://www.agencelephare.com/fr/s/votre-recherche",
+    "https://www.agencelephare.com/fr/b/barometre-immobilier",
+    "https://www.agencelephare.com/fr/immobilier/cherbourg-en-cotentin"
+   ]
+  },
+  "langs": [],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.agencelephare.com/sitemap.phare.xml",
+    "https://www.agencelephare.com/sitemap.xml",
+    "https://www.agencelephare.com/sitemap_index.xml"
+   ],
+   "urls_total": 8,
+   "listing_like": 3,
+   "listing_samples": [
+    "https://www.agencelephare.com/fr/immobilier-par-ville",
+    "https://www.agencelephare.com/fr/immobilier/la-hague",
+    "https://www.agencelephare.com/fr/immobilier/cherbourg-en-cotentin"
+   ]
+  },
+  "seconds": 2.4,
+  "tier": "open"
+ },
+ {
+  "name": "Agence Maritime",
+  "url": "https://www.agence-maritime.mc",
+  "host": "www.agence-maritime.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Agence Nouvelle de Monaco",
+  "url": "https://www.agencenouvellemonaco.com",
+  "host": "www.agencenouvellemonaco.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.agencenouvellemonaco.com/",
+  "redirected_offsite": false,
+  "server": "Apache",
+  "cf_ray": false,
+  "html_bytes": 24140,
+  "title": "Real estate Monaco I Buy or rent I Agence Nouvelle Monaco",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [],
+  "nav": {
+   "sale": [
+    "https://www.agencenouvellemonaco.com/en/sales/grid"
+   ],
+   "rent": [
+    "https://www.agencenouvellemonaco.com/en/rentals/grid",
+    "https://www.agencenouvellemonaco.com/en/property/127057/patio-palace-cellar-for-rent"
+   ],
+   "listings": [
+    "https://www.agencenouvellemonaco.com/en/suggest-a-property",
+    "https://www.agencenouvellemonaco.com/en/property/127306/new-exclusive-grande-cave-la-condamine-district",
+    "https://www.agencenouvellemonaco.com/en/property/127057/patio-palace-cellar-for-rent",
+    "https://www.agencenouvellemonaco.com/en/property/126515/new-beausoleil-3-room-apartment-in-the-monaco-train-station-district",
+    "https://www.agencenouvellemonaco.com/en/property/125704/new-villa-ariane-exceptional-residence-3-rooms",
+    "https://www.agencenouvellemonaco.com/en/property/127413/new-villa-ariane-exceptional-residence-3-rooms"
+   ]
+  },
+  "langs": [],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.agencenouvellemonaco.com/sitemap.xml",
+    "https://www.agencenouvellemonaco.com/sitemap_index.xml"
+   ],
+   "urls_total": 35,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 0.9,
+  "tier": "open"
+ },
+ {
+  "name": "Agence Riviera",
+  "url": "https://www.agence-riviera.mc",
+  "host": "www.agence-riviera.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Agence Standard",
+  "url": "https://www.agencestandard.mc",
+  "host": "www.agencestandard.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Agence Transatlantique",
+  "url": "https://www.agence-transatlantique.mc",
+  "host": "www.agence-transatlantique.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Ageprim",
+  "url": "https://www.ageprim.com",
+  "host": "www.ageprim.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://ageprim.com/",
+  "redirected_offsite": false,
+  "server": "nginx",
+  "cf_ray": false,
+  "html_bytes": 230934,
+  "title": "Real Estate Monaco, Luxury Property Agency | AGEPRIM",
+  "platforms": [
+   "WordPress"
+  ],
+  "protection": [],
+  "generator": "WPML ver:4.8.6 stt:1,4;",
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "cdn.jsdelivr.net",
+   "js.hsforms.net",
+   "js.hs-scripts.com",
+   "googletagmanager.com",
+   "code.jquery.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://ageprim.com/monaco-property-for-sale/",
+    "https://ageprim.com/news/monaco/how-to-buy-monaco-property/",
+    "https://ageprim.com/development/petite-afrique/",
+    "https://ageprim.com/development/tour-odeon/",
+    "https://ageprim.com/monaco-property-for-sale/2-bedroom-apartment-for-rent-monte-carlo-furnished-agv-2225/",
+    "https://ageprim.com/monaco-property-for-sale/exceptional-4-room-apartment-panoramic-sea-views-triple-exposure-ages-2221/",
+    "https://ageprim.com/monaco-property-for-sale/2-bedrooms-for-sale-monte-carlo-agv-2108/"
+   ],
+   "rent": [
+    "https://ageprim.com/monaco-property-for-rent/",
+    "https://ageprim.com/news/monaco/monaco-apartments-for-rent-guide/",
+    "https://ageprim.com/development/petite-afrique/",
+    "https://ageprim.com/development/tour-odeon/",
+    "https://ageprim.com/monaco-property-for-sale/2-bedroom-apartment-for-rent-monte-carlo-furnished-agv-2225/",
+    "https://ageprim.com/monaco-property-for-rent/1-bedroom-apartment-for-rent-monte-carlo-agl-1992/",
+    "https://ageprim.com/monaco-property-for-rent/2-bedroom-apartment-for-rent-new-real-estate-development-agl-2164/",
+    "https://ageprim.com/monaco-property-for-rent/offices-for-rent-carre-dor-agl-2200/"
+   ],
+   "listings": [
+    "https://ageprim.com/",
+    "https://ageprim.com/monaco-property-for-sale/",
+    "https://ageprim.com/monaco-property-for-rent/",
+    "https://ageprim.com/properties/",
+    "https://ageprim.com/monaco-property-services/",
+    "https://ageprim.com/news/monaco/how-to-buy-monaco-property/",
+    "https://ageprim.com/monaco-property-for-sale/2-bedroom-apartment-for-rent-monte-carlo-furnished-agv-2225/",
+    "https://ageprim.com/monaco-property-for-sale/exceptional-4-room-apartment-panoramic-sea-views-triple-exposure-ages-2221/"
+   ]
+  },
+  "langs": [],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://ageprim.com/ap_development-sitemap.xml",
+    "https://ageprim.com/ap_property-sitemap.xml",
+    "https://ageprim.com/page-sitemap.xml",
+    "https://ageprim.com/post-sitemap.xml",
+    "https://ageprim.com/sitemap.xml",
+    "https://ageprim.com/sitemap_index.xml"
+   ],
+   "urls_total": 479,
+   "listing_like": 93,
+   "listing_samples": [
+    "https://ageprim.com/properties/",
+    "https://ageprim.com/fr/properties/",
+    "https://ageprim.com/fr/vente-immobilier-monaco/bureau-a-vendre-a-monaco-agv-1758/",
+    "https://ageprim.com/fr/vente-immobilier-monaco/rare-appartement-dexception-vue-mer-monaco-ages-1988/",
+    "https://ageprim.com/fr/location-immobilier-monaco/location-studio-dans-residence-de-luxe-vue-mer-agl-1926/"
+   ]
+  },
+  "seconds": 4.1,
+  "tier": "open"
+ },
+ {
+  "name": "Alfa Real Estate",
+  "url": "https://www.alfa-realestate.mc",
+  "host": "www.alfa-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Alliance Immobilier",
+  "url": "https://www.alliance-monaco.mc",
+  "host": "www.alliance-monaco.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Amber International",
+  "url": "https://www.amber-international.com",
+  "host": "www.amber-international.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://amber-international.com/",
+  "redirected_offsite": false,
+  "server": "cloudflare",
+  "cf_ray": true,
+  "html_bytes": 844547,
+  "title": "Amber Realty | ตัวแทนอสังหา เช่า–ขายคอนโด กรุงเทพ ติดรถไฟฟ้า",
+  "platforms": [
+   "WordPress"
+  ],
+  "protection": [],
+  "generator": null,
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "fonts.googleapis.com",
+   "facebook.com",
+   "googletagmanager.com",
+   "gmpg.org",
+   "fonts.gstatic.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://amber-international.com/condo/?for=sale"
+   ],
+   "rent": [
+    "https://amber-international.com/condo/?for=rent",
+    "https://amber-international.com/cbd-new-cbd-ebd/",
+    "https://amber-international.com/leasehold-vs-freehold/",
+    "https://amber-international.com/projects/?location=Huai Khwang",
+    "https://amber-international.com/projects/?location=Lumphini",
+    "https://amber-international.com/projects/?location=Phra Ram 9",
+    "https://amber-international.com/projects/?location=Sukhumvit",
+    "https://amber-international.com/projects/?location=Asoke"
+   ],
+   "listings": [
+    "https://amber-international.com/post-property/",
+    "https://amber-international.com/post-property",
+    "https://amber-international.com/%e0%b8%aa%e0%b8%b1%e0%b8%8d%e0%b8%8d%e0%b8%b2%e0%b9%80%e0%b8%8a%e0%b9%88%e0%b8%b2%e0%b8%9a%e0%b9%89%e0%b8%b2%e0%b8%99%e0%b9%81%e0%b8%a5%e0%b8%b0%e0%b8%84%e0%b8%ad%e0%b8%99%e0%b9%82%e0%b8%94/",
+    "https://amber-international.com/%e0%b8%a0%e0%b8%b2%e0%b8%a9%e0%b8%b5%e0%b8%98%e0%b8%b8%e0%b8%a3%e0%b8%81%e0%b8%b4%e0%b8%88%e0%b9%80%e0%b8%89%e0%b8%9e%e0%b8%b2%e0%b8%b0-vs-%e0%b8%ad%e0%b8%b2%e0%b8%81%e0%b8%a3%e0%b9%81%e0%b8%aa/",
+    "https://amber-international.com/1-%e0%b8%95%e0%b8%a3-%e0%b8%a1-%e0%b9%80%e0%b8%97%e0%b9%88%e0%b8%b2%e0%b8%81%e0%b8%b1%e0%b8%9a%e0%b8%81%e0%b8%b5%e0%b9%88%e0%b9%80%e0%b8%a1%e0%b8%95%e0%b8%a3/",
+    "https://amber-international.com/projects/?developer=fillmore-property",
+    "https://amber-international.com/projects/?developer=canapaya-property",
+    "https://amber-international.com/projects/?developer=frasers-property"
+   ]
+  },
+  "langs": [
+   "cn",
+   "en",
+   "th"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://amber-international.com/property-sitemap.xml",
+    "https://amber-international.com/property-sitemap2.xml",
+    "https://amber-international.com/property_facility-sitemap.xml",
+    "https://amber-international.com/property_tag-sitemap.xml",
+    "https://amber-international.com/property_type-sitemap.xml",
+    "https://amber-international.com/sitemap_index.xml"
+   ],
+   "urls_total": 1549,
+   "listing_like": 26,
+   "listing_samples": [
+    "https://amber-international.com/property/type/1-bedroom/",
+    "https://amber-international.com/property/type/2-bedrooms/",
+    "https://amber-international.com/property/type/3-bedrooms/",
+    "https://amber-international.com/property/type/duplex/",
+    "https://amber-international.com/property/type/penthouse/"
+   ]
+  },
+  "seconds": 7.9,
+  "tier": "open"
+ },
+ {
+  "name": "Apartments for Rent Monaco",
+  "url": "https://www.apartments-for-rent-monaco.com",
+  "host": "www.apartments-for-rent-monaco.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.apartments-for-rent-monaco.com/",
+  "redirected_offsite": false,
+  "server": "Apache",
+  "cf_ray": false,
+  "html_bytes": 66506,
+  "title": "Apartments for rent in Monaco",
+  "platforms": [
+   "Immotoolbox"
+  ],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "api.immotoolbox.com",
+   "googletagmanager.com",
+   "location-appartement-monaco.com",
+   "affitto-case-montecarlo.com"
+  ],
+  "nav": {
+   "sale": [],
+   "rent": [
+    "https://www.apartments-for-rent-monaco.com/",
+    "https://www.apartments-for-rent-monaco.com/apartments/7-studio/",
+    "https://www.apartments-for-rent-monaco.com/apartments/2-rooms/",
+    "https://www.apartments-for-rent-monaco.com/apartments/3-rooms/",
+    "https://www.apartments-for-rent-monaco.com/apartments/4-rooms/",
+    "https://www.apartments-for-rent-monaco.com/apartments/5-rooms/",
+    "https://www.apartments-for-rent-monaco.com/apartments/6-rooms/",
+    "https://www.apartments-for-rent-monaco.com/apartments/8-openspace/"
+   ],
+   "listings": [
+    "https://www.apartments-for-rent-monaco.com/apartment/x4jlk-under-offer-le-monte-carlo-palace-boulevard-des-moulins",
+    "https://www.apartments-for-rent-monaco.com/apartment/x4b5e-under-offer-le-san-juan-boulevard-du-larvotto",
+    "https://www.apartments-for-rent-monaco.com/apartment/x49a8-fairmont-residence-golden-square-1-bedroom-apartment-with-patio-view",
+    "https://www.apartments-for-rent-monaco.com/apartment/x4lja-rental-sole-agent-rare-opportunity-in-the-carre-d-or-exceptional-residence-in-monaco",
+    "https://www.apartments-for-rent-monaco.com/apartment/x4682-3-bedroom-apartment-in-a-prestigious-residence",
+    "https://www.apartments-for-rent-monaco.com/apartment/x4l4a-villa-europe-boulevard-princesse-charlotte"
+   ]
+  },
+  "langs": [
+   "en",
+   "fr",
+   "it"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.apartments-for-rent-monaco.com/sitemap.xml",
+    "https://www.apartments-for-rent-monaco.com/sitemap_index.xml"
+   ],
+   "urls_total": 0,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 0.6,
+  "tier": "open"
+ },
+ {
+  "name": "Arcadia Immo",
+  "url": "https://www.arcadia.mc",
+  "host": "www.arcadia.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Ares Real Estate",
+  "url": "https://www.ares.mc",
+  "host": "www.ares.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Artis Monaco",
+  "url": "https://www.artis.mc",
+  "host": "www.artis.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Atlantic Agency",
+  "url": "https://www.atlanticagency.mc",
+  "host": "www.atlanticagency.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Azur Estate",
+  "url": "https://www.azurestate.mc",
+  "host": "www.azurestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Balkin Estates",
+  "url": "https://www.balkin.mc",
+  "host": "www.balkin.mc",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.balkin.mc/",
+  "redirected_offsite": false,
+  "server": "cloudflare",
+  "cf_ray": true,
+  "html_bytes": 371411,
+  "title": "Real Estate Agency Monaco - Expert Advice - Balkin",
+  "platforms": [
+   "Webflow"
+  ],
+  "protection": [],
+  "generator": null,
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "cdn.prod.website-files.com",
+   "cdnjs.cloudflare.com",
+   "cdn.jsdelivr.net",
+   "unpkg.com",
+   "cdn.weglot.com",
+   "scripts.feedspring.com",
+   "d3e54v103j8qbb.cloudfront.net",
+   "googletagmanager.com",
+   "assets.website-files.com",
+   "uploads-ssl.webflow.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.balkin.mc/guide/selling-properties-in-monaco",
+    "https://www.balkin.mc/guide/villa-in-monaco"
+   ],
+   "rent": [
+    "https://www.balkin.mc/guide/selling-properties-in-monaco"
+   ],
+   "listings": [
+    "https://www.balkin.mc/properties",
+    "https://www.balkin.mc/property-management",
+    "https://www.balkin.mc/contact",
+    "https://www.balkin.mc/our-properties/bay-house-69wuk",
+    "https://www.balkin.mc/our-properties/terrasses-du-port-dqyey",
+    "https://www.balkin.mc/our-properties/porto-bello",
+    "https://www.balkin.mc/our-properties/radieuse",
+    "https://www.balkin.mc/our-properties/florestan-9"
+   ]
+  },
+  "langs": [
+   "de",
+   "en",
+   "fr",
+   "it"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.balkin.mc/sitemap.xml",
+    "https://www.balkin.mc/sitemap_index.xml"
+   ],
+   "urls_total": 119,
+   "listing_like": 5,
+   "listing_samples": [
+    "https://www.balkin.mc/properties-for-rent-in-monaco",
+    "https://www.balkin.mc/property-management",
+    "https://www.balkin.mc/guide/property-tax-in-monaco",
+    "https://www.balkin.mc/guide/property-valuation-in-monaco",
+    "https://www.balkin.mc/guide/villa-in-monaco"
+   ]
+  },
+  "seconds": 1.8,
+  "tier": "open"
+ },
+ {
+  "name": "Bari Real Estate",
+  "url": "https://www.bari-realestate.mc",
+  "host": "www.bari-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "BARNES Monaco",
+  "url": "https://www.barnes-monaco.com",
+  "host": "www.barnes-monaco.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Belles Terres Real Estate",
+  "url": "https://www.bellesterres.mc",
+  "host": "www.bellesterres.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Beni Immobilier",
+  "url": "https://www.beni-immobilier.mc",
+  "host": "www.beni-immobilier.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Bentley Real Estate",
+  "url": "https://www.bentley-realestate.mc",
+  "host": "www.bentley-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Beryls Real Estate",
+  "url": "https://www.beryls-realestate.com",
+  "host": "www.beryls-realestate.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Bovis Agency",
+  "url": "https://www.agencebovis.mc",
+  "host": "www.agencebovis.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "BR Immobilier",
+  "url": "https://www.br-immobilier.mc",
+  "host": "www.br-immobilier.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "C.A.R.E. (Central Agency Real Estate)",
+  "url": "https://www.care.mc",
+  "host": "www.care.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Camelia Properties",
+  "url": "https://www.camelia.mc",
+  "host": "www.camelia.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Capital Real Estate",
+  "url": "https://www.capitalrealestate.mc",
+  "host": "www.capitalrealestate.mc",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://capitalrealestate.mc/",
+  "redirected_offsite": false,
+  "server": "cloudflare",
+  "cf_ray": true,
+  "html_bytes": 116801,
+  "title": "Capital Real Estate | Expert Immobilier de Luxe à Monaco",
+  "platforms": [
+   "Immotoolbox",
+   "WordPress"
+  ],
+  "protection": [],
+  "generator": "WordPress 7.1.2",
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "cdnjs.cloudflare.com",
+   "maxcdn.bootstrapcdn.com",
+   "fonts.googleapis.com",
+   "code.jquery.com",
+   "static.cloudflareinsights.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://capitalrealestate.mc/properties-for-sale",
+    "https://capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=21&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+    "https://capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=19&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+    "https://capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=15&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+    "https://capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=1&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+    "https://capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=7&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+    "https://capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=17&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+    "https://capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=2&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC"
+   ],
+   "rent": [
+    "https://capitalrealestate.mc/properties-for-rent",
+    "https://capitalrealestate.mc/",
+    "https://capitalrealestate.mc/proprietes/?nsearch[type]=rental&nsearch[country]=MC"
+   ],
+   "listings": [
+    "https://capitalrealestate.mc/",
+    "https://capitalrealestate.mc/properties-for-sale",
+    "https://capitalrealestate.mc/properties-for-rent",
+    "https://capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=21&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+    "https://capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=19&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+    "https://capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=15&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+    "https://capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=1&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+    "https://capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=7&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC"
+   ]
+  },
+  "langs": [
+   "en",
+   "fr",
+   "it",
+   "ru"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://capitalrealestate.mc/page-sitemap1.xml",
+    "https://capitalrealestate.mc/sitemap.xml",
+    "https://capitalrealestate.mc/sitemap_index.xml"
+   ],
+   "urls_total": 34,
+   "listing_like": 2,
+   "listing_samples": [
+    "https://capitalrealestate.mc/properties-for-rent",
+    "https://capitalrealestate.mc/properties-for-sale"
+   ]
+  },
+  "seconds": 9.6,
+  "tier": "open"
+ },
+ {
+  "name": "Caroli Real Estate",
+  "url": "https://www.caroli-realestate.com",
+  "host": "www.caroli-realestate.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.caroli-realestate.com/en/",
+  "redirected_offsite": false,
+  "server": "Apache",
+  "cf_ray": false,
+  "html_bytes": 22916,
+  "title": "Caroli Real Estate",
+  "platforms": [
+   "Immotoolbox"
+  ],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "googletagmanager.com",
+   "google.com",
+   "api.immotoolbox.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.caroli-realestate.com/en/buying-guide.html",
+    "https://www.caroli-realestate.com/en/sales-guide.html"
+   ],
+   "rent": [
+    "https://www.caroli-realestate.com/en/rental-guide.html"
+   ],
+   "listings": [
+    "https://www.caroli-realestate.com/en/properties"
+   ]
+  },
+  "langs": [],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.caroli-realestate.com/sitemap.xml",
+    "https://www.caroli-realestate.com/sitemapbase-en.xml",
+    "https://www.caroli-realestate.com/sitemapbase-fr.xml",
+    "https://www.caroli-realestate.com/sitemapbase-it.xml",
+    "https://www.caroli-realestate.com/sitemapproperties-en.xml",
+    "https://www.caroli-realestate.com/sitemapproperties-fr.xml"
+   ],
+   "urls_total": 123,
+   "listing_like": 44,
+   "listing_samples": [
+    "https://www.caroli-realestate.com/en/property-management.html",
+    "https://www.caroli-realestate.com/en/property-for-sale/93570-parc-saint-roman-duplex-2-rooms/",
+    "https://www.caroli-realestate.com/en/property-rental/127207-le-metropole-apartments-5-rooms/",
+    "https://www.caroli-realestate.com/en/property-rental/127065-vallon-fleuri-apartments-2-rooms/",
+    "https://www.caroli-realestate.com/en/property-rental/127043-les-industries-offices/"
+   ]
+  },
+  "seconds": 2.2,
+  "tier": "open"
+ },
+ {
+  "name": "Carré d'Or Real Estate",
+  "url": "https://www.carredor-realestate.mc",
+  "host": "www.carredor-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Cassini Real Estate",
+  "url": "https://www.cassini-realestate.mc",
+  "host": "www.cassini-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Caves Agency",
+  "url": "https://www.agence-caves.mc",
+  "host": "www.agence-caves.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "CCRG Real Estate",
+  "url": "https://www.ccrg.mc",
+  "host": "www.ccrg.mc",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.ccrg.mc/",
+  "redirected_offsite": false,
+  "server": "Apache",
+  "cf_ray": false,
+  "html_bytes": 0,
+  "title": null,
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": true,
+  "third_party": [],
+  "nav": {
+   "sale": [],
+   "rent": [],
+   "listings": []
+  },
+  "langs": [],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.ccrg.mc/sitemap.xml",
+    "https://www.ccrg.mc/sitemap_index.xml"
+   ],
+   "urls_total": 0,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 0.5,
+  "tier": "js-rendered"
+ },
+ {
+  "name": "Century 21 Monaco",
+  "url": "https://www.century21.mc",
+  "host": "www.century21.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Ceres Real Estate",
+  "url": "https://www.ceres.mc",
+  "host": "www.ceres.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Chambre Immobilière Monégasque",
+  "url": "https://www.chambre-immobiliere-monaco.mc",
+  "host": "www.chambre-immobiliere-monaco.mc",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.chambre-immobiliere-monaco.mc/",
+  "redirected_offsite": false,
+  "server": "Apache/2.4.68 (Ubuntu)",
+  "cf_ray": false,
+  "html_bytes": 93236,
+  "title": "Properties for sale and for rent in Monaco | La Chambre Immobilière",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "analytics.colibri.mc"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.chambre-immobiliere-monaco.mc/en/sales/grid",
+    "https://www.chambre-immobiliere-monaco.mc/en/sales/q_Anse du Portier/grid",
+    "https://www.chambre-immobiliere-monaco.mc/en/sales/q_Carré d'Or/grid",
+    "https://www.chambre-immobiliere-monaco.mc/en/sales/q_Condamine/grid",
+    "https://www.chambre-immobiliere-monaco.mc/en/sales/q_Fontvieille/grid",
+    "https://www.chambre-immobiliere-monaco.mc/en/sales/q_Jardin Exotique/grid",
+    "https://www.chambre-immobiliere-monaco.mc/en/sales/q_La Rousse - Saint Roman/grid",
+    "https://www.chambre-immobiliere-monaco.mc/en/sales/q_Larvotto/grid"
+   ],
+   "rent": [
+    "https://www.chambre-immobiliere-monaco.mc/en/rentals/grid",
+    "https://www.chambre-immobiliere-monaco.mc/en/rentals/q_Anse du Portier/grid",
+    "https://www.chambre-immobiliere-monaco.mc/en/rentals/q_Carré d'Or/grid",
+    "https://www.chambre-immobiliere-monaco.mc/en/rentals/q_Condamine/grid",
+    "https://www.chambre-immobiliere-monaco.mc/en/rentals/q_Fontvieille/grid",
+    "https://www.chambre-immobiliere-monaco.mc/en/rentals/q_Jardin Exotique/grid",
+    "https://www.chambre-immobiliere-monaco.mc/en/rentals/q_La Rousse - Saint Roman/grid",
+    "https://www.chambre-immobiliere-monaco.mc/en/rentals/q_Larvotto/grid"
+   ],
+   "listings": [
+    "https://www.chambre-immobiliere-monaco.mc/en/index",
+    "https://www.chambre-immobiliere-monaco.mc/en/presentation-18",
+    "https://www.chambre-immobiliere-monaco.mc/",
+    "https://www.chambre-immobiliere-monaco.mc/en/about-us-41",
+    "https://www.chambre-immobiliere-monaco.mc/en/administration-board-43",
+    "https://www.chambre-immobiliere-monaco.mc/en/sales/grid",
+    "https://www.chambre-immobiliere-monaco.mc/en/rentals/grid",
+    "https://www.chambre-immobiliere-monaco.mc/en/agencies"
+   ]
+  },
+  "langs": [
+   "en",
+   "fr",
+   "it",
+   "x-default"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.chambre-immobiliere-monaco.mc/sitemap.xml",
+    "https://www.chambre-immobiliere-monaco.mc/sitemap_index.xml"
+   ],
+   "urls_total": 7985,
+   "listing_like": 6903,
+   "listing_samples": [
+    "https://www.chambre-immobiliere-monaco.mc/fr/bien/85957/millefiori-3-pi%C3%A8ces-r%C3%A9nov%C3%A9-et-meubl%C3%A9",
+    "https://www.chambre-immobiliere-monaco.mc/fr/bien/105024/dans-le-c%C5%93ur-du-carr%C3%A9-d-or-bureau",
+    "https://www.chambre-immobiliere-monaco.mc/fr/bien/114378/cave-spacieuse-disponible-%C3%A0-la-location",
+    "https://www.chambre-immobiliere-monaco.mc/fr/bien/121258/le-castel-4-pi%C3%A8ces-r%C3%A9nov%C3%A9-avec-terrasse-jardin-exotique",
+    "https://www.chambre-immobiliere-monaco.mc/fr/bien/87420/bureau-de-250m%C2%B2-r%C3%A9sidence-de-standing-jardin-exotique"
+   ]
+  },
+  "seconds": 4.7,
+  "tier": "open"
+ },
+ {
+  "name": "Check-In Real Estate",
+  "url": "https://www.checkin-realestate.com",
+  "host": "www.checkin-realestate.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Clarendon Properties",
+  "url": "https://www.clarendon-monaco.com",
+  "host": "www.clarendon-monaco.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "CMC Real Estate",
+  "url": "https://www.cmc-realestate.mc",
+  "host": "www.cmc-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Coldwell Banker Etic Realty",
+  "url": "https://www.eticrealty.com",
+  "host": "www.eticrealty.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Compagnie Monégasque Immobilière (CMI)",
+  "url": "https://www.cmi.mc",
+  "host": "www.cmi.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Concept Immobilier",
+  "url": "https://www.concept-immobilier.mc",
+  "host": "www.concept-immobilier.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Consul Estates",
+  "url": "https://www.consulestates.com",
+  "host": "www.consulestates.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Continental Real Estate",
+  "url": "https://www.continental-realestate.mc",
+  "host": "www.continental-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Core Real Estate",
+  "url": "https://www.core.mc",
+  "host": "www.core.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Cosmopolitan Properties",
+  "url": "https://www.cosmopolitan.mc",
+  "host": "www.cosmopolitan.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Cristea-Flandrin Immobilier",
+  "url": "https://www.cristea-flandrin.com",
+  "host": "www.cristea-flandrin.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Crown Estates",
+  "url": "https://www.crownestates.mc",
+  "host": "www.crownestates.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Crystal Agency",
+  "url": "https://www.crystal-agency.mc",
+  "host": "www.crystal-agency.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "D&D Immobilier",
+  "url": "https://www.dd-immobilier.mc",
+  "host": "www.dd-immobilier.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Dameno Monaco Real Estate",
+  "url": "https://www.dameno.mc",
+  "host": "www.dameno.mc",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://dameno.mc/",
+  "redirected_offsite": false,
+  "server": "nginx",
+  "cf_ray": false,
+  "html_bytes": 792632,
+  "title": "Dameno Monaco Real Estate | Monaco Real Estate Agency",
+  "platforms": [
+   "Apimo",
+   "WordPress"
+  ],
+  "protection": [],
+  "generator": "Site Kit by Google 1.188.0",
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "fonts.googleapis.com",
+   "googletagmanager.com",
+   "google.com",
+   "stats.wp.com",
+   "gmpg.org",
+   "unpkg.com",
+   "cdn.jsdelivr.net",
+   "fonts.gstatic.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://dameno.mc/",
+    "https://dameno.mc/sales-monaco/",
+    "https://dameno.mc/sales-france/",
+    "https://dameno.mc/monaco-apartments-for-sale/",
+    "https://dameno.mc/properties/2-rooms-for-sale-in-the-imperator-palace/",
+    "https://dameno.mc/properties/apartment-opposite-the-beach-to-refresh/",
+    "https://dameno.mc/properties/superb-renovated-2-bedroom-with-panoramic-view-residence-riviera-palace/",
+    "https://dameno.mc/properties/commercial-real-estate-in-monaco-saint-roman/"
+   ],
+   "rent": [
+    "https://dameno.mc/",
+    "https://dameno.mc/rentals-monaco/",
+    "https://dameno.mc/rentals-france/",
+    "https://dameno.mc/rentals/",
+    "https://dameno.mc/properties/furnished-large-studio-in-monte-carlo-sun/",
+    "https://dameno.mc/properties/full-floor-one-monte-carlo-carre-dor-2/",
+    "https://dameno.mc/properties/sumptuous-furnished-duplex-in-the-heart-of-the-carre-dor/",
+    "https://dameno.mc/properties/luxury-retreat-in-eze-with-private-pool-and-amenities-2/"
+   ],
+   "listings": [
+    "https://dameno.mc/monaco-commercial-properties/",
+    "https://dameno.mc/monaco-apartments-for-sale/",
+    "https://dameno.mc/properties/2-rooms-for-sale-in-the-imperator-palace/",
+    "https://dameno.mc/properties/apartment-opposite-the-beach-to-refresh/",
+    "https://dameno.mc/properties/superb-renovated-2-bedroom-with-panoramic-view-residence-riviera-palace/",
+    "https://dameno.mc/properties/commercial-real-estate-in-monaco-saint-roman/",
+    "https://dameno.mc/properties/3-pieces-new-near-the-carre-dor/",
+    "https://dameno.mc/properties/the-stella-beau-2-piece-duplex/"
+   ]
+  },
+  "langs": [
+   "en",
+   "fr",
+   "it",
+   "x-default"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://dameno.mc/apimo_property_building-sitemap.xml",
+    "https://dameno.mc/apimo_property_condition-sitemap.xml",
+    "https://dameno.mc/apimo_property_standing-sitemap.xml",
+    "https://dameno.mc/post-sitemap.xml",
+    "https://dameno.mc/property-sitemap.xml",
+    "https://dameno.mc/sitemap_index.xml"
+   ],
+   "urls_total": 357,
+   "listing_like": 252,
+   "listing_samples": [
+    "https://dameno.mc/properties/",
+    "https://dameno.mc/fr/properties/location-villa-meublee-saint-jean-cap-ferrat/",
+    "https://dameno.mc/properties/2-bedroom-apartment-with-large-terrace-and-panoramic-view-directly-on-the-border-with-monaco-2/",
+    "https://dameno.mc/properties/elegant-3-bedroom-garden-apartment-with-private-outdoor-space-roquebrune-cap-martin-border-of-monaco-2/",
+    "https://dameno.mc/it/properties/locazione-villa-arredata-saint-jean-cap-ferrat-2/"
+   ]
+  },
+  "seconds": 9.9,
+  "tier": "open"
+ },
+ {
+  "name": "De Planelles Real Estate",
+  "url": "https://www.deplanelles.mc",
+  "host": "www.deplanelles.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Deluxe Real Estate",
+  "url": "https://www.deluxerealestate.mc",
+  "host": "www.deluxerealestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Deo Gratias Real Estate",
+  "url": "https://www.deogratias.mc",
+  "host": "www.deogratias.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Diamond Real Estate",
+  "url": "https://www.diamond-realestate.mc",
+  "host": "www.diamond-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Dominium Properties",
+  "url": "https://www.dominium.mc",
+  "host": "www.dominium.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Dotta Real Estate",
+  "url": "https://www.dotta.mc",
+  "host": "www.dotta.mc",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.dotta.mc/",
+  "redirected_offsite": false,
+  "server": "cloudflare",
+  "cf_ray": true,
+  "html_bytes": 104979,
+  "title": "Immobilier à Monaco | Appartements à Monaco | Dotta Immobilier",
+  "platforms": [
+   "WordPress"
+  ],
+  "protection": [],
+  "generator": "WordPress 7.1.2",
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "googletagmanager.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.dotta.mc/",
+    "https://www.dotta.mc/monaco/vente/",
+    "https://www.dotta.mc/cote-d-azur/vente/",
+    "https://www.dotta.mc/retail-vente/",
+    "https://www.dotta.mc/cote-d-azur/vente/vf2544/villa-a-vendre-peille-peille/",
+    "https://www.dotta.mc/monaco/vente/vm2528/appartement-de-3-pieces-a-vendre-beau-rivage-la-condamine-monaco/",
+    "https://www.dotta.mc/monaco/vente/vm2515/appartement-de-3-pieces-a-vendre-park-palace-monte-carlo-monaco/"
+   ],
+   "rent": [
+    "https://www.dotta.mc/",
+    "https://www.dotta.mc/monaco/location/",
+    "https://www.dotta.mc/cote-d-azur/location/",
+    "https://www.dotta.mc/retail-location/",
+    "https://www.dotta.mc/monaco/location/lm2531/appartement-de-2-pieces-a-louer-le-stella-la-condamine-monaco/",
+    "https://www.dotta.mc/monaco/location/lm1421/studio-a-louer-chateau-d-azur-larvotto-monaco/"
+   ],
+   "listings": [
+    "https://www.dotta.mc/"
+   ]
+  },
+  "langs": [
+   "en",
+   "fr"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.dotta.mc/bien-sitemap.xml",
+    "https://www.dotta.mc/page-sitemap.xml",
+    "https://www.dotta.mc/post-sitemap.xml",
+    "https://www.dotta.mc/sitemap.xml",
+    "https://www.dotta.mc/sitemap_index.xml"
+   ],
+   "urls_total": 209,
+   "listing_like": 170,
+   "listing_samples": [
+    "https://www.dotta.mc/monaco/vente/vm434/penthouse-a-vendre-san-carlo-monte-carlo-monaco/",
+    "https://www.dotta.mc/en/monaco/sale/vm434/penthouse-for-sale-san-carlo-monte-carlo-monaco/",
+    "https://www.dotta.mc/monaco/vente/vm30/appartement-de-6-pieces-a-vendre-monte-marina-fontvieille-monaco/",
+    "https://www.dotta.mc/en/monaco/sale/vm30/6-rooms-apartment-for-sale-monte-marina-fontvieille-monaco/",
+    "https://www.dotta.mc/cote-d-azur/vente/vf97/villa-a-vendre-villa-darling-roquebrune-cap-martin-roquebrune-cap-martin/"
+   ]
+  },
+  "seconds": 3.7,
+  "tier": "open"
+ },
+ {
+  "name": "Du Grand Prix Agency",
+  "url": "https://www.agencegrandprix.mc",
+  "host": "www.agencegrandprix.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Du Midi Agency",
+  "url": "https://www.agencedumidi.mc",
+  "host": "www.agencedumidi.mc",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://faggionatoimmo.com/",
+  "redirected_offsite": true,
+  "server": "nginx",
+  "cf_ray": false,
+  "html_bytes": 16945,
+  "title": "Faggionato Real Estate",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "fonts.googleapis.com",
+   "ajax.googleapis.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://faggionatoimmo.com/index.php?page=liste&type=1",
+    "https://faggionatoimmo.com/index.php?page=detail&id=2575",
+    "https://faggionatoimmo.com/index.php?page=detail&id=2707",
+    "https://faggionatoimmo.com/index.php?page=detail&id=2471",
+    "https://faggionatoimmo.com/index.php?page=detail&id=2460"
+   ],
+   "rent": [
+    "https://faggionatoimmo.com/index.php?page=liste&type=2"
+   ],
+   "listings": []
+  },
+  "langs": [],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://faggionatoimmo.com/sitemap.xml",
+    "https://faggionatoimmo.com/sitemap_index.xml"
+   ],
+   "urls_total": 0,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 1.2,
+  "tier": "redirects-offsite"
+ },
+ {
+  "name": "E&G Properties",
+  "url": "https://www.eg-properties.mc",
+  "host": "www.eg-properties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Eden Properties",
+  "url": "https://www.edenproperties.mc",
+  "host": "www.edenproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Elite Properties",
+  "url": "https://www.eliteproperties.mc",
+  "host": "www.eliteproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Elysium Real Estate",
+  "url": "https://www.elysium.mc",
+  "host": "www.elysium.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Emirates Real Estate",
+  "url": "https://www.emirates-realestate.mc",
+  "host": "www.emirates-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Empire Real Estate",
+  "url": "https://www.empire.mc",
+  "host": "www.empire.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Equator Properties",
+  "url": "https://www.equatorproperties.mc",
+  "host": "www.equatorproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Espace Immobilier",
+  "url": "https://www.espace-immobilier.mc",
+  "host": "www.espace-immobilier.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Estator",
+  "url": "https://www.estator.com",
+  "host": "www.estator.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Ethical Real Estate",
+  "url": "https://www.ethical-realestate.mc",
+  "host": "www.ethical-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Etoile Properties",
+  "url": "https://www.etoile-properties.mc",
+  "host": "www.etoile-properties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Europagence",
+  "url": "https://www.europagence.com",
+  "host": "www.europagence.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://europagence.com/",
+  "redirected_offsite": false,
+  "server": "nginx",
+  "cf_ray": false,
+  "html_bytes": 470514,
+  "title": "Europ'Agence - Agence immobilière, Riviera française, Côte d'Azur",
+  "platforms": [
+   "WordPress"
+  ],
+  "protection": [],
+  "generator": "WordPress 6.8.10",
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "google.com",
+   "gmpg.org"
+  ],
+  "nav": {
+   "sale": [
+    "https://europagence.com/villas-a-vendre/",
+    "https://europagence.com/appartements-a-vendre/",
+    "https://europagence.com/biens-immobilers/vente-appartement-roquebrune-cap-martin-saint-roman/"
+   ],
+   "rent": [
+    "https://europagence.com/locations-saisonnieres/"
+   ],
+   "listings": [
+    "https://europagence.com/biens-immobilers/superbe-villa-surplombant-la-rade-de-villefranche-sur-mer/",
+    "https://europagence.com/biens-immobilers/magnifique-maison-neo-provencale-avec-piscine-chateauneuf-de-grasse/",
+    "https://europagence.com/biens-immobilers/cap-d-antibes-appartement-au-dernier-etage/",
+    "https://europagence.com/biens-immobilers/magnifique-villa-a-beaulieu-sur-mer/",
+    "https://europagence.com/biens-immobilers/villefranche-sur-mer-penthouse/",
+    "https://europagence.com/biens-immobilers/nice-charmante-villa/",
+    "https://europagence.com/biens-immobilers/villa-dexception/",
+    "https://europagence.com/biens-immobilers/villa/"
+   ]
+  },
+  "langs": [
+   "en",
+   "en-gb",
+   "fi",
+   "fr",
+   "fr-fr",
+   "it",
+   "it-it",
+   "ru",
+   "ru-ru",
+   "sv",
+   "sv-se"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://europagence.com/flumo-sitemap.xml",
+    "https://europagence.com/page-sitemap.xml",
+    "https://europagence.com/sitemap.xml",
+    "https://europagence.com/sitemap_index.xml"
+   ],
+   "urls_total": 486,
+   "listing_like": 426,
+   "listing_samples": [
+    "https://europagence.com/biens-immobilers/",
+    "https://europagence.com/en/biens-immobilers/",
+    "https://europagence.com/it/biens-immobilers/",
+    "https://europagence.com/sv/biens-immobilers/",
+    "https://europagence.com/fi/biens-immobilers/"
+   ]
+  },
+  "seconds": 12.2,
+  "tier": "open"
+ },
+ {
+  "name": "Excel Properties",
+  "url": "https://www.excelproperties.mc",
+  "host": "www.excelproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Exclusive Estates Monaco",
+  "url": "https://www.exclusive-estates.mc",
+  "host": "www.exclusive-estates.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Faggionato Real Estate",
+  "url": "https://www.faggionato.com",
+  "host": "www.faggionato.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Festa Real Estate",
+  "url": "https://www.festainvestments.com",
+  "host": "www.festainvestments.com",
+  "meta_redirect": "https://forsale.godaddy.com/forsale/www.festainvestments.com?utm_source=TDFS_BINNS2&utm_medium=parkedpages&utm_campaign=x_corp_tdfs-binns2_base&traffic_type=TDFS_BINNS2&traffic_id=binns2&",
+  "reachable": true,
+  "status": 403,
+  "final_url": "https://forsale.godaddy.com/forsale/www.festainvestments.com?utm_source=TDFS_BINNS2&utm_medium=parkedpages&utm_campaign=x_corp_tdfs-binns2_base&traffic_type=TDFS_BINNS2&traffic_id=binns2&",
+  "redirected_offsite": true,
+  "server": "AkamaiGHost",
+  "cf_ray": false,
+  "html_bytes": 422,
+  "title": "Access Denied",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": true,
+  "third_party": [],
+  "nav": {
+   "sale": [],
+   "rent": [],
+   "listings": []
+  },
+  "langs": [],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://forsale.godaddy.com/sitemap.xml",
+    "https://forsale.godaddy.com/sitemap_index.xml"
+   ],
+   "urls_total": 0,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 5.8,
+  "tier": "protected"
+ },
+ {
+  "name": "Fiducia Real Estate",
+  "url": "https://www.fiducia.mc",
+  "host": "www.fiducia.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Fine Properties Monaco",
+  "url": "https://www.fineproperties.mc",
+  "host": "www.fineproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "First Home Real Estate",
+  "url": "https://www.firsthome.mc",
+  "host": "www.firsthome.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Fontvieille Immobilier",
+  "url": "https://www.fontvieille-immobilier.com",
+  "host": "www.fontvieille-immobilier.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Founis Properties",
+  "url": "https://www.founis.mc",
+  "host": "www.founis.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "G&G Real Estate",
+  "url": "https://www.gg-realestate.mc",
+  "host": "www.gg-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "G-Estates",
+  "url": "https://www.g-estates.mc",
+  "host": "www.g-estates.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Galli Agency",
+  "url": "https://www.agencegalli.mc",
+  "host": "www.agencegalli.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Gaston Agency",
+  "url": "https://www.agencegaston.mc",
+  "host": "www.agencegaston.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Gemini Real Estate",
+  "url": "https://www.gemini.mc",
+  "host": "www.gemini.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "General Immobilier",
+  "url": "https://www.general-immobilier.mc",
+  "host": "www.general-immobilier.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Gery Properties",
+  "url": "https://www.gery-properties.mc",
+  "host": "www.gery-properties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Global Properties",
+  "url": "https://www.globalproperties.mc",
+  "host": "www.globalproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Golden Square Real Estate",
+  "url": "https://www.goldensquare.mc",
+  "host": "www.goldensquare.mc",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.goldensquare.mc/",
+  "redirected_offsite": false,
+  "server": "nginx",
+  "cf_ray": false,
+  "html_bytes": 7771,
+  "title": "Golden Square â Agence immobiliÃ¨re Ã  Monaco | Vente, location & gestion",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "unpkg.com",
+   "fonts.googleapis.com",
+   "fonts.gstatic.com"
+  ],
+  "nav": {
+   "sale": [],
+   "rent": [],
+   "listings": []
+  },
+  "langs": [],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://goldensquare.mc/sitemap.xml",
+    "https://www.goldensquare.mc/sitemap.xml",
+    "https://www.goldensquare.mc/sitemap_index.xml"
+   ],
+   "urls_total": 14,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 2.9,
+  "tier": "open"
+ },
+ {
+  "name": "GP Real Estate",
+  "url": "https://www.gp-realestate.mc",
+  "host": "www.gp-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Grimaldi Real Estate",
+  "url": "https://www.grimaldi-realestate.mc",
+  "host": "www.grimaldi-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Hammer Draff",
+  "url": "https://www.hammerdraff.com",
+  "host": "www.hammerdraff.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.hammerdraff.com/",
+  "redirected_offsite": false,
+  "server": "Apache",
+  "cf_ray": false,
+  "html_bytes": 35588,
+  "title": "Luxury Apartments & Exclusive Properties for Sale in Monaco | Hammer Draff Real Estate",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "googletagmanager.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.hammerdraff.com/properties-sale-monaco",
+    "https://www.hammerdraff.com/sale-result.php?ref=dv4-02286-for-sale-monaco-new!-jardin-exotique:-4-rooms,-sea-view,-furnished",
+    "https://www.hammerdraff.com/sale-result.php?ref=dv2-01004-for-sale-monaco-two-room-apartment-au-jardin-exotique",
+    "https://www.hammerdraff.com/sale-result.php?ref=dv4-02288-for-sale-monaco-modern-duplex-with-sea-view"
+   ],
+   "rent": [
+    "https://www.hammerdraff.com/properties-rent-monaco",
+    "https://www.hammerdraff.com/rent-result.php?ref=dv0-01002-for-rent-monaco-exceptional-commercial-lease-in-the-golden-square",
+    "https://www.hammerdraff.com/rent-result.php?ref=dl6-02182-for-rent-monaco-unique-monaco-waterfront-villa",
+    "https://www.hammerdraff.com/rent-result.php?ref=dl4-62410-for-rent-monaco-in-the-golden-square-of-monte-carlo-:-paradise-for-rent"
+   ],
+   "listings": [
+    "https://www.hammerdraff.com/properties-sale-monaco",
+    "https://www.hammerdraff.com/properties-rent-monaco",
+    "https://www.hammerdraff.com/real-estate-agency-monaco",
+    "https://www.hammerdraff.com/real-estate-offers-monaco",
+    "https://www.hammerdraff.com/sale-result.php?ref=dv4-02286-for-sale-monaco-new!-jardin-exotique:-4-rooms,-sea-view,-furnished",
+    "https://www.hammerdraff.com/sale-result.php?ref=dv2-01004-for-sale-monaco-two-room-apartment-au-jardin-exotique",
+    "https://www.hammerdraff.com/sale-result.php?ref=dv4-02288-for-sale-monaco-modern-duplex-with-sea-view",
+    "https://www.hammerdraff.com/rent-result.php?ref=dv0-01002-for-rent-monaco-exceptional-commercial-lease-in-the-golden-square"
+   ]
+  },
+  "langs": [
+   "en",
+   "en-de",
+   "en-fr",
+   "en-it",
+   "en-ru"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.hammerdraff.com/sitemap.xml",
+    "https://www.hammerdraff.com/sitemap_index.xml"
+   ],
+   "urls_total": 0,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 1.8,
+  "tier": "open"
+ },
+ {
+  "name": "Harroch Real Estate",
+  "url": "https://www.harrochrealestate.com",
+  "host": "www.harrochrealestate.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.harrochrealestate.mc/",
+  "redirected_offsite": true,
+  "server": "cloudflare",
+  "cf_ray": true,
+  "html_bytes": 613305,
+  "title": "Harroch Real Estate Monaco | Agence Immobilière à Monaco",
+  "platforms": [
+   "WordPress"
+  ],
+  "protection": [],
+  "generator": "WordPress 7.1.2",
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "googletagmanager.com",
+   "gmpg.org",
+   "lw-works.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.harrochrealestate.mc/a-vendre-monaco/",
+    "https://www.harrochrealestate.mc/status/a-vendre/",
+    "https://www.harrochrealestate.mc/propriété/saint-roman-chateau-amiral-parking-a-la-vente/",
+    "https://www.harrochrealestate.mc/les-quartiers-les-plus-prises-de-monaco-ou-acheter-selon-votre-projet/"
+   ],
+   "rent": [
+    "https://www.harrochrealestate.mc/a-louer-monaco/",
+    "https://www.harrochrealestate.mc/status/a-louer/",
+    "https://www.harrochrealestate.mc/propriété/cave-spacieuse-disponible-a-la-location/"
+   ],
+   "listings": [
+    "https://www.harrochrealestate.mc/favorite-properties/",
+    "https://www.harrochrealestate.mc/category/non-classifiee/",
+    "https://www.harrochrealestate.mc/mareterra-le-nouveau-visage-du-luxe-immobilier-a-monaco/",
+    "https://www.harrochrealestate.mc/investir-a-monaco-en-2026-un-marche-toujours-aussi-recherche/"
+   ]
+  },
+  "langs": [
+   "en",
+   "fr",
+   "it",
+   "x-default"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.harrochrealestate.mc/houzez_agency-sitemap.xml",
+    "https://www.harrochrealestate.mc/houzez_agent-sitemap.xml",
+    "https://www.harrochrealestate.mc/page-sitemap.xml",
+    "https://www.harrochrealestate.mc/post-sitemap.xml",
+    "https://www.harrochrealestate.mc/property-sitemap.xml",
+    "https://www.harrochrealestate.mc/sitemap_index.xml"
+   ],
+   "urls_total": 192,
+   "listing_like": 4,
+   "listing_samples": [
+    "https://www.harrochrealestate.mc/property/",
+    "https://www.harrochrealestate.mc/en/property-details/",
+    "https://www.harrochrealestate.mc/listings-with-elementor/",
+    "https://www.harrochrealestate.mc/listings-elementor-sidebar/"
+   ]
+  },
+  "seconds": 10.6,
+  "tier": "redirects-offsite"
+ },
+ {
+  "name": "Heliopolis Properties",
+  "url": "https://www.heliopolis.mc",
+  "host": "www.heliopolis.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Heritage Properties",
+  "url": "https://www.heritage-properties.mc",
+  "host": "www.heritage-properties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Hermitage Riviera",
+  "url": "https://www.hermitageriviera.com",
+  "host": "www.hermitageriviera.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://hermitageriviera.com/",
+  "redirected_offsite": false,
+  "server": "nginx",
+  "cf_ray": false,
+  "html_bytes": 168556,
+  "title": "French Riviera Luxury Real Estate - Hermitage Riviera",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "googletagmanager.com",
+   "connect.facebook.net",
+   "googleads.g.doubleclick.net"
+  ],
+  "nav": {
+   "sale": [
+    "https://hermitageriviera.com/sale/",
+    "https://hermitageriviera.com/villa-for-sale-menton-garavan-an-exceptional-historic-estate-in-splendid-botanic-gardens-hr1498",
+    "https://hermitageriviera.com/villa-for-sale-menton-garavan-belle-epoque-villa-calm-sea-view-panoramic-hr2995",
+    "https://hermitageriviera.com/villa-for-sale-eze-village-provencal-villa-panoramic-sea-view-calm-hr3007",
+    "https://hermitageriviera.com/penthouse-for-sale-cap-dail-luxury-residence-pool-sea-view-terrasse-close-to-beach-mala-hr2725",
+    "https://hermitageriviera.com/villa-for-sale-cap-dail-property-of-two-modern-villas-sea-views-pool-close-to-monaco-hr2851",
+    "https://hermitageriviera.com/villa-for-sale-nice-mont-boron-contemporary-villa-sea-views-pool-hr2084",
+    "https://hermitageriviera.com/penthouse-for-sale-nice-mont-boron-exceptional-apartment-top-floor-breathtaking-sea-view-hr2958"
+   ],
+   "rent": [
+    "https://hermitageriviera.com/rental/",
+    "https://hermitageriviera.com/villa-to-rent-saint-jean-cap-ferrat-magnificent-waterfront-property-sea-view-pool-guest-house-hr2748",
+    "https://hermitageriviera.com/villa-for-sale-roquebrune-cap-martin-splendid-florentine-style-villa-panoramic-sea-view-hr2374",
+    "https://hermitageriviera.com/villa-to-rent-villefranche-sur-mer-contemporary-villa-with-bay-views-hr2132",
+    "https://hermitageriviera.com/villa-to-rent-mougins-charming-propery-in-gated-condominium-hr2273",
+    "https://hermitageriviera.com/apartment-to-rent-menton-waterfront-1-bedroom-apartment-terrace-spa-hr2974",
+    "https://hermitageriviera.com/apartment-to-rent-beaulieu-sur-mer-2-bedroom-apartment-belle-epoque-residence-le-bristol-hr2727",
+    "https://hermitageriviera.com/villa-to-rent-tourrettes-sur-loup-spacious-villa-with-pool-hr2608"
+   ],
+   "listings": [
+    "https://hermitageriviera.com/villa-to-rent-saint-jean-cap-ferrat-magnificent-waterfront-property-sea-view-pool-guest-house-hr2748",
+    "https://hermitageriviera.com/villa-for-sale-cap-dail-property-of-two-modern-villas-sea-views-pool-close-to-monaco-hr2851",
+    "https://hermitageriviera.com/blog/real-estate-prices-in-nice",
+    "https://hermitageriviera.com/sale/",
+    "https://hermitageriviera.com/sale/nice/",
+    "https://hermitageriviera.com/sale/beaulieu-sur-mer/",
+    "https://hermitageriviera.com/sale/saint-jean-cap-ferrat/",
+    "https://hermitageriviera.com/sale/villefranche-sur-mer/"
+   ]
+  },
+  "langs": [
+   "da",
+   "de",
+   "en",
+   "es",
+   "fr",
+   "it",
+   "no",
+   "ru",
+   "sv",
+   "x-default",
+   "zh"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://hermitageriviera.com/sitemap.xml",
+    "https://hermitageriviera.com/sitemap_index.xml"
+   ],
+   "urls_total": 4200,
+   "listing_like": 2636,
+   "listing_samples": [
+    "https://hermitageriviera.com/sale/",
+    "https://hermitageriviera.com/fr/vente/",
+    "https://hermitageriviera.com/ru/sale/",
+    "https://hermitageriviera.com/de/sale/",
+    "https://hermitageriviera.com/it/sale/"
+   ]
+  },
+  "seconds": 3.1,
+  "tier": "open"
+ },
+ {
+  "name": "Hestia Real Estate",
+  "url": "https://www.hestiaproperties.mc",
+  "host": "www.hestiaproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "High-End Properties",
+  "url": "https://www.highendproperties.mc",
+  "host": "www.highendproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Home & Co",
+  "url": "https://www.homeandco.mc",
+  "host": "www.homeandco.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "ICM Real Estate",
+  "url": "https://www.icm.mc",
+  "host": "www.icm.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Impact Real Estate",
+  "url": "https://www.impact-realestate.mc",
+  "host": "www.impact-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Imperial Properties",
+  "url": "https://www.imperialproperties.mc",
+  "host": "www.imperialproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Infinity Properties",
+  "url": "https://www.infinityproperties.mc",
+  "host": "www.infinityproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Inter-Acropole",
+  "url": "https://www.inter-acropole.com",
+  "host": "www.inter-acropole.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "International Property Brokers",
+  "url": "https://www.ipb.mc",
+  "host": "www.ipb.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Invest Real Estate",
+  "url": "https://www.investrealestate.mc",
+  "host": "www.investrealestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Iris Properties",
+  "url": "https://www.irisproperties.mc",
+  "host": "www.irisproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "J&L Properties",
+  "url": "https://www.jlproperties.mc",
+  "host": "www.jlproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "J-K Real Estate",
+  "url": "https://www.jk-realestate.mc",
+  "host": "www.jk-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "JamesEdition Monaco",
+  "url": "https://www.jamesedition.com",
+  "host": "www.jamesedition.com",
+  "reachable": true,
+  "status": 403,
+  "final_url": "https://www.jamesedition.com/",
+  "redirected_offsite": false,
+  "server": "cloudflare",
+  "cf_ray": true,
+  "html_bytes": 5752,
+  "title": "Just a moment...",
+  "platforms": [],
+  "protection": [
+   "cloudflare-challenge",
+   "cloudflare-turnstile"
+  ],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": true,
+  "third_party": [],
+  "nav": {
+   "sale": [],
+   "rent": [],
+   "listings": []
+  },
+  "langs": [],
+  "robots_disallow_all": true,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.jamesedition.com/sitemap.xml",
+    "https://www.jamesedition.com/sitemap.xml.gz",
+    "https://www.jamesedition.com/sitemap_index.xml"
+   ],
+   "urls_total": 0,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 1.7,
+  "tier": "protected"
+ },
+ {
+  "name": "Jardin Exotique Agency",
+  "url": "https://www.agencejardinexotique.mc",
+  "host": "www.agencejardinexotique.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "John Taylor Monaco",
+  "url": "https://www.john-taylor.com",
+  "host": "www.john-taylor.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.john-taylor.com/",
+  "redirected_offsite": false,
+  "server": "nginx",
+  "cf_ray": false,
+  "html_bytes": 108101,
+  "title": "Luxury real estate in France, Spain, Cyprus, Switzerland, Portugal, United Arab ...",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "googletagmanager.com",
+   "static.elfsight.com",
+   "static.criteo.net",
+   "livechat.ekonsilio.io",
+   "john-taylor.fr",
+   "john-taylor.it",
+   "john-taylor.es",
+   "john-taylor.de",
+   "john-taylor.ru.com",
+   "john-taylor.cz"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.john-taylor.com/",
+    "https://www.john-taylor.com/caribbean/sale/",
+    "https://www.john-taylor.com/cyprus/sale/",
+    "https://www.john-taylor.com/cyprus/sale/famagusta/",
+    "https://www.john-taylor.com/cyprus/sale/larnaca/",
+    "https://www.john-taylor.com/cyprus/sale/limassol/",
+    "https://www.john-taylor.com/cyprus/sale/nicosia/",
+    "https://www.john-taylor.com/cyprus/sale/paphos/"
+   ],
+   "rent": [
+    "https://www.john-taylor.com/",
+    "https://www.john-taylor.com/caribbean/seasonal-rental/",
+    "https://www.john-taylor.com/france/seasonal-rental/",
+    "https://www.john-taylor.com/france/seasonal-rental/french-riviera-cote-d-azur/",
+    "https://www.john-taylor.com/france/seasonal-rental/provence/",
+    "https://www.john-taylor.com/france/seasonal-rental/south-west/",
+    "https://www.john-taylor.com/portugal/seasonal-rental/",
+    "https://www.john-taylor.com/spain/seasonal-rental/"
+   ],
+   "listings": [
+    "https://www.john-taylor.com/luxury-property-valuation/",
+    "https://www.john-taylor.com/luxury-real-estate-agency/saint-barthelemy/",
+    "https://www.john-taylor.com/luxury-real-estate-agency/cyprus/",
+    "https://www.john-taylor.com/luxury-real-estate-agency/aix-en-provence/",
+    "https://www.john-taylor.com/luxury-real-estate-agency/alpilles/",
+    "https://www.john-taylor.com/luxury-real-estate-agency/sanary-sur-mer/",
+    "https://www.john-taylor.com/luxury-real-estate-agency/bordeaux/",
+    "https://www.john-taylor.com/luxury-real-estate-agency/cannes/"
+   ]
+  },
+  "langs": [
+   "cs-cz",
+   "de-de",
+   "en-gb",
+   "es-es",
+   "fr-fr",
+   "it-it",
+   "ru-ru"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.john-taylor.com/sitemap.xml",
+    "https://www.john-taylor.de/sitemap.xml",
+    "https://www.john-taylor.es/sitemap.xml",
+    "https://www.john-taylor.fr/sitemap.xml",
+    "https://www.john-taylor.it/sitemap.xml",
+    "https://www.john-taylor.ru.com/sitemap.xml"
+   ],
+   "urls_total": 32012,
+   "listing_like": 8517,
+   "listing_samples": [
+    "https://www.john-taylor.com/united-states/sale/flat-apartement/new-york/manhattan/flatiron/",
+    "https://www.john-taylor.com/united-states/sale/townhouse/new-york/manhattan/soho/",
+    "https://www.john-taylor.com/united-states/sale/flat-apartement/new-york/manhattan/chelsea/",
+    "https://www.john-taylor.com/united-states/sale/townhouse/new-york/manhattan/lenox-hill/",
+    "https://www.john-taylor.com/united-states/sale/flat-apartement/new-york/manhattan/soho/"
+   ]
+  },
+  "seconds": 27.6,
+  "tier": "open"
+ },
+ {
+  "name": "K-Properties",
+  "url": "https://www.kproperties.mc",
+  "host": "www.kproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Kingdom Properties",
+  "url": "https://www.kingdomproperties.mc",
+  "host": "www.kingdomproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Kings Real Estate",
+  "url": "https://www.kingsrealestate.mc",
+  "host": "www.kingsrealestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Knight Frank Monaco",
+  "url": "https://www.knightfrank.com/monaco",
+  "host": "www.knightfrank.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.knightfrank.com:443/buying-property/monaco",
+  "redirected_offsite": false,
+  "server": "NA",
+  "cf_ray": true,
+  "html_bytes": 265766,
+  "title": "Buying Property in Monaco: Overseas Buyer Guide | Knight Frank",
+  "platforms": [],
+  "protection": [
+   "hcaptcha"
+  ],
+  "generator": null,
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "cdn.tagcommander.com",
+   "googletagmanager.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.knightfrank.com:443/property-for-sale",
+    "https://www.knightfrank.com:443/buying-property",
+    "https://www.knightfrank.com/buying-property",
+    "https://www.knightfrank.com:443/property-for-sale/monaco",
+    "https://www.knightfrank.com:443/buying-property/monaco",
+    "https://www.knightfrank.com/properties/residential/for-sale/monaco/all-types/all-beds",
+    "https://www.knightfrank.com/properties/residential/for-sale/monaco/all-types/all-beds/",
+    "https://www.knightfrank.com/properties/residential/for-sale/sim-palace/rsi012511678"
+   ],
+   "rent": [],
+   "listings": [
+    "https://www.knightfrank.com:443/property-for-sale",
+    "https://www.knightfrank.com:443/buying-property",
+    "https://www.knightfrank.com:443/commercial-property",
+    "https://www.knightfrank.com:443/research",
+    "https://www.knightfrank.com:443/research/reports/active-capital",
+    "https://www.knightfrank.com:443/research/reports/wealthreport",
+    "https://www.knightfrank.com:443/research/reports/your-space",
+    "https://www.knightfrank.com:443/research/africa"
+   ]
+  },
+  "langs": [
+   "en",
+   "x-default"
+  ],
+  "robots_disallow_all": true,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.knightfrank.com/sitemap.xml",
+    "https://www.knightfrank.com:443/sitemap.xml",
+    "https://www.knightfrank.com:443/sitemap_index.xml"
+   ],
+   "urls_total": 1384,
+   "listing_like": 214,
+   "listing_samples": [
+    "https://www.knightfrank.com/property-for-sale/france/french-alps/chamonix",
+    "https://www.knightfrank.com/property-for-sale/france/french-alps/courchevel",
+    "https://www.knightfrank.com/property-for-sale/france/french-alps/megeve",
+    "https://www.knightfrank.com/property-for-sale/france/french-alps/meribel",
+    "https://www.knightfrank.com/property-for-sale/france/french-alps/val-d-isere"
+   ]
+  },
+  "seconds": 2.3,
+  "tier": "open"
+ },
+ {
+  "name": "La Citadelle Agency",
+  "url": "https://www.agencecitadelle.mc",
+  "host": "www.agencecitadelle.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "La Condamine Agency",
+  "url": "https://www.agencecondamine.mc",
+  "host": "www.agencecondamine.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "La Costa Properties Monaco",
+  "url": "https://www.lacosta-properties-monaco.com",
+  "host": "www.lacosta-properties-monaco.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.lacosta-properties-monaco.com/en/",
+  "redirected_offsite": false,
+  "server": "nginx",
+  "cf_ray": false,
+  "html_bytes": 337725,
+  "title": "Monaco Real Estate Agency | La Costa Properties Monaco",
+  "platforms": [
+   "Immotoolbox",
+   "WordPress"
+  ],
+  "protection": [],
+  "generator": "WPML ver:4.9.7 stt:1,4,27,45;",
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "clientapi.immotoolbox.com",
+   "cdnjs.cloudflare.com",
+   "googletagmanager.com",
+   "use.fontawesome.com",
+   "code.jquery.com",
+   "js-eu1.hsforms.net",
+   "cdn.jsdelivr.net",
+   "unpkg.com",
+   "fonts.googleapis.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.lacosta-properties-monaco.com/en/sales/",
+    "https://www.lacosta-properties-monaco.com/en/sales/studio/",
+    "https://www.lacosta-properties-monaco.com/en/sales/1-bedroom/",
+    "https://www.lacosta-properties-monaco.com/en/sales/2-bedrooms/",
+    "https://www.lacosta-properties-monaco.com/en/sales/3-bedrooms/",
+    "https://www.lacosta-properties-monaco.com/en/sales/4-bedrooms/",
+    "https://www.lacosta-properties-monaco.com/en/sales/over-4-bedrooms/"
+   ],
+   "rent": [
+    "https://www.lacosta-properties-monaco.com/en/rentals/",
+    "https://www.lacosta-properties-monaco.com/en/rentals/studio/",
+    "https://www.lacosta-properties-monaco.com/en/rentals/1-bedroom/",
+    "https://www.lacosta-properties-monaco.com/en/rentals/2-bedrooms/",
+    "https://www.lacosta-properties-monaco.com/en/rentals/3-bedrooms/",
+    "https://www.lacosta-properties-monaco.com/en/rentals/4-bedrooms/",
+    "https://www.lacosta-properties-monaco.com/en/rentals/over-4-bedrooms/"
+   ],
+   "listings": [
+    "https://www.lacosta-properties-monaco.com/en/",
+    "https://www.lacosta-properties-monaco.com/fr/",
+    "https://www.lacosta-properties-monaco.com/it/",
+    "https://www.lacosta-properties-monaco.com/ru/",
+    "https://www.lacosta-properties-monaco.com/en/sales/",
+    "https://www.lacosta-properties-monaco.com/en/rentals/",
+    "https://www.lacosta-properties-monaco.com/en/our-agency/",
+    "https://www.lacosta-properties-monaco.com/en/service/property-management/"
+   ]
+  },
+  "langs": [],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.lacosta-properties-monaco.com/en/sitemap_index.xml",
+    "https://www.lacosta-properties-monaco.com/jet-theme-core-sitemap.xml",
+    "https://www.lacosta-properties-monaco.com/monaco-districts-sitemap.xml",
+    "https://www.lacosta-properties-monaco.com/page-sitemap.xml",
+    "https://www.lacosta-properties-monaco.com/post-sitemap.xml",
+    "https://www.lacosta-properties-monaco.com/teams-sitemap.xml"
+   ],
+   "urls_total": 517,
+   "listing_like": 14,
+   "listing_samples": [
+    "https://www.lacosta-properties-monaco.com/ru/prodazha/villa-de-rome/",
+    "https://www.lacosta-properties-monaco.com/en/sales/villa-de-rome/",
+    "https://www.lacosta-properties-monaco.com/en/services/property-management/",
+    "https://www.lacosta-properties-monaco.com/fr/ventes/villa-de-rome/",
+    "https://www.lacosta-properties-monaco.com/it/vendite/villa-de-rome/"
+   ]
+  },
+  "seconds": 5.4,
+  "tier": "open"
+ },
+ {
+  "name": "La Monégasque Immobilière",
+  "url": "https://www.lamonegasque.mc",
+  "host": "www.lamonegasque.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "La Rousse Agency",
+  "url": "https://www.agencelarousse.mc",
+  "host": "www.agencelarousse.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Larvotto Real Estate",
+  "url": "https://www.larvottorealestate.com",
+  "host": "www.larvottorealestate.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Le Figaro Properties",
+  "url": "https://properties.lefigaro.com",
+  "host": "properties.lefigaro.com",
+  "reachable": true,
+  "status": 403,
+  "final_url": "https://properties.lefigaro.com/",
+  "redirected_offsite": false,
+  "server": "cloudflare",
+  "cf_ray": true,
+  "html_bytes": 5776,
+  "title": "Just a moment...",
+  "platforms": [],
+  "protection": [
+   "cloudflare-challenge",
+   "cloudflare-turnstile"
+  ],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": true,
+  "third_party": [],
+  "nav": {
+   "sale": [],
+   "rent": [],
+   "listings": []
+  },
+  "langs": [],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://properties.lefigaro.com/sitemap.xml",
+    "https://properties.lefigaro.com/sitemap_index.xml"
+   ],
+   "urls_total": 0,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 3.5,
+  "tier": "protected"
+ },
+ {
+  "name": "Le Rocher Real Estate",
+  "url": "https://www.lerocher-realestate.mc",
+  "host": "www.lerocher-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Leader Real Estate",
+  "url": "https://www.leader-realestate.mc",
+  "host": "www.leader-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Legacy Properties",
+  "url": "https://www.legacy.mc",
+  "host": "www.legacy.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Level Real Estate",
+  "url": "https://www.levelproperties.mc",
+  "host": "www.levelproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Livein Monaco",
+  "url": "https://www.livein.mc",
+  "host": "www.livein.mc",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://livein.mc/en/",
+  "redirected_offsite": false,
+  "server": "nginx",
+  "cf_ray": false,
+  "html_bytes": 105187,
+  "title": "Real Estate in Monaco & French Riviera | Livein.mc",
+  "platforms": [
+   "Apimo"
+  ],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "d36vnx92dgl2c5.cloudfront.net",
+   "use.typekit.net",
+   "googletagmanager.com",
+   "cache.consentframework.com",
+   "choices.consentframework.com",
+   "p.typekit.net"
+  ],
+  "nav": {
+   "sale": [
+    "https://livein.mc/en/sale",
+    "https://livein.mc/en/sale/house",
+    "https://livein.mc/en/sale/apartment",
+    "https://livein.mc/en/sale/office",
+    "https://livein.mc/en/sale/garage-parking",
+    "https://livein.mc/en/sale/business",
+    "https://livein.mc/en/sale/apartment/monaco/84605471",
+    "https://livein.mc/en/sale/apartment/monaco/87363577"
+   ],
+   "rent": [
+    "https://livein.mc/en/rental",
+    "https://livein.mc/en/rental/house",
+    "https://livein.mc/en/rental/apartment",
+    "https://livein.mc/en/rental/office",
+    "https://livein.mc/en/rental/garage-parking",
+    "https://livein.mc/en/rental/business",
+    "https://livein.mc/en/news/31973",
+    "https://livein.mc/en/how-to-rent-an-apartment-in-monaco"
+   ],
+   "listings": [
+    "https://livein.mc/en/monaco-real-estate-purchase-process",
+    "https://livein.mc/en/sale/house/saint-jean-cap-ferrat",
+    "https://livein.mc/en/exceptional-properties-for-sale",
+    "https://livein.mc/en/exceptional-properties-for-rent"
+   ]
+  },
+  "langs": [
+   "en-gb",
+   "fr-fr",
+   "it-it",
+   "x-default"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://livein.mc/sitemap-1.xml",
+    "https://livein.mc/sitemap.xml",
+    "https://livein.mc/sitemap_index.xml"
+   ],
+   "urls_total": 0,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 6.3,
+  "tier": "open"
+ },
+ {
+  "name": "Logos Real Estate",
+  "url": "https://www.logos.mc",
+  "host": "www.logos.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Lorenzi Roc Agency",
+  "url": "https://www.rocagency.com",
+  "host": "www.rocagency.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.rocagency.com/",
+  "redirected_offsite": false,
+  "server": "Apache",
+  "cf_ray": false,
+  "html_bytes": 42351,
+  "title": "Agence immobilier Monaco | Roc Agency",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [],
+  "nav": {
+   "sale": [
+    "https://www.rocagency.com/fr/ventes-proprietes-a-vendre",
+    "https://www.rocagency.com/fr/charmant-4pc-renove-a-monaco-ville",
+    "https://www.rocagency.com/fr/monaco-ville-studio-renove",
+    "https://www.rocagency.com/fr/palais-heracles-joli-2-pieces-sur-le-port-1",
+    "https://www.rocagency.com/fr/exclusivite-roc-agency-murs-commerciaux-occupes-coeur-historique-de-monaco-ville",
+    "https://www.rocagency.com/fr/monaco-ville-appartement-familial-avec-garage",
+    "https://www.rocagency.com/fr/magnifique-trois-pieces-neuf-avec-une-superbe-vue-panoramique"
+   ],
+   "rent": [
+    "https://www.rocagency.com/fr/locations-appartements-a-louer"
+   ],
+   "listings": [
+    "https://www.rocagency.com/fr/agents-immobiliers",
+    "https://www.rocagency.com/fr/ventes-proprietes-a-vendre",
+    "https://www.rocagency.com/fr/locations-appartements-a-louer"
+   ]
+  },
+  "langs": [
+   "de",
+   "en",
+   "fr",
+   "it",
+   "ru"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.rocagency.com/sitemap.xml",
+    "https://www.rocagency.com/sitemap_index.xml"
+   ],
+   "urls_total": 320,
+   "listing_like": 10,
+   "listing_samples": [
+    "https://www.rocagency.com/en/properties-for-sale",
+    "https://www.rocagency.com/fr/propriete-a-vendre-a-monaco",
+    "https://www.rocagency.com/fr/vente-de-villas-a-monaco",
+    "https://www.rocagency.com/fr/appartement-3-pieces-renove-a-monaco-ville",
+    "https://www.rocagency.com/fr/appartement-3-pieces-a-monaco-ville"
+   ]
+  },
+  "seconds": 2.9,
+  "tier": "open"
+ },
+ {
+  "name": "Lotus Properties",
+  "url": "https://www.lotusproperties.mc",
+  "host": "www.lotusproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Luxury Living Monaco",
+  "url": "https://www.luxuryliving.mc",
+  "host": "www.luxuryliving.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "LuxuryEstate Monaco",
+  "url": "https://www.luxuryestate.com",
+  "host": "www.luxuryestate.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.luxuryestate.com/",
+  "redirected_offsite": false,
+  "server": "CloudFront",
+  "cf_ray": false,
+  "html_bytes": 669630,
+  "title": "Luxury Homes and Prestigious Properties for Sale - LuxuryEstate.com",
+  "platforms": [
+   "Next.js"
+  ],
+  "protection": [],
+  "generator": null,
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "pic.le-cdn.com",
+   "4a901cc3cdb4.edge.sdk.awswaf.com",
+   "securepubads.g.doubleclick.net"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.luxuryestate.com/p132236914-detached-house-for-sale-sainte-maxime",
+    "https://www.luxuryestate.com/italy/salento",
+    "https://www.luxuryestate.com/israel/jerusalem-district/jerusalem"
+   ],
+   "rent": [
+    "https://www.luxuryestate.com/italy/amalfi-coast-and-sorrento-peninsula"
+   ],
+   "listings": [
+    "https://www.luxuryestate.com/property-valuation",
+    "https://www.luxuryestate.com/advertise-property",
+    "https://www.luxuryestate.com/sell-property"
+   ]
+  },
+  "langs": [
+   "de",
+   "en",
+   "es",
+   "fr",
+   "it",
+   "pl",
+   "pt",
+   "ru",
+   "tr",
+   "x-default"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.luxuryestate.com/sitemapxml/de/listings_categories_de_1.xml.gz",
+    "https://www.luxuryestate.com/sitemapxml/en/listings_categories_en_1.xml.gz",
+    "https://www.luxuryestate.com/sitemapxml/es/listings_categories_es_1.xml.gz",
+    "https://www.luxuryestate.com/sitemapxml/fr/listings_categories_fr_1.xml.gz",
+    "https://www.luxuryestate.com/sitemapxml/it/listings_categories_it_1.xml.gz",
+    "https://www.luxuryestate.com/sitemapxml/listings_index_categories.xml"
+   ],
+   "urls_total": 0,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 3.5,
+  "tier": "open"
+ },
+ {
+  "name": "M&P Properties",
+  "url": "https://www.mpproperties.mc",
+  "host": "www.mpproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Magrey & Sons Monaco",
+  "url": "https://www.magrey.com",
+  "host": "www.magrey.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.magrey.com/",
+  "redirected_offsite": false,
+  "server": "Apache/2.4.68 (Debian)",
+  "cf_ray": false,
+  "html_bytes": 414814,
+  "title": "Magrey And Sons - Luxury Real Estate on the French Riviera, Paris, Monaco",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "cdnjs.cloudflare.com",
+   "consent.cookiebot.com",
+   "ajax.googleapis.com",
+   "magrey.fr"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.magrey.com/sale",
+    "https://www.magrey.com/cannes-and-surroudings-sale.html",
+    "https://www.magrey.com/mougins-and-surroudings-sale.html",
+    "https://www.magrey.com/peninsula-saint-tropez-sale.html",
+    "https://www.magrey.com/paris-rive-droite.html",
+    "https://www.magrey.com/gulf-saint-tropez-sale.html",
+    "https://www.magrey.com/cap-antibes-and-surroundings-sale.html",
+    "https://www.magrey.com/valbonne-and-surroundings-sale.html"
+   ],
+   "rent": [
+    "https://www.magrey.com/rent",
+    "https://www.magrey.com/cannes-and-surroudings-rental.html",
+    "https://www.magrey.com/mougins-and-surroudings-rental.html",
+    "https://www.magrey.com/peninsula-saint-tropez-rental.html",
+    "https://www.magrey.com/paris-rive-droite.html",
+    "https://www.magrey.com/gulf-saint-tropez-rental.html",
+    "https://www.magrey.com/cap-antibes-and-surroundings-rental.html",
+    "https://www.magrey.com/valbonne-and-surroundings-rental.html"
+   ],
+   "listings": [
+    "https://www.magrey.com/search.php?buy=2&region=7&secteur=22&location=&type=&price=&pricemin=&pricemax=&ref=&search=go",
+    "https://www.magrey.com/search.php?buy=1&region=1&secteur=6&location=&type=&price=Price&ref=&search=go",
+    "https://www.magrey.com/search.php?buy=2&region=1&secteur=6&location=&type=&price=Prix&ref=&search=go"
+   ]
+  },
+  "langs": [
+   "en-us",
+   "fr-fr"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.magrey.com/sitemap.xml",
+    "https://www.magrey.com/sitemap_index.xml"
+   ],
+   "urls_total": 1191,
+   "listing_like": 1087,
+   "listing_samples": [
+    "https://www.magrey.com/journal/apartment-paris",
+    "https://www.magrey.com/journal/sale-palais-venitien",
+    "https://www.magrey.com/journal/villa-bagatelle-cannes",
+    "https://www.magrey.com/journal/villa-below-2-million",
+    "https://www.magrey.com/journal/villa-mirae-cap-d-antibes"
+   ]
+  },
+  "seconds": 0.9,
+  "tier": "open"
+ },
+ {
+  "name": "Main Square Real Estate",
+  "url": "https://www.mainsquare.mc",
+  "host": "www.mainsquare.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Majestic Real Estate",
+  "url": "https://www.majestic-realestate.mc",
+  "host": "www.majestic-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Manera Real Estate",
+  "url": "https://www.manerarealestate.com",
+  "host": "www.manerarealestate.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Map Real Estate",
+  "url": "https://www.maprealestate.mc",
+  "host": "www.maprealestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Maximus Properties",
+  "url": "https://www.maximus.mc",
+  "host": "www.maximus.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "MB Immobilier",
+  "url": "https://www.mb-immobilier.mc",
+  "host": "www.mb-immobilier.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Mercury Real Estate",
+  "url": "https://www.mercury.mc",
+  "host": "www.mercury.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Meridian Real Estate",
+  "url": "https://www.meridian.mc",
+  "host": "www.meridian.mc",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.meridian.mc/",
+  "redirected_offsite": false,
+  "server": "Apache",
+  "cf_ray": false,
+  "html_bytes": 1076,
+  "title": "New Website",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": true,
+  "third_party": [],
+  "nav": {
+   "sale": [],
+   "rent": [],
+   "listings": []
+  },
+  "langs": [],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.meridian.mc/sitemap.xml",
+    "https://www.meridian.mc/sitemap_index.xml"
+   ],
+   "urls_total": 0,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 1.5,
+  "tier": "js-rendered"
+ },
+ {
+  "name": "Metropole Real Estate",
+  "url": "https://www.metropolerealestate.mc",
+  "host": "www.metropolerealestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Miells Real Estate",
+  "url": "https://www.miells.com",
+  "host": "www.miells.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.miells.com/",
+  "redirected_offsite": false,
+  "server": "Apache",
+  "cf_ray": false,
+  "html_bytes": 168233,
+  "title": "Your Real Estate Agency in Monaco | Miells Real Estate",
+  "platforms": [
+   "WordPress"
+  ],
+  "protection": [],
+  "generator": "dominant-color-images 1.2.0",
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "use.fontawesome.com",
+   "js-eu1.hsforms.net",
+   "use.typekit.net",
+   "code.jquery.com",
+   "app.usercentrics.eu",
+   "googletagmanager.com",
+   "gmpg.org"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.miells.com/sales/",
+    "https://www.miells.com/sales/studio/",
+    "https://www.miells.com/sales/1-bedroom/",
+    "https://www.miells.com/sales/2-bedrooms/",
+    "https://www.miells.com/sales/3-bedrooms-and-more/",
+    "https://www.miells.com/living-in-monaco/buy-and-sale-guide/",
+    "https://www.miells.com/sales/luxury-4-bedroom-apartment-larvotto-sea-view-monaco/",
+    "https://www.miells.com/sales/mareterra-new-3-4-bedroom-apartment/"
+   ],
+   "rent": [
+    "https://www.miells.com/rentals/",
+    "https://www.miells.com/rentals/studio/",
+    "https://www.miells.com/rentals/1-bedroom/",
+    "https://www.miells.com/rentals/2-bedrooms/",
+    "https://www.miells.com/rentals/3-bedrooms-and-more/",
+    "https://www.miells.com/living-in-monaco/rental-guide/",
+    "https://www.miells.com/rentals/5-bedroom-apartment-la-petite-afrique-carre-dor/",
+    "https://www.miells.com/rentals/prestigious-villa-monaco-6-bedrooms-swimming-pool/"
+   ],
+   "listings": [
+    "https://www.miells.com/international-real-estate-networks/",
+    "https://www.miells.com/living-in-monaco/property-laws/",
+    "https://www.miells.com/living-in-monaco/real-estate-agency-fees/",
+    "https://www.miells.com/sales/villa-bella-exceptional-property-monte-carlo-monaco/",
+    "https://www.miells.com/sales/",
+    "https://www.miells.com/rentals/",
+    "https://www.miells.com/living-in-monaco/news/what-real-estate-investment-strategies-to-consider-in-monaco-in-2026/",
+    "https://www.miells.com/living-in-monaco/news/air-rights-and-building-extensions-in-monaco-when-real-estate-reaches-new-heights/"
+   ]
+  },
+  "langs": [
+   "de",
+   "en",
+   "fr",
+   "it",
+   "ru"
+  ],
+  "robots_disallow_all": true,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.miells.com/page-sitemap1.xml",
+    "https://www.miells.com/post-sitemap1.xml",
+    "https://www.miells.com/sitemap.xml",
+    "https://www.miells.com/sitemap_index.xml",
+    "https://www.miells.com/sitemaps.xml"
+   ],
+   "urls_total": 440,
+   "listing_like": 2,
+   "listing_samples": [
+    "https://www.miells.com/fr/vivre-a-monaco/actualites/immobilier-a-monaco-vers-un-cadre-plus-transparent-et-securise/",
+    "https://www.miells.com/living-in-monaco/property-laws/"
+   ]
+  },
+  "seconds": 3.1,
+  "tier": "open"
+ },
+ {
+  "name": "Milano Real Estate",
+  "url": "https://www.milano-realestate.mc",
+  "host": "www.milano-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Milo Properties",
+  "url": "https://www.miloproperties.mc",
+  "host": "www.miloproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Mirabeau Real Estate",
+  "url": "https://www.mirabeau-properties.mc",
+  "host": "www.mirabeau-properties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Monaco International Real Estate",
+  "url": "https://www.mire.mc",
+  "host": "www.mire.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Monaco Properties",
+  "url": "https://www.monacoproperties.mc",
+  "host": "www.monacoproperties.mc",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.monacoproperties.mc/en/",
+  "redirected_offsite": false,
+  "server": "Apache",
+  "cf_ray": false,
+  "html_bytes": 109530,
+  "title": "Estate Agency in Monaco and the French Riviera | Monaco Properties",
+  "platforms": [
+   "Immotoolbox"
+  ],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "googletagmanager.com",
+   "cdn.jsdelivr.net",
+   "monitor.clickcease.com",
+   "clientapi.immotoolbox.com",
+   "facebook.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.monacoproperties.mc/en/sales",
+    "https://www.monacoproperties.mc/en/sales/monaco/t-1-apartments/",
+    "https://www.monacoproperties.mc/en/sales/france/",
+    "https://www.monacoproperties.mc/en/sales/professional-sales/",
+    "https://www.monacoproperties.mc/en/sales/international/",
+    "https://www.monacoproperties.mc/en/buy-a-company.html",
+    "https://www.monacoproperties.mc/en/property-for-sale/125539-cap-martin-villas/",
+    "https://www.monacoproperties.mc/en/property-for-sale/118005-riviera-palace-apartments-3-rooms/"
+   ],
+   "rent": [
+    "https://www.monacoproperties.mc/en/rentals",
+    "https://www.monacoproperties.mc/en/rentals/monaco/t-1-apartments/",
+    "https://www.monacoproperties.mc/en/rentals/france/",
+    "https://www.monacoproperties.mc/en/rentals/professional-rentals/",
+    "https://www.monacoproperties.mc/en/rentals/locations-saisonnieres/",
+    "https://www.monacoproperties.mc/en/monaco-properties-your-premier-rental-management-partner-in-monaco.html",
+    "https://www.monacoproperties.mc/en/rentals/monaco/"
+   ],
+   "listings": [
+    "https://www.monacoproperties.mc/en/",
+    "https://www.monacoproperties.mc/en/contact.html",
+    "https://www.monacoproperties.mc/en/favorites/",
+    "https://www.monacoproperties.mc/en/sales",
+    "https://www.monacoproperties.mc/en/sales/monaco/t-1-apartments/",
+    "https://www.monacoproperties.mc/en/sales/france/",
+    "https://www.monacoproperties.mc/en/sales/professional-sales/",
+    "https://www.monacoproperties.mc/en/sales/international/"
+   ]
+  },
+  "langs": [],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.monacoproperties.mc/sitemap.xml",
+    "https://www.monacoproperties.mc/sitemap_index.xml",
+    "https://www.monacoproperties.mc/sitemapbase-fr.xml",
+    "https://www.monacoproperties.mc/sitemapproperties-fr.xml"
+   ],
+   "urls_total": 142,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 1.6,
+  "tier": "open"
+ },
+ {
+  "name": "Monaco Villas",
+  "url": "https://www.monaco-villas.com",
+  "host": "www.monaco-villas.com",
+  "url_alt_used": "https://monaco-villas.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.magreymonaco.com/",
+  "redirected_offsite": true,
+  "server": "Apache/2.4.68 (Debian)",
+  "cf_ray": false,
+  "html_bytes": 76405,
+  "title": "Magrey & Sons Monaco : Luxury Real Estate",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "code.jquery.com",
+   "consent.cookiebot.com",
+   "livechat.ekonsilio.io",
+   "fonts.googleapis.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.magreymonaco.com/",
+    "https://www.magreymonaco.com/sale-apartment-monaco-port-a33.html"
+   ],
+   "rent": [],
+   "listings": []
+  },
+  "langs": [],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.magreymonaco.com/sitemap.xml",
+    "https://www.magreymonaco.com/sitemap_index.xml"
+   ],
+   "urls_total": 0,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 22.3,
+  "tier": "redirects-offsite"
+ },
+ {
+  "name": "Moneghetti Agency",
+  "url": "https://www.agencemoneghetti.mc",
+  "host": "www.agencemoneghetti.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Montaigne Properties",
+  "url": "https://www.montaigneproperties.mc",
+  "host": "www.montaigneproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Monte Carlo Real Estate",
+  "url": "https://www.montecarlo-realestate.com",
+  "host": "www.montecarlo-realestate.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.montecarlo-realestate.com/en",
+  "redirected_offsite": false,
+  "server": "Microsoft-IIS/10.0",
+  "cf_ray": false,
+  "html_bytes": 79605,
+  "title": "The real estate leader in Monaco",
+  "platforms": [
+   "Immotoolbox"
+  ],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "google.com",
+   "googletagmanager.com",
+   "fonts.googleapis.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.montecarlo-realestate.com/en/houses-and-apartments-for-sale/monaco",
+    "https://www.montecarlo-realestate.com/en/studios-for-sale/monaco",
+    "https://www.montecarlo-realestate.com/en/2-rooms-for-sale/monaco",
+    "https://www.montecarlo-realestate.com/en/3-rooms-for-sale/monaco",
+    "https://www.montecarlo-realestate.com/en/4-rooms-for-sale/monaco",
+    "https://www.montecarlo-realestate.com/en/houses-and-apartments-for-sale/monaco?FlNrLocaliN=True",
+    "https://www.montecarlo-realestate.com/en/apartments-for-sale/monaco",
+    "https://www.montecarlo-realestate.com/en/houses-for-sale/monaco"
+   ],
+   "rent": [
+    "https://www.montecarlo-realestate.com/en/houses-and-apartments-for-rent/monaco",
+    "https://www.montecarlo-realestate.com/en/studios-for-rent/monaco",
+    "https://www.montecarlo-realestate.com/en/2-rooms-for-rent/monaco",
+    "https://www.montecarlo-realestate.com/en/3-rooms-for-rent/monaco",
+    "https://www.montecarlo-realestate.com/en/4-rooms-for-rent/monaco",
+    "https://www.montecarlo-realestate.com/en/houses-and-apartments-for-rent/monaco?FlNrLocaliN=True",
+    "https://www.montecarlo-realestate.com/en/offices-and-commercial-for-rent/monaco",
+    "https://www.montecarlo-realestate.com/en/parkings-and-cellars-for-rent/monaco"
+   ],
+   "listings": [
+    "https://www.montecarlo-realestate.com/en/properties/mc-tc-31-41437?ref=4",
+    "https://www.montecarlo-realestate.com/en/properties/mc-tc-52-41433?ref=4",
+    "https://www.montecarlo-realestate.com/en/properties/mc-tc-83-41412?ref=4",
+    "https://www.montecarlo-realestate.com/en/properties/mc-tc-35-41381?ref=4",
+    "https://www.montecarlo-realestate.com/en/properties/mc-tc-35-41373?ref=4",
+    "https://www.montecarlo-realestate.com/en/properties/mc-tc-72-41346?ref=4",
+    "https://www.montecarlo-realestate.com/en/properties/mc-tc-73-41448?ref=4",
+    "https://www.montecarlo-realestate.com/en/properties/mc-tc-93-41432?ref=4"
+   ]
+  },
+  "langs": [
+   "de",
+   "en",
+   "fr",
+   "it",
+   "ru",
+   "x-default"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.montecarlo-realestate.com/sitemap.xml",
+    "https://www.montecarlo-realestate.com/sitemap_index.xml"
+   ],
+   "urls_total": 0,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 4.9,
+  "tier": "open"
+ },
+ {
+  "name": "Monte-Carlo Real Estate Agency",
+  "url": "https://www.montecarlo-realestateagency.com",
+  "host": "www.montecarlo-realestateagency.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Monte-Carlo Sotheby's International Realty",
+  "url": "https://www.montecarlo-sothebysrealty.com",
+  "host": "www.montecarlo-sothebysrealty.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.montecarlo-sothebysrealty.com/en/",
+  "redirected_offsite": false,
+  "server": "nginx/1.30.4",
+  "cf_ray": false,
+  "html_bytes": 83480,
+  "title": "Monte-Carlo Sotheby's International Realty | Monaco Agency",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "fonts.googleapis.com",
+   "use.typekit.net"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.montecarlo-sothebysrealty.com/en/buy-luxury-apartment-monaco/&new_research=1",
+    "https://www.montecarlo-sothebysrealty.com/en/luxury-real-estate-monaco/ref-mc2-1002/sale-apartment-monaco-4-rooms-3-bedrooms-98000/",
+    "https://www.montecarlo-sothebysrealty.com/en/luxury-real-estate-monaco/ref-mc2-1157/sale-apartment-monaco-3-rooms-2-bedrooms-98000/",
+    "https://www.montecarlo-sothebysrealty.com/en/luxury-real-estate-monaco/ref-mc2-937/sale-apartment-monaco-3-rooms-2-bedrooms-98000/",
+    "https://www.montecarlo-sothebysrealty.com/en/luxury-real-estate-monaco/ref-mc2-1142/sale-apartment-monaco-4-rooms-3-bedrooms-98000/",
+    "https://www.montecarlo-sothebysrealty.com/en/luxury-real-estate-monaco/ref-mc2-1135/sale-duplex-monaco-4-rooms-3-bedrooms-98000/",
+    "https://www.montecarlo-sothebysrealty.com/en/luxury-real-estate-monaco/ref-mc2-1058/sale-apartment-monaco-6-rooms-4-bedrooms-98000/",
+    "https://www.montecarlo-sothebysrealty.com/en/luxury-real-estate-monaco/ref-mc2-505/sale-apartment-monaco-5-rooms-3-bedrooms-98000/"
+   ],
+   "rent": [
+    "https://www.montecarlo-sothebysrealty.com/en/rent-luxury-properties-monaco/&new_research=1",
+    "https://www.montecarlo-sothebysrealty.com/en/estimation-luxury-apartment-monaco/",
+    "https://www.montecarlo-sothebysrealty.com/en/luxury-apartment-for-rent-monaco/&new_research=1",
+    "https://www.montecarlo-sothebysrealty.com/en/sale-rent-parking-spaces-monaco/&new_research=1",
+    "https://www.montecarlo-sothebysrealty.com/en/rent-office-monaco/&new_research=1"
+   ],
+   "listings": [
+    "https://www.montecarlo-sothebysrealty.com/en/buy-luxury-apartment-monaco/&new_research=1",
+    "https://www.montecarlo-sothebysrealty.com/en/life-style-real-estate-luxury/",
+    "https://www.montecarlo-sothebysrealty.com/en/rent-luxury-properties-monaco/&new_research=1",
+    "https://www.montecarlo-sothebysrealty.com/en/luxury-real-estate-network/",
+    "https://www.montecarlo-sothebysrealty.com/en/luxury-real-estate-monaco-monte-carlo/&new_research=1",
+    "https://www.montecarlo-sothebysrealty.com/en/real-estate-chamber/",
+    "https://www.montecarlo-sothebysrealty.com/en/luxury-real-estate/",
+    "https://www.montecarlo-sothebysrealty.com/en/real-estate-agency-luxury-prestigious-monaco/"
+   ]
+  },
+  "langs": [
+   "en",
+   "fr",
+   "it",
+   "x-default"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.montecarlo-sothebysrealty.com/sitemap.xml",
+    "https://www.montecarlo-sothebysrealty.com/sitemap_1_en.xml",
+    "https://www.montecarlo-sothebysrealty.com/sitemap_1_fr.xml",
+    "https://www.montecarlo-sothebysrealty.com/sitemap_main_en.xml",
+    "https://www.montecarlo-sothebysrealty.com/sitemap_main_fr.xml",
+    "https://www.montecarlo-sothebysrealty.com/sitemap_main_it.xml"
+   ],
+   "urls_total": 668,
+   "listing_like": 144,
+   "listing_samples": [
+    "https://www.montecarlo-sothebysrealty.com/fr/immobilier-luxe-monaco/&amp;new_research=1",
+    "https://www.montecarlo-sothebysrealty.com/fr/actualites/details/606/appartement-usage-mixte-monaco/",
+    "https://www.montecarlo-sothebysrealty.com/fr/actualites/details/228/villa-monaco-excluvisite/",
+    "https://www.montecarlo-sothebysrealty.com/fr/actualites/details/337/villa-pied-dans-leau-monaco/",
+    "https://www.montecarlo-sothebysrealty.com/fr/actualites/details/511/villa-pied-dans-leau-varazze/"
+   ]
+  },
+  "seconds": 4.2,
+  "tier": "open"
+ },
+ {
+  "name": "Moulins Agency",
+  "url": "https://www.agencemoulins.mc",
+  "host": "www.agencemoulins.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "N&M Properties",
+  "url": "https://www.nmproperties.mc",
+  "host": "www.nmproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "National Agency Monaco",
+  "url": "https://www.agencenationale.mc",
+  "host": "www.agencenationale.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Nemesis Real Estate",
+  "url": "https://www.nemesis.mc",
+  "host": "www.nemesis.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Neptune Properties",
+  "url": "https://www.neptuneproperties.mc",
+  "host": "www.neptuneproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Nexus Real Estate",
+  "url": "https://www.nexus.mc",
+  "host": "www.nexus.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Noble Properties",
+  "url": "https://www.nobleproperties.mc",
+  "host": "www.nobleproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Nordic Real Estate",
+  "url": "https://www.nordic.mc",
+  "host": "www.nordic.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Nova Properties",
+  "url": "https://www.novaproperties.mc",
+  "host": "www.novaproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Oceanic Agency",
+  "url": "https://www.agenceoceanic.mc",
+  "host": "www.agenceoceanic.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Olympia Real Estate",
+  "url": "https://www.olympia.mc",
+  "host": "www.olympia.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Omega Real Estate",
+  "url": "https://www.omega-realestate.mc",
+  "host": "www.omega-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Optima Properties",
+  "url": "https://www.optimaproperties.mc",
+  "host": "www.optimaproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Orion Real Estate",
+  "url": "https://www.orion.mc",
+  "host": "www.orion.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Palace Properties",
+  "url": "https://www.palaceproperties.mc",
+  "host": "www.palaceproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Palais Real Estate",
+  "url": "https://www.palaisrealestate.mc",
+  "host": "www.palaisrealestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Park Real Estate",
+  "url": "https://www.parkrealestate.mc",
+  "host": "www.parkrealestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Pastor Immobilier",
+  "url": "https://www.pastor-immobilier.com",
+  "host": "www.pastor-immobilier.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://pastor-immobilier.com/",
+  "redirected_offsite": false,
+  "server": "nginx",
+  "cf_ray": false,
+  "html_bytes": 65953,
+  "title": "Immobilier à Monaco, Agence immobilière Monte Carlo | Pastor Immobilier",
+  "platforms": [
+   "Apimo",
+   "WordPress"
+  ],
+  "protection": [],
+  "generator": null,
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "cdnjs.cloudflare.com",
+   "cdn.jsdelivr.net",
+   "maps.googleapis.com",
+   "stackpath.bootstrapcdn.com",
+   "googletagmanager.com",
+   "google.com",
+   "gmpg.org"
+  ],
+  "nav": {
+   "sale": [
+    "https://pastor-immobilier.com/ventes/",
+    "https://pastor-immobilier.com/properties/vente/",
+    "https://pastor-immobilier.com/properties/vente",
+    "https://pastor-immobilier.com/service/vente/",
+    "https://pastor-immobilier.com/ventes/bien-a-la-vente/?ref=8055812",
+    "https://pastor-immobilier.com/ventes/bien-a-la-vente/?ref=8045588"
+   ],
+   "rent": [
+    "https://pastor-immobilier.com/locations/",
+    "https://pastor-immobilier.com/properties/location/",
+    "https://pastor-immobilier.com/service/location/",
+    "https://pastor-immobilier.com/locations/bien-a-la-location/?ref=8169992",
+    "https://pastor-immobilier.com/locations/bien-a-la-location/?ref=8169312"
+   ],
+   "listings": [
+    "https://pastor-immobilier.com/",
+    "https://pastor-immobilier.com/ventes/",
+    "https://pastor-immobilier.com/locations/",
+    "https://pastor-immobilier.com/services/",
+    "https://pastor-immobilier.com/programmes-neufs/",
+    "https://pastor-immobilier.com/parc-immobilier/",
+    "https://pastor-immobilier.com/actualites/",
+    "https://pastor-immobilier.com/contact/"
+   ]
+  },
+  "langs": [
+   "en-us",
+   "fr-fr",
+   "x-default"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://pastor-immobilier.com/building-sitemap.xml",
+    "https://pastor-immobilier.com/category-sitemap.xml",
+    "https://pastor-immobilier.com/page-sitemap.xml",
+    "https://pastor-immobilier.com/post-sitemap.xml",
+    "https://pastor-immobilier.com/service-sitemap.xml",
+    "https://pastor-immobilier.com/sitemap.xml"
+   ],
+   "urls_total": 341,
+   "listing_like": 51,
+   "listing_samples": [
+    "https://pastor-immobilier.com/villa-portofino-une-residence-en-phase-avec-les-attentes/",
+    "https://pastor-immobilier.com/ventes/bien-a-la-vente/",
+    "https://pastor-immobilier.com/locations/bien-a-la-location/",
+    "https://pastor-immobilier.com/ventes/bien-a-la-vente/",
+    "https://pastor-immobilier.com/locations/bien-a-la-location/"
+   ]
+  },
+  "seconds": 7.6,
+  "tier": "open"
+ },
+ {
+  "name": "Pearl Real Estate",
+  "url": "https://www.pearl-realestate.mc",
+  "host": "www.pearl-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Petrini Exclusive Real Estate",
+  "url": "https://www.petrini.mc",
+  "host": "www.petrini.mc",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.petrini.mc/en/",
+  "redirected_offsite": false,
+  "server": "Apache",
+  "cf_ray": false,
+  "html_bytes": 213253,
+  "title": "Monaco Real Estate Agency | Petrini Exclusive Real Estate",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "analytics.ahrefs.com",
+   "youtube.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.petrini.mc/en/sales/monaco/with-garden/",
+    "https://www.petrini.mc/en/sales/monaco/",
+    "https://www.petrini.mc/en/sales/monaco/t-1-apartments/",
+    "https://www.petrini.mc/en/sales/monaco/t-4-duplex/",
+    "https://www.petrini.mc/en/sales/monaco/t-21-offices/",
+    "https://www.petrini.mc/en/sales/monaco/t-3-penthouses-roofs/",
+    "https://www.petrini.mc/en/sales/monaco/q-21-mareterra/",
+    "https://www.petrini.mc/en/property-sale/127426-riviera-palace-apartments-3-rooms/"
+   ],
+   "rent": [
+    "https://www.petrini.mc/en/rentals/monaco/",
+    "https://www.petrini.mc/en/rentals/monaco/q-21-mareterra/",
+    "https://www.petrini.mc/en/property-rental/127192-le-metropole-apartments-5-rooms/",
+    "https://www.petrini.mc/en/property-rental/126897-chateau-amiral-parkings/",
+    "https://www.petrini.mc/en/property-rental/126847-monte-carlo-sun-offices/",
+    "https://www.petrini.mc/en/property-rental/126565-one-monte-carlo-apartments-3-rooms/",
+    "https://www.petrini.mc/en/property-rental/125519-la-petite-afrique-apartments/",
+    "https://www.petrini.mc/en/rental-guide-monaco.html"
+   ],
+   "listings": [
+    "https://www.petrini.mc/en/sales/monaco/q-21-mareterra/",
+    "https://www.petrini.mc/en/sales/monaco/",
+    "https://www.petrini.mc/en/property-sale/127426-riviera-palace-apartments-3-rooms/",
+    "https://www.petrini.mc/en/property-sale/127244-les-lierres-apartments-3-rooms/",
+    "https://www.petrini.mc/en/property-sale/124941-residence-saint-georges-apartments-2-rooms/",
+    "https://www.petrini.mc/en/property-sale/126978-palais-du-printemps-penthouses-roofs-4-rooms/",
+    "https://www.petrini.mc/en/property-sale/126977-tour-odeon-apartments-4-rooms/",
+    "https://www.petrini.mc/en/rentals/monaco/"
+   ]
+  },
+  "langs": [
+   "de",
+   "en",
+   "fr",
+   "it",
+   "ru",
+   "x-default"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.petrini.mc/sitemap.xml",
+    "https://www.petrini.mc/sitemapproperties-de.xml",
+    "https://www.petrini.mc/sitemapproperties-en.xml",
+    "https://www.petrini.mc/sitemapproperties-fr.xml",
+    "https://www.petrini.mc/sitemapproperties-it.xml",
+    "https://www.petrini.mc/sitemapproperties-ru.xml"
+   ],
+   "urls_total": 1415,
+   "listing_like": 849,
+   "listing_samples": [
+    "https://www.petrini.mc/en/property-sale/126571-le-margaret-apartments-3-rooms/",
+    "https://www.petrini.mc/en/property-sale/127426-riviera-palace-apartments-3-rooms/",
+    "https://www.petrini.mc/en/property-sale/125514-villa-annonciade-apartments-5-rooms/",
+    "https://www.petrini.mc/en/property-rental/104472-mantegna-apartments-2-rooms/",
+    "https://www.petrini.mc/en/property-rental/125933-villa-annonciade-penthouses-roofs-4-rooms/"
+   ]
+  },
+  "seconds": 28.2,
+  "tier": "open"
+ },
+ {
+  "name": "Phoenix Properties",
+  "url": "https://www.phoenix.mc",
+  "host": "www.phoenix.mc",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://phoenix.mc/",
+  "redirected_offsite": false,
+  "server": null,
+  "cf_ray": false,
+  "html_bytes": 160242,
+  "title": "Phoenix Consulting Monaco - Phoenix Consulting Monaco",
+  "platforms": [
+   "WordPress"
+  ],
+  "protection": [
+   "cloudflare-turnstile"
+  ],
+  "generator": "All in One SEO (AIOSEO) 4.9.9",
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "eepurl.com",
+   "challenges.cloudflare.com",
+   "instagram.com",
+   "linkedin.com"
+  ],
+  "nav": {
+   "sale": [],
+   "rent": [],
+   "listings": [
+    "https://phoenix.mc/secteurs/"
+   ]
+  },
+  "langs": [
+   "en",
+   "fr"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://phoenix.mc/sitemap.xml",
+    "https://phoenix.mc/sitemap_index.xml"
+   ],
+   "urls_total": 0,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 8.1,
+  "tier": "protected"
+ },
+ {
+  "name": "Piras Immobilier",
+  "url": "https://www.pirasimmobilier.com",
+  "host": "www.pirasimmobilier.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.pirasimmobilier.com/en/",
+  "redirected_offsite": false,
+  "server": "nginx",
+  "cf_ray": false,
+  "html_bytes": 61638,
+  "title": "PIRAS Real Estate – Exclusive Apartments & Villas, Monaco & Côte d’Azur. Since 1976",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "d36vnx92dgl2c5.cloudfront.net",
+   "use.typekit.net",
+   "cache.consentframework.com",
+   "choices.consentframework.com",
+   "static.elfsight.com",
+   "googletagmanager.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.pirasimmobilier.com/en/sales",
+    "https://www.pirasimmobilier.com/en/sales/monaco",
+    "https://www.pirasimmobilier.com/en/sales/france",
+    "https://www.pirasimmobilier.com/en/news/buying-property-monaco",
+    "https://www.pirasimmobilier.com/en/property/sale-apartment-monaco-les-ligures-jardin-exotique-87221126",
+    "https://www.pirasimmobilier.com/en/property/sale-apartment-monaco-bay-house-larvotto-6504667",
+    "https://www.pirasimmobilier.com/en/property/sale-apartment-monaco-soleil-d-or-condamine-86764695",
+    "https://www.pirasimmobilier.com/en/property/sale-apartment-monaco-les-rotondes-bd-du-jardin-exotique-86760536"
+   ],
+   "rent": [
+    "https://www.pirasimmobilier.com/en/rentals",
+    "https://www.pirasimmobilier.com/en/rentals/monaco",
+    "https://www.pirasimmobilier.com/en/rentals/france",
+    "https://www.pirasimmobilier.com/en/news/rent-apartment-monaco-guide",
+    "https://www.pirasimmobilier.com/en/property/rental-apartment-monaco-memmo-center-fontvieille-86924453",
+    "https://www.pirasimmobilier.com/en/property/rental-apartment-monaco-one-monte-carlo-casino-square-3306268",
+    "https://www.pirasimmobilier.com/en/property/rental-house-cap-d-ail-amazing-villa-cap-d-ail-85131686"
+   ],
+   "listings": [
+    "https://www.pirasimmobilier.com/en/",
+    "https://www.pirasimmobilier.com/en/sales",
+    "https://www.pirasimmobilier.com/en/sales/monaco",
+    "https://www.pirasimmobilier.com/en/sales/france",
+    "https://www.pirasimmobilier.com/en/rentals",
+    "https://www.pirasimmobilier.com/en/rentals/monaco",
+    "https://www.pirasimmobilier.com/en/rentals/france",
+    "https://www.pirasimmobilier.com/en/estimate"
+   ]
+  },
+  "langs": [
+   "en-gb",
+   "fr-fr",
+   "it-it",
+   "ru-ru",
+   "x-default"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.pirasimmobilier.com/sitemap-1.xml",
+    "https://www.pirasimmobilier.com/sitemap.xml",
+    "https://www.pirasimmobilier.com/sitemap_index.xml"
+   ],
+   "urls_total": 0,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 2.0,
+  "tier": "open"
+ },
+ {
+  "name": "Platinum Real Estate",
+  "url": "https://www.platinum.mc",
+  "host": "www.platinum.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Plaza Real Estate",
+  "url": "https://www.plazarealestate.mc",
+  "host": "www.plazarealestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Port Real Estate",
+  "url": "https://www.portrealestate.mc",
+  "host": "www.portrealestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Prestige Properties",
+  "url": "https://www.prestigeproperties.mc",
+  "host": "www.prestigeproperties.mc",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://prestigeproperties.mc/",
+  "redirected_offsite": false,
+  "server": "cloudflare",
+  "cf_ray": true,
+  "html_bytes": 110027,
+  "title": "Prestige Properties | Monaco Exclusive Real Estate",
+  "platforms": [
+   "Apimo",
+   "WordPress"
+  ],
+  "protection": [],
+  "generator": null,
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "cdn.jsdelivr.net",
+   "cdntag.tarteaucitron.io",
+   "code.jquery.com",
+   "kit.fontawesome.com",
+   "cdnjs.cloudflare.com",
+   "fonts.googleapis.com",
+   "cdn.by.wonderpush.com",
+   "gmpg.org"
+  ],
+  "nav": {
+   "sale": [
+    "https://prestigeproperties.mc/?apimo_category=apimo-1"
+   ],
+   "rent": [
+    "https://prestigeproperties.mc/?apimo_category=apimo-2"
+   ],
+   "listings": [
+    "https://prestigeproperties.mc",
+    "https://prestigeproperties.mc/",
+    "https://prestigeproperties.mc/?apimo_category=apimo-1",
+    "https://prestigeproperties.mc/?apimo_category=apimo-2",
+    "https://prestigeproperties.mc/off-market/",
+    "https://prestigeproperties.mc/agence/",
+    "https://prestigeproperties.mc/contact/",
+    "https://prestigeproperties.mc/prestige-properties-sengage/"
+   ]
+  },
+  "langs": [],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://prestigeproperties.mc/apimo_category-sitemap.xml",
+    "https://prestigeproperties.mc/apimo_district-sitemap.xml",
+    "https://prestigeproperties.mc/apimo_property-sitemap.xml",
+    "https://prestigeproperties.mc/apimo_property_type-sitemap.xml",
+    "https://prestigeproperties.mc/page-sitemap.xml",
+    "https://prestigeproperties.mc/sitemap_index.xml"
+   ],
+   "urls_total": 46,
+   "listing_like": 19,
+   "listing_samples": [
+    "https://prestigeproperties.mc/annonce/",
+    "https://prestigeproperties.mc/biens/",
+    "https://prestigeproperties.mc/en/biens/",
+    "https://prestigeproperties.mc/bien/splendide-3-pieces-vendu-cle-en-mains-dans-une-residence-neuve/",
+    "https://prestigeproperties.mc/bien/coquet-2-pieces-renove-avec-parking-et-cave-au-coeur-de-fontvieille/"
+   ]
+  },
+  "seconds": 22.9,
+  "tier": "open"
+ },
+ {
+  "name": "Prime Real Estate",
+  "url": "https://www.primerealestate.mc",
+  "host": "www.primerealestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Principal Properties",
+  "url": "https://www.principalproperties.mc",
+  "host": "www.principalproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Privilege Real Estate",
+  "url": "https://www.privilege.mc",
+  "host": "www.privilege.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Pro-Immo Monaco",
+  "url": "https://www.proimmo.mc",
+  "host": "www.proimmo.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Properstar Monaco",
+  "url": "https://www.properstar.com/monaco",
+  "host": "www.properstar.com",
+  "reachable": true,
+  "status": 429,
+  "final_url": "https://www.properstar.com/monaco",
+  "redirected_offsite": false,
+  "server": null,
+  "cf_ray": false,
+  "html_bytes": 1484,
+  "title": "Service unavailable",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": true,
+  "third_party": [],
+  "nav": {
+   "sale": [],
+   "rent": [],
+   "listings": []
+  },
+  "langs": [],
+  "robots_disallow_all": true,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.properstar.com/sitemap.xml",
+    "https://www.properstar.com/sitemap_index.xml"
+   ],
+   "urls_total": 0,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 2.9,
+  "tier": "protected"
+ },
+ {
+  "name": "Property for Sale Monaco",
+  "url": "https://www.property-for-sale-monaco.com",
+  "host": "www.property-for-sale-monaco.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.property-for-sale-monaco.com/",
+  "redirected_offsite": false,
+  "server": "Apache",
+  "cf_ray": false,
+  "html_bytes": 69924,
+  "title": "Properties for sale in Monaco",
+  "platforms": [
+   "Immotoolbox"
+  ],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "api.immotoolbox.com",
+   "googletagmanager.com",
+   "vente-appartement-monaco.com",
+   "vendita-appartamenti-montecarlo.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.property-for-sale-monaco.com/",
+    "https://www.property-for-sale-monaco.com/apartments/7-studio/",
+    "https://www.property-for-sale-monaco.com/apartments/2-rooms/",
+    "https://www.property-for-sale-monaco.com/apartments/3-rooms/",
+    "https://www.property-for-sale-monaco.com/apartments/4-rooms/",
+    "https://www.property-for-sale-monaco.com/apartments/5-rooms/",
+    "https://www.property-for-sale-monaco.com/apartments/6-rooms/",
+    "https://www.property-for-sale-monaco.com/apartments/8-openspace/"
+   ],
+   "rent": [],
+   "listings": [
+    "https://www.property-for-sale-monaco.com/",
+    "https://www.property-for-sale-monaco.com/apartments/7-studio/",
+    "https://www.property-for-sale-monaco.com/apartments/2-rooms/",
+    "https://www.property-for-sale-monaco.com/apartments/3-rooms/",
+    "https://www.property-for-sale-monaco.com/apartments/4-rooms/",
+    "https://www.property-for-sale-monaco.com/apartments/5-rooms/",
+    "https://www.property-for-sale-monaco.com/apartments/6-rooms/",
+    "https://www.property-for-sale-monaco.com/apartments/8-openspace/"
+   ]
+  },
+  "langs": [
+   "en",
+   "fr",
+   "it"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.property-for-sale-monaco.com/sitemap.xml",
+    "https://www.property-for-sale-monaco.com/sitemap_index.xml"
+   ],
+   "urls_total": 0,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 2.0,
+  "tier": "open"
+ },
+ {
+  "name": "Quantum Properties",
+  "url": "https://www.quantum.mc",
+  "host": "www.quantum.mc",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://quantum.mc/",
+  "redirected_offsite": false,
+  "server": "HTTP Server",
+  "cf_ray": false,
+  "html_bytes": 126933,
+  "title": "Quantum Interior",
+  "platforms": [
+   "WordPress"
+  ],
+  "protection": [],
+  "generator": "WordPress 6.6.4",
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "youtube.com",
+   "a.vimeocdn.com",
+   "fonts.googleapis.com"
+  ],
+  "nav": {
+   "sale": [],
+   "rent": [],
+   "listings": []
+  },
+  "langs": [
+   "bg-bg",
+   "en-us",
+   "fr-fr"
+  ],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://quantum.mc/index.php/sitemap.xml",
+    "https://quantum.mc/sitemap.xml",
+    "https://quantum.mc/sitemap_index.xml"
+   ],
+   "urls_total": 1092,
+   "listing_like": 0,
+   "listing_samples": []
+  },
+  "seconds": 4.8,
+  "tier": "open"
+ },
+ {
+  "name": "Regency Real Estate",
+  "url": "https://www.regency-monaco.com",
+  "host": "www.regency-monaco.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Renaissance Real Estate",
+  "url": "https://www.renaissance.mc",
+  "host": "www.renaissance.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Rightmove Overseas Monaco",
+  "url": "https://www.rightmove.co.uk",
+  "host": "www.rightmove.co.uk",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.rightmove.co.uk/",
+  "redirected_offsite": false,
+  "server": null,
+  "cf_ray": false,
+  "html_bytes": 336305,
+  "title": "Rightmove - UK's number one property website for properties for sale and to rent",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "cdn.cookielaw.org",
+   "googletagmanager.com",
+   "dev.visualwebsiteoptimizer.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.rightmove.co.uk/",
+    "https://www.rightmove.co.uk/property-for-sale.html",
+    "https://www.rightmove.co.uk/new-homes-for-sale.html",
+    "https://www.rightmove.co.uk/commercial-property?buy=true",
+    "https://www.rightmove.co.uk/news/articles/property-news/your-first-home-scheme-first-time-buyers-announced/",
+    "https://www.rightmove.co.uk/mortgages/guides/first-time-buyers/ ",
+    "https://www.rightmove.co.uk/guides/buyer/",
+    "https://www.rightmove.co.uk/overseas-property.html"
+   ],
+   "rent": [
+    "https://www.rightmove.co.uk/",
+    "https://www.rightmove.co.uk/property-to-rent.html",
+    "https://www.rightmove.co.uk/student-accommodation.html",
+    "https://www.rightmove.co.uk/commercial-property",
+    "https://www.rightmove.co.uk/guides/renter/"
+   ],
+   "listings": [
+    "https://www.rightmove.co.uk/property-for-sale.html",
+    "https://www.rightmove.co.uk/agent-valuation",
+    "https://www.rightmove.co.uk/property-to-rent.html",
+    "https://www.rightmove.co.uk/student-accommodation.html",
+    "https://www.rightmove.co.uk/commercial-property",
+    "https://www.rightmove.co.uk/commercial-property?buy=true",
+    "https://www.rightmove.co.uk/c/commercial-advertising/",
+    "https://www.rightmove.co.uk/news/"
+   ]
+  },
+  "langs": [],
+  "robots_disallow_all": true,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.rightmove.co.uk/sitemap-properties-AB.xml",
+    "https://www.rightmove.co.uk/sitemap-properties-AL.xml",
+    "https://www.rightmove.co.uk/sitemap-properties-B1.xml",
+    "https://www.rightmove.co.uk/sitemap-properties-B2.xml",
+    "https://www.rightmove.co.uk/sitemap-properties-B3.xml",
+    "https://www.rightmove.co.uk/sitemap.xml"
+   ],
+   "urls_total": 14403,
+   "listing_like": 14403,
+   "listing_samples": [
+    "https://www.rightmove.co.uk/properties/147167336",
+    "https://www.rightmove.co.uk/properties/148609859",
+    "https://www.rightmove.co.uk/properties/148614470",
+    "https://www.rightmove.co.uk/properties/148617419",
+    "https://www.rightmove.co.uk/properties/159877235"
+   ]
+  },
+  "seconds": 1.8,
+  "tier": "open"
+ },
+ {
+  "name": "Rivoli Real Estate",
+  "url": "https://www.rivoli.mc",
+  "host": "www.rivoli.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Royal Estates",
+  "url": "https://www.royalestates.mc",
+  "host": "www.royalestates.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Sainte-Devote Agency",
+  "url": "https://www.agencesaintedevote.mc",
+  "host": "www.agencesaintedevote.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Salomon Real Estate",
+  "url": "https://www.salomonproperties.mc",
+  "host": "www.salomonproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Sartorio Real Estate",
+  "url": "https://www.sartorio-realestate.mc",
+  "host": "www.sartorio-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Savills Monaco",
+  "url": "https://www.savills.mc",
+  "host": "www.savills.mc",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.savills.mc/",
+  "redirected_offsite": false,
+  "server": "CloudFront",
+  "cf_ray": false,
+  "html_bytes": 156926,
+  "title": "Agence immobilière Monaco - Appartements et villas à vendre à Monaco | Savills Monaco",
+  "platforms": [],
+  "protection": [],
+  "generator": null,
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "news.euro.savills.co.uk",
+   "research.euro.savills.co.uk",
+   "admin.euro.savills.co.uk",
+   "search.savills.com",
+   "savills-auth-redirect-prod.s3.eu-west-1.amazonaws.com",
+   "google.com",
+   "googletagmanager.com",
+   "assets.savills.com",
+   "s3-eu-west-1.amazonaws.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.savills.mc/appartement-a-vendre-monaco/",
+    "https://www.savills.mc/landing-pages/achat-appartement-monaco.aspx",
+    "https://www.savills.mc/landing-pages/propriete-a-la-vente-a-monaco.aspx",
+    "https://www.savills.mc/etudes-et-opinions/tagged-articles/high-profile-buyers",
+    "https://www.savills.mc/services/acheter-ou-vendre-une-propriete.aspx"
+   ],
+   "rent": [
+    "https://www.savills.mc/commercialiser-votre-bien/",
+    "https://www.savills.mc/louer-appartement-monaco--monte-carlo/",
+    "https://www.savills.mc/landing-pages/appartements-a-louer-a-monaco.aspx",
+    "https://www.savills.mc/etudes-et-opinions/tagged-articles/Relocation",
+    "https://www.savills.mc/services/Location-de-biens.aspx"
+   ],
+   "listings": [
+    "https://www.savills.mc/trouver-un-bien/",
+    "https://www.savills.mc/etudes-et-opinions/recherche.aspx",
+    "https://www.savills.mc/research_articles/253489/242699-0",
+    "https://www.savills.mc/blog/article/330808/monaco-articles/meet-the-savills-monaco-real-estate-team.aspx",
+    "https://www.savills.mc/market-your-property/",
+    "https://www.savills.mc/research_articles/254137/382090-0",
+    "https://www.savills.mc/research_articles/254137/382141-0/legacy",
+    "https://www.savills.mc/research_articles/254137/382090-0/spotlight-on-wealth-trends"
+   ]
+  },
+  "langs": [],
+  "robots_disallow_all": true,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.savills.mc/sitemap.xml",
+    "https://www.savills.mc/sitemap_index.xml"
+   ],
+   "urls_total": 89,
+   "listing_like": 5,
+   "listing_samples": [
+    "https://www.savills.mc/services/location-de-biens.aspx",
+    "https://www.savills.mc/services/location-de-bien/location-commerciale.aspx",
+    "https://www.savills.mc/services/location-de-bien/location-d-un-bien-residentiel.aspx",
+    "https://www.savills.mc/services/location-de-bien/louer-une-propriete-residentielle.aspx",
+    "https://www.savills.mc/services/location-de-bien/locations-haut-de-gamme.aspx"
+   ]
+  },
+  "seconds": 0.8,
+  "tier": "open"
+ },
+ {
+  "name": "Scorpio Real Estate",
+  "url": "https://www.scorpio.mc",
+  "host": "www.scorpio.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Segond Immobilier",
+  "url": "https://www.segond-immobilier.mc",
+  "host": "www.segond-immobilier.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Select Properties",
+  "url": "https://www.selectproperties.mc",
+  "host": "www.selectproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Sextant Real Estate",
+  "url": "https://www.sextantmonaco.com",
+  "host": "www.sextantmonaco.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Signature Real Estate",
+  "url": "https://www.signature.mc",
+  "host": "www.signature.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Silver Properties",
+  "url": "https://www.silverproperties.mc",
+  "host": "www.silverproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "SL Agency",
+  "url": "https://www.slagency.mc",
+  "host": "www.slagency.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Solamito Properties",
+  "url": "https://www.solamito-properties.mc",
+  "host": "www.solamito-properties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Sovereign Real Estate",
+  "url": "https://www.sovereign.mc",
+  "host": "www.sovereign.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Sparta Properties",
+  "url": "https://www.spartaproperties.mc",
+  "host": "www.spartaproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Square Real Estate",
+  "url": "https://www.squarerealestate.mc",
+  "host": "www.squarerealestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Star Real Estate",
+  "url": "https://www.star-realestate.mc",
+  "host": "www.star-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Stella Real Estate",
+  "url": "https://www.stellaproperties.mc",
+  "host": "www.stellaproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Sterling Properties",
+  "url": "https://www.sterling.mc",
+  "host": "www.sterling.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Summit Real Estate",
+  "url": "https://www.summit.mc",
+  "host": "www.summit.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Sun Real Estate",
+  "url": "https://www.sun-realestate.mc",
+  "host": "www.sun-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Superior Real Estate",
+  "url": "https://www.superior.mc",
+  "host": "www.superior.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Synergy Real Estate",
+  "url": "https://www.synergy.mc",
+  "host": "www.synergy.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "T&T Real Estate",
+  "url": "https://www.tt-realestate.mc",
+  "host": "www.tt-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Terrasses Agency",
+  "url": "https://www.agenceterrasses.mc",
+  "host": "www.agenceterrasses.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "The Agency Monaco",
+  "url": "https://www.theagency.mc",
+  "host": "www.theagency.mc",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://theagency.mc/",
+  "redirected_offsite": false,
+  "server": "hcdn",
+  "cf_ray": false,
+  "html_bytes": 188592,
+  "title": "The Agency Monaco | Luxury Properties for Sale, Rent & Off-Market",
+  "platforms": [
+   "Immotoolbox",
+   "WordPress"
+  ],
+  "protection": [],
+  "generator": "WordPress 6.9.9",
+  "json_ld": true,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "clientapi.immotoolbox.com",
+   "cdnjs.cloudflare.com",
+   "cdn.jsdelivr.net",
+   "fonts.googleapis.com",
+   "code.jquery.com",
+   "googletagmanager.com",
+   "gmpg.org"
+  ],
+  "nav": {
+   "sale": [
+    "https://theagency.mc/properties-for-sale/",
+    "https://theagency.mc/international-properties-for-sale/",
+    "https://theagency.mc/france-properties-for-sale/"
+   ],
+   "rent": [
+    "https://theagency.mc/properties-for-rent/"
+   ],
+   "listings": [
+    "https://theagency.mc/properties-for-sale/",
+    "https://theagency.mc/properties-for-rent/",
+    "https://theagency.mc/international-properties-for-sale/",
+    "https://theagency.mc/france-properties-for-sale/",
+    "https://theagency.mc/property/127439-apartment-cap-martin-france/",
+    "https://theagency.mc/property/126979-house-monaco-ville-monaco/",
+    "https://theagency.mc/property/127089-parking-la-rousse-saint-roman-monaco/",
+    "https://theagency.mc/property/122848-apartment-carre-dor-monaco/"
+   ]
+  },
+  "langs": [],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://theagency.mc/author-sitemap.xml",
+    "https://theagency.mc/category-sitemap.xml",
+    "https://theagency.mc/page-sitemap.xml",
+    "https://theagency.mc/post-sitemap.xml",
+    "https://theagency.mc/sitemap.xml",
+    "https://theagency.mc/sitemap_index.xml"
+   ],
+   "urls_total": 225,
+   "listing_like": 7,
+   "listing_samples": [
+    "https://theagency.mc/property/",
+    "https://theagency.mc/fr/biens-immobiliers-hors-marche-a-monaco/",
+    "https://theagency.mc/fr/biens-a-louer-2/",
+    "https://theagency.mc/properties-for-sale/",
+    "https://theagency.mc/fr/biens-a-la-vente/"
+   ]
+  },
+  "seconds": 9.1,
+  "tier": "open"
+ },
+ {
+  "name": "Titan Real Estate",
+  "url": "https://www.titan.mc",
+  "host": "www.titan.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Top Properties",
+  "url": "https://www.topproperties.mc",
+  "host": "www.topproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Trinity Monaco",
+  "url": "https://www.trinitymonaco.com",
+  "host": "www.trinitymonaco.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Trophy Real Estate",
+  "url": "https://www.trophy-realestate.mc",
+  "host": "www.trophy-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Trust Real Estate",
+  "url": "https://www.trustrealestate.mc",
+  "host": "www.trustrealestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Universal Properties",
+  "url": "https://www.universalproperties.mc",
+  "host": "www.universalproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Uranus Properties",
+  "url": "https://www.uranus.mc",
+  "host": "www.uranus.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Valeri Agency",
+  "url": "https://www.valeri-agency.com",
+  "host": "www.valeri-agency.com",
+  "reachable": true,
+  "status": 200,
+  "final_url": "https://www.valeri-agency.com/en/",
+  "redirected_offsite": false,
+  "server": "Apache",
+  "cf_ray": false,
+  "html_bytes": 235404,
+  "title": "Barnes I Valeri Agency",
+  "platforms": [
+   "Immotoolbox"
+  ],
+  "protection": [],
+  "generator": null,
+  "json_ld": false,
+  "next_data": false,
+  "nuxt": false,
+  "js_heavy": false,
+  "third_party": [
+   "google.com",
+   "clientapi.immotoolbox.com"
+  ],
+  "nav": {
+   "sale": [
+    "https://www.valeri-agency.com/en/residential-sales",
+    "https://www.valeri-agency.com/en/sales/monaco/?type_offer%5B0%5D=1",
+    "https://www.valeri-agency.com/en/commercial-sales",
+    "https://www.valeri-agency.com/en/new-construction-sales",
+    "https://www.valeri-agency.com/en/residential-sales/t-24-parkings/t-25-garages/t-26-box/t-22-caves/t-30-autres-produits/t-31-immeubles/",
+    "https://www.valeri-agency.com/en/",
+    "https://www.valeri-agency.com/en/sales/monaco/",
+    "https://www.valeri-agency.com/en/residential-sales/monaco/"
+   ],
+   "rent": [
+    "https://www.valeri-agency.com/en/residential-rentals",
+    "https://www.valeri-agency.com/en/residential-rentals/monaco/",
+    "https://www.valeri-agency.com/en/commercial-rentals",
+    "https://www.valeri-agency.com/en/rentals?type_offer=7",
+    "https://www.valeri-agency.com/en/residential-rentals/t-24-parkings/t-25-garages/t-26-box/t-22-caves/t-30-autres-produits/",
+    "https://www.valeri-agency.com/en/",
+    "https://www.valeri-agency.com/en/rentals/monaco/",
+    "https://www.valeri-agency.com/en/rentals/monaco/q-6-monaco-ville/"
+   ],
+   "listings": [
+    "https://www.valeri-agency.com/en/residential-rentals/t-24-parkings/t-25-garages/t-26-box/t-22-caves/t-30-autres-produits/",
+    "https://www.valeri-agency.com/en/valuation-expertise.html",
+    "https://www.valeri-agency.com/en/residential-sales/monaco/",
+    "https://www.valeri-agency.com/en/property-for-sale/108159-fontvieille-parkings/",
+    "https://www.valeri-agency.com/en/property-for-sale/119145-chateau-perigord-apartments-4-rooms/",
+    "https://www.valeri-agency.com/en/property-for-sale/72517-les-cyclades-apartments-5-rooms/",
+    "https://www.valeri-agency.com/en/property-for-sale/122375-riviera-palace-apartments-4-rooms/",
+    "https://www.valeri-agency.com/en/property-for-sale/125241-le-palmier-apartments-5-rooms/"
+   ]
+  },
+  "langs": [],
+  "robots_disallow_all": false,
+  "sitemap": {
+   "sitemaps_read": [
+    "https://www.valeri-agency.com/sitemap.xml",
+    "https://www.valeri-agency.com/sitemapbase-fr.xml",
+    "https://www.valeri-agency.com/sitemapproperties-en.xml",
+    "https://www.valeri-agency.com/sitemapproperties-fr.xml",
+    "https://www.valeri-agency.com/sitemapproperties-it.xml",
+    "https://www.valeri-agency.com/sitemapproperties-ru.xml"
+   ],
+   "urls_total": 959,
+   "listing_like": 478,
+   "listing_samples": [
+    "https://www.valeri-agency.com/en/property-for-sale/127506-moneghetti-commercial-enterprise/",
+    "https://www.valeri-agency.com/en/property-rental/126801-harbour-crest-apartments-4-rooms/",
+    "https://www.valeri-agency.com/en/property-for-sale/108159-fontvieille-parkings/",
+    "https://www.valeri-agency.com/en/property-for-sale/127477-maussane-les-alpilles-properties/",
+    "https://www.valeri-agency.com/en/property-for-sale/119145-chateau-perigord-apartments-4-rooms/"
+   ]
+  },
+  "seconds": 23.5,
+  "tier": "open"
+ },
+ {
+  "name": "Value Real Estate",
+  "url": "https://www.valuerealestate.mc",
+  "host": "www.valuerealestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Vanguard Properties",
+  "url": "https://www.vanguard.mc",
+  "host": "www.vanguard.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Vatrican Real Estate",
+  "url": "https://www.vatrican-realestate.com",
+  "host": "www.vatrican-realestate.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Vector Real Estate",
+  "url": "https://www.vector.mc",
+  "host": "www.vector.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Venus Properties",
+  "url": "https://www.venusproperties.mc",
+  "host": "www.venusproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Verde Real Estate",
+  "url": "https://www.verderealestate.mc",
+  "host": "www.verderealestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Vesta Properties",
+  "url": "https://www.vestaproperties.mc",
+  "host": "www.vestaproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Victory Real Estate",
+  "url": "https://www.victory.mc",
+  "host": "www.victory.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Villa Real Estate",
+  "url": "https://www.villarealestate.mc",
+  "host": "www.villarealestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Vip Real Estate",
+  "url": "https://www.vip-realestate.mc",
+  "host": "www.vip-realestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Vista Properties",
+  "url": "https://www.vistaproperties.mc",
+  "host": "www.vistaproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Viviani Champfleury Barco",
+  "url": "https://www.vivianichampfleurybarco.com",
+  "host": "www.vivianichampfleurybarco.com",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "W-Properties",
+  "url": "https://www.wproperties.mc",
+  "host": "www.wproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "X-Real Estate Monaco",
+  "url": "https://www.xrealestate.mc",
+  "host": "www.xrealestate.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Zenith Properties",
+  "url": "https://www.zenithproperties.mc",
+  "host": "www.zenithproperties.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ },
+ {
+  "name": "Zeus Real Estate",
+  "url": "https://www.zeus.mc",
+  "host": "www.zeus.mc",
+  "reachable": false,
+  "error": "connection failed / timeout",
+  "tier": "unreachable"
+ }
+]

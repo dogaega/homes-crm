@@ -109,6 +109,28 @@ client saved searches → alerts on new matches (Telegram/WhatsApp/email TBD) ·
 manual "contacted" marks per agency · review queue · publish toggle
 (exclusive/mandate only) · EN/RU.
 
+## Recon findings (2026-09-30, `recon/recon_sites.py` → `data/site_recon.json`)
+
+- **The agency CSV is mostly wrong: 201 of 255 domains do not exist (NXDOMAIN).**
+  Names look real, URLs were guessed. Only ~54 hosts resolve (6 more resolve
+  but time out: barnes-monaco.com, estator.com, faggionato.com, mercury.mc,
+  nexus.mc, solamito-properties.mc — retry with a browser).
+- **Authoritative agency source: Chambre Immobilière Monégasque (CIM)**,
+  `chambre-immobiliere-monaco.mc/fr/agences` — 95 member agencies with manager
+  name + address, each with a listings page `/fr/agence/<slug>/grid`. Its sitemap
+  has ~6,900 listing-like URLs; sale/rent grids per official quarter at
+  `/fr/{ventes|locations}/q_<Quarter>/grid` (grid is JS-rendered, likely Immotoolbox API).
+  → First task: rebuild the agency list = CIM members + real websites of
+  non-members (search each name), each with verified URL.
+- **Platform families among live sites:** Immotoolbox 9 (+ CIM portal itself),
+  Apimo 4, WordPress 14 (various plugins), Next.js 2, Webflow 1.
+- CSV also contains **international portals** (rightmove, john-taylor,
+  knightfrank, luxuryestate, jamesedition, properstar, lefigaro, hermitageriviera):
+  need Monaco-only filters; mostly duplicates of agency listings — lower priority,
+  useful for dedup/cross-checking.
+- Protected on plain HTTP: festainvestments, jamesedition, lefigaro, phoenix.mc,
+  properstar. JS-rendered: abkrealestate, ccrg.mc, meridian.mc.
+
 ## Phases
 
 0. **Repo prep** — commit `local-pipeline/` + agency CSV, push; in the cloud
