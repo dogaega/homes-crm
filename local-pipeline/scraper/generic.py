@@ -335,7 +335,10 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
             transaction = "rent"
         elif price >= 150000:
             transaction = "sale"
-    por = bool(re.search(r"prix sur demande|price on request|sur demande|on application|p\.o\.a", (price_text or "") + " " + text[:3000], re.I))
+    # "On request" only when no figure was found: menus and footers often
+    # say "estimation sur demande" etc.
+    por = (bool(price_text) and bool(re.search(r"sur demande|on request|on application|p\.o\.a", price_text, re.I))) or (
+        price is None and bool(re.search(r"prix sur demande|price on request|price upon request|prix: sur demande", text[:5000], re.I)))
     if por and not price_text:
         price = None
 

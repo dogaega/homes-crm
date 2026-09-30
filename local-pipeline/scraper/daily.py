@@ -135,7 +135,11 @@ def main() -> None:
     ap.add_argument("--agency", action="append", help="substring of agency name (repeatable)")
     ap.add_argument("--runner", choices=["server", "local"], default="server",
                     help="local = Mac: only sites that block server IPs (implies --only web)")
+    ap.add_argument("--refresh-details", action="store_true", help="re-fetch all detail pages (after parser fixes)")
     args = ap.parse_args()
+    if args.refresh_details:
+        from scraper import runner
+        runner.REFRESH_ALL = True
     global RUNNER
     RUNNER = args.runner
     if RUNNER == "local":
