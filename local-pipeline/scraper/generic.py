@@ -401,7 +401,8 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
         "extra": {k: v for k, v in {
             "charges": parse_number(labels["charges"]) if labels.get("charges") else None,
             # Immotoolbox sites share the CIM portal's listing ids: exact merge key.
-            "cim_id": (ITB_ID.search(urlparse(url).path) or [None, None])[1] if cfg.get("immotoolbox") else None,
+            # Worker only uses it against the same agency's CIM listing.
+            "cim_id": (ITB_ID.search(urlparse(url).path) or [None, None])[1],
         }.items() if v is not None},
     }
     if listing["external_ref"]:

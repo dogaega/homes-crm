@@ -456,10 +456,15 @@ async function ingestListing(ctx: Ctx, run: any, agencyId: string, agentId: stri
   // (its CIM page vs MCRE vs its own website) under the same reference.
   // Immotoolbox-powered agency sites reuse the CIM portal's listing id.
   const cimId = typeof l.extra?.cim_id === 'string' && /^\d{4,7}$/.test(l.extra.cim_id as string) ? l.extra.cim_id as string : null
-  const cimMatch = cimId ? await ctx.db.prepare(
-    `SELECT property_id FROM property_sources WHERE source_url = ? AND removed_at IS NULL`
-  ).bind(`https://www.chambre-immobiliere-monaco.mc/fr/bien/${cimId}/bien`).first<{ property_id: string }>() : null
-  const refMatch = cimMatch ?? (str(l.external_ref) && agencyId ? await ctx.db.prepare(
+  const cimMatch = cimId && agencyId ? await ctx.db.prepare(
+    `SELECT property_id FROM property_sources WHERE source_url = ? AND agency_id = ? AND removed_at IS NULL`
+  ).bind(`https://www.chambre-immobiliere-monaco.mc/fr/bien/${cimId}/bien`, agencyId).first<{ property_id: string }>() : null
+  // …and the other way round: a CIM listing whose agency site copy came first.
+  const cimUrlId = url.match(/chambre-immobiliere-monaco\.mc\/fr\/bien\/(\d+)\//)?.[1]
+  const siteCopy = !cimMatch && cimUrlId && agencyId ? await ctx.db.prepare(
+    `SELECT property_id FROM property_sources WHERE agency_id = ? AND extra LIKE ? AND removed_at IS NULL LIMIT 1`
+  ).bind(agencyId, `%"cim_id":"${cimUrlId}"%`).first<{ property_id: string }>() : null
+  const refMatch = cimMatch ?? siteCopy ?? (str(l.external_ref) && agencyId ? await ctx.db.prepare(
     `SELECT property_id FROM property_sources
      WHERE agency_id = ? AND external_ref = ? AND site_key != ? AND transaction_type = ? AND removed_at IS NULL LIMIT 1`
   ).bind(agencyId, str(l.external_ref), run.site_key, l.transaction_type).first<{ property_id: string }>() : null)
@@ -762,6 +767,58 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
     return respond({ key, summary: log.summary })
   }
 
+  // POST /sync/rematch {after?, limit?} — re-run photo matching for stored
+  // heroes (after the rules change). Pending photo reviews it resolves are
+  // closed as merged. Paged by source id to stay within request limits.
+  if (path === '/sync/rematch' && req.method === 'POST') {
+    const body = await req.json<any>().catch(() => ({}))
+    const limit = Math.min(Number(body?.limit) || 20, 40)
+    const { results } = await ctx.db.prepare(
+      `SELECT * FROM property_sources WHERE hero_phash IS NOT NULL AND removed_at IS NULL AND id > ? ORDER BY id LIMIT ?`
+    ).bind(String(body?.after || ''), limit).all<any>()
+    let merged = 0
+    for (const src of results || []) {
+      const current = await ctx.db.prepare('SELECT * FROM property_sources WHERE id = ?').bind(src.id).first<any>()
+      const r = current ? await phashMatch(ctx, current) : null
+      if (r?.action === 'merged') {
+        merged++
+        await ctx.db.prepare(
+          `UPDATE review_queue SET status = 'merged', decided_at = ? WHERE source_id = ? AND candidate_property_id = ? AND status = 'pending'`
+        ).bind(ctx.now, src.id, r.into).run()
+      }
+    }
+    const rows = results || []
+    const last = rows.length ? rows[rows.length - 1].id : null
+    return respond({ processed: (results || []).length, merged, next: (results || []).length === limit ? last : null })
+  }
+
+  // POST /sync/rematch-ids {after?, limit?} — join agency-site listings to the
+  // same agency's CIM listing by shared id when they were stored apart.
+  if (path === '/sync/rematch-ids' && req.method === 'POST') {
+    const body = await req.json<any>().catch(() => ({}))
+    const limit = Math.min(Number(body?.limit) || 30, 50)
+    const { results } = await ctx.db.prepare(
+      `SELECT id, property_id, agency_id, extra FROM property_sources
+       WHERE extra LIKE '%"cim_id"%' AND removed_at IS NULL AND id > ? ORDER BY id LIMIT ?`
+    ).bind(String(body?.after || ''), limit).all<any>()
+    let merged = 0
+    for (const src of results || []) {
+      const cimId = (() => { try { return JSON.parse(src.extra).cim_id } catch { return null } })()
+      if (!cimId || !src.agency_id) continue
+      const cim = await ctx.db.prepare(
+        `SELECT property_id FROM property_sources WHERE source_url = ? AND agency_id = ? AND removed_at IS NULL`
+      ).bind(`https://www.chambre-immobiliere-monaco.mc/fr/bien/${cimId}/bien`, src.agency_id).first<{ property_id: string }>()
+      const cur = await ctx.db.prepare('SELECT property_id FROM property_sources WHERE id = ?').bind(src.id).first<{ property_id: string }>()
+      if (cim && cur && cim.property_id !== cur.property_id) {
+        const { results: all } = await ctx.db.prepare('SELECT id FROM property_sources WHERE property_id = ?').bind(cur.property_id).all<{ id: string }>()
+        for (const r of all || []) await moveSource(ctx, r.id, cur.property_id, cim.property_id, 'ref', null)
+        merged++
+      }
+    }
+    const rows = results || []
+    return respond({ processed: rows.length, merged, next: rows.length === limit ? rows[rows.length - 1].id : null })
+  }
+
   // POST /sync/buildings {buildings:[{name, aliases?, quarter?, address?, lat?, lng?}]} — gazetteer upsert.
   if (path === '/sync/buildings' && req.method === 'POST') {
     const body = await req.json<{ buildings: any[] }>()
@@ -817,17 +874,27 @@ async function phashMatch(ctx: Ctx, source: any): Promise<Json | null> {
   if (!best || bestD > 6) return null
 
   const areaOk = within(source.living_area_sqm, best.living_area_sqm, 0.05)
-  const bedsOk = source.bedrooms != null && source.bedrooms === best.bedrooms
-  const siblings = await ctx.db.prepare('SELECT COUNT(*) AS n FROM property_sources WHERE property_id = ?').bind(source.property_id).first<{ n: number }>()
+  const bedsKnown = source.bedrooms != null && best.bedrooms != null
+  const bedsOk = bedsKnown && source.bedrooms === best.bedrooms
+  const priceOk = !(source.price_at_source && best.price_at_source) || within(source.price_at_source, best.price_at_source, 0.10)
+  // Agencies of the property this source already sits in (it may be merged
+  // with its own CIM/MCRE twin): the photo match must come from elsewhere.
+  const { results: mine } = await ctx.db.prepare(
+    'SELECT DISTINCT agency_id FROM property_sources WHERE property_id = ?'
+  ).bind(source.property_id).all<{ agency_id: string }>()
+  const bestAgency = await ctx.db.prepare('SELECT agency_id FROM property_sources WHERE id = ?').bind(best.id).first<{ agency_id: string }>()
+  const otherAgency = !(mine || []).some(r => r.agency_id === bestAgency?.agency_id)
   const rejected = await ctx.db.prepare(
     `SELECT 1 FROM review_queue WHERE source_id = ? AND candidate_property_id = ? AND status = 'rejected'`
   ).bind(source.id, best.property_id).first()
   if (rejected) return null
 
   const reasons = ['hero_phash', ...(areaOk ? ['area_5pct'] : []), ...(bedsOk ? ['bedrooms'] : [])]
-  if (bestD <= 4 && areaOk && bedsOk && best.site_key !== source.site_key && siblings?.n === 1) {
-    await moveSource(ctx, source.id, source.property_id, best.property_id, 'phash', null)
-    return { action: 'merged', into: best.property_id, distance: bestD }
+  if (bestD <= 4 && areaOk && (bedsOk || !bedsKnown) && priceOk && otherAgency) {
+    const { results: all } = await ctx.db.prepare('SELECT id FROM property_sources WHERE property_id = ?').bind(source.property_id).all<{ id: string }>()
+    const from = source.property_id
+    for (const r of all || []) await moveSource(ctx, r.id, from, best.property_id, 'phash', null)
+    return { action: 'merged', into: best.property_id, distance: bestD, moved: (all || []).length }
   }
   await queueReview(ctx, source.id, best.property_id, { tier: 'review', score: 0.5 + (areaOk ? 0.15 : 0) + (bedsOk ? 0.15 : 0), reasons })
   return { action: 'review', candidate: best.property_id, distance: bestD }
