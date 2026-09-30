@@ -30,9 +30,14 @@ log = logging.getLogger("daily")
 DATA = Path(__file__).resolve().parents[1] / "data"
 
 
-def family_cim(client, mode: str, results: list) -> None:
+def agencies(match: list[str] | None) -> list[dict]:
+    rows = json.loads((DATA / "agencies.json").read_text())
+    return [a for a in rows if not match or any(m.lower() in a["name"].lower() for m in match)]
+
+
+def family_cim(client, mode: str, results: list, match=None) -> None:
     f = PoliteFetcher()
-    for a in json.loads((DATA / "agencies.json").read_text()):
+    for a in agencies(match):
         if not a.get("cim_listing_count"):
             continue
         slug = a["cim_slug"]
@@ -41,9 +46,9 @@ def family_cim(client, mode: str, results: list) -> None:
                                 cim.parse_detail, mode=mode))
 
 
-def family_mcre(client, mode: str, results: list) -> None:
+def family_mcre(client, mode: str, results: list, match=None) -> None:
     f = PoliteFetcher()
-    for a in json.loads((DATA / "agencies.json").read_text()):
+    for a in agencies(match):
         if not a.get("mcre_listing_count"):
             continue
         slug = a["mcre_slug"]
@@ -59,11 +64,12 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--mode", choices=["full", "light"], default="full")
     ap.add_argument("--only", choices=list(FAMILIES), action="append")
+    ap.add_argument("--agency", action="append", help="substring of agency name (repeatable)")
     args = ap.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
     client = WorkerClient()
     results: list[dict] = []
-    threads = [threading.Thread(target=fn, args=(client, args.mode, results), name=name)
+    threads = [threading.Thread(target=fn, args=(client, args.mode, results, args.agency), name=name)
                for name, fn in FAMILIES.items() if not args.only or name in args.only]
     for t in threads:
         t.start()

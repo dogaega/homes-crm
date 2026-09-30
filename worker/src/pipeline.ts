@@ -788,13 +788,16 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
 // source must be alone under its parent. Anything weaker → review.
 async function phashMatch(ctx: Ctx, source: any): Promise<Json | null> {
   const { results } = await ctx.db.prepare(
-    `SELECT s.id, s.property_id, s.site_key, s.hero_phash, s.living_area_sqm, s.bedrooms
+    `SELECT s.id, s.property_id, s.site_key, s.hero_phash, s.living_area_sqm, s.bedrooms, s.price_at_source
      FROM property_sources s JOIN properties p ON p.id = s.property_id
      WHERE s.hero_phash IS NOT NULL AND s.id != ? AND s.property_id != ? AND s.transaction_type = ?
        AND s.removed_at IS NULL AND p.merged_into IS NULL`
   ).bind(source.id, source.property_id, source.transaction_type).all<any>()
   let best: any = null, bestD = 65
   for (const r of results || []) {
+    // A building exterior shared by several units of different value is
+    // not the same flat: prices more than 20% apart rule the pair out.
+    if (source.price_at_source && r.price_at_source && !within(source.price_at_source, r.price_at_source, 0.2)) continue
     const d = hamming64(source.hero_phash, r.hero_phash)
     if (d < bestD) { best = r; bestD = d }
   }
