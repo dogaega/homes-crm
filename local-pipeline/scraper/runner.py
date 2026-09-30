@@ -16,6 +16,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Callable
 
 from scraper.fetch import Blocked, NotFound, PoliteFetcher
+from scraper.hero import upload_hero
 
 log = logging.getLogger("runner")
 
@@ -25,7 +26,8 @@ DETAIL_REFRESH_DAYS = 7
 def run_site(f: PoliteFetcher, client, site_key: str, agency: dict,
              crawl_index: Callable[[], list[dict]],
              parse_detail: Callable[[str, str], dict],
-             *, runner: str = "server", mode: str = "full", limit: int | None = None) -> dict:
+             *, runner: str = "server", mode: str = "full", limit: int | None = None,
+             heroes: bool = True) -> dict:
     from sync.worker_client import SiteRun
     try:
         with SiteRun(client, site_key, runner=runner, mode=mode, agency=agency) as run:
@@ -45,8 +47,11 @@ def run_site(f: PoliteFetcher, client, site_key: str, agency: dict,
                 details = 0
                 for url in todo:
                     try:
-                        run.push([parse_detail(f.get(url), url)])
+                        listing = parse_detail(f.get(url), url)
+                        res = run.push([listing])[0]
                         details += 1
+                        if heroes and res.get("source_id") and not known.get(url, {}).get("has_hero"):
+                            upload_hero(f, run, res["source_id"], listing.get("photo_urls") or [])
                     except NotFound:
                         log.info("%s: %s gone before detail fetch", site_key, url)
                     except Blocked:

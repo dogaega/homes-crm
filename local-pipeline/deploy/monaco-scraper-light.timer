@@ -1,0 +1,9 @@
+[Unit]
+Description=Light index checks for new Monaco listings
+
+[Timer]
+OnCalendar=*-*-* 10,13,16,19:00:00 Europe/Monaco
+Unit=monaco-scraper@light.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,710 @@
+[
+ {
+  "mcre_slug": "atlantic-agency-monaco-tc-8",
+  "mcre_tc": 8,
+  "name": "Atlantic Agency",
+  "mcre_listing_count": 10
+ },
+ {
+  "mcre_slug": "beretta-real-estate-monaco-tc-95",
+  "mcre_tc": 95,
+  "name": "Beretta Real Estate",
+  "mcre_listing_count": 12
+ },
+ {
+  "mcre_slug": "powers-solutions-surl-monaco-tc-197",
+  "mcre_tc": 197,
+  "name": "Powers Solutions Surl",
+  "mcre_listing_count": 2
+ },
+ {
+  "mcre_slug": "lbmc-properties-monaco-tc-180",
+  "mcre_tc": 180,
+  "name": "LBMC Properties",
+  "mcre_listing_count": 2
+ },
+ {
+  "mcre_slug": "izadora-realty-monaco-tc-101",
+  "mcre_tc": 101,
+  "name": "Izadora Realty",
+  "mcre_listing_count": 8
+ },
+ {
+  "mcre_slug": "mazza-immobilier-monaco-tc-24",
+  "mcre_tc": 24,
+  "name": "Mazza Immobilier",
+  "mcre_listing_count": 53
+ },
+ {
+  "mcre_slug": "coldwell-banker-etic-realty-monaco-tc-87",
+  "mcre_tc": 87,
+  "name": "Coldwell Banker Etic Realty",
+  "mcre_listing_count": 33
+ },
+ {
+  "mcre_slug": "dama-monaco-tc-162",
+  "mcre_tc": 162,
+  "name": "DAMA Monaco",
+  "mcre_listing_count": 0
+ },
+ {
+  "mcre_slug": "caroline-olds-real-estate-monaco-tc-39",
+  "mcre_tc": 39,
+  "name": "Caroline Olds Real Estate",
+  "mcre_listing_count": 45
+ },
+ {
+  "mcre_slug": "mycrown-estates-monaco-tc-155",
+  "mcre_tc": 155,
+  "name": "MyCrown Estates",
+  "mcre_listing_count": 29
+ },
+ {
+  "mcre_slug": "infinity-homes-monaco-tc-149",
+  "mcre_tc": 149,
+  "name": "Infinity Homes",
+  "mcre_listing_count": 2
+ },
+ {
+  "mcre_slug": "agence-eip-monaco-tc-21",
+  "mcre_tc": 21,
+  "name": "Agence EIP",
+  "mcre_listing_count": 9
+ },
+ {
+  "mcre_slug": "wolzok-immobilier-monaco-tc-1",
+  "mcre_tc": 1,
+  "name": "Wolzok Immobilier",
+  "mcre_listing_count": 22
+ },
+ {
+  "mcre_slug": "icon-property-monaco-tc-44",
+  "mcre_tc": 44,
+  "name": "Icon Property",
+  "mcre_listing_count": 24
+ },
+ {
+  "mcre_slug": "panorama-properties-monaco-tc-37",
+  "mcre_tc": 37,
+  "name": "Panorama Properties",
+  "mcre_listing_count": 17
+ },
+ {
+  "mcre_slug": "marsan-immobilier-monaco-tc-45",
+  "mcre_tc": 45,
+  "name": "Marsan Immobilier Monaco",
+  "mcre_listing_count": 38
+ },
+ {
+  "mcre_slug": "capital-real-estate-monaco-tc-35",
+  "mcre_tc": 35,
+  "name": "Capital Real Estate",
+  "mcre_listing_count": 19
+ },
+ {
+  "mcre_slug": "blu-immobilier-monaco-tc-56",
+  "mcre_tc": 56,
+  "name": "Blu Immobilier",
+  "mcre_listing_count": 2
+ },
+ {
+  "mcre_slug": "a-i-b-b-real-estate-monaco-tc-17",
+  "mcre_tc": 17,
+  "name": "A.I.B.B. Real Estate",
+  "mcre_listing_count": 44
+ },
+ {
+  "mcre_slug": "lorenza-von-stein-monaco-tc-23",
+  "mcre_tc": 23,
+  "name": "Lorenza von Stein Monaco",
+  "mcre_listing_count": 49
+ },
+ {
+  "mcre_slug": "mce-montecarloestates-monaco-tc-150",
+  "mcre_tc": 150,
+  "name": "MCE MONTECARLOESTATES",
+  "mcre_listing_count": 21
+ },
+ {
+  "mcre_slug": "majestic-real-estate-monaco-tc-70",
+  "mcre_tc": 70,
+  "name": "Majestic Real Estate",
+  "mcre_listing_count": 3
+ },
+ {
+  "mcre_slug": "prime-estate-monaco-tc-76",
+  "mcre_tc": 76,
+  "name": "PRIME Estate",
+  "mcre_listing_count": 34
+ },
+ {
+  "mcre_slug": "groupe-s-m-i-r-monaco-tc-19",
+  "mcre_tc": 19,
+  "name": "Groupe S.M.I.R.",
+  "mcre_listing_count": 63
+ },
+ {
+  "mcre_slug": "the-agency-monaco-tc-177",
+  "mcre_tc": 177,
+  "name": "The Agency",
+  "mcre_listing_count": 8
+ },
+ {
+  "mcre_slug": "eden-agency-monaco-tc-86",
+  "mcre_tc": 86,
+  "name": "Eden Agency",
+  "mcre_listing_count": 0
+ },
+ {
+  "mcre_slug": "deplanche-immobilier-monaco-tc-4",
+  "mcre_tc": 4,
+  "name": "Deplanche Immobilier",
+  "mcre_listing_count": 13
+ },
+ {
+  "mcre_slug": "kretz-family-real-estate-monaco-tc-172",
+  "mcre_tc": 172,
+  "name": "Kretz Family Real Estate",
+  "mcre_listing_count": 5
+ },
+ {
+  "mcre_slug": "promotion-invest-monaco-tc-62",
+  "mcre_tc": 62,
+  "name": "Promotion Invest",
+  "mcre_listing_count": 12
+ },
+ {
+  "mcre_slug": "azura-properties-monaco-tc-157",
+  "mcre_tc": 157,
+  "name": "Azura Properties Monaco",
+  "mcre_listing_count": 2
+ },
+ {
+  "mcre_slug": "cmtg-monaco-tc-169",
+  "mcre_tc": 169,
+  "name": "CMTG",
+  "mcre_listing_count": 2
+ },
+ {
+  "mcre_slug": "universal-office-monaco-tc-163",
+  "mcre_tc": 163,
+  "name": "Universal Office",
+  "mcre_listing_count": 2
+ },
+ {
+  "mcre_slug": "premium-properties-mc-monaco-tc-69",
+  "mcre_tc": 69,
+  "name": "PREMIUM PROPERTIES MC",
+  "mcre_listing_count": 13
+ },
+ {
+  "mcre_slug": "prestige-properties-monaco-tc-66",
+  "mcre_tc": 66,
+  "name": "Prestige Properties",
+  "mcre_listing_count": 12
+ },
+ {
+  "mcre_slug": "beton57-monaco-tc-132",
+  "mcre_tc": 132,
+  "name": "Beton57",
+  "mcre_listing_count": 4
+ },
+ {
+  "mcre_slug": "agence-marchetti-monaco-tc-53",
+  "mcre_tc": 53,
+  "name": "Agence Marchetti Monaco",
+  "mcre_listing_count": 8
+ },
+ {
+  "mcre_slug": "norea-agency-monaco-tc-179",
+  "mcre_tc": 179,
+  "name": "Norea Agency",
+  "mcre_listing_count": 1
+ },
+ {
+  "mcre_slug": "real-estate-monte-carlo-monaco-tc-42",
+  "mcre_tc": 42,
+  "name": "Real Estate Monte Carlo",
+  "mcre_listing_count": 22
+ },
+ {
+  "mcre_slug": "solamito-properties-monaco-tc-47",
+  "mcre_tc": 47,
+  "name": "SOLAMITO PROPERTIES",
+  "mcre_listing_count": 10
+ },
+ {
+  "mcre_slug": "sarl-golden-square-monaco-tc-145",
+  "mcre_tc": 145,
+  "name": "SARL GOLDEN SQUARE",
+  "mcre_listing_count": 1
+ },
+ {
+  "mcre_slug": "homes-sandro-piras-real-estate-monaco-tc-148",
+  "mcre_tc": 148,
+  "name": "HOMES Sandro Piras Real Estate",
+  "mcre_listing_count": 13
+ },
+ {
+  "mcre_slug": "agence-thomas-monaco-tc-77",
+  "mcre_tc": 77,
+  "name": "Agence Thomas",
+  "mcre_listing_count": 11
+ },
+ {
+  "mcre_slug": "harroch-real-estate-monaco-tc-34",
+  "mcre_tc": 34,
+  "name": "Harroch Real Estate Monaco",
+  "mcre_listing_count": 18
+ },
+ {
+  "mcre_slug": "petrini-exclusive-real-estate-monaco-tc-92",
+  "mcre_tc": 92,
+  "name": "Petrini Exclusive Real Estate Monaco",
+  "mcre_listing_count": 111
+ },
+ {
+  "mcre_slug": "stars-real-estate-monaco-tc-100",
+  "mcre_tc": 100,
+  "name": "Stars Real Estate",
+  "mcre_listing_count": 23
+ },
+ {
+  "mcre_slug": "revimmo-monaco-tc-131",
+  "mcre_tc": 131,
+  "name": "REVIMMO",
+  "mcre_listing_count": 20
+ },
+ {
+  "mcre_slug": "ri-properties-monaco-tc-102",
+  "mcre_tc": 102,
+  "name": "RI Properties",
+  "mcre_listing_count": 5
+ },
+ {
+  "mcre_slug": "volumes-monaco-tc-147",
+  "mcre_tc": 147,
+  "name": "Volumes",
+  "mcre_listing_count": 29
+ },
+ {
+  "mcre_slug": "one-properties-monaco-tc-3",
+  "mcre_tc": 3,
+  "name": "One Properties",
+  "mcre_listing_count": 8
+ },
+ {
+  "mcre_slug": "agence-laetitia-monaco-tc-136",
+  "mcre_tc": 136,
+  "name": "Agence Laetitia",
+  "mcre_listing_count": 9
+ },
+ {
+  "mcre_slug": "caroli-real-estate-monaco-tc-61",
+  "mcre_tc": 61,
+  "name": "Caroli Real Estate",
+  "mcre_listing_count": 36
+ },
+ {
+  "mcre_slug": "agora-real-estate-monaco-tc-161",
+  "mcre_tc": 161,
+  "name": "Agora Real Estate",
+  "mcre_listing_count": 9
+ },
+ {
+  "mcre_slug": "roc-agency-monaco-tc-13",
+  "mcre_tc": 13,
+  "name": "Roc Agency",
+  "mcre_listing_count": 14
+ },
+ {
+  "mcre_slug": "afim-sam-monaco-tc-7",
+  "mcre_tc": 7,
+  "name": "AFIM SAM",
+  "mcre_listing_count": 38
+ },
+ {
+  "mcre_slug": "immosoft-monaco-tc-159",
+  "mcre_tc": 159,
+  "name": "ImmoSoft",
+  "mcre_listing_count": 0
+ },
+ {
+  "mcre_slug": "j-k-wentz-real-estate-monaco-tc-46",
+  "mcre_tc": 46,
+  "name": "J&K Wentz Real Estate Monaco",
+  "mcre_listing_count": 2
+ },
+ {
+  "mcre_slug": "la-costa-properties-monaco-tc-40",
+  "mcre_tc": 40,
+  "name": "La Costa Properties Monaco",
+  "mcre_listing_count": 39
+ },
+ {
+  "mcre_slug": "sg-immobilier-monaco-tc-143",
+  "mcre_tc": 143,
+  "name": "SG IMMOBILIER",
+  "mcre_listing_count": 2
+ },
+ {
+  "mcre_slug": "life-properties-monaco-tc-80",
+  "mcre_tc": 80,
+  "name": "LIFE PROPERTIES",
+  "mcre_listing_count": 21
+ },
+ {
+  "mcre_slug": "rey-nouvion-immobilier-monaco-tc-33",
+  "mcre_tc": 33,
+  "name": "Rey  & Nouvion Immobilier",
+  "mcre_listing_count": 8
+ },
+ {
+  "mcre_slug": "elliman-monaco-tc-178",
+  "mcre_tc": 178,
+  "name": "Elliman Monaco",
+  "mcre_listing_count": 15
+ },
+ {
+  "mcre_slug": "astral-properties-sam-monaco-tc-85",
+  "mcre_tc": 85,
+  "name": "ASTRAL PROPERTIES SAM",
+  "mcre_listing_count": 15
+ },
+ {
+  "mcre_slug": "fy-real-estate-monaco-tc-165",
+  "mcre_tc": 165,
+  "name": "FY Real Estate",
+  "mcre_listing_count": 2
+ },
+ {
+  "mcre_slug": "wolf-estates-monaco-tc-130",
+  "mcre_tc": 130,
+  "name": "WOLF ESTATES",
+  "mcre_listing_count": 25
+ },
+ {
+  "mcre_slug": "17-keys-real-estate-monaco-tc-168",
+  "mcre_tc": 168,
+  "name": "Parkings and cellars for sale Monaco",
+  "mcre_listing_count": 5
+ },
+ {
+  "mcre_slug": "lopez-de-la-osa-franco-real-estate-monaco-tc-41",
+  "mcre_tc": 41,
+  "name": "López de la Osa & Franco Real Estate",
+  "mcre_listing_count": 1
+ },
+ {
+  "mcre_slug": "agence-plan-b-monaco-tc-64",
+  "mcre_tc": 64,
+  "name": "Agence Plan B",
+  "mcre_listing_count": 2
+ },
+ {
+  "mcre_slug": "monte-carlo-transactions-monaco-tc-167",
+  "mcre_tc": 167,
+  "name": "Monte-Carlo Transactions",
+  "mcre_listing_count": 19
+ },
+ {
+  "mcre_slug": "ageprim-monaco-tc-49",
+  "mcre_tc": 49,
+  "name": "AGEPRIM",
+  "mcre_listing_count": 23
+ },
+ {
+  "mcre_slug": "segond-immobilier-monaco-tc-93",
+  "mcre_tc": 93,
+  "name": "Segond Immobilier",
+  "mcre_listing_count": 27
+ },
+ {
+  "mcre_slug": "coletti-real-estate-monaco-tc-6",
+  "mcre_tc": 6,
+  "name": "Coletti Real Estate",
+  "mcre_listing_count": 25
+ },
+ {
+  "mcre_slug": "intermedia-monaco-tc-81",
+  "mcre_tc": 81,
+  "name": "Intermedia",
+  "mcre_listing_count": 24
+ },
+ {
+  "mcre_slug": "bc-properties-monaco-tc-79",
+  "mcre_tc": 79,
+  "name": "BC PROPERTIES MONACO",
+  "mcre_listing_count": 127
+ },
+ {
+  "mcre_slug": "fine-properties-monte-carlo-monaco-tc-94",
+  "mcre_tc": 94,
+  "name": "Fine Properties Monte Carlo",
+  "mcre_listing_count": 4
+ },
+ {
+  "mcre_slug": "sotrim-monaco-tc-74",
+  "mcre_tc": 74,
+  "name": "SOTRIM",
+  "mcre_listing_count": 8
+ },
+ {
+  "mcre_slug": "cabinet-bellone-monaco-tc-30",
+  "mcre_tc": 30,
+  "name": "Cabinet Bellone",
+  "mcre_listing_count": 8
+ },
+ {
+  "mcre_slug": "estate-partners-monaco-tc-67",
+  "mcre_tc": 67,
+  "name": "ESTATE PARTNERS",
+  "mcre_listing_count": 46
+ },
+ {
+  "mcre_slug": "barnes-i-valeri-agency-monaco-tc-63",
+  "mcre_tc": 63,
+  "name": "Barnes I Valeri Agency",
+  "mcre_listing_count": 106
+ },
+ {
+  "mcre_slug": "property-concept-monaco-tc-198",
+  "mcre_tc": 198,
+  "name": "Property Concept Monaco",
+  "mcre_listing_count": 14
+ },
+ {
+  "mcre_slug": "fcf-cristea-flandrin-immobilier-monaco-tc-5",
+  "mcre_tc": 5,
+  "name": "FCF Cristea-Flandrin Immobilier",
+  "mcre_listing_count": 29
+ },
+ {
+  "mcre_slug": "lux-home-monaco-tc-142",
+  "mcre_tc": 142,
+  "name": "Lux Home",
+  "mcre_listing_count": 9
+ },
+ {
+  "mcre_slug": "monte-carlo-sotheby-s-international-realty-monaco-tc-18",
+  "mcre_tc": 18,
+  "name": "Monte-Carlo Sotheby's International Realty",
+  "mcre_listing_count": 34
+ },
+ {
+  "mcre_slug": "la-monegasque-immobilier-monaco-tc-170",
+  "mcre_tc": 170,
+  "name": "La Monégasque Immobilier",
+  "mcre_listing_count": 2
+ },
+ {
+  "mcre_slug": "europagence-monaco-tc-83",
+  "mcre_tc": 83,
+  "name": "Europagence",
+  "mcre_listing_count": 17
+ },
+ {
+  "mcre_slug": "agedi-monaco-tc-60",
+  "mcre_tc": 60,
+  "name": "AGEDI",
+  "mcre_listing_count": 6
+ },
+ {
+  "mcre_slug": "waldhof-real-estate-monaco-tc-152",
+  "mcre_tc": 152,
+  "name": "Waldhof Real Estate",
+  "mcre_listing_count": 1
+ },
+ {
+  "mcre_slug": "faggionato-real-estate-monaco-tc-55",
+  "mcre_tc": 55,
+  "name": "Faggionato Real Estate",
+  "mcre_listing_count": 23
+ },
+ {
+  "mcre_slug": "john-taylor-monaco-tc-15",
+  "mcre_tc": 15,
+  "name": "John Taylor",
+  "mcre_listing_count": 52
+ },
+ {
+  "mcre_slug": "monte-carlo-privilege-monaco-tc-75",
+  "mcre_tc": 75,
+  "name": "Monte Carlo Privilège",
+  "mcre_listing_count": 11
+ },
+ {
+  "mcre_slug": "abk-real-estate-monaco-tc-25",
+  "mcre_tc": 25,
+  "name": "ABK Real Estate",
+  "mcre_listing_count": 9
+ },
+ {
+  "mcre_slug": "rosengart-luxury-real-estate-monaco-tc-43",
+  "mcre_tc": 43,
+  "name": "Rosengart Luxury Real Estate",
+  "mcre_listing_count": 11
+ },
+ {
+  "mcre_slug": "iris-real-estate-monaco-tc-14",
+  "mcre_tc": 14,
+  "name": "IRIS Real Estate",
+  "mcre_listing_count": 2
+ },
+ {
+  "mcre_slug": "elite-international-monaco-tc-9",
+  "mcre_tc": 9,
+  "name": "Elite International",
+  "mcre_listing_count": 1
+ },
+ {
+  "mcre_slug": "attol-agency-monaco-tc-146",
+  "mcre_tc": 146,
+  "name": "ATTOL AGENCY",
+  "mcre_listing_count": 3
+ },
+ {
+  "mcre_slug": "soma-international-realty-monaco-tc-140",
+  "mcre_tc": 140,
+  "name": "Soma International Realty",
+  "mcre_listing_count": 12
+ },
+ {
+  "mcre_slug": "balkin-estates-monaco-tc-58",
+  "mcre_tc": 58,
+  "name": "Balkin Estates",
+  "mcre_listing_count": 14
+ },
+ {
+  "mcre_slug": "pastor-immobilier-monaco-tc-98",
+  "mcre_tc": 98,
+  "name": "PASTOR IMMOBILIER",
+  "mcre_listing_count": 15
+ },
+ {
+  "mcre_slug": "piras-immobilier-monaco-tc-29",
+  "mcre_tc": 29,
+  "name": "Piras Immobilier",
+  "mcre_listing_count": 18
+ },
+ {
+  "mcre_slug": "agence-continentale-monaco-tc-2",
+  "mcre_tc": 2,
+  "name": "Agence Continentale",
+  "mcre_listing_count": 23
+ },
+ {
+  "mcre_slug": "carat-properties-monaco-tc-52",
+  "mcre_tc": 52,
+  "name": "Carat Properties",
+  "mcre_listing_count": 82
+ },
+ {
+  "mcre_slug": "agence-des-ambassadeurs-monaco-tc-20",
+  "mcre_tc": 20,
+  "name": "Agence des Ambassadeurs",
+  "mcre_listing_count": 14
+ },
+ {
+  "mcre_slug": "viviani-champfleury-barco-monaco-tc-89",
+  "mcre_tc": 89,
+  "name": "Viviani Champfleury Barco",
+  "mcre_listing_count": 68
+ },
+ {
+  "mcre_slug": "a-s-estate-monaco-tc-88",
+  "mcre_tc": 88,
+  "name": "A&S Estate",
+  "mcre_listing_count": 8
+ },
+ {
+  "mcre_slug": "peninsula-real-estate-monaco-tc-48",
+  "mcre_tc": 48,
+  "name": "Peninsula Real Estate",
+  "mcre_listing_count": 1
+ },
+ {
+  "mcre_slug": "agence-b-i-a-i-monaco-tc-129",
+  "mcre_tc": 129,
+  "name": "Agence B.I.A.I.",
+  "mcre_listing_count": 3
+ },
+ {
+  "mcre_slug": "westrope-real-estate-monaco-tc-139",
+  "mcre_tc": 139,
+  "name": "Westrope Real Estate",
+  "mcre_listing_count": 50
+ },
+ {
+  "mcre_slug": "baldo-realty-group-monaco-tc-134",
+  "mcre_tc": 134,
+  "name": "BALDO REALTY GROUP",
+  "mcre_listing_count": 21
+ },
+ {
+  "mcre_slug": "agence-olivie-monaco-tc-91",
+  "mcre_tc": 91,
+  "name": "Agence Olivie",
+  "mcre_listing_count": 2
+ },
+ {
+  "mcre_slug": "exclusive-estate-monaco-tc-72",
+  "mcre_tc": 72,
+  "name": "Exclusive Estate Monaco",
+  "mcre_listing_count": 43
+ },
+ {
+  "mcre_slug": "agence-nouvelle-monaco-tc-99",
+  "mcre_tc": 99,
+  "name": "Agence Nouvelle",
+  "mcre_listing_count": 22
+ },
+ {
+  "mcre_slug": "agence-gramaglia-monaco-tc-11",
+  "mcre_tc": 11,
+  "name": "Agence Gramaglia",
+  "mcre_listing_count": 38
+ },
+ {
+  "mcre_slug": "magrey-and-sons-monaco-tc-26",
+  "mcre_tc": 26,
+  "name": "Magrey And Sons Monaco",
+  "mcre_listing_count": 25
+ },
+ {
+  "mcre_slug": "house-co-monaco-tc-38",
+  "mcre_tc": 38,
+  "name": "House & Co.",
+  "mcre_listing_count": 37
+ },
+ {
+  "mcre_slug": "pacific-agency-monaco-tc-57",
+  "mcre_tc": 57,
+  "name": "Pacific Agency",
+  "mcre_listing_count": 13
+ },
+ {
+  "mcre_slug": "findr-by-interalia-monaco-tc-144",
+  "mcre_tc": 144,
+  "name": "Findr. by Interalia",
+  "mcre_listing_count": 1
+ },
+ {
+  "mcre_slug": "access-properties-monaco-tc-32",
+  "mcre_tc": 32,
+  "name": "Access Properties Monaco",
+  "mcre_listing_count": 2
+ },
+ {
+  "mcre_slug": "heritage-properties-monaco-tc-73",
+  "mcre_tc": 73,
+  "name": "Heritage Properties",
+  "mcre_listing_count": 46
+ },
+ {
+  "mcre_slug": "sogestmar-sarl-monaco-tc-141",
+  "mcre_tc": 141,
+  "name": "Sogestmar SARL",
+  "mcre_listing_count": 4
+ }
+]

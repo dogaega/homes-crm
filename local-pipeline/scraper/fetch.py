@@ -50,20 +50,28 @@ class PoliteFetcher:
         self.requests = 0
 
     def get(self, url: str) -> str:
+        return self._get(url).text
+
+    def get_bytes(self, url: str) -> bytes:
+        """Images come from CDNs: a short pause is polite enough."""
+        return self._get(url, delay=(0.5, 1.5)).content
+
+    def _get(self, url: str, delay: tuple[float, float] | None = None) -> requests.Response:
         for attempt in range(self.retries + 1):
-            wait = random.uniform(*self.delay) - (time.monotonic() - self._last)
+            wait = random.uniform(*(delay or self.delay)) - (time.monotonic() - self._last)
             if wait > 0:
                 time.sleep(wait)
             self._last = time.monotonic()
             self.requests += 1
             try:
                 r = self.session.get(url, timeout=self.timeout)
+                is_html = "html" in r.headers.get("Content-Type", "")
                 if r.status_code == 404:
                     raise NotFound(url)
-                if r.status_code in BLOCK_STATUS or any(m in r.text[:5000] for m in CHALLENGE_MARKERS):
+                if r.status_code in BLOCK_STATUS or (is_html and any(m in r.text[:5000] for m in CHALLENGE_MARKERS)):
                     reason = f"HTTP {r.status_code}"
                 elif r.ok:
-                    return r.text
+                    return r
                 else:
                     reason = f"HTTP {r.status_code}"
             except (requests.ConnectionError, requests.Timeout) as e:

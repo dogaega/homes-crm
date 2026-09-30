@@ -67,20 +67,25 @@ def soup(html: str) -> BeautifulSoup:
 # ── agencies ────────────────────────────────────────────────────────────
 
 def parse_agencies(html: str) -> list[dict]:
-    out = []
-    for art in soup(html).select("article"):
-        a = art.find("a", href=re.compile(r"/fr/agence/[^/]+/grid"))
-        name = art.select_one(".nomagence")
-        if not a or not name:
+    """The members page nests unclosed <article>s, so walk names and links
+    in document order: a link belongs to the name before it, and an agency
+    without a "Voir tous les biens" link simply has no cim_slug."""
+    out: list[dict] = []
+    seen: set[str] = set()
+    for el in soup(html).select('.nomagence, .responsable, address, a[href*="/fr/agence/"]'):
+        if "nomagence" in (el.get("class") or []):
+            out.append({"name": el.get_text(" ", strip=True), "cim_slug": None, "manager": None, "address": None})
+        elif not out:
             continue
-        mgr = art.select_one(".responsable")
-        addr = art.find("address")
-        out.append({
-            "name": name.get_text(" ", strip=True),
-            "cim_slug": re.search(r"/fr/agence/([^/]+)/grid", a["href"]).group(1),
-            "manager": mgr.get_text(" ", strip=True) if mgr else None,
-            "address": addr.get_text(" ", strip=True) if addr else None,
-        })
+        elif el.name == "a":
+            m = re.search(r"/fr/agence/([^/]+)/grid", el["href"])
+            if m and out[-1]["cim_slug"] is None and m.group(1) not in seen:
+                out[-1]["cim_slug"] = m.group(1)
+                seen.add(m.group(1))
+        elif el.name == "address":
+            out[-1]["address"] = out[-1]["address"] or el.get_text(" ", strip=True)
+        else:
+            out[-1]["manager"] = out[-1]["manager"] or el.get_text(" ", strip=True)
     return out
 
 

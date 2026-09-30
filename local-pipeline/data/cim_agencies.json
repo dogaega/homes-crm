@@ -1,0 +1,987 @@
+[
+ {
+  "name": "Monaco Legend Properties",
+  "cim_slug": "monaco-legend-properties",
+  "manager": "M. COHEN",
+  "address": "17 Boulevard Princesse Charlotte",
+  "cim_listing_count": 23,
+  "phone": "+37799906000",
+  "email": "contact@monacolegendproperties.com",
+  "website": "https://monacolegendproperties.com/"
+ },
+ {
+  "name": "Coldwell Banker Etic Realty",
+  "cim_slug": "coldwell-banker-etic-realty",
+  "manager": "Mm. MATILE & BOSIO",
+  "address": "15, boulevard Princesse Charlotte",
+  "cim_listing_count": 36,
+  "phone": "+37793505794",
+  "email": "eticimmobilier@gmail.com",
+  "website": "https://www.eticimmobilier.com/"
+ },
+ {
+  "name": "HOMES Sandro Piras Real Estate",
+  "cim_slug": "homes-sandro-piras-real-estate",
+  "manager": "M. PIRAS",
+  "address": "11 Av. Saint-Michel",
+  "cim_listing_count": 12,
+  "phone": "+37797971008",
+  "email": "hello@homesmontecarlo.com",
+  "website": "http://www.homesmontecarlo.com"
+ },
+ {
+  "name": "Agence Olivie",
+  "cim_slug": "agence-olivie",
+  "manager": "Mme SUDRE-RENARD& M. J.C. ALAVI",
+  "address": "22, avenue de la Costa",
+  "cim_listing_count": 8,
+  "phone": "+37793506052",
+  "email": "agolivie@monaco.mc"
+ },
+ {
+  "name": "Marsan Immobilier Monaco",
+  "cim_slug": "marsan-immobilier-monaco",
+  "manager": "Mme MARSAN",
+  "address": "1, avenue Prince Pierre",
+  "cim_listing_count": 39,
+  "phone": "+37793250101",
+  "email": "info@marsanimmobiliermonaco.mc",
+  "website": "https://www.marsanimmobiliermonaco.mc"
+ },
+ {
+  "name": "Intermedia",
+  "cim_slug": "intermedia",
+  "manager": "M. GENOVESE",
+  "address": "17, Avenue de l'Annonciade",
+  "cim_listing_count": 24,
+  "phone": "+37793506684",
+  "email": "info@intermedia.mc",
+  "website": "https://www.intermedia.mc"
+ },
+ {
+  "name": "Cabinet Wolzok",
+  "cim_slug": null,
+  "manager": "M. WOLZOK",
+  "address": "1, rue des Genêts"
+ },
+ {
+  "name": "Agence Nouvelle",
+  "cim_slug": "agence-nouvelle",
+  "manager": "Mmes MOLINA & ALBERTI",
+  "address": "16 Av. de la Costa",
+  "cim_listing_count": 27,
+  "phone": "+37797973160",
+  "email": "info@agencenouvellemonaco.com",
+  "website": "http://www.agencenouvellemonaco.com/"
+ },
+ {
+  "name": "Pieter van Naeltwijck Real Estate Investments",
+  "cim_slug": "pieter-van-naeltwijck-real-estate-investments",
+  "manager": "M. VAN NAELTWIJCK",
+  "address": "6, impasse de la Fontaine",
+  "cim_listing_count": 13,
+  "phone": "+37797707020",
+  "email": "pvnrealestate@monaco.mc",
+  "website": "http://www.pvnrealestate.com/"
+ },
+ {
+  "name": "CCRG",
+  "cim_slug": "ccrg",
+  "manager": "Mme ORECCHIA",
+  "address": "28, boulevard Princesse Charlotte",
+  "cim_listing_count": 6,
+  "phone": "+37797976161",
+  "email": "ccrg@ccrg.mc",
+  "website": "https://www.ccrg.mc/"
+ },
+ {
+  "name": "A.I.B.B. Real Estate",
+  "cim_slug": "a-i-b-b-real-estate",
+  "manager": "Mm. BALDACCHINO & BOISSON",
+  "address": "4 Rue R.P. Louis Frolla",
+  "cim_listing_count": 47,
+  "phone": "+37793308585",
+  "email": "info@aibb.mc",
+  "website": "http://www.aibb.mc"
+ },
+ {
+  "name": "Universal Office",
+  "cim_slug": "universal-office",
+  "manager": "Mme CIFATTE",
+  "address": "6, avenue des Citronniers",
+  "cim_listing_count": 10,
+  "phone": "+37793305228",
+  "email": "info@universalmonaco.com",
+  "website": "http://www.universalmonaco.com/"
+ },
+ {
+  "name": "JV PASTOR REAL ESTATE",
+  "cim_slug": "jv-pastor-real-estate",
+  "manager": "JV PASTOR",
+  "address": "31, boulevard Princesse Charlotte",
+  "cim_listing_count": 1,
+  "phone": "+37792001215",
+  "email": "mdavid@jvpastor.mc",
+  "website": "https://www.jvpastor-realestate.com"
+ },
+ {
+  "name": "SARL Gramaglia Syndic",
+  "cim_slug": null,
+  "manager": "M. M. GRAMAGLIA",
+  "address": "2, avenue Saint-Laurent"
+ },
+ {
+  "name": "Regal Estates Monaco",
+  "cim_slug": "regal-estates-monaco",
+  "manager": "Mme AITA",
+  "address": "2 Avenue de la Madone",
+  "cim_listing_count": 1,
+  "phone": "+37797975275",
+  "email": "anita@regalestates.mc",
+  "website": "http://www.regalestates.mc"
+ },
+ {
+  "name": "Coletti Real Estate",
+  "cim_slug": "coletti-real-estate",
+  "manager": "M. COLETTI",
+  "address": "30, boulevard des Moulins",
+  "cim_listing_count": 24,
+  "phone": "+37797700555",
+  "email": "info@colettirealestate.com",
+  "website": "http://www.colettirealestate.com"
+ },
+ {
+  "name": "Rosengart Luxury Real Estate",
+  "cim_slug": "rosengart-luxury-real-estate",
+  "manager": "M. ROSENGART",
+  "address": "Le Mirabel; 4 avenue des Citronniers",
+  "cim_listing_count": 11,
+  "phone": "+37793500030",
+  "email": "info@rosengart.mc",
+  "website": "http://www.rosengart.mc"
+ },
+ {
+  "name": "Agence des Ambassadeurs",
+  "cim_slug": "agence-des-ambassadeurs",
+  "manager": "Mmes LORENZI",
+  "address": "1/5, avenue de  Grande Bretagne",
+  "cim_listing_count": 14,
+  "phone": "+37793507959",
+  "email": "info@ambassadeursimmo.mc"
+ },
+ {
+  "name": "Promotion Invest",
+  "cim_slug": "promotion-invest",
+  "manager": "M. MARTINI",
+  "address": "14, rue de Millo",
+  "cim_listing_count": 12,
+  "phone": "+37793159545",
+  "email": "lmartini@monaco.mc"
+ },
+ {
+  "name": "Elite International",
+  "cim_slug": "elite-international",
+  "manager": "Melle NOGHES-MENIO",
+  "address": "26 boulevard des Moulins",
+  "cim_listing_count": 2,
+  "phone": "+37797979420",
+  "email": "jessica@eliteimmo.com",
+  "website": "http://www.eliteimmo.com"
+ },
+ {
+  "name": "Cabinet Vivalda",
+  "cim_slug": null,
+  "manager": "M. VIVALDA",
+  "address": "36 Avenue de l'Annonciade Tour Odéon"
+ },
+ {
+  "name": "LIFE PROPERTIES",
+  "cim_slug": "life-properties",
+  "manager": "M. RICHELMI",
+  "address": "9 Avenue des Papalins, Monaco",
+  "cim_listing_count": 22,
+  "phone": "+37799923647",
+  "email": "info@lifeproperties.mc",
+  "website": "https://www.lifeproperties.mc"
+ },
+ {
+  "name": "John Taylor",
+  "cim_slug": "john-taylor",
+  "manager": "M. LE GRAVEREND",
+  "address": "20, boulevard des Moulins",
+  "cim_listing_count": 52,
+  "phone": "+37793503070",
+  "email": "monaco@john-taylor.com",
+  "website": "https://www.john-taylor.mc"
+ },
+ {
+  "name": "Wolzok Immobilier",
+  "cim_slug": "wolzok-immobilier",
+  "manager": "M. WOLZOK",
+  "address": "1, rue des Genêts",
+  "cim_listing_count": 20,
+  "phone": "+37797970108",
+  "email": "wolzok@monte-carlo.mc",
+  "website": "http://www.wolzok.com"
+ },
+ {
+  "name": "BC PROPERTIES MONACO",
+  "cim_slug": "bc-properties-monaco",
+  "manager": "M. CATTALANO",
+  "address": "13 Boulevard Princesse Charlotte",
+  "cim_listing_count": 129,
+  "phone": "+33610124074",
+  "email": "contact@bc-properties.com",
+  "website": "https://bc-properties.com"
+ },
+ {
+  "name": "Faggionato Real Estate",
+  "cim_slug": "faggionato-real-estate",
+  "manager": "M. FAGGIONATO",
+  "address": "25, boulevard Albert 1er",
+  "cim_listing_count": 23,
+  "phone": "+37797974026",
+  "email": "info@faggionatoimmo.com",
+  "website": "http://www.faggionatoimmo.com"
+ },
+ {
+  "name": "Caroline Olds Real Estate",
+  "cim_slug": "caroline-olds-real-estate",
+  "manager": "Mme OLDS",
+  "address": "15 rue de Millo",
+  "cim_listing_count": 45,
+  "phone": "+37793258666",
+  "email": "caroline@carolineolds.com",
+  "website": "https://www.carolineolds.com/"
+ },
+ {
+  "name": "IRIS Real Estate",
+  "cim_slug": "iris-real-estate",
+  "manager": "M. BOISBOUVIER",
+  "address": "4, rue des Iris",
+  "cim_listing_count": 2,
+  "phone": "+37793305353",
+  "email": "iris@iris.mc",
+  "website": "http://www.iris.mc"
+ },
+ {
+  "name": "Petrini Exclusive Real Estate Monaco",
+  "cim_slug": "petrini-exclusive-real-estate-monaco",
+  "manager": "Mme PETRINI",
+  "address": "3 Avenue des Citronniers",
+  "cim_listing_count": 111,
+  "phone": "+37792001600",
+  "email": "contact@petrini.mc",
+  "website": "https://www.petrini.mc/"
+ },
+ {
+  "name": "DAMENO | MONACO REAL ESTATE",
+  "cim_slug": "dameno-|-monaco-real-estate",
+  "manager": "M. DAMENO",
+  "address": "Palais Miami 10 Bd d'Italie",
+  "cim_listing_count": 50,
+  "phone": "+37793502530",
+  "email": "info@dameno.mc",
+  "website": "http://www.dameno.mc"
+ },
+ {
+  "name": "Agence de la Gare",
+  "cim_slug": "agence-de-la-gare",
+  "manager": "Mm. P. MARE & A. MARE",
+  "address": "3, rue Langlé",
+  "cim_listing_count": 13,
+  "phone": "+37793302236",
+  "email": "info@agencegaremonaco.com",
+  "website": "http://www.agencegaremonaco.com/"
+ },
+ {
+  "name": "Balkin Estates",
+  "cim_slug": "balkin-estates",
+  "manager": "M. BALKIN",
+  "address": "17, boulevard Albert 1er",
+  "cim_listing_count": 13,
+  "phone": "+37793503000",
+  "email": "info@balkin.mc",
+  "website": "https://www.balkin.mc"
+ },
+ {
+  "name": "Real Estate Monte Carlo",
+  "cim_slug": "real-estate-monte-carlo",
+  "manager": "Mme FISSORE",
+  "address": "17, avenue Saint Michel",
+  "cim_listing_count": 22,
+  "phone": "+37793506070",
+  "email": "info@realestatemontecarlo.mc",
+  "website": "https://www.realestatemontecarlo.mc"
+ },
+ {
+  "name": "Agence Laetitia",
+  "cim_slug": "agence-laetitia",
+  "manager": "M. PICARD",
+  "address": "16, rue de Millo",
+  "cim_listing_count": 9,
+  "phone": "+37797973636",
+  "email": "info@agence-laetitia.com",
+  "website": "http://www.agence-laetitia.com"
+ },
+ {
+  "name": "FCF Cristea-Flandrin Immobilier",
+  "cim_slug": "fcf-cristea-flandrin-immobilier",
+  "manager": "Mme CRISTEA FLANDRIN",
+  "address": "21, boulevard des Moulins",
+  "cim_listing_count": 31,
+  "phone": "+37793307561",
+  "email": "fcf@fcfrealestate.com",
+  "website": "https://www.fcfrealestate.com"
+ },
+ {
+  "name": "Roc Agency",
+  "cim_slug": "roc-agency",
+  "manager": "M. LORENZI",
+  "address": "28, rue Comte Felix Gastaldi",
+  "cim_listing_count": 14,
+  "phone": "+37793253520",
+  "email": "jyl@rocagency.com",
+  "website": "http://www.rocagency.com"
+ },
+ {
+  "name": "Monte-Carlo Transactions",
+  "cim_slug": "monte-carlo-transactions",
+  "manager": "M. A. GIBELLI",
+  "address": "2A avenue de Grande-Bretagne",
+  "cim_listing_count": 21,
+  "phone": "+37797708505",
+  "email": "info@montecarlotransactions.com",
+  "website": "http://www.montecarlotransactions.com"
+ },
+ {
+  "name": "Harroch Real Estate Monaco",
+  "cim_slug": "harroch-real-estate-monaco",
+  "manager": "Mme CROVETTO & M. HARROCH",
+  "address": "2, rue de la Turbie",
+  "cim_listing_count": 21,
+  "phone": "+37797973108",
+  "email": "info@harrochrealestate.com",
+  "website": "https://www.harrochrealestate.com/"
+ },
+ {
+  "name": "La Monégasque Immobilier",
+  "cim_slug": "la-monégasque-immobilier",
+  "manager": "M. AMABLE",
+  "address": "LE MANTEGNA\" 18 quai Jean-Charles Rey",
+  "cim_listing_count": 15,
+  "phone": "+37792052880",
+  "email": "contact@lamonegasqueimmobilier.mc",
+  "website": "http://lamonegasqueimmobilier.mc"
+ },
+ {
+  "name": "Agence Marchetti Monaco",
+  "cim_slug": "agence-marchetti-monaco",
+  "manager": "M. LUNEL",
+  "address": "20, rue Princesse Caroline",
+  "cim_listing_count": 8,
+  "phone": "+37793302478",
+  "email": "contact@agencemarchetti.com",
+  "website": "https://www.agencemarchetti.com/"
+ },
+ {
+  "name": "Miells Monaco Real Estate",
+  "cim_slug": "miells-monaco-real-estate",
+  "manager": "Mme BONORA - HENRY",
+  "address": "14 Avenue de la Costa",
+  "cim_listing_count": 79,
+  "phone": "+37797977929",
+  "email": "info@miells.com",
+  "website": "https://www.miells.com"
+ },
+ {
+  "name": "SOLAMITO PROPERTIES",
+  "cim_slug": "solamito-properties",
+  "manager": "M. SOLAMITO",
+  "address": "Le Montaigne 6 Bd des Moulins",
+  "cim_listing_count": 10,
+  "phone": "+37799904858",
+  "email": "info@solamito-properties.mc",
+  "website": "http://www.solamito-properties-real-estate.mc/"
+ },
+ {
+  "name": "Agence Continentale",
+  "cim_slug": "agence-continentale",
+  "manager": "Mme RUSPANTINI",
+  "address": "19, boulevard des Moulins",
+  "cim_listing_count": 23,
+  "phone": "+37793505464",
+  "email": "contact@continentale.mc",
+  "website": "https://www.continentale.mc"
+ },
+ {
+  "name": "Westrope Real Estate",
+  "cim_slug": "westrope-real-estate",
+  "manager": "Mme MONACO",
+  "address": "22, boulevard des Moulins",
+  "cim_listing_count": 51,
+  "phone": "+37793506799",
+  "email": "contact@westrope-monaco.com",
+  "website": "http://www.westrope-monaco.com"
+ },
+ {
+  "name": "Dotta Immobilier",
+  "cim_slug": "dotta-immobilier",
+  "manager": "M. DOTTA",
+  "address": "5bis, avenue Princesse Alice",
+  "cim_listing_count": 30,
+  "phone": "+37797982000",
+  "email": "transaction@dotta.mc",
+  "website": "http://www.dotta.mc/"
+ },
+ {
+  "name": "Prestige Properties",
+  "cim_slug": "prestige-properties",
+  "manager": "M. P. PASTOR",
+  "address": "6, Rue Suffren Reymond",
+  "cim_listing_count": 12,
+  "phone": "+37799904057",
+  "email": "contact@prestigeproperties.mc",
+  "website": "https://www.prestigeproperties.mc"
+ },
+ {
+  "name": "Soma International Realty",
+  "cim_slug": "soma-international-realty",
+  "manager": "Mme LAKSCHIN",
+  "address": "3, avenue Saint-Charles",
+  "cim_listing_count": 11,
+  "phone": "+330607937672",
+  "email": "julia@lakschin.com",
+  "website": "https://soma-monaco.com/"
+ },
+ {
+  "name": "Majestic Real Estate",
+  "cim_slug": "majestic-real-estate",
+  "manager": "M. Rodelato",
+  "address": "17 Av. Albert II",
+  "cim_listing_count": 3,
+  "phone": "+330659226788",
+  "email": "femke@majesticrealestate.mc"
+ },
+ {
+  "name": "Agence Gramaglia",
+  "cim_slug": null,
+  "manager": "M. M. GRAMAGLIA",
+  "address": "14, boulevard des Moulins"
+ },
+ {
+  "name": "Groupe S.M.I.R.",
+  "cim_slug": "groupe-s-m-i-r",
+  "manager": "M. LECOURT",
+  "address": "4, boulevard des Moulins",
+  "cim_listing_count": 62,
+  "phone": "+37792165800",
+  "email": "info@groupesmir.com",
+  "website": "http://www.groupesmir.com/"
+ },
+ {
+  "name": "Lorenza von Stein Monaco",
+  "cim_slug": "lorenza-von-stein-monaco",
+  "manager": "Mme KLEIBER",
+  "address": "47, boulevard du Jardin Exotique",
+  "cim_listing_count": 49,
+  "phone": "+37797970277",
+  "email": "request@lvsmonaco.com",
+  "website": "http://www.lorenzavonstein.com"
+ },
+ {
+  "name": "One Properties",
+  "cim_slug": "one-properties",
+  "manager": "M. POWERS",
+  "address": "8 Avenue Saint Laurent",
+  "cim_listing_count": 8,
+  "phone": "+37792052323",
+  "email": "sh@oneproperties.mc",
+  "website": "https://www.oneproperties.mc"
+ },
+ {
+  "name": "Cote investissement",
+  "cim_slug": "cote-investissement",
+  "manager": "Mm. MOLLER & GIORDANO",
+  "address": "1, rue Louis Notari",
+  "cim_listing_count": 5,
+  "phone": "+37792160202",
+  "email": "info@cote.mc",
+  "website": "http://www.cote.mc"
+ },
+ {
+  "name": "Pastor & Reiss",
+  "cim_slug": "pastor-reiss",
+  "manager": "Mme D. PASTOR",
+  "address": "5 Av. Princesse Alice",
+  "cim_listing_count": 8,
+  "phone": "+37799901413",
+  "email": "contact@pastor-reiss.com",
+  "website": "https://www.pastor-reiss.com"
+ },
+ {
+  "name": "Atlantic Agency",
+  "cim_slug": "atlantic-agency",
+  "manager": "M. JG GRAMAGLIA",
+  "address": "6, boulevard des Moulins",
+  "cim_listing_count": 10,
+  "phone": "+37793256868",
+  "email": "atlantic@atlantic-agency.mc",
+  "website": "https://www.atlantic.monte-carlo.mc/"
+ },
+ {
+  "name": "A.G.T. Immobilier",
+  "cim_slug": "a-g-t-immobilier",
+  "manager": "M. CHAROY",
+  "address": "1, avenue Henry Dunant",
+  "cim_listing_count": 29,
+  "phone": "+37793257334",
+  "email": "agtimmo@monaco.mc"
+ },
+ {
+  "name": "ZREALInvest",
+  "cim_slug": "zrealinvest",
+  "manager": "M. PERSONNAT",
+  "address": "Le Continental Place des Moulins",
+  "cim_listing_count": 1,
+  "phone": "+37793505302",
+  "email": "contact@zrealinvest.com",
+  "website": "https://www.zrealinvest.com/"
+ },
+ {
+  "name": "Blu Immobilier",
+  "cim_slug": "blu-immobilier",
+  "manager": "Mm. ALBUKREK & BERGUIG",
+  "address": "15 boulevard Princesse Charlotte",
+  "cim_listing_count": 4,
+  "phone": "+33680861823",
+  "email": "blu@blu.mc",
+  "website": "https://www.blu.mc/"
+ },
+ {
+  "name": "SAM PASTOR",
+  "cim_slug": null,
+  "manager": "M. PALLANCA PASTOR",
+  "address": "Gildo Pastor Center 7 rue du Gabian"
+ },
+ {
+  "name": "Hammer Draff",
+  "cim_slug": null,
+  "manager": "Mme BONORA - HENRY",
+  "address": "Palais de la Scala 1, Avenue Henry Dunant"
+ },
+ {
+  "name": "SL AGENCY",
+  "cim_slug": "sl-agency",
+  "manager": "M. SOLICHON - LORILLOU",
+  "address": "C/O MBC 20 Av. de Fontvieille",
+  "cim_listing_count": 24,
+  "phone": "+37792055408",
+  "email": "contact@slamonaco.com",
+  "website": "https://www.slamonaco.com/"
+ },
+ {
+  "name": "S.E.P.A.C.",
+  "cim_slug": "s-e-p-a-c",
+  "manager": "M. TORREL",
+  "address": "7, boulevard des Moulins",
+  "cim_listing_count": 1,
+  "phone": "+37793509085",
+  "email": "SEPAC_Sam@libello.com"
+ },
+ {
+  "name": "López de la Osa & Franco Real Estate",
+  "cim_slug": "lópez-de-la-osa-franco-real-estate",
+  "manager": "Mme FRANCO LOPEZ DE LA OSA",
+  "address": "Villa des Cigognes 17 Rue Louis Aureglia",
+  "cim_listing_count": 3,
+  "phone": "+37797701560",
+  "email": "info@lofrealestate.com",
+  "website": "https://www.lofrealestate.com"
+ },
+ {
+  "name": "Europagence",
+  "cim_slug": "europagence",
+  "manager": "Mme MILLO",
+  "address": "1, avenue Henry Dunant",
+  "cim_listing_count": 18,
+  "phone": "+37793308100",
+  "email": "contact@europagence.mc",
+  "website": "http://www.europagence.mc/"
+ },
+ {
+  "name": "Exclusive Estate Monaco",
+  "cim_slug": "exclusive-estate-monaco",
+  "manager": "Mme MARCHISIO",
+  "address": "23 Bd Princesse Charlotte",
+  "cim_listing_count": 45,
+  "phone": "+37797981549",
+  "email": "info@exclusive-estate.mc",
+  "website": "https://www.exclusive-estate.mc"
+ },
+ {
+  "name": "Pacific Agency",
+  "cim_slug": "pacific-agency",
+  "manager": "M. VIVALDA",
+  "address": "46, boulevard des Moulins",
+  "cim_listing_count": 14,
+  "phone": "+37793304823",
+  "email": "info@pacificagency.mc",
+  "website": "http://www.pacificagency.mc"
+ },
+ {
+  "name": "REVIMMO",
+  "cim_slug": "revimmo",
+  "manager": "Mme POYDATZ",
+  "address": "LE SOLEIL D'OR 20, boulevard Rainier III",
+  "cim_listing_count": 20,
+  "phone": "+37799907003",
+  "email": "info@revimmo.mc",
+  "website": "http://www.revimmo.mc"
+ },
+ {
+  "name": "AFIM SAM",
+  "cim_slug": "afim-sam",
+  "manager": "M. FERRARIO",
+  "address": "3, avenue de Grande Bretagne",
+  "cim_listing_count": 38,
+  "phone": "+37797978787",
+  "email": "afim@afim.mc",
+  "website": "http://www.afim.mc"
+ },
+ {
+  "name": "BERTOLA Real Estate",
+  "cim_slug": "bertola-real-estate",
+  "manager": "M. BERTOLA",
+  "address": "18, quai Jean Charles Rey",
+  "cim_listing_count": 2,
+  "phone": "+37797772000",
+  "email": "info@bertola.mc",
+  "website": "http://www.bertola.mc/"
+ },
+ {
+  "name": "CM MONACO REAL ESTATE",
+  "cim_slug": "cm-monaco-real-estate",
+  "manager": "Christian MICELI",
+  "address": "3 Avenue Saint-Laurent",
+  "cim_listing_count": 16,
+  "phone": "+37799908059",
+  "email": "info@cm-monaco.com",
+  "website": "https://www.cm-monaco.com"
+ },
+ {
+  "name": "Icon Property",
+  "cim_slug": "icon-property",
+  "manager": "M. CHACON",
+  "address": "Le Donatello 13 Avenue des Papalins",
+  "cim_listing_count": 24,
+  "phone": "+37797970940",
+  "email": "sales@icon-property.com",
+  "website": "https://www.icon-property.com/"
+ },
+ {
+  "name": "ABK Real Estate",
+  "cim_slug": "abk-real-estate",
+  "manager": "Mme BALSAMO",
+  "address": "5 rue des Lilas",
+  "cim_listing_count": 10,
+  "phone": "+37793502950",
+  "email": "info@abkproperties.com",
+  "website": "https://www.abkrealestatemonaco.com"
+ },
+ {
+  "name": "Fine Properties Monte Carlo",
+  "cim_slug": "fine-properties-monte-carlo",
+  "manager": "Mme TOMASI",
+  "address": "2 Rue de la Lüjerneta",
+  "cim_listing_count": 4,
+  "phone": "+37793503699",
+  "email": "g.bizzio@fpmc.mc",
+  "website": "https://www.fpmc-agency.com/"
+ },
+ {
+  "name": "Bureau d'Affaires Immobilières",
+  "cim_slug": "bureau-d-affaires-immobilières",
+  "manager": "Mme CAZAL",
+  "address": "11, boulevard Albert 1er",
+  "cim_listing_count": 7,
+  "phone": "+37793301827",
+  "email": "gilbert@camozzicazal.com",
+  "website": "http://www.bureauaffairesimmobilieres.com"
+ },
+ {
+  "name": "Volumes",
+  "cim_slug": "volumes",
+  "manager": "Mm. CORPORANDY & GARCIA",
+  "address": "25 Rue Grimaldi",
+  "cim_listing_count": 27,
+  "phone": "+37793308980",
+  "email": "infos@volumes.mc",
+  "website": "http://www.volumes.mc"
+ },
+ {
+  "name": "Eden Agency",
+  "cim_slug": null,
+  "manager": "Mme KOLLAKIS",
+  "address": "Le Montaigne, Bloc A,  2 avenue de la Madone"
+ },
+ {
+  "name": "Mazza Immobilier",
+  "cim_slug": "mazza-immobilier",
+  "manager": "Melles MAZZA",
+  "address": "11-13  boulevard du Jardin Exotique",
+  "cim_listing_count": 55,
+  "phone": "+37797773535",
+  "email": "info@mazza-immobilier.com",
+  "website": "https://mazza-immobilier.com/"
+ },
+ {
+  "name": "Caroli Real Estate",
+  "cim_slug": "caroli-real-estate",
+  "manager": "M. CAROLI",
+  "address": "2 Rue de la Lüjerneta",
+  "cim_listing_count": 36,
+  "phone": "+37793255122",
+  "email": "contact.carolirealestate@groupecaroli.mc",
+  "website": "https://www.caroli-realestate.com/"
+ },
+ {
+  "name": "Monte-Carlo Sotheby's International Realty",
+  "cim_slug": "monte-carlo-sotheby-s-international-realty",
+  "manager": "Mme DWEK",
+  "address": "Les Arcades du Métropole 2a, avenue de Grande Bretagne",
+  "cim_listing_count": 37,
+  "phone": "+37793253727",
+  "email": "info@montecarlo-sothebysrealty.com",
+  "website": "https://www.montecarlo-sothebysrealty.com"
+ },
+ {
+  "name": "Agence Gramaglia",
+  "cim_slug": "agence-gramaglia",
+  "manager": "M. M. GRAMAGLIA",
+  "address": "9, avenue Princesse Alice",
+  "cim_listing_count": 41,
+  "phone": "+37792165900",
+  "email": "info@gramaglia.mc",
+  "website": "https://www.gramaglia.mc/"
+ },
+ {
+  "name": "House & Co.",
+  "cim_slug": "house-co",
+  "manager": "M. F. GIBELLI",
+  "address": "15, Bd Princesse Charlotte",
+  "cim_listing_count": 37,
+  "phone": "+37793251818",
+  "email": "contact@houseandco.mc",
+  "website": "http://www.houseandco.mc"
+ },
+ {
+  "name": "Monaco Properties",
+  "cim_slug": "monaco-properties",
+  "manager": "M. PRADEAU",
+  "address": "29 Bd d'Italie",
+  "cim_listing_count": 65,
+  "phone": "+37797973397",
+  "email": "info@mpmonaco.com",
+  "website": "https://www.monacoproperties.mc"
+ },
+ {
+  "name": "CAPI",
+  "cim_slug": "capi",
+  "manager": "M. PASTOR",
+  "address": "31, avenue Princesse Grace",
+  "cim_listing_count": 7,
+  "phone": "+37793159777",
+  "email": "capi@capi.mc",
+  "website": "http://www.capi.mc"
+ },
+ {
+  "name": "PASTOR IMMOBILIER",
+  "cim_slug": "pastor-immobilier",
+  "manager": "M. P. PASTOR",
+  "address": "27 avenue Princesse Grace Le Formentor",
+  "cim_listing_count": 15,
+  "phone": "+37797702070",
+  "email": "contact@pastor-immo.mc",
+  "website": "https://pastor-immobilier.com/"
+ },
+ {
+  "name": "Heritage Properties",
+  "cim_slug": "heritage-properties",
+  "manager": "M.  J.P. PASTOR",
+  "address": "31, avenue Princesse Grace",
+  "cim_listing_count": 43,
+  "phone": "+37797709720",
+  "email": "contact@heritageproperties.mc",
+  "website": "https://www.heritageproperties.mc"
+ },
+ {
+  "name": "AAA Monaco Town & Sea Immobilier",
+  "cim_slug": "aaa-monaco-town-sea-immobilier",
+  "manager": "M. & Mme LORENZI",
+  "address": "8 boulevard des Moulins",
+  "cim_listing_count": 34,
+  "phone": "+37797770777",
+  "email": "laurence@town-sea.com",
+  "website": "http://www.town-sea.com"
+ },
+ {
+  "name": "Cabinet Bellone",
+  "cim_slug": "cabinet-bellone",
+  "manager": "PASTOR",
+  "address": "13, bd Princesse Charlotte",
+  "cim_listing_count": 8,
+  "phone": "+37793508757",
+  "email": "contact@cabinetbellone.mc"
+ },
+ {
+  "name": "AGEPRIM",
+  "cim_slug": "ageprim",
+  "manager": "M. BRIANTI",
+  "address": "18, boulevard des Moulins",
+  "cim_listing_count": 24,
+  "phone": "+37797971414",
+  "email": "info@ageprim.com",
+  "website": "http://www.ageprim.com/"
+ },
+ {
+  "name": "M & K Real Estate MC",
+  "cim_slug": "m-k-real-estate-mc",
+  "manager": "M. THEUX",
+  "address": "Palais de la Scala 1, avenue Henry Dunant",
+  "cim_listing_count": 0
+ },
+ {
+  "name": "Segond Immobilier",
+  "cim_slug": "segond-immobilier",
+  "manager": "M. SEGOND",
+  "address": "45 Rue Grimaldi",
+  "cim_listing_count": 26,
+  "phone": "+37792053577",
+  "email": "info@segond.com",
+  "website": "https://www.segond-immobilier.com"
+ },
+ {
+  "name": "Barnes I Valeri Agency",
+  "cim_slug": "barnes-i-valeri-agency",
+  "manager": "M. VALERI",
+  "address": "7 Avenue des Papalins « Immeuble Michelangelo »",
+  "cim_listing_count": 107,
+  "phone": "+37792161632",
+  "email": "monaco@barnes-international.com",
+  "website": "https://www.valeri-agency.com"
+ },
+ {
+  "name": "Savills Monaco Real Estate",
+  "cim_slug": "savills-monaco-real-estate",
+  "manager": "Mme LUKE",
+  "address": "Roqueville, 20 boulevard Princesse Charlotte",
+  "cim_listing_count": 15,
+  "phone": "+37797704200",
+  "email": "monaco@savills.com",
+  "website": "http://www.savills.mc/"
+ },
+ {
+  "name": "Rey  & Nouvion Immobilier",
+  "cim_slug": "rey-nouvion-immobilier",
+  "manager": "M. REY",
+  "address": "11 bis, rue Princesse Antoinette",
+  "cim_listing_count": 0
+ },
+ {
+  "name": "Deplanche Immobilier",
+  "cim_slug": "deplanche-immobilier",
+  "manager": "M. DEPLANCHE",
+  "address": "29, boulevard des Moulins",
+  "cim_listing_count": 13,
+  "phone": "+37793504144",
+  "email": "info@deplanche-immobilier.com",
+  "website": "http://www.deplanche-immobilier.com/"
+ },
+ {
+  "name": "Bollati Immobilier",
+  "cim_slug": "bollati-immobilier",
+  "manager": "M. BOLLATI",
+  "address": "1, avenue de la Madone",
+  "cim_listing_count": 4,
+  "phone": "+37797707272",
+  "email": "info@bollati-immobilier.mc",
+  "website": "http://www.bollati-immobilier.mc"
+ },
+ {
+  "name": "Agence Thomas",
+  "cim_slug": "agence-thomas",
+  "manager": "M. IBBA",
+  "address": "25, boulevard Princesse Charlotte",
+  "cim_listing_count": 12,
+  "phone": "+37793307292",
+  "email": "contact@agence-thomas.com",
+  "website": "https://www.agence-thomas.com"
+ },
+ {
+  "name": "Cabinet P. Palmero",
+  "cim_slug": "cabinet-p-palmero",
+  "manager": "M. GRIMAUD",
+  "address": "5 avenue Princesse Grace",
+  "cim_listing_count": 5,
+  "phone": "+37793505152",
+  "email": "cpp@palmero.mc",
+  "website": "http://www.palmero.mc"
+ },
+ {
+  "name": "Access Properties Monaco",
+  "cim_slug": "access-properties-monaco",
+  "manager": "M. ESCANDE",
+  "address": "Le Soleil d'Or 20 Boulevard Rainier III",
+  "cim_listing_count": 4,
+  "phone": "+37793251853",
+  "email": "contact@apmonaco.com",
+  "website": "http://www.accesspropertiesmonaco.com"
+ },
+ {
+  "name": "Findr. by Interalia",
+  "cim_slug": "findr-by-interalia",
+  "manager": "M. VAN DEN EYNDE",
+  "address": "31, boulevard des Moulins",
+  "cim_listing_count": 2,
+  "phone": "+37793507835",
+  "email": "hello@findr.mc",
+  "website": "https://www.findr.mc"
+ },
+ {
+  "name": "La Costa Properties Monaco",
+  "cim_slug": "la-costa-properties-monaco",
+  "manager": "Mme GAIA-LEBON",
+  "address": "25, avenue de la Costa",
+  "cim_listing_count": 40,
+  "phone": "+37797979900",
+  "email": "info@25lcp.com",
+  "website": "http://www.25lcp.com"
+ },
+ {
+  "name": "Helene Pastor Properties",
+  "cim_slug": null,
+  "manager": "Mme RATKOWSKI",
+  "address": "Le Mercator 7, Rue de l'industrie"
+ },
+ {
+  "name": "Viviani Champfleury Barco",
+  "cim_slug": "viviani-champfleury-barco",
+  "manager": "M. VIVIANI, Mme CHAMPFLEURY & M. Barco",
+  "address": "1, avenue Henri Dunant",
+  "cim_listing_count": 68,
+  "phone": "+37797702400",
+  "email": "contact@vcb.mc",
+  "website": "http://www.vcb.mc"
+ },
+ {
+  "name": "Agence Plan B",
+  "cim_slug": "agence-plan-b",
+  "manager": "M. BLAZY",
+  "address": "6 avenue Saint-Michel",
+  "cim_listing_count": 12,
+  "phone": "+37797979720",
+  "email": "blazy@monaco.mc",
+  "website": "https://planb-monaco.com/fr/"
+ }
+]

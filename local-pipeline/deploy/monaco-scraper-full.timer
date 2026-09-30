@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily full Monaco listings scrape
+
+[Timer]
+OnCalendar=*-*-* 06:00:00 Europe/Monaco
+Persistent=true
+Unit=monaco-scraper@full.service
+
+[Install]
+WantedBy=timers.target

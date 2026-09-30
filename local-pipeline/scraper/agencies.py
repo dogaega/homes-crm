@@ -43,11 +43,27 @@ def tokens(name: str) -> frozenset[str]:
     return frozenset(w for w in re.sub(r"[^a-z0-9 ]", " ", n).split() if w not in STOP and len(w) > 1)
 
 
-def same_agency(a: str, b: str) -> bool:
+def compact(name: str, drop_stop: bool) -> str:
+    n = unicodedata.normalize("NFD", name).encode("ascii", "ignore").decode().lower()
+    n = re.sub(r"\band\b|&", " ", n)
+    words = re.sub(r"[^a-z0-9 ]", " ", n).split()
+    return "".join(w for w in words if not (drop_stop and w in STOP))
+
+
+def match_score(a: str, b: str) -> int:
+    """3: identical name, 2: same distinctive words, 1: token overlap, 0: no.
+    "A and S Estate" = "A&S Estate", "Béton 57" = "Beton57"; "Wolzok
+    Immobilier" prefers itself over "Cabinet Wolzok"."""
+    fa, fb = compact(a, False), compact(b, False)
+    if fa and fa == fb:
+        return 3
+    ca, cb = compact(a, True), compact(b, True)
+    if ca and ca == cb:
+        return 2
     ta, tb = tokens(a), tokens(b)
-    if not ta or not tb:
-        return a.strip().lower() == b.strip().lower()
-    return ta <= tb or tb <= ta or len(ta & tb) >= 2
+    if ta and tb and (ta <= tb or tb <= ta or len(ta & tb) >= 2):
+        return 1
+    return 0
 
 
 def fetch_directory(f: PoliteFetcher) -> list[dict]:
@@ -79,20 +95,29 @@ def merge(cim: list[dict], mcre: list[dict], directory: list[dict]) -> list[dict
             "website": c.get("website"), "cim_listing_count": c.get("cim_listing_count"),
         })
 
-    def find(name: str) -> dict | None:
-        return next((a for a in agencies if same_agency(a["name"], name)), None)
+    def find(name: str, taken: str | None = None) -> dict | None:
+        """Best-scoring agency; with `taken`, skip agencies already linked
+        to that source so two different agencies never collapse into one."""
+        best, best_score = None, 0
+        for a in agencies:
+            if taken and a.get(taken):
+                continue
+            sc = match_score(a["name"], name)
+            if sc > best_score:
+                best, best_score = a, sc
+        return best
 
     for m in mcre:
         if not m.get("name"):
             continue
-        a = find(m["name"])
+        a = find(m["name"], taken="mcre_slug")
         if a is None:
             a = {"name": m["name"], "cim_member": False}
             agencies.append(a)
         a.update({"mcre_slug": m["mcre_slug"], "mcre_tc": m["mcre_tc"], "mcre_listing_count": m.get("mcre_listing_count")})
 
     for d in directory:
-        a = find(d["name"])
+        a = find(d["name"], taken="in_official_directory")
         if a is None:
             a = {"name": d["name"], "cim_member": False}
             agencies.append(a)

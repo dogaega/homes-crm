@@ -1,0 +1,22 @@
+# Monaco listings scraper — one run. Instance = mode: full | light
+# Install (VPS, as root):
+#   useradd -r -m -d /opt/monaco scraper && git clone <repo> /opt/monaco/homes-crm
+#   python3 -m venv /opt/monaco/venv && /opt/monaco/venv/bin/pip install requests beautifulsoup4 lxml pillow
+#   printf 'SYNC_API_BASE_URL=https://...workers.dev\nSYNC_API_TOKEN=...\n' > /etc/monaco-scraper.env && chmod 600 /etc/monaco-scraper.env
+#   cp monaco-scraper@.service monaco-scraper-*.timer /etc/systemd/system/
+#   systemctl daemon-reload && systemctl enable --now monaco-scraper-full.timer monaco-scraper-light.timer
+[Unit]
+Description=Monaco listings scraper (%i)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=scraper
+WorkingDirectory=/opt/monaco/homes-crm/local-pipeline
+EnvironmentFile=/etc/monaco-scraper.env
+# Skip (exit 0) if another run is still going, e.g. a long first full run.
+ExecStart=/usr/bin/flock -n -E 0 /run/lock/monaco-scraper.lock /opt/monaco/venv/bin/python -m scraper.daily --mode %i
+# A full run takes hours on the first day; later days mostly index pages.
+TimeoutStartSec=20h
+Nice=10
