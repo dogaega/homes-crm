@@ -77,12 +77,17 @@ def web_site(client, mode: str, cfg: dict, agency: dict) -> dict:
     return run_site(f, client, cfg["site_key"], info, index, detail, mode=mode, runner=cfg.get("runner", "server"))
 
 
+RUNNER = "server"
+
+
 def family_web(client, mode: str, results: list, match=None) -> None:
-    """Every agency's own website with a usable config, 6 hosts at a time."""
+    """Every agency's own website with a usable config for this runner
+    (server: VPS/cloud; local: Mac, for sites that refuse server IPs)."""
     from concurrent.futures import ThreadPoolExecutor
     by_name = {a["name"]: a for a in agencies(None)}
     cfgs = [c for c in json.loads((DATA / "site_configs.json").read_text())
             if c.get("listing_pattern") and c.get("status") in ("ok", "weak", "verified")
+            and c.get("runner", "server") == RUNNER
             and (not match or any(m.lower() in c["agency"].lower() for m in match))]
     with ThreadPoolExecutor(max_workers=6) as ex:
         results += list(ex.map(lambda c: web_site(client, mode, c, by_name.get(c["agency"], {"name": c["agency"]})), cfgs))
@@ -96,7 +101,13 @@ def main() -> None:
     ap.add_argument("--mode", choices=["full", "light"], default="full")
     ap.add_argument("--only", choices=list(FAMILIES), action="append")
     ap.add_argument("--agency", action="append", help="substring of agency name (repeatable)")
+    ap.add_argument("--runner", choices=["server", "local"], default="server",
+                    help="local = Mac: only sites that block server IPs (implies --only web)")
     args = ap.parse_args()
+    global RUNNER
+    RUNNER = args.runner
+    if RUNNER == "local":
+        args.only = ["web"]
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
     client = WorkerClient()
     results: list[dict] = []

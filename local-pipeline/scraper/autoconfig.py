@@ -12,6 +12,7 @@ scraper.generic.parse_detail → quality score. Nothing is pushed anywhere.
 from __future__ import annotations
 
 import argparse
+import html as htmllib
 import json
 import logging
 import re
@@ -46,7 +47,7 @@ def shape(url: str) -> str:
     for seg in urlparse(url).path.strip("/").split("/"):
         if re.fullmatch(r"\d{3,}", seg):
             parts.append("{id}")
-        elif re.match(r"^\d{3,}[-_]", seg) or re.search(r"[-_]\d{3,}$", seg):
+        elif re.match(r"^\d{3,}[-_+]", seg) or re.search(r"[-_+]\d{3,}$", seg):
             parts.append("{id-slug}")
         elif re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+){3,}", seg) and not NOT_INDEX.search(seg):
             parts.append("{slug}")
@@ -56,7 +57,7 @@ def shape(url: str) -> str:
 
 
 def shape_regex(host: str, sh: str) -> str:
-    rx = re.escape(sh).replace(re.escape("{id-slug}"), r"(?:\d{3,}[-_][^/?#]+|[^/?#]+[-_]\d{3,})")
+    rx = re.escape(sh).replace(re.escape("{id-slug}"), r"(?:\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\d{3,})")
     rx = rx.replace(re.escape("{id}"), r"\d{3,}").replace(re.escape("{slug}"), r"[a-z0-9]+(?:-[a-z0-9]+){3,}")
     return r"^https?://(?:www\.)?" + re.escape(host.removeprefix("www.")) + rx + r"/?(?:[?#].*)?$"
 
@@ -65,13 +66,41 @@ def same_host(u: str, site: str) -> bool:
     return urlparse(u).netloc.removeprefix("www.") == urlparse(site).netloc.removeprefix("www.")
 
 
+ASSET = re.compile(r"wp-json|/cache/|webmanifest|/feed/?$|\.(?:css|js|json|xml|ico|svg|png|jpe?g|webp|gif|pdf|aspx)(?:$|\?)|"
+                   r"\$\{|%7B|/shop/|/product-category/", re.I)
+
+
 def links(html: str, base: str, site: str) -> list[str]:
+    """Real <a> links only: <link rel=manifest> etc. are not listings."""
     out = []
-    for h in re.findall(r'href="([^"#]+)"', html):
+    for h in re.findall(r'<a\b[^>]*?\bhref=["\']([^"\'#]+)["\']', html, re.I):
         u = urljoin(base, h.strip())
         if u.startswith("http") and same_host(u, site) and u not in out:
             out.append(u)
     return out
+
+
+def sitemap_urls(f: PoliteFetcher, site: str, limit: int = 8) -> list[str]:
+    """URLs from /sitemap.xml (following one level of sitemap index)."""
+    out: list[str] = []
+    try:
+        root = f.get(urljoin(site, "/sitemap.xml"))
+    except Exception:
+        try:
+            root = f.get(urljoin(site, "/sitemap_index.xml"))
+        except Exception:
+            return out
+    locs = re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", root)
+    if "<sitemapindex" in root:
+        subs = [u for u in locs if re.search(r"propert|bien|annonce|listing|vente|location|sale|rent|product|produit|estate|immo", u, re.I)] or locs
+        for sm in subs[:limit]:
+            try:
+                out += re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", f.get(sm))
+            except Exception:
+                continue
+    else:
+        out = locs
+    return [htmllib.unescape(u) for u in out if same_host(u, site)]
 
 
 def score(d: dict) -> tuple[int, list[str]]:
@@ -98,7 +127,8 @@ def build(site_recon: dict, agency: dict) -> dict:
     try:
         home = f.get(site)
     except Exception as e:
-        cfg.update(status="unreachable", error=str(e)[:200])
+        # Reset/SSL/WAF from a datacenter IP: the Mac runner (home IP) retries it.
+        cfg.update(status="unreachable", error=str(e)[:200], runner="local")
         return cfg
     cand = [u for u in dict.fromkeys((site_recon.get("index_candidates") or []) + links(home, site, site))
             if not NOT_INDEX.search(urlparse(u).path) and not OUTSIDE.search(u) and (SALE.search(u) or RENT.search(u))]
@@ -121,17 +151,29 @@ def build(site_recon: dict, agency: dict) -> dict:
             continue
         for u in links(h, p, site):
             sh = shape(u)
-            if "{" in sh and not NOT_INDEX.search(urlparse(u).path):
+            if "{" in sh and not NOT_INDEX.search(urlparse(u).path) and not ASSET.search(u):
                 shapes[sh] += 1
                 examples.setdefault(sh, []).append(u)
                 if p != site:
                     found_on[kind].append(u)
-    if not shapes:
+    use_sitemap = False
+    if not shapes or shapes.most_common(1)[0][1] < 3:
+        # JS-rendered grids: the sitemap usually lists every listing URL.
+        sm_urls = sitemap_urls(f, site)
+        sm_shapes = Counter(shape(u) for u in sm_urls if "{" in shape(u) and not ASSET.search(u)
+                            and not NOT_INDEX.search(urlparse(u).path))
+        if sm_shapes and sm_shapes.most_common(1)[0][1] >= 3:
+            shapes, use_sitemap = sm_shapes, True
+            for u in sm_urls:
+                examples.setdefault(shape(u), []).append(u)
+    if not shapes or shapes.most_common(1)[0][1] < 3:
         cfg.update(status="no_listing_links", index_urls=index)
         return cfg
     sh, n = shapes.most_common(1)[0]
     cfg.update(index_urls={k: v for k, v in index.items() if v} or {"sale": [site]},
                listing_pattern=shape_regex(host, sh), listing_shape=sh, links_seen=n)
+    if use_sitemap:
+        cfg["index_source"] = "sitemap"
     samples = [u for u in examples[sh] if not OUTSIDE.search(u)][:2] or examples[sh][:2]
     hints = {u: k for k, v in found_on.items() for u in v}
     results = []
@@ -156,7 +198,11 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--name", action="append")
     ap.add_argument("--workers", type=int, default=6)
+    ap.add_argument("--redo", help="comma-separated statuses to rebuild, e.g. weak,no_listing_links")
     args = ap.parse_args()
+    if args.redo:
+        redo = set(args.redo.split(","))
+        args.name = [c["agency"] for c in json.loads((DATA / "site_configs.json").read_text()) if c["status"] in redo]
     logging.basicConfig(level=logging.WARNING)
     agencies = {a["name"]: a for a in json.loads((DATA / "agencies.json").read_text())}
     recon = [r for r in json.loads((DATA / "website_recon.json").read_text())

@@ -57,6 +57,9 @@ NOT_PERSON = re.compile(r"monaco|monte|carlo|real|estate|immobili|immeuble|r[ée
                         r"voir|view|send|envoyer|appeler|call|visite|visit|boulevard|avenue|rue|place|chambre|"
                         r"bedroom|salle|group|sam\b|sarl|luxury|prestige|international|properties|homes|"
                         r"privacy|cookie|mentions|conditions|terms|galerie|gallery", re.I)
+ROLE_WORDS = re.compile(r"\s+(?:Agent|Agente|Director|Directrice|Directeur|Manager|Consultant|Consultante|Associate|"
+                        r"Partner|Associ[ée]e?|N[ée]gociat(?:eur|rice)|Conseill[eè]re?|Founder|Fondat(?:eur|rice)|CEO|"
+                        r"Sales|Senior|Junior|Broker|Advisor|Assistant|Assistante|Gérant|Gérante)\b.*$")
 IMG_EXT = re.compile(r"\.(?:jpe?g|png|webp)(?:\?|$)", re.I)
 IMG_JUNK = re.compile(r"logo|icon|sprite|avatar|placeholder|flag|marker|pin\b|loader|blank|pixel|"
                       r"favicon|badge|banner|thumb[_-]?\d{2}\b|/wp-content/themes/", re.I)
@@ -203,7 +206,10 @@ def find_agent(b: BeautifulSoup, agency_phone: str | None, agency_name: str | No
                      if not NOT_PERSON.search(n) and not ({w.lower() for w in n.split()} & agency_words)]
             if not names:
                 continue
-            found = {"agent_name": names[0]}
+            name = ROLE_WORDS.sub("", names[0]).strip()
+            if len(name.split()) < 2:
+                continue
+            found = {"agent_name": name}
             for x in block.select('a[href^="tel:"]'):
                 d = re.sub(r"\D", "", x["href"])
                 if d and d[-8:] != agency_digits:
@@ -360,8 +366,15 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
 
 def crawl_index(f: PoliteFetcher, cfg: dict) -> list[dict]:
     """Every listing URL across the configured index pages, following
-    rel=next / numbered pagination within the same index path."""
+    rel=next / numbered pagination within the same index path — or, for
+    JS-rendered grids, every matching URL in the sitemap."""
     pattern = re.compile(cfg["listing_pattern"])
+    if cfg.get("index_source") == "sitemap":
+        from scraper.autoconfig import sitemap_urls
+        urls = [u for u in dict.fromkeys(sitemap_urls(f, cfg["website"], limit=20)) if pattern.search(u)]
+        if not urls:
+            raise RuntimeError("sitemap returned no listing URLs")  # never report an empty index as complete
+        return [{"source_url": u, "transaction_hint": None} for u in urls]
     max_pages = cfg.get("max_pages", 60)
     found: dict[str, dict] = {}
     for transaction, starts in (cfg.get("index_urls") or {}).items():
