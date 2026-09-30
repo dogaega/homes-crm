@@ -188,6 +188,40 @@ manual "contacted" marks per agency · review queue · publish toggle
 - No LLM needed: deterministic parsers + keyword rules (`scraper/text_rules.py`).
 - Daily entry point: `python -m scraper.daily [--mode light]`.
 
+### Agency websites (night of 2026-09-30)
+- The CSV's 255 names: 75 map to real agencies, 180 exist in neither the
+  official directory, CIM nor MCRE (invented names / dead domains / portals)
+  → `data/csv_mapping.json`. Real universe: ~185 agencies, 144 with a website.
+- `recon/recon_websites.py` → platform per site (Immotoolbox 40, WordPress 37,
+  custom 37, Immosoft 12, Zebrasoft 6, Apimo themes …).
+- One config-driven scraper for all sites: `scraper/generic.py` (JSON-LD,
+  FR/EN/IT/RU label pairs, agent cards, photos incl. JS galleries).
+  Configs drafted + scored by `scraper/autoconfig.py` → `data/site_configs.json`;
+  hand-written overrides in `data/site_configs_manual.json` (win per site_key).
+  `daily.py --only web` runs them 6 hosts at a time; a page is stored only if
+  it has a price (or on request) and a size.
+- Immotoolbox-powered sites reuse CIM listing ids → exact merge (`extra.cim_id`,
+  same agency only). Agency sites add listings absent from the portals
+  (e.g. Petrini: 76 of 102 site listings not on CIM).
+- Individual agents: most Monaco agency sites show only the agency contact;
+  captured where shown.
+- Not scrapable from the cloud server: SSL/WAF/reset sites have
+  `runner: local` (Mac): `python -m scraper.autoconfig --redo unreachable`
+  then `python -m scraper.daily --runner local` with SYNC_API_* set.
+  JS-only sites (Roc, Findr, Coletti, Heritage grid, PvN, Soma …) are
+  portal-only for now (`status: bad_config|no_listing_links` in configs).
+- Browser: `scraper/browser.py` (headless Chromium, same interface) for
+  `render: true` configs.
+
+### Loading tonight's data into production
+1. `npx wrangler d1 execute DB --remote --file worker/migrations/0006_listings_aggregator.sql`
+2. `npx wrangler deploy` (worker/), `wrangler secret put SYNC_API_TOKEN`
+3. `npx wrangler d1 execute DB --remote --file <export>.sql` — export made
+   with `python sync/export_d1.py <local.sqlite> <out.sql>` (owner agent is
+   resolved to production's oldest agent at import).
+4. Then call `POST /sync/gazetteer`, page through `/sync/regeo`,
+   `/sync/rematch-ids`, `/sync/rematch` once (repair passes are idempotent).
+
 ## Open items
 
 - Link/notes from the earlier cloud session that brainstormed the same prompt.
