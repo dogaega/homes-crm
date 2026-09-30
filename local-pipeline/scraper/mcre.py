@@ -46,6 +46,8 @@ TYPE_MAP = {
     "shop": "shop", "commercial": "shop", "retail": "shop", "warehouse": "warehouse",
     "storage": "warehouse", "parking space": "parking", "garage": "parking", "box": "parking",
     "cellar": "cellar", "business": "business", "land": "land", "building": "building",
+    "plot": "land", "maid room": "maid_room", "maid's room": "maid_room", "service room": "maid_room",
+    "parking": "parking", "commercial premises": "shop", "business premises": "shop",
 }
 
 

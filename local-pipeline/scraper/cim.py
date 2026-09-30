@@ -49,6 +49,9 @@ TYPE_MAP = {
     "boutique": "shop", "entrepot": "warehouse", "entrepôt": "warehouse", "dépôt": "warehouse",
     "parking": "parking", "box": "parking", "cave": "cellar", "fonds de commerce": "business",
     "droit au bail": "business", "hôtel particulier": "villa", "terrain": "land",
+    "garage": "parking", "loft": "apartment", "rez-de-jardin": "apartment", "chambre de service": "maid_room",
+    "local": "shop", "murs local commercial": "shop", "cessions de droit au bail": "business",
+    "penthouse/roof": "penthouse", "roof top": "penthouse", "rooftop": "penthouse",
 }
 
 
