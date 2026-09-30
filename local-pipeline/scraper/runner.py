@@ -25,7 +25,7 @@ DETAIL_REFRESH_DAYS = 7
 
 def run_site(f: PoliteFetcher, client, site_key: str, agency: dict,
              crawl_index: Callable[[], list[dict]],
-             parse_detail: Callable[[str, str], dict],
+             parse_detail: Callable[[str, str], dict | None],
              *, runner: str = "server", mode: str = "full", limit: int | None = None,
              heroes: bool = True) -> dict:
     from sync.worker_client import SiteRun
@@ -48,6 +48,8 @@ def run_site(f: PoliteFetcher, client, site_key: str, agency: dict,
                 for url in todo:
                     try:
                         listing = parse_detail(f.get(url), url)
+                        if listing is None:  # out of scope (e.g. outside Monaco)
+                            continue
                         res = run.push([listing])[0]
                         details += 1
                         if heroes and res.get("source_id") and not known.get(url, {}).get("has_hero"):

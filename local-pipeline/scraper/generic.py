@@ -52,7 +52,8 @@ AGENT_SECTION = re.compile(r"(votre\s+(?:contact|conseill[eè]re?|agent|interloc
                            r"consultant)|agent\s+in\s+charge|n[ée]gociat|contact\s+person|conseiller|consultant|"
                            r"property\s+advisor|responsable|agent\b|advisor|interlocuteur)", re.I)
 PERSON = re.compile(r"\b([A-ZÀ-Ý][a-zà-ÿ'’-]+(?:\s+(?:de|di|da|van|von|le|la|del)\b)?(?:\s+[A-ZÀ-Ý][A-Za-zà-ÿ'’-]+){1,2})\b")
-NOT_PERSON = re.compile(r"monaco|monte|carlo|real|estate|immobili|agence|agency|contact|propert|prix|price|"
+NOT_PERSON = re.compile(r"monaco|monte|carlo|real|estate|immobili|immeuble|r[ée]sidence|palace|palais|villa|"
+                        r"tower|park|agence|agency|contact|propert|prix|price|"
                         r"voir|view|send|envoyer|appeler|call|visite|visit|boulevard|avenue|rue|place|chambre|"
                         r"bedroom|salle|group|sam\b|sarl|luxury|prestige|international|properties|homes|"
                         r"privacy|cookie|mentions|conditions|terms|galerie|gallery", re.I)
@@ -194,6 +195,10 @@ def find_agent(b: BeautifulSoup, agency_phone: str | None, agency_name: str | No
                 break
             if not AGENT_SECTION.search(text) and not block.find(class_=re.compile(r"agent|nego|advisor|conseill|contact", re.I)):
                 continue
+            # The agency's own contact block (name + street address) is not an agent card.
+            if agency_words and len(agency_words & {w.lower() for w in re.findall(r"[A-Za-zÀ-ÿ]{3,}", text)}) >= 2 \
+                    and re.search(r"\b(avenue|boulevard|bd|rue|place|quai|all[ée]e|98000)\b", text, re.I):
+                continue
             names = [n for n in PERSON.findall(text)
                      if not NOT_PERSON.search(n) and not ({w.lower() for w in n.split()} & agency_words)]
             if not names:
@@ -247,12 +252,21 @@ def transaction_from(url: str, text: str, labels: dict) -> str | None:
     return None
 
 
-def parse_detail(html: str, url: str, cfg: dict, agency: dict) -> dict:
+NOISE = re.compile(r"similar|related|recommend|other-propert|autres|also-like|footer|cookie|newsletter|"
+                   r"menu|navbar|breadcrumb|modal|popup|share|social", re.I)
+ITB_ID = re.compile(r"/(\d{5,6})(?:[-_/]|$)")
+
+
+def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None = None) -> dict:
     b = soup(html)
-    for t in b(["script", "style", "noscript"]):
-        if t.get("type") != "application/ld+json":
-            t.decompose()
     ld = jsonld(b)
+    for t in b.find_all(["script", "style", "noscript", "header", "footer", "nav", "aside", "form"]):
+        if not t.decomposed:
+            t.decompose()
+    # "Similar properties" blocks would leak their bedrooms/prices into ours.
+    for t in b.find_all(True, attrs={"class": NOISE}):
+        if not t.decomposed and t.name not in ("body", "html", "main"):
+            t.decompose()
     labels = map_labels(label_pairs(b))
     text = b.get_text(" ", strip=True)
     ov = cfg.get("overrides") or {}
@@ -271,7 +285,7 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict) -> dict:
                         key=len, reverse=True)
         desc = clean(blocks[0]) if blocks and len(blocks[0]) > 150 else None
 
-    transaction = cfg.get("transaction_hint") or transaction_from(url, text, labels)
+    transaction = transaction_from(url, text, labels) or hint
     price_text = sel("price") or labels.get("rent_price") or labels.get("price")
     price = parse_number(price_text) if price_text else ld.get("price")
     if price is None:
@@ -330,7 +344,11 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict) -> dict:
         "agency_phone": agency.get("phone"),
         "agency_email": agency.get("email"),
         **{k: v for k, v in agent.items() if k in ("agent_name", "agent_phone", "agent_email", "agent_whatsapp")},
-        "extra": {"charges": parse_number(labels["charges"]) if labels.get("charges") else None},
+        "extra": {k: v for k, v in {
+            "charges": parse_number(labels["charges"]) if labels.get("charges") else None,
+            # Immotoolbox sites share the CIM portal's listing ids: exact merge key.
+            "cim_id": (ITB_ID.search(urlparse(url).path) or [None, None])[1] if cfg.get("immotoolbox") else None,
+        }.items() if v is not None},
     }
     if listing["external_ref"]:
         listing["external_ref"] = re.sub(r"^(?:r[ée]f(?:[ée]rence)?\.?|ref\.?)\s*[:#]?\s*", "",

@@ -21,8 +21,10 @@ USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.6 Safari/605.1.15",
 ]
-BLOCK_STATUS = {403, 429, 503}
-CHALLENGE_MARKERS = ("cf-challenge", "captcha", "Just a moment...", "Access denied")
+BLOCK_STATUS = {202, 403, 429, 503}  # 202: AWS WAF challenge page
+# Bot-wall pages only — a reCAPTCHA on a contact form is not a block.
+CHALLENGE_MARKERS = ("cf-challenge", "challenge-platform", "Just a moment...", "cf-browser-verification",
+                     "Attention Required! | Cloudflare", "px-captcha", "_Incapsula_Resource", "awswaf")
 
 
 class Blocked(RuntimeError):

@@ -21,7 +21,7 @@ from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from scraper import cim, mcre  # noqa: E402
+from scraper import cim, generic, mcre  # noqa: E402
 from scraper.fetch import PoliteFetcher  # noqa: E402
 from scraper.runner import run_site  # noqa: E402
 from sync.worker_client import WorkerClient  # noqa: E402
@@ -57,7 +57,38 @@ def family_mcre(client, mode: str, results: list, match=None) -> None:
                                 mcre.parse_detail, mode=mode))
 
 
-FAMILIES = {"cim": family_cim, "mcre": family_mcre}
+def web_site(client, mode: str, cfg: dict, agency: dict) -> dict:
+    from scraper.autoconfig import OUTSIDE
+    f = PoliteFetcher()
+    hints: dict[str, str] = {}
+
+    def index() -> list[dict]:
+        cards = [c for c in generic.crawl_index(f, cfg) if not OUTSIDE.search(c["source_url"])]
+        hints.update({c["source_url"]: c["transaction_hint"] for c in cards})
+        return cards
+
+    def detail(html: str, url: str) -> dict | None:
+        d = generic.parse_detail(html, url, cfg, agency, hint=hints.get(url))
+        if OUTSIDE.search(" ".join(str(d.get(k) or "") for k in ("title", "quarter"))) or not d.get("transaction_type"):
+            return None
+        return d
+
+    info = {k: agency[k] for k in ("name", "cim_slug", "website", "phone", "email", "address") if agency.get(k)}
+    return run_site(f, client, cfg["site_key"], info, index, detail, mode=mode, runner=cfg.get("runner", "server"))
+
+
+def family_web(client, mode: str, results: list, match=None) -> None:
+    """Every agency's own website with a usable config, 6 hosts at a time."""
+    from concurrent.futures import ThreadPoolExecutor
+    by_name = {a["name"]: a for a in agencies(None)}
+    cfgs = [c for c in json.loads((DATA / "site_configs.json").read_text())
+            if c.get("listing_pattern") and c.get("status") in ("ok", "weak", "verified")
+            and (not match or any(m.lower() in c["agency"].lower() for m in match))]
+    with ThreadPoolExecutor(max_workers=6) as ex:
+        results += list(ex.map(lambda c: web_site(client, mode, c, by_name.get(c["agency"], {"name": c["agency"]})), cfgs))
+
+
+FAMILIES = {"cim": family_cim, "mcre": family_mcre, "web": family_web}
 
 
 def main() -> None:

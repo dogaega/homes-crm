@@ -1,0 +1,3043 @@
+[
+ {
+  "name": "BC PROPERTIES MONACO",
+  "website": "https://bc-properties.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.bc-properties.com/property/2-bedroom-apartment-renovated-with-sea-view-3/",
+   "https://www.bc-properties.com/property/maids-room-with-sanitary-facilities/",
+   "https://www.bc-properties.com/property/magnificent-4-bedrooms-close-to-the-beaches/",
+   "https://www.bc-properties.com/property/spacious-2-piece-with-good-performance/",
+   "https://www.bc-properties.com/property/sumptuous-1-bedroom-apartment-decorated-with-elegance/",
+   "https://www.bc-properties.com/property/gorgeous-2-room-center/",
+   "https://www.bc-properties.com/property/very-nice-2-room-apartment-on-port-hercule/",
+   "https://www.bc-properties.com/property/stunning-fully-renovated-central-3-bedroom-apartment/",
+   "https://www.bc-properties.com/property/magnificent-3-room-apartment-on-the-port-of-monaco/",
+   "https://www.bc-properties.com/property/fully-renovated-studio/",
+   "https://www.bc-properties.com/property/magnificent-3-bedroom-renovated/",
+   "https://www.bc-properties.com/property/spacious-offices-carre-dor/",
+   "https://www.bc-properties.com/property/2-bedroom-apartment-new-residence-with-stunning-sea-view/",
+   "https://www.bc-properties.com/property/exceptional-triplex-with-panorama-of-monaco/",
+   "https://www.bc-properties.com/property/renovated-one-bedroom-apartment-bourgeois-building/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Petrini Exclusive Real Estate Monaco",
+  "website": "https://www.petrini.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.petrini.mc/fr/ventes/monaco/",
+   "https://www.petrini.mc/fr/ventes/monaco/t-4-duplex/",
+   "https://www.petrini.mc/fr/locations/monaco/q-21-mareterra/",
+   "https://www.petrini.mc/fr/ventes/monaco/t-1-appartements/",
+   "https://www.petrini.mc/fr/locations/monaco/",
+   "https://www.petrini.mc/fr/ventes/monaco/t-3-penthouses-roofs/",
+   "https://www.petrini.mc/fr/ventes/monaco/t-21-bureaux/",
+   "https://www.petrini.mc/fr/ventes/monaco/with-garden/",
+   "https://www.petrini.mc/fr/ventes/monaco/q-21-mareterra/",
+   "https://www.petrini.mc/fr/guide-d-achat.html",
+   "https://www.petrini.mc/fr/produit-vente/127426-riviera-palace-appartements-3-pieces/",
+   "https://www.petrini.mc/fr/produit-vente/127244-les-lierres-appartements-3-pieces/",
+   "https://www.petrini.mc/fr/produit-vente/124941-residence-saint-georges-appartements-2-pieces/",
+   "https://www.petrini.mc/fr/produit-vente/126978-palais-du-printemps-penthouses-roofs-4-pieces/",
+   "https://www.petrini.mc/fr/produit-vente/126977-tour-odeon-appartements-4-pieces/"
+  ],
+  "listing_samples": [
+   "https://www.petrini.mc/fr/locations/monaco/q-21-mareterra/",
+   "https://www.petrini.mc/fr/ventes/monaco/t-21-bureaux/",
+   "https://www.petrini.mc/fr/ventes/monaco/q-21-mareterra/",
+   "https://www.petrini.mc/fr/ventes/monaco/r-5-5-pieces/r-10-5-pieces/",
+   "https://www.petrini.mc/fr/locations/monaco/r-5-5-pieces/r-10-5-pieces/"
+  ],
+  "listing_links_seen": 5,
+  "agent_hint": true,
+  "detail_tel_links": 1,
+  "detail_mailto": 1,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "Barnes I Valeri Agency",
+  "website": "https://www.valeri-agency.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.valeri-agency.com/fr/ventes-residentielles",
+   "https://www.valeri-agency.com/fr/locations-residentielles",
+   "https://www.valeri-agency.com/fr/ventes/monaco/?type_offer%5B0%5D=1",
+   "https://www.valeri-agency.com/fr/ventes-commerciales",
+   "https://www.valeri-agency.com/fr/ventes-programmes-neufs",
+   "https://www.valeri-agency.com/fr/ventes-residentielles/t-24-parkings/t-25-garages/t-26-box/t-22-caves/t-30-autres-produits/t-31-immeubles/",
+   "https://www.valeri-agency.com/fr/locations-residentielles/monaco/",
+   "https://www.valeri-agency.com/fr/locations-commerciales",
+   "https://www.valeri-agency.com/fr/locations?type_offer=7",
+   "https://www.valeri-agency.com/fr/locations-residentielles/t-24-parkings/t-25-garages/t-26-box/t-22-caves/t-30-autres-produits/",
+   "https://www.valeri-agency.com/fr/ventes/monaco/",
+   "https://www.valeri-agency.com/fr/locations/monaco/",
+   "https://www.valeri-agency.com/fr/ventes-residentielles/monaco/",
+   "https://www.valeri-agency.com/fr/produit-vente/108159-fontvieille-parkings/",
+   "https://www.valeri-agency.com/fr/produit-vente/119145-chateau-perigord-appartements-4-pieces/"
+  ],
+  "listing_samples": [
+   "https://www.valeri-agency.com/fr/ventes/monaco/q-19-carre-d-or/q-8-monte-carlo/",
+   "https://www.valeri-agency.com/fr/ventes/monaco/q-15-condamine/q-18-port/",
+   "https://www.valeri-agency.com/fr/ventes/monaco/q-17-la-rousse-saint-roman/",
+   "https://www.valeri-agency.com/fr/ventes/monaco/q-21-anse-du-portier/",
+   "https://www.valeri-agency.com/fr/ventes/monaco/q-20-moneghetti/"
+  ],
+  "listing_links_seen": 10,
+  "agent_hint": false,
+  "detail_tel_links": 1,
+  "detail_mailto": 0,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "Carat Properties",
+  "website": "https://carat-properties.com/",
+  "ok": false,
+  "error": "https://carat-properties.com/: SSLError"
+ },
+ {
+  "name": "Miells Monaco Real Estate",
+  "website": "https://www.miells.com/",
+  "ok": false,
+  "error": "https://www.miells.com/: ConnectionError"
+ },
+ {
+  "name": "Viviani Champfleury Barco",
+  "website": "https://www.vcb.mc/",
+  "ok": true,
+  "platforms": [
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://vcb.mc/sales/",
+   "https://vcb.mc/rentals/",
+   "https://vcb.mc/life-in-monaco/monaco-property-statistics/",
+   "https://vcb.mc/all-properties/",
+   "https://vcb.mc/sales/for-sale/?id=a0E6N000000XJ1BUAW",
+   "https://vcb.mc/sales/for-sale/?id=a0E6g000006dPBMEA2",
+   "https://vcb.mc/sales/for-sale/?id=a0EMI0000000al32AA",
+   "https://vcb.mc/sales/for-sale/?id=a0E6g000000hBbfEAE",
+   "https://vcb.mc/sales/for-sale/?id=a0E6g000000hBh3EAE",
+   "https://vcb.mc/sales/for-sale/?id=a0EMI0000003aRx2AI",
+   "https://vcb.mc/sales/for-sale/?id=a0E6g0000011M4mEAE",
+   "https://vcb.mc/sales/for-sale/?id=a0E6g000003xCXmEAM",
+   "https://vcb.mc/sales/for-sale/?id=a0E6g000005ssKcEAI",
+   "https://vcb.mc/sales/for-sale/?id=a0E6N000004AFePUAW",
+   "https://vcb.mc/sales/for-sale/?id=a0E6g000000hBbnEAE"
+  ],
+  "listing_samples": [
+   "https://vcb.mc/bien/exceptional-penthouse-in-the-carre-dor-360-panoramic-view/"
+  ],
+  "listing_links_seen": 1,
+  "agent_hint": false,
+  "detail_tel_links": 0,
+  "detail_mailto": 0,
+  "jsonld_types": [
+   "BreadcrumbList",
+   "EntryPoint",
+   "ListItem",
+   "PropertyValueSpecification",
+   "ReadAction",
+   "SearchAction",
+   "WebPage",
+   "WebSite"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "Monaco Properties",
+  "website": "https://www.monacoproperties.mc/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "zebrasoft"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.monacoproperties.mc/build/static/monaco-properties4.webp",
+   "https://www.monacoproperties.mc/fr/ventes",
+   "https://www.monacoproperties.mc/fr/ventes/monaco/t-1-appartements/",
+   "https://www.monacoproperties.mc/fr/ventes/france/",
+   "https://www.monacoproperties.mc/fr/ventes/ventes-professionnelles/",
+   "https://www.monacoproperties.mc/fr/ventes/international/",
+   "https://www.monacoproperties.mc/fr/locations",
+   "https://www.monacoproperties.mc/fr/locations/monaco/t-1-appartements/",
+   "https://www.monacoproperties.mc/fr/locations/france/",
+   "https://www.monacoproperties.mc/fr/locations/locations-professionnelles/",
+   "https://www.monacoproperties.mc/fr/locations/locations-saisonnieres/",
+   "https://www.monacoproperties.mc/fr/blog-sur-l-immobilier-a-monaco.html",
+   "https://www.monacoproperties.mc/fr/actualites-immobilieres-monaco.html",
+   "https://www.monacoproperties.mc/fr/prix-et-statistiques-de-l-immobilier.html",
+   "https://www.monacoproperties.mc/fr/produit-vente/125539-cap-martin-villas/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Groupe S.M.I.R.",
+  "website": "https://www.groupesmir.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.groupesmir.com/fr/ventes-monaco",
+   "https://www.groupesmir.com/fr/ventes-monaco?searchNbPieces=1",
+   "https://www.groupesmir.com/fr/ventes-monaco?searchNbPieces=2",
+   "https://www.groupesmir.com/fr/ventes-monaco?searchNbPieces=3",
+   "https://www.groupesmir.com/fr/ventes-monaco?searchNbPieces=4",
+   "https://www.groupesmir.com/fr/ventes-monaco?searchNbPieces=5",
+   "https://www.groupesmir.com/fr/ventes-monaco?searchType=3",
+   "https://www.groupesmir.com/fr/ventes-monaco?searchType=6",
+   "https://www.groupesmir.com/fr/ventes-monaco?searchType=5",
+   "https://www.groupesmir.com/fr/locations-monaco",
+   "https://www.groupesmir.com/fr/locations-monaco?searchNbPieces=1",
+   "https://www.groupesmir.com/fr/locations-monaco?searchNbPieces=2",
+   "https://www.groupesmir.com/fr/locations-monaco?searchNbPieces=3",
+   "https://www.groupesmir.com/fr/locations-monaco?searchNbPieces=4",
+   "https://www.groupesmir.com/fr/locations-monaco?searchNbPieces=5"
+  ],
+  "listing_samples": [
+   "https://www.groupesmir.com/fr/detail/COM1fdc38b80dd333e9e9ee0126ef04f18d3",
+   "https://www.groupesmir.com/fr/detail/COM1fa40b66b120f58a9e0eee21fd3960f9e",
+   "https://www.groupesmir.com/fr/detail/COM1458d8838b2dc1eab74cc6f135ed7bfa3",
+   "https://www.groupesmir.com/fr/detail/sale/COM1b9aefa8726a1933d574dd800313e8a4b",
+   "https://www.groupesmir.com/fr/detail/COM1b9aefa8726a1933d574dd800313e8a4b"
+  ],
+  "listing_links_seen": 98,
+  "agent_hint": false,
+  "detail_tel_links": 0,
+  "detail_mailto": 4,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "Mazza Immobilier",
+  "website": "https://mazza-immobilier.com/",
+  "ok": false,
+  "error": "https://mazza-immobilier.com/: HTTP 200"
+ },
+ {
+  "name": "John Taylor",
+  "website": "https://www.john-taylor.mc/",
+  "ok": false,
+  "error": "https://www.john-taylor.mc/: HTTP 200"
+ },
+ {
+  "name": "Westrope Real Estate",
+  "website": "https://www.westrope-monaco.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "DAMENO | MONACO REAL ESTATE",
+  "website": "https://www.dameno.mc/",
+  "ok": true,
+  "platforms": [
+   "apimo",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://dameno.mc/fr/ventes-monaco/",
+   "https://dameno.mc/fr/ventes-france/",
+   "https://dameno.mc/fr/locations-monaco/",
+   "https://dameno.mc/fr/locations-france/",
+   "https://dameno.mc/fr/biens-commerciaux-a-monaco/",
+   "https://dameno.mc/fr/properties/2-pieces-en-vente-dans-le-palais-imperator/",
+   "https://dameno.mc/fr/properties/appartement-en-face-des-plage-a-rafraichir/",
+   "https://dameno.mc/fr/properties/superbe-2-chambres-renove-avec-vue-panoramique-residence-riviera-palace/",
+   "https://dameno.mc/fr/properties/murs-commerciaux-monaco-saint-roman/",
+   "https://dameno.mc/fr/properties/3-pieces-neuf-proche-du-carre-dor/",
+   "https://dameno.mc/fr/properties/le-stella-beau-2-pieces-duplex/",
+   "https://dameno.mc/fr/properties/a-vendre-villa-contemporaine-avec-vue-mer-panoramique/",
+   "https://dameno.mc/fr/properties/residence-de-luxe/",
+   "https://dameno.mc/fr/properties/vente-parking-la-rousse-saint-roman/",
+   "https://dameno.mc/fr/properties/4-pieces-a-vendre-a-beausoleil-avec-vue-mer-panoramique-piscine-et-deux-garages/"
+  ],
+  "listing_samples": [
+   "https://dameno.mc/fr/properties/ensemble-immobilier-professionnel-avec-terrain-de-2850-m2-a-cap-dail-aux-portes-de-monaco/"
+  ],
+  "listing_links_seen": 1,
+  "agent_hint": true,
+  "detail_tel_links": 2,
+  "detail_mailto": 1,
+  "jsonld_types": [
+   "BreadcrumbList",
+   "Country",
+   "EntryPoint",
+   "ImageObject",
+   "ListItem",
+   "LocalBusiness",
+   "Organization",
+   "PostalAddress"
+  ],
+  "sitemap": false
+ },
+ {
+  "name": "Lorenza von Stein Monaco",
+  "website": "https://www.lorenzavonstein.com/",
+  "ok": false,
+  "error": "https://www.lorenzavonstein.com/: HTTP 200"
+ },
+ {
+  "name": "A.I.B.B. Real Estate",
+  "website": "https://www.aibb.mc/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.aibb.mc/ventes-monaco",
+   "https://www.aibb.mc/ventes-monaco/residences",
+   "https://www.aibb.mc/ventes-monaco/bureaux",
+   "https://www.aibb.mc/locations-monaco",
+   "https://www.aibb.mc/locations-monaco/residences",
+   "https://www.aibb.mc/locations-monaco/bureaux",
+   "https://aibb.mc/accompagnement/achat-residence/",
+   "https://aibb.mc/accompagnement/location/",
+   "https://aibb.mc/accompagnement/immobilier-commercial/",
+   "https://aibb.mc/property-details/96976-appartement-la-rousse-saint-roman-monaco/",
+   "https://aibb.mc/property-details/82779-appartement-larvotto-monaco/",
+   "https://aibb.mc/property-details/121825-appartement-la-rousse-saint-roman-monaco/",
+   "https://aibb.mc/property-details/76853-appartement-monte-carlo-monaco/",
+   "https://aibb.mc/property-details/97600-appartement-la-rousse-saint-roman-monaco/",
+   "https://www.aibb.mc/propertysearch/?nsearch%5Btype%5D=sale&nsearch%5Bdistrict%5D%5B%5D=7"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Heritage Properties",
+  "website": "https://www.heritageproperties.mc/",
+  "ok": true,
+  "platforms": [
+   "colibri"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.heritageproperties.mc/fr/recherche/achat/grid",
+   "https://www.heritageproperties.mc/fr/recherche/location/grid",
+   "https://www.heritageproperties.mc/fr/a_louer/HP-LM0R1/métropole-grands-bureaux-de-plain-pied",
+   "https://www.heritageproperties.mc/fr/a_louer/HP-LM33/fontvieille-mercator-bureaux-administratifs",
+   "https://www.heritageproperties.mc/fr/recherche/achat/tbg_appartements/nbp_1/grid",
+   "https://www.heritageproperties.mc/fr/recherche/achat/tbg_appartements/nbp_2/grid",
+   "https://www.heritageproperties.mc/fr/recherche/achat/tbg_appartements/nbp_3/grid",
+   "https://www.heritageproperties.mc/fr/recherche/achat/tbg_appartements/nbp_4/grid",
+   "https://www.heritageproperties.mc/fr/recherche/achat/tbg_appartements/nbp_5/grid",
+   "https://www.heritageproperties.mc/fr/recherche/location/tbg_appartements/nbp_1/grid",
+   "https://www.heritageproperties.mc/fr/recherche/location/tbg_appartements/nbp_2/grid",
+   "https://www.heritageproperties.mc/fr/recherche/location/tbg_appartements/nbp_3/grid",
+   "https://www.heritageproperties.mc/fr/recherche/location/tbg_appartements/nbp_4/grid",
+   "https://www.heritageproperties.mc/fr/recherche/location/tbg_appartements/nbp_5/grid",
+   "https://www.heritageproperties.mc/fr/recherche/achat/v_carré-d-or/grid"
+  ],
+  "listing_samples": [
+   "https://www.heritageproperties.mc/medias_upload/biens/cache-b7e2dfa5adaf0f931d033ec30f332822_f714c551d0_1920-big.jpg.jpg",
+   "https://www.heritageproperties.mc/medias_upload/biens/cache-360f2720d79d06f5c7b46859b71901cb_99e55bea9d_1920-big.jpg.jpg",
+   "https://www.heritageproperties.mc/medias_upload/biens/cache-26e4e3103f08198cbb885ef58fa43c61_a02c82471a_1920-big.jpg.jpg",
+   "https://www.heritageproperties.mc/medias_upload/biens/cache-9f562e0b1f9a6b2712fdc1efbee909a7_befc00a1ff_1920-big.jpg.jpg",
+   "https://www.heritageproperties.mc/medias_upload/biens/cache-0001e3571ecffda49efabd52723165c1_2843839073_1920-big.jpg.jpg"
+  ],
+  "listing_links_seen": 13,
+  "agent_hint": false,
+  "detail_tel_links": 0,
+  "detail_mailto": 0,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "Caroline Olds Real Estate",
+  "website": "https://www.carolineolds.com/",
+  "ok": true,
+  "platforms": [
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://carolineolds.com/for-sale/",
+   "https://carolineolds.com/for-rent/",
+   "https://www.carolineolds.com/for-sale/",
+   "https://www.carolineolds.com/for-rent/"
+  ],
+  "listing_samples": [
+   "https://carolineolds.com/property/5850/"
+  ],
+  "listing_links_seen": 1,
+  "agent_hint": false,
+  "detail_tel_links": 2,
+  "detail_mailto": 1,
+  "jsonld_types": [
+   "BreadcrumbList",
+   "EntryPoint",
+   "ImageObject",
+   "ListItem",
+   "PropertyValue",
+   "PropertyValueSpecification",
+   "ReadAction",
+   "SearchAction"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "Exclusive Estate Monaco",
+  "website": "https://www.exclusive-estate.mc/",
+  "ok": false,
+  "error": "https://www.exclusive-estate.mc/: HTTP 200"
+ },
+ {
+  "name": "Agence Gramaglia",
+  "website": "https://www.gramaglia.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "La Costa Properties Monaco",
+  "website": "https://www.25lcp.com/",
+  "ok": false,
+  "error": "https://www.25lcp.com/: HTTP 202"
+ },
+ {
+  "name": "Marsan Immobilier Monaco",
+  "website": "https://www.marsanimmobiliermonaco.mc/",
+  "ok": true,
+  "platforms": [
+   "immosoft"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.marsanimmobiliermonaco.mc/fr/ventes-residentielles",
+   "https://www.marsanimmobiliermonaco.mc/fr/ventes-residentielles/monaco/",
+   "https://www.marsanimmobiliermonaco.mc/fr/ventes-residentielles/france/",
+   "https://www.marsanimmobiliermonaco.mc/fr/ventes-commerciales",
+   "https://www.marsanimmobiliermonaco.mc/fr/locations-residentielles",
+   "https://www.marsanimmobiliermonaco.mc/fr/locations-residentielles/monaco/",
+   "https://www.marsanimmobiliermonaco.mc/fr/locations-meubles/monaco/",
+   "https://www.marsanimmobiliermonaco.mc/fr/locations-saisonnieres",
+   "https://www.marsanimmobiliermonaco.mc/fr/locations-commerciales",
+   "https://www.marsanimmobiliermonaco.mc/fr/produit-vente/123118-park-palace-appartements-3-pieces/",
+   "https://www.marsanimmobiliermonaco.mc/fr/produit-location/122956-monte-carlo-view-appartements/",
+   "https://www.marsanimmobiliermonaco.mc/fr/produit-vente/123671-palais-belvedere-appartements-studios/",
+   "https://www.marsanimmobiliermonaco.mc/fr/produit-vente/123119-park-palace-appartements-3-pieces/",
+   "https://www.marsanimmobiliermonaco.mc/fr/ventes/monaco/q-21-anse-du-portier/",
+   "https://www.marsanimmobiliermonaco.mc/fr/ventes/monaco/q-19-carre-d-or/"
+  ],
+  "listing_samples": [
+   "https://www.marsanimmobiliermonaco.mc/fr/ventes/monaco/q-21-anse-du-portier/",
+   "https://www.marsanimmobiliermonaco.mc/fr/ventes/monaco/q-19-carre-d-or/",
+   "https://www.marsanimmobiliermonaco.mc/fr/ventes/monaco/q-15-condamine/",
+   "https://www.marsanimmobiliermonaco.mc/fr/ventes/monaco/q-17-la-rousse-saint-roman/",
+   "https://www.marsanimmobiliermonaco.mc/fr/ventes/monaco/q-20-moneghetti/"
+  ],
+  "listing_links_seen": 6,
+  "agent_hint": true,
+  "detail_tel_links": 1,
+  "detail_mailto": 4,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "Agence Gramaglia",
+  "website": "https://www.gramaglia.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "AFIM SAM",
+  "website": "https://www.afim.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.afim.mc/estimation+immobilier+monaco.html",
+   "https://www.afim.mc/vente-appartement.html",
+   "https://www.afim.mc/vente-appartement-studio.html",
+   "https://www.afim.mc/vente-appartement-2-pieces.html",
+   "https://www.afim.mc/vente-appartement-3-pieces.html",
+   "https://www.afim.mc/vente-appartement-4-pieces.html",
+   "https://www.afim.mc/vente-appartement-5p-pieces.html",
+   "https://www.afim.mc/immobilier+off+market-monaco.html",
+   "https://www.afim.mc/vente-villas+immeubles.html",
+   "https://www.afim.mc/immobilier-professionnel-vente.html",
+   "https://www.afim.mc/vente-parking,garage.html",
+   "https://www.afim.mc/location-appartement-studio.html",
+   "https://www.afim.mc/location-appartement-2-pieces.html",
+   "https://www.afim.mc/location-appartement-3-pieces.html",
+   "https://www.afim.mc/location-appartement-4-pieces.html"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Monte-Carlo Sotheby's International Realty",
+  "website": "https://www.montecarlo-sothebysrealty.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.montecarlo-sothebysrealty.com/fr/vente-appartement-monaco/&new_research=1",
+   "https://www.montecarlo-sothebysrealty.com/fr/style-de-vie-immobilier-luxe/",
+   "https://www.montecarlo-sothebysrealty.com/fr/location-appartement-monaco/&new_research=1",
+   "https://www.montecarlo-sothebysrealty.com/fr/reseau-immobilier-luxe/",
+   "https://www.montecarlo-sothebysrealty.com/fr/immobilier-luxe-monaco-monte-carlo/&new_research=1",
+   "https://www.montecarlo-sothebysrealty.com/fr/chambre-immobiliere/",
+   "https://www.montecarlo-sothebysrealty.com/fr/immobilier-luxe/",
+   "https://www.montecarlo-sothebysrealty.com/fr/agence-immobiliere-luxe-prestige-monaco/",
+   "https://www.montecarlo-sothebysrealty.com/fr/immobilier-luxe-monaco/ref-mc2-1135/vente-duplex-monaco-4-pieces-3-chambres-98000/",
+   "https://www.montecarlo-sothebysrealty.com/fr/immobilier-luxe-monaco/ref-mc2-1002/vente-appartement-monaco-4-pieces-3-chambres-98000/",
+   "https://www.montecarlo-sothebysrealty.com/fr/immobilier-luxe-monaco/ref-mc2-762/viager-appartement-monaco-4-pieces-2-chambres-98000/",
+   "https://www.montecarlo-sothebysrealty.com/fr/immobilier-luxe-monaco/ref-mc2-1142/vente-appartement-monaco-4-pieces-3-chambres-98000/",
+   "https://www.montecarlo-sothebysrealty.com/fr/immobilier-luxe-monaco/ref-mc2-937/vente-appartement-monaco-3-pieces-2-chambres-98000/",
+   "https://www.montecarlo-sothebysrealty.com/fr/immobilier-luxe-monaco/ref-mc2-1157/vente-appartement-monaco-3-pieces-2-chambres-98000/",
+   "https://www.montecarlo-sothebysrealty.com/fr/immobilier-luxe-monaco/ref-mc2-1058/vente-appartement-monaco-6-pieces-4-chambres-98000/"
+  ],
+  "listing_samples": [
+   "https://www.montecarlo-sothebysrealty.com/fr/actualites/details/324/carre-d-or/"
+  ],
+  "listing_links_seen": 1,
+  "agent_hint": false,
+  "detail_tel_links": 0,
+  "detail_mailto": 0,
+  "jsonld_types": [
+   "Article",
+   "Organization",
+   "WebPage"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "House & Co.",
+  "website": "https://www.houseandco.mc/",
+  "ok": false,
+  "error": "https://www.houseandco.mc/: SSLError"
+ },
+ {
+  "name": "Coldwell Banker Etic Realty",
+  "website": "https://www.eticimmobilier.com/",
+  "ok": true,
+  "platforms": [
+   "drupal"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.eticimmobilier.com/vente+immobilier.html",
+   "https://www.eticimmobilier.com/vente+immobilier+monaco+com98.html",
+   "https://www.eticimmobilier.com/annonces-vente-immobilier-france.html",
+   "https://www.eticimmobilier.com/location+immobilier.html",
+   "https://www.eticimmobilier.com/roquebrune-cap-martin+06+appartement+vente+r31344968.html",
+   "https://www.eticimmobilier.com/article-estimation-immobiliere.html",
+   "https://www.eticimmobilier.com/actualites/article-premiere-vente-en-co-agence-coldwell-banker-france-et-monaco.html",
+   "https://www.eticimmobilier.com/actualites/article-toute-la-force-d-un-groupe-immobilier-international.html",
+   "https://www.eticimmobilier.com/actualites/article-la-presse-en-parle-le-marche-immobilier-mone-gasque-au-premier-semestre-2023.html",
+   "https://www.eticimmobilier.com/actualites/article-un-partenariat-presse-avec-le-prestigieux-site-re-sidences-immobilier.html",
+   "https://www.eticimmobilier.com/actualites/article-bienvenue-a-sadie-ely-notre-nouvelle-ne-gociatrice-immobiliere.html",
+   "https://www.eticimmobilier.com/actualites/article-une-nouvelle-vente-immobiliere-re-alise-e-par-l-agence.html",
+   "https://www.eticimmobilier.com/vente+appartement-studio-loft.html",
+   "https://www.eticimmobilier.com/vente+boutiques-commerces-murs-commerciaux.html",
+   "https://www.eticimmobilier.com/vente+bureaux-et-locaux-professionnels.html"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "Caroli Real Estate",
+  "website": "https://www.caroli-realestate.com/",
+  "ok": true,
+  "platforms": [
+   "immosoft",
+   "immotoolbox"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.caroli-realestate.com/fr/gestion-immobiliere.html",
+   "https://www.caroli-realestate.com/fr/guide-d-achat.html",
+   "https://www.caroli-realestate.com/fr/guide-de-vente.html",
+   "https://www.caroli-realestate.com/fr/guide-de-location.html"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "AAA Monaco Town & Sea Immobilier",
+  "website": "https://www.town-sea.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "zebrasoft"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.town-sea.com/fr/ventes/",
+   "https://www.town-sea.com/fr/ventes-monaco/",
+   "https://www.town-sea.com/fr/ventes-france/",
+   "https://www.town-sea.com/fr/locations/",
+   "https://www.town-sea.com/fr/locations-monaco/",
+   "https://www.town-sea.com/fr/locations-france/",
+   "https://www.town-sea.com/fr/pages/chambre-immobiliere.html",
+   "https://www.town-sea.com/fr/pages/estimation-immobiliere-monaco.html",
+   "https://www.town-sea.com/fr/produit/112676-location-monaco-parking-a-la-location-dans-le-centre-de-monaco-en-plein-c%C5%93ur-du-carre-d-or-%28sous-offre%29",
+   "https://www.town-sea.com/fr/produit/108342-vente-chalet-a-la-vente-limone-piemonte",
+   "https://www.town-sea.com/fr/produit/115129-vente-monaco-joyau-immobilier-au-coeur-du-larvotto",
+   "https://www.town-sea.com/fr/produit/125938-vente-monaco-magnifique-appartement-traversant-4-pieces",
+   "https://www.town-sea.com/fr/produit/93378-vente-monaco-exceptionnel-appartement-de-luxe",
+   "https://www.town-sea.com/fr/produit/106841-vente-monaco-box-disponible-a-la-vente-prince-de-galles"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "PRIME Estate",
+  "website": "https://prime-estate.mc/",
+  "ok": true,
+  "platforms": [
+   "wp-houzez",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "FCF Cristea-Flandrin Immobilier",
+  "website": "https://www.fcfrealestate.com/",
+  "ok": true,
+  "platforms": [
+   "immosoft",
+   "immotoolbox"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.fcfrealestate.com/fr/produit-vente/127347-patio-palace-appartements-studios/",
+   "https://www.fcfrealestate.com/fr/produit-vente/127283-eden-park-appartements-2-pieces/",
+   "https://www.fcfrealestate.com/fr/produit-location/125750-monte-carlo-palace-parkings/",
+   "https://www.fcfrealestate.com/fr/produit-location/125026-les-industries-locaux/",
+   "https://www.fcfrealestate.com/fr/produit-vente/125527-chateau-perigord-ii-appartements-studios/",
+   "https://www.fcfrealestate.com/fr/produit-location/124934-chateau-perigord-ii-appartements-studios/",
+   "https://www.fcfrealestate.com/fr/produit-vente/123682-beverly-palace-bloc-a-appartements-3-pieces/",
+   "https://www.fcfrealestate.com/fr/produit-vente/111717-park-palace-appartements-studios/",
+   "https://www.fcfrealestate.com/fr/produit-vente/73466-seaside-plaza-appartements-3-pieces/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Dotta Immobilier",
+  "website": "https://www.dotta.mc/",
+  "ok": true,
+  "platforms": [
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.dotta.mc/monaco/vente/",
+   "https://www.dotta.mc/cote-d-azur/vente/",
+   "https://www.dotta.mc/retail-vente/",
+   "https://www.dotta.mc/monaco/location/",
+   "https://www.dotta.mc/cote-d-azur/location/",
+   "https://www.dotta.mc/retail-location/",
+   "https://www.dotta.mc/cote-d-azur/vente/vf2544/villa-a-vendre-peille-peille/",
+   "https://www.dotta.mc/monaco/location/lm2531/appartement-de-2-pieces-a-louer-le-stella-la-condamine-monaco/",
+   "https://www.dotta.mc/monaco/vente/vm2528/appartement-de-3-pieces-a-vendre-beau-rivage-la-condamine-monaco/",
+   "https://www.dotta.mc/monaco/vente/vm2515/appartement-de-3-pieces-a-vendre-park-palace-monte-carlo-monaco/",
+   "https://www.dotta.mc/monaco/location/lm1421/studio-a-louer-chateau-d-azur-larvotto-monaco/"
+  ],
+  "listing_samples": [
+   "https://www.dotta.mc/cote-d-azur/vente/vf2544/villa-a-vendre-peille-peille/",
+   "https://www.dotta.mc/monaco/location/lm2531/appartement-de-2-pieces-a-louer-le-stella-la-condamine-monaco/",
+   "https://www.dotta.mc/monaco/vente/vm2528/appartement-de-3-pieces-a-vendre-beau-rivage-la-condamine-monaco/",
+   "https://www.dotta.mc/monaco/vente/vm2515/appartement-de-3-pieces-a-vendre-park-palace-monte-carlo-monaco/",
+   "https://www.dotta.mc/monaco/location/lm1421/studio-a-louer-chateau-d-azur-larvotto-monaco/"
+  ],
+  "listing_links_seen": 5,
+  "agent_hint": false,
+  "detail_tel_links": 0,
+  "detail_mailto": 0,
+  "jsonld_types": [
+   "BreadcrumbList",
+   "EntryPoint",
+   "ListItem",
+   "PropertyValueSpecification",
+   "ReadAction",
+   "SearchAction",
+   "WebPage",
+   "WebSite"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "Volumes",
+  "website": "https://www.volumes.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "MyCrown Estates",
+  "website": "https://www.mycrownestates.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.mycrownestates.mc/blog/7-criteres-concrets-pour-choisir-la-meilleure-agence-immobiliere-a-monaco",
+   "https://www.mycrownestates.mc/blog/decryptage-du-marche-des-ventes-en-principaute",
+   "https://www.mycrownestates.mc/blog/impact-des-grands-evenements-sur-l-immobilier-monegasque"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Agence Nouvelle",
+  "website": "https://www.agencenouvellemonaco.com/",
+  "ok": true,
+  "platforms": [
+   "colibri"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.agencenouvellemonaco.com/fr/ventes/grid",
+   "https://www.agencenouvellemonaco.com/fr/locations/grid",
+   "https://www.agencenouvellemonaco.com/fr/bien/127057/patio-palace-cave-a-louer"
+  ],
+  "listing_samples": [
+   "https://www.agencenouvellemonaco.com/fr/bien/127306/nouveaute-exclusivite-grande-cave-quartier-de-la-condamine",
+   "https://www.agencenouvellemonaco.com/fr/bien/127057/patio-palace-cave-a-louer",
+   "https://www.agencenouvellemonaco.com/fr/bien/126515/nouveaute-beausoleil-3-pieces-quartier-gare-de-monaco",
+   "https://www.agencenouvellemonaco.com/fr/bien/125704/nouveaute-villa-ariane-résidence-d-exception-3-pieces",
+   "https://www.agencenouvellemonaco.com/fr/bien/127413/nouveaute-villa-ariane-résidence-d-exception-3-pieces"
+  ],
+  "listing_links_seen": 5,
+  "agent_hint": false,
+  "detail_tel_links": 0,
+  "detail_mailto": 0,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "Segond Immobilier",
+  "website": "https://www.segond-immobilier.com/",
+  "ok": true,
+  "platforms": [
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.segond-immobilier.com/statut/vente/",
+   "https://www.segond-immobilier.com/statut/location/",
+   "https://www.segond-immobilier.com/tous-nos-biens/location-exclusivite-rare-opportunite-carre-dor-residence-dexception-monaco/",
+   "https://www.segond-immobilier.com/tous-nos-biens/vente-exclusivite-appartement-dangle-3-pieces-residence-belle-epoque-villa-ninetta-moneghetti-monaco/",
+   "https://www.segond-immobilier.com/tous-nos-biens/location-exclusivite-3-pieces-avec-parking-dans-residence-avec-piscine-monaco/",
+   "https://www.segond-immobilier.com/tous-nos-biens/",
+   "https://www.segond-immobilier.com/tous-nos-biens/grand-appartement-lumineux-avec-parking-a-la-condamine/",
+   "https://www.segond-immobilier.com/le-groupe-segond-immobilier-un-acteur-de-reference-pour-toute-transaction-a-monaco/",
+   "https://www.segond-immobilier.com/wp-content/uploads/2024/12/segond-immobilier-article-forbes-2-1024x682.jpg",
+   "https://www.segond-immobilier.com/location-appartement-sous-loi-monaco/",
+   "https://www.segond-immobilier.com/wp-content/uploads/2023/10/Segond-Immobilier-Optimise-web-14-1024x683.jpg",
+   "https://www.segond-immobilier.com/la-chambre-immobiliere-monegasque-pilier-de-limmobilier-a-monaco/",
+   "https://www.segond-immobilier.com/wp-content/uploads/2023/06/CIM-chambre-immobiliere-monaco-1024x576.jpg"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Coletti Real Estate",
+  "website": "https://www.colettirealestate.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://colettirealestate.com/properties-for-sale-monaco/",
+   "https://colettirealestate.com/apartments-for-rent-monaco/",
+   "https://colettirealestate.com/bien/luxury-offices-for-rent-in-fontvieille/",
+   "https://colettirealestate.com/bien/sunny-2-bedrooms-to-rent-with-port-view-at-the-zodiaque/",
+   "https://colettirealestate.com/properties-for-sale-monaco/?district_name=mareterra-anse-du-portier",
+   "https://colettirealestate.com/properties-for-sale-monaco/?district_name=moneghetti",
+   "https://colettirealestate.com/properties-for-sale-monaco/?district_name=port-hercule-condamine",
+   "https://colettirealestate.com/properties-for-sale-monaco/?district_name=larvotto",
+   "https://colettirealestate.com/properties-for-sale-monaco/?district_name=monaco-ville",
+   "https://colettirealestate.com/properties-for-sale-monaco/?district_name=la-rousse-saint-roman",
+   "https://colettirealestate.com/properties-for-sale-monaco/?district_name=monte-carlo",
+   "https://colettirealestate.com/properties-for-sale-monaco/?district_name=carre-d-or",
+   "https://colettirealestate.com/properties-for-sale-monaco/?district_name=fontvieille",
+   "https://colettirealestate.com/properties-for-sale-monaco/?district_name=jardin-exotique",
+   "https://colettirealestate.com/how-to-finance-a-property-purchase-in-monaco/"
+  ],
+  "listing_samples": [
+   "https://colettirealestate.com/ru/bien/%d1%80%d0%be%d1%81%d0%ba%d0%be%d1%88%d0%bd%d1%8b%d0%b5-%d0%be%d1%84%d0%b8%d1%81%d1%8b-%d0%b4%d0%bb%d1%8f-%d0%b0%d1%80%d0%b5%d0%bd%d0%b4%d1%8b-%d0%b2-%d1%84%d0%be%d0%bd%d0%b2%d1%8c%d0%b5%d0%b9/",
+   "https://colettirealestate.com/wp-json/wp/v2/property/90887"
+  ],
+  "listing_links_seen": 2,
+  "agent_hint": false,
+  "detail_tel_links": 1,
+  "detail_mailto": 0,
+  "jsonld_types": [
+   "BreadcrumbList",
+   "ListItem"
+  ],
+  "sitemap": false
+ },
+ {
+  "name": "WOLF ESTATES",
+  "website": "https://wolf-estates.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://wolf-estates.com/properties/",
+   "https://wolf-estates.com/properties/charming-apartment-at-villa-milton-steps-from-casino-square/",
+   "https://wolf-estates.com/properties/sumptuous-5-bedroom-apartment-for-rent-carre-dor-petite-afrique/",
+   "https://wolf-estates.com/properties/elegant-high-floor-residence-in-the-prestigious-one-monte-carlo/",
+   "https://wolf-estates.com/guide-to-renting-property-in-monaco/",
+   "https://wolf-estates.com/guide-to-buying-property-in-monaco/"
+  ],
+  "listing_samples": [
+   "https://wolf-estates.com/properties/beautiful-renovated-villa-15-minutes-from-monaco/"
+  ],
+  "listing_links_seen": 1,
+  "agent_hint": false,
+  "detail_tel_links": 1,
+  "detail_mailto": 0,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "Magrey And Sons Monaco",
+  "website": "https://www.magreymonaco.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.magreymonaco.com/sale-apartment-monaco-port-a33.html"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "Intermedia",
+  "website": "https://www.intermedia.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.intermedia.mc/estimation+immobilier+monaco.html",
+   "https://www.intermedia.mc/vente-appartement,maison-monaco.html",
+   "https://www.intermedia.mc/location+vacances,location-appartement,maison-monaco.html",
+   "https://www.intermedia.mc/autres+biens-monaco.html",
+   "https://www.intermedia.mc/vente-appartement,maison-international.html",
+   "https://www.intermedia.mc/location+vacances,location-appartement,maison-international.html",
+   "https://www.intermedia.mc/autres+biens-international.html",
+   "https://www.intermedia.mc/agence-immobiliere-monaco.html",
+   "https://www.intermedia.mc/conseils-immobilier-monaco.html",
+   "https://www.intermedia.mc/vente-appartement-studio-monaco-condamine-1-1029v50a.html",
+   "https://www.intermedia.mc/vente-appartement-monaco-carre-d-or-1-1029v48a.html",
+   "https://www.intermedia.mc/vente-appartement-monaco-la-rousse-&amp;-saint-roman-1-1029v47a.html",
+   "https://www.intermedia.mc/vente-appartement-2-pieces-monaco-la-rousse-&amp;-saint-roman-1-1029v45a.html",
+   "https://www.intermedia.mc/vente-maison-13-chambres-marbella-1-1029v15m.html",
+   "https://www.intermedia.mc/immobilier-monaco-la+rousse+&amp;+saint+roman.html"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "SL AGENCY",
+  "website": "https://www.slamonaco.com/",
+  "ok": false,
+  "error": "https://www.slamonaco.com/: HTTP 200"
+ },
+ {
+  "name": "Icon Property",
+  "website": "https://www.icon-property.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.icon-property.com/wp-content/themes/jl-iconproperty/images/favicons/apple-touch-icon.png",
+   "https://www.icon-property.com/wp-content/themes/jl-iconproperty/images/favicons/favicon-32x32.png",
+   "https://www.icon-property.com/wp-content/themes/jl-iconproperty/images/favicons/favicon-16x16.png",
+   "https://www.icon-property.com/sales/",
+   "https://www.icon-property.com/sales/houses/",
+   "https://www.icon-property.com/sales/apartments/",
+   "https://www.icon-property.com/rentals/",
+   "https://www.icon-property.com/rentals/houses/",
+   "https://www.icon-property.com/rentals/apartments/",
+   "https://www.icon-property.com/off-market-properties-in-monaco/",
+   "https://www.icon-property.com/property/125101-apartment-port-monaco/",
+   "https://www.icon-property.com/property/112416-apartment-fontvieille-monaco/",
+   "https://www.icon-property.com/property/109443-apartment-fontvieille-monaco/",
+   "https://www.icon-property.com/property/125272-villa-cannes-france/",
+   "https://www.icon-property.com/property/104772-apartment-carre-dor-monaco/"
+  ],
+  "listing_samples": [
+   "https://www.icon-property.com/property/125101-apartment-port-monaco/",
+   "https://www.icon-property.com/property/112416-apartment-fontvieille-monaco/",
+   "https://www.icon-property.com/property/109443-apartment-fontvieille-monaco/",
+   "https://www.icon-property.com/property/125272-villa-cannes-france/",
+   "https://www.icon-property.com/property/104772-apartment-carre-dor-monaco/"
+  ],
+  "listing_links_seen": 14,
+  "agent_hint": false,
+  "detail_tel_links": 1,
+  "detail_mailto": 0,
+  "jsonld_types": [
+   "BreadcrumbList",
+   "EntryPoint",
+   "ImageObject",
+   "ListItem",
+   "Organization",
+   "PropertyValueSpecification",
+   "ReadAction",
+   "SearchAction"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "AGEPRIM",
+  "website": "https://www.ageprim.com/",
+  "ok": false,
+  "error": "https://www.ageprim.com/: HTTP 202"
+ },
+ {
+  "name": "Monaco Legend Properties",
+  "website": "https://monacolegendproperties.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://monacolegendproperties.com/sale/",
+   "https://monacolegendproperties.com/sale/apartments/",
+   "https://monacolegendproperties.com/sale/cellars/",
+   "https://monacolegendproperties.com/sale/villas/",
+   "https://monacolegendproperties.com/sale/parking/",
+   "https://monacolegendproperties.com/rental/",
+   "https://monacolegendproperties.com/rental/apartments/",
+   "https://monacolegendproperties.com/rental/parkings/",
+   "https://monacolegendproperties.com/rental/?prestation=luxury_rentals",
+   "https://monacolegendproperties.com/property/105641-duplex-condamine-monaco/",
+   "https://monacolegendproperties.com/property/105638-apartment-condamine-monaco/",
+   "https://monacolegendproperties.com/property/122806-apartment-monte-carlo-monaco/"
+  ],
+  "listing_samples": [
+   "https://monacolegendproperties.com/property/105641-duplex-condamine-monaco/",
+   "https://monacolegendproperties.com/property/105638-apartment-condamine-monaco/",
+   "https://monacolegendproperties.com/property/122806-apartment-monte-carlo-monaco/",
+   "https://monacolegendproperties.com/property/86910-penthouse-roof-carre-dor-monaco/",
+   "https://monacolegendproperties.com/property/124640-parking-la-rousse-saint-roman-monaco/"
+  ],
+  "listing_links_seen": 23,
+  "agent_hint": false,
+  "detail_tel_links": 1,
+  "detail_mailto": 1,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "Faggionato Real Estate",
+  "website": "https://www.faggionatoimmo.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "Agence Continentale",
+  "website": "https://www.continentale.mc/",
+  "ok": true,
+  "platforms": [
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://continentale.mc/bien_a/acheter/",
+   "https://continentale.mc/bien_a/louer/",
+   "https://continentale.mc/bien_immobilier/grand-studio-renove-avec-coin-nuit-en-vente-a-la-rousse-saint-roman-monaco-monaco-refst-2pv_psr_terrasse/",
+   "https://continentale.mc/bien_immobilier/design-et-confort-sublime-2-pieces-renove-en-vente-a-la-rousse-saint-roman-monaco-monaco-ref2pv_terrasses_parc-saint-roman/",
+   "https://continentale.mc/bien_immobilier/confort-et-elegance-a-la-place-des-moulins-en-vente-a-monte-carlo-monaco-monaco-refstd_continentale/",
+   "https://continentale.mc/bien_immobilier/2-pieces-moderne-en-duplex-au-stella-en-vente-a-condamine-monaco-monaco-ref2p_stella/",
+   "https://continentale.mc/bien_immobilier/luxueux-2-pieces-avec-vue-exceptionnelle-en-vente-a-monte-carlo-monaco-monaco-ref2pv_millefiori_/",
+   "https://continentale.mc/bien_immobilier/sous-offre-elegant-2-pieces-renove-dans-immeuble-bourgeois-en-vente-a-condamine-monaco-monaco-ref2pv_villa_bellevue/",
+   "https://continentale.mc/bien_immobilier/full-floor-apartment-one-monte-carlo-en-location-a-carre-dor-monaco-monaco-ref2pl_one-b10/",
+   "https://continentale.mc/bien_immobilier/rare-2-pieces-avec-prestations-luxueuses-en-location-a-carre-dor-monaco-monaco-ref2pl_sun-tower/",
+   "https://continentale.mc/bien_immobilier/one-monte-carlo-ladresse-la-plus-convoitee-du-carre-dor-en-location-a-carre-dor-monaco-monaco-ref4pl_one_4bed_3e-et-4e_c3/",
+   "https://continentale.mc/bien_immobilier/one-monte-carlo-symbole-du-raffinement-au-carre-dor-en-location-a-carre-dor-monaco-monaco-ref4pl_one_4bed_9-10e_b12/",
+   "https://continentale.mc/bien_immobilier/one-monte-carlo-luxe-et-discretion-au-carre-dor-en-location-a-carre-dor-monaco-monaco-ref5pl_one_e3/",
+   "https://www.continentale.mc/bien-immobilier",
+   "https://continentale.mc/bien_immobilier/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "Stars Real Estate",
+  "website": "https://www.stars-real-estate.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.stars-real-estate.com/fr/ventes",
+   "https://www.stars-real-estate.com/fr/locations",
+   "https://www.stars-real-estate.com/fr/locations/106948-villa-des-garets-appartements-4-pieces/",
+   "https://www.stars-real-estate.com/fr/locations/123740-condamine-locaux/",
+   "https://www.stars-real-estate.com/fr/ventes/126736-roquebrune-cap-martin-villas-5-pieces/",
+   "https://www.stars-real-estate.com/fr/ventes/126722-monte-carlo-star-appartements-studios/",
+   "https://www.stars-real-estate.com/fr/ventes/122097-seaside-plaza-appartements-3-pieces/",
+   "https://www.stars-real-estate.com/fr/locations/125846-cap-d-ail-appartements-2-pieces/",
+   "https://www.stars-real-estate.com/fr/ventes/114265-beausoleil-superieur-villas/",
+   "https://www.stars-real-estate.com/fr/locations/100308-le-metropole-appartements-5-pieces/",
+   "https://www.stars-real-estate.com/fr/ventes/108539-le-renzo-appartements-4-pieces/",
+   "https://www.stars-real-estate.com/fr/ventes/116802-sardanapale-appartements-2-pieces/"
+  ],
+  "listing_samples": [
+   "https://www.stars-real-estate.com/fr/locations/106948-villa-des-garets-appartements-4-pieces/",
+   "https://www.stars-real-estate.com/fr/locations/123740-condamine-locaux/",
+   "https://www.stars-real-estate.com/fr/ventes/126736-roquebrune-cap-martin-villas-5-pieces/",
+   "https://www.stars-real-estate.com/fr/ventes/126722-monte-carlo-star-appartements-studios/",
+   "https://www.stars-real-estate.com/fr/ventes/122097-seaside-plaza-appartements-3-pieces/"
+  ],
+  "listing_links_seen": 10,
+  "agent_hint": false,
+  "detail_tel_links": 2,
+  "detail_mailto": 1,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "LIFE PROPERTIES",
+  "website": "https://www.lifeproperties.mc/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "webflow"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.lifeproperties.mc/properties",
+   "https://www.lifeproperties.mc/properties?category=rental",
+   "https://www.lifeproperties.mc/properties?category=sale",
+   "https://www.lifeproperties.mc/articles/buying-the-property-a-strategic-decision",
+   "https://www.lifeproperties.mc/articles/how-does-a-property-purchase-in-monaco-work-the-key-steps",
+   "https://www.lifeproperties.mc/articles/buying-in-monaco-beyond-the-property-a-strategic-decision"
+  ],
+  "listing_samples": [
+   "https://www.lifeproperties.mc/properties/private-offices-mercator-office-fontvieille-127392",
+   "https://www.lifeproperties.mc/properties/off-market-3-bedroom-apartment-condamine-126627",
+   "https://www.lifeproperties.mc/properties/spacious-offices-monaco-127274",
+   "https://www.lifeproperties.mc/properties/5-room-apartment-metropolis-residence-carre-dor-127278",
+   "https://www.lifeproperties.mc/properties/2-bedroom-apartment-monaco-city-125705"
+  ],
+  "listing_links_seen": 29,
+  "agent_hint": false,
+  "detail_tel_links": 1,
+  "detail_mailto": 1,
+  "jsonld_types": [
+   "Offer",
+   "Product",
+   "PropertyValue"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "Wolzok Immobilier",
+  "website": "https://www.wolzok.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.wolzok.com/fr/ventes/                        ",
+   "https://www.wolzok.com/fr/locations/                        "
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "Real Estate Monte Carlo",
+  "website": "https://www.realestatemontecarlo.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.realestatemontecarlo.mc/fr/offers/rent?rent=true",
+   "https://www.realestatemontecarlo.mc/fr/helpyou/rent",
+   "https://www.realestatemontecarlo.mc/fr/helpyou/buy"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "Monte-Carlo Transactions",
+  "website": "https://www.montecarlotransactions.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://montecarlotransactions.com/propertysearch/",
+   "https://montecarlotransactions.com/property/68537-appartement-la-rousse-saint-roman-monaco/",
+   "https://montecarlotransactions.com/property/127395-parking-carre-dor-monaco/",
+   "https://montecarlotransactions.com/property/127397-parking-carre-dor-monaco/",
+   "https://www.montecarlotransactions.com/propertysearch/?nsearch%5Btype%5D=sale&amp;nsearch%5Bdistrict%5D=&amp;nsearch%5Brooms%5D=&amp;nsearch%5Bprice%5D=",
+   "https://www.montecarlotransactions.com/propertysearch/?nsearch%5Btype%5D=rental&amp;nsearch%5Bdistrict%5D=&amp;nsearch%5Brooms%5D=&amp;nsearch%5Bprice%5D="
+  ],
+  "listing_samples": [
+   "https://montecarlotransactions.com/property/68537-appartement-la-rousse-saint-roman-monaco/",
+   "https://montecarlotransactions.com/property/127395-parking-carre-dor-monaco/",
+   "https://montecarlotransactions.com/property/127397-parking-carre-dor-monaco/",
+   "https://montecarlotransactions.com/property/61693-chambre-de-service-la-rousse-saint-roman-monaco/",
+   "https://montecarlotransactions.com/property/122098-parking-carre-dor-monaco/"
+  ],
+  "listing_links_seen": 19,
+  "agent_hint": false,
+  "detail_tel_links": 2,
+  "detail_mailto": 1,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "Harroch Real Estate Monaco",
+  "website": "https://www.harrochrealestate.com/",
+  "ok": true,
+  "platforms": [
+   "wp-houzez",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "BALDO REALTY GROUP",
+  "website": "https://www.baldorealtygroup.com/",
+  "ok": true,
+  "platforms": [
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://baldorealtygroup.com/search-property/",
+   "https://baldorealtygroup.com/property/nh0043/",
+   "https://baldorealtygroup.com/property/mp0035/",
+   "https://baldorealtygroup.com/property/rc0016-3/",
+   "https://baldorealtygroup.com/property/nh0026/",
+   "https://baldorealtygroup.com/property/le-renzo-monacos-flagship-residence-on-the-mareterra-seafront/",
+   "https://baldorealtygroup.com/monaco-real-estate-buying-guide/",
+   "https://baldorealtygroup.com/search-property/?location%5B%5D=monte-carlo-carre-dor",
+   "https://baldorealtygroup.com/search-property/?location%5B%5D=larvotto",
+   "https://baldorealtygroup.com/search-property/?location%5B%5D=mareterra",
+   "https://baldorealtygroup.com/search-property/?location%5B%5D=fontvieille",
+   "https://baldorealtygroup.com/search-property/?location%5B%5D=la-condamine",
+   "https://baldorealtygroup.com/search-property/?location%5B%5D=monaco-ville",
+   "https://baldorealtygroup.com/search-property/?location%5B%5D=moneghetti",
+   "https://baldorealtygroup.com/search-property/?location%5B%5D=jardin-exotique"
+  ],
+  "listing_samples": [
+   "https://baldorealtygroup.com/property/nh0043/",
+   "https://baldorealtygroup.com/property/mp0035/",
+   "https://baldorealtygroup.com/property/rc0016-3/",
+   "https://baldorealtygroup.com/property/nh0026/",
+   "https://baldorealtygroup.com/property/mb0136/"
+  ],
+  "listing_links_seen": 16,
+  "agent_hint": false,
+  "detail_tel_links": 1,
+  "detail_mailto": 3,
+  "jsonld_types": [
+   "BreadcrumbList",
+   "EntryPoint",
+   "ImageObject",
+   "ListItem",
+   "Offer",
+   "Organization",
+   "PostalAddress",
+   "PropertyValueSpecification"
+  ],
+  "sitemap": false
+ },
+ {
+  "name": "REVIMMO",
+  "website": "https://www.revimmo.mc/",
+  "ok": false,
+  "error": "https://www.revimmo.mc/: ProxyError"
+ },
+ {
+  "name": "Capital Real Estate",
+  "website": "https://www.capitalrealestate.mc/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://capitalrealestate.mc/properties-for-sale",
+   "https://capitalrealestate.mc/properties-for-rent",
+   "https://www.capitalrealestate.mc/properties-for-sale",
+   "https://www.capitalrealestate.mc/properties-for-rent",
+   "https://www.capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=21&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+   "https://www.capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=19&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+   "https://www.capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=15&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+   "https://www.capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=1&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+   "https://www.capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=7&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+   "https://www.capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=17&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+   "https://www.capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=2&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+   "https://www.capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=6&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+   "https://www.capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=20&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+   "https://www.capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=8&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC",
+   "https://www.capitalrealestate.mc/properties?nsearch%5Bdistrict%5D%5B%5D=18&nsearch%5Btype%5D=sale&nsearch%5Bcountry%5D=MC"
+  ],
+  "listing_samples": [
+   "https://capitalrealestate.mc/property/127427-apartment-condamine-monaco/",
+   "https://capitalrealestate.mc/property/127423-duplex-monaco-ville-monaco/",
+   "https://capitalrealestate.mc/property/119228-apartment-la-rousse-saint-roman-monaco/",
+   "https://capitalrealestate.mc/property/119229-apartment-condamine-monaco/",
+   "https://capitalrealestate.mc/property/100747-apartment-monte-carlo-monaco/"
+  ],
+  "listing_links_seen": 12,
+  "agent_hint": false,
+  "detail_tel_links": 1,
+  "detail_mailto": 0,
+  "jsonld_types": [
+   "Apartment",
+   "GeoCoordinates",
+   "Offer",
+   "PostalAddress",
+   "QuantitativeValue",
+   "RealEstateAgent",
+   "RealEstateListing"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "Europagence",
+  "website": "https://www.europagence.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "Piras Immobilier",
+  "website": "https://www.pirasimmobilier.com/",
+  "ok": false,
+  "error": "https://www.pirasimmobilier.com/: HTTP 200"
+ },
+ {
+  "name": "Panorama Properties",
+  "website": "https://www.panorama.mc/",
+  "ok": true,
+  "platforms": [
+   "apimo"
+  ],
+  "js_rendered": true,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "CM MONACO REAL ESTATE",
+  "website": "https://www.cm-monaco.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "zebrasoft"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.cm-monaco.com/fr/ventes/",
+   "https://www.cm-monaco.com/fr/ventes-monaco/",
+   "https://www.cm-monaco.com/fr/ventes-france/",
+   "https://www.cm-monaco.com/fr/ventes-internationales/",
+   "https://www.cm-monaco.com/fr/locations/",
+   "https://www.cm-monaco.com/fr/locations-monaco/",
+   "https://www.cm-monaco.com/fr/locations-france/",
+   "https://www.cm-monaco.com/fr/locations-saisonnieres/",
+   "https://www.cm-monaco.com/fr/produit/127324-vente-monaco-studio-avec-une-belle-vue-blv-de-belgique",
+   "https://www.cm-monaco.com/fr/produit/101744-vente-monaco-studio-le-moins-cher-de-monaco-sous-loi-1235",
+   "https://www.cm-monaco.com/fr/produit/95611-vente-monaco-residence-bristol-studio-vendu-meubl%C3%A9-avec-grande-terrasse-vue-partielle-port-sous-offre",
+   "https://www.cm-monaco.com/fr/produit/115613-vente-monaco-grand-studio-r%C3%A9sidence-prestigieuse-au-coeur-du-carre-or-usage-mixte",
+   "https://www.cm-monaco.com/fr/produit/121048-vente-monaco-exclusivit%C3%A9-soleil-d-or-grand-double-box-sous-offre",
+   "https://www.cm-monaco.com/fr/produit/124967-vente-monaco-beau-2-p-r%C3%A9sidence-millefiori-centre-monte-carlo"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "La Monégasque Immobilier",
+  "website": "https://lamonegasqueimmobilier.mc/",
+  "ok": true,
+  "platforms": [
+   "colibri"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://lamonegasqueimmobilier.mc/fr/ventes/grid",
+   "https://lamonegasqueimmobilier.mc/fr/locations/grid"
+  ],
+  "listing_samples": [
+   "https://lamonegasqueimmobilier.mc/fr/bien/126716/emplacement-de-parking-grand-large-fontvieille",
+   "https://lamonegasqueimmobilier.mc/fr/bien/122010/grand-large-superbe-5p-entierement-refait",
+   "https://lamonegasqueimmobilier.mc/fr/bien/122018/fontvieille-monte-marina-emplacement-de-parking",
+   "https://lamonegasqueimmobilier.mc/fr/bien/116573/fontvieille-monte-marina-double-parking",
+   "https://lamonegasqueimmobilier.mc/fr/bien/116166/le-stella-beau-2p-duplex-a-la-vente"
+  ],
+  "listing_links_seen": 14,
+  "agent_hint": false,
+  "detail_tel_links": 1,
+  "detail_mailto": 0,
+  "jsonld_types": [],
+  "sitemap": false
+ },
+ {
+  "name": "PASTOR IMMOBILIER",
+  "website": "https://pastor-immobilier.com/",
+  "ok": true,
+  "platforms": [
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://pastor-immobilier.com/ventes/",
+   "https://pastor-immobilier.com/locations/",
+   "https://pastor-immobilier.com/parc-immobilier/",
+   "https://pastor-immobilier.com/properties/vente/",
+   "https://pastor-immobilier.com/properties/location/",
+   "https://pastor-immobilier.com/properties/vente",
+   "https://pastor-immobilier.com/service/gestion-de-patrimoine-immobilier/",
+   "https://pastor-immobilier.com/service/location/",
+   "https://pastor-immobilier.com/service/vente/",
+   "https://pastor-immobilier.com/ventes/bien-a-la-vente/?ref=8055812",
+   "https://pastor-immobilier.com/locations/bien-a-la-location/?ref=8169992",
+   "https://pastor-immobilier.com/ventes/bien-a-la-vente/?ref=8045588",
+   "https://pastor-immobilier.com/locations/bien-a-la-location/?ref=8169312"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Savills Monaco Real Estate",
+  "website": "https://www.savills.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.savills.mc/market-your-property/",
+   "https://www.savills.mc/landing-pages/achat-appartement-monaco.aspx",
+   "https://www.savills.mc/landing-pages/propriete-a-la-vente-a-monaco.aspx",
+   "https://www.savills.mc/louer-appartement-monaco--monte-carlo/",
+   "https://www.savills.mc/landing-pages/appartements-a-louer-a-monaco.aspx",
+   "https://www.savills.mc/etudes-et-opinions/tagged-articles/Relocation",
+   "https://www.savills.mc/etudes-et-opinions/tagged-articles/residential-property",
+   "https://www.savills.mc/etudes-et-opinions/tagged-articles/high-profile-buyers",
+   "https://www.savills.mc/services/acheter-ou-vendre-une-propriete.aspx",
+   "https://www.savills.mc/services/Location-de-biens.aspx"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Elliman Monaco",
+  "website": "https://elliman.mc/",
+  "ok": false,
+  "error": "https://elliman.mc/: HTTP 403"
+ },
+ {
+  "name": "ASTRAL PROPERTIES SAM",
+  "website": "https://www.astralproperties.mc/",
+  "ok": true,
+  "platforms": [
+   "wordpress",
+   "wp-houzez"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.astralproperties.mc/en/contact-astral-properties/",
+   "https://www.astralproperties.mc/contact-astral-properties/",
+   "https://www.astralproperties.mc/property/monte-carlo-star-2-pieces-duplex/",
+   "https://www.astralproperties.mc/status/for-sale/",
+   "https://www.astralproperties.mc/property/stunning-villa-eze-sur-mer/",
+   "https://www.astralproperties.mc/property/studio-monte-carlo-star-monaco-carre-dor/",
+   "https://www.astralproperties.mc/status/for-rent/"
+  ],
+  "listing_samples": [
+   "https://www.astralproperties.mc/wp-json/wp/v2/properties/52097"
+  ],
+  "listing_links_seen": 1,
+  "agent_hint": false,
+  "detail_tel_links": 0,
+  "detail_mailto": 0,
+  "jsonld_types": [
+   "BreadcrumbList",
+   "EntryPoint",
+   "ImageObject",
+   "ListItem",
+   "Organization",
+   "PropertyValueSpecification",
+   "ReadAction",
+   "SearchAction"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "Balkin Estates",
+  "website": "https://www.balkin.mc/",
+  "ok": true,
+  "platforms": [
+   "webflow"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.balkin.mc/fr/gestion-immobiliere",
+   "https://www.balkin.mc/fr/guide/selling-properties-in-monaco",
+   "https://www.balkin.mc/fr/guide/developpement-immobilier-a-monaco"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Roc Agency",
+  "website": "https://www.rocagency.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.rocagency.com/fr/ventes-proprietes-a-vendre",
+   "https://www.rocagency.com/fr/locations-appartements-a-louer",
+   "https://www.rocagency.com/fr/agents-immobiliers"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Pacific Agency",
+  "website": "https://www.pacificagency.mc/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.pacificagency.mc/biens/",
+   "https://pacificagency.mc/vente/",
+   "https://pacificagency.mc/location/",
+   "https://pacificagency.mc/biens/",
+   "https://pacificagency.mc/property-details/124277-appartement-la-rousse-saint-roman-monaco/",
+   "https://pacificagency.mc/property-details/124339-appartement-la-rousse-saint-roman-monaco/",
+   "https://pacificagency.mc/property-details/126695-appartement-la-rousse-saint-roman-monaco/",
+   "https://pacificagency.mc/property-details/105779-appartement-condamine-monaco/",
+   "https://pacificagency.mc/property-details/122300-appartement-monte-carlo-monaco/",
+   "https://pacificagency.mc/property-details/125327-appartement-la-rousse-saint-roman-monaco/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "Property Concept Monaco",
+  "website": "https://www.pcm-realestate.com/",
+  "ok": true,
+  "platforms": [
+   "immosoft",
+   "immotoolbox"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.pcm-realestate.com/fr/ventes",
+   "https://www.pcm-realestate.com/fr/ventes/monaco/",
+   "https://www.pcm-realestate.com/fr/ventes/france/",
+   "https://www.pcm-realestate.com/fr/ventes/international/",
+   "https://www.pcm-realestate.com/fr/locations",
+   "https://www.pcm-realestate.com/fr/locations/monaco/",
+   "https://www.pcm-realestate.com/fr/locations/france/",
+   "https://www.pcm-realestate.com/fr/produit-vente/126871-le-metropole-fonds-de-commerce-2-pieces/",
+   "https://www.pcm-realestate.com/fr/produit-vente/126820-monte-carlo-sun-bureaux/",
+   "https://www.pcm-realestate.com/fr/produit-vente/126819-ambassador-appartements-2-pieces/",
+   "https://www.pcm-realestate.com/fr/produit-vente/126818-la-radieuse-appartements-2-pieces/",
+   "https://www.pcm-realestate.com/fr/produit-vente/126800-tenao-inferieur-penthouses-roofs-5-pieces/",
+   "https://www.pcm-realestate.com/fr/produit-vente/126798-parc-saint-roman-appartements-studios/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "HOMES Sandro Piras Real Estate",
+  "website": "https://www.homesmontecarlo.com/",
+  "ok": true,
+  "platforms": [
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.homesmontecarlo.com/wp-content/uploads/2023/06/cropped-logomark-color2-transparent-32x32.png",
+   "https://www.homesmontecarlo.com/wp-content/uploads/2023/06/cropped-logomark-color2-transparent-192x192.png",
+   "https://www.homesmontecarlo.com/wp-content/uploads/2023/06/cropped-logomark-color2-transparent-180x180.png",
+   "https://www.homesmontecarlo.com/our-properties-for-rent/",
+   "https://www.homesmontecarlo.com/offices-for-rent/",
+   "https://www.homesmontecarlo.com/our-properties-for-sale/",
+   "https://www.homesmontecarlo.com/our-offices-for-sale/",
+   "https://www.homesmontecarlo.com/prestige-properties/",
+   "https://www.homesmontecarlo.com/guide-to-renting/",
+   "https://www.homesmontecarlo.com/guide-to-buying/",
+   "https://www.homesmontecarlo.com/property-prices-monaco-per-square-metre/",
+   "https://www.homesmontecarlo.com/property-taxation-monaco-non-residents/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Pieter van Naeltwijck Real Estate Investments",
+  "website": "https://www.pvnrealestate.com/",
+  "ok": false,
+  "error": "https://www.pvnrealestate.com/: HTTP 200"
+ },
+ {
+  "name": "Agence de la Gare",
+  "website": "https://www.agencegaremonaco.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.agencegaremonaco.com/ventes",
+   "https://www.agencegaremonaco.com/locations",
+   "https://www.agencegaremonaco.com/articles/comment-estimer-la-valeur-de-votre-bien-immobilier-a-monaco",
+   "https://www.agencegaremonaco.com/articles/comment-vendre-son-bien-immobilier-a-monaco",
+   "https://www.agencegaremonaco.com/articles/notre-guide-d-achat-de-bien-immobilier-a-monaco",
+   "https://www.agencegaremonaco.com/articles/comment-assurer-la-gestion-locative-de-son-bien-immobilier-a-monaco"
+  ],
+  "listing_samples": [
+   "https://www.agencegaremonaco.com/biens/30-tres-beau-studio-renove-meuble-avec-apercu-mer",
+   "https://www.agencegaremonaco.com/biens/29-magnifique-villa-d-architecte-renovee-avec-superbe-vue-mer",
+   "https://www.agencegaremonaco.com/biens/27-tres-beau-parking-dans-immeuble-neuf",
+   "https://www.agencegaremonaco.com/biens/24-rare-ermanno-palace-grand-double-box-avec-bel-espace-de-stockage-attenant",
+   "https://www.agencegaremonaco.com/biens/18-magnifique-trois-pieces-dans-immeuble-neuf"
+  ],
+  "listing_links_seen": 11,
+  "agent_hint": false,
+  "detail_tel_links": 1,
+  "detail_mailto": 2,
+  "jsonld_types": [
+   "ContactPoint",
+   "GeoCoordinates",
+   "Offer",
+   "OpeningHoursSpecification",
+   "PostalAddress",
+   "QuantitativeValue",
+   "RealEstateListing"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "Deplanche Immobilier",
+  "website": "https://www.deplanche-immobilier.com/",
+  "ok": true,
+  "platforms": [
+   "colibri"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.deplanche-immobilier.com/fr/ventes/grid",
+   "https://www.deplanche-immobilier.com/fr/locations/grid",
+   "https://www.deplanche-immobilier.com/fr/bien/124234/achat-appartement-rare-à-monaco-appartement-sur-les-remparts-avec-vue-panoramique-sur-la-mer-et-la-principauté",
+   "https://www.deplanche-immobilier.com/fr/bien/124191/achat-cave-local-à-vendre-au-calme-sur-la-placette-de-fontvieille",
+   "https://www.deplanche-immobilier.com/fr/bien/124198/achat-cave-local-avec-de-grandes-vitrines-regardant-la-mer",
+   "https://www.deplanche-immobilier.com/fr/bien/123167/achat-appartement-grand-appartement-situé-en-dernier-étage-de-la-résidence-de-standing-du-parc-saint-roman",
+   "https://www.deplanche-immobilier.com/fr/bien/122230/achat-maison-villa-villa-rénovée-avec-jardin-piscine-chauffée-et-garage-pour-4-véhicules",
+   "https://www.deplanche-immobilier.com/fr/bien/122071/achat-commerce-belle-vitrine-pour-le-pas-de-porte-de-ce-local-bien-entretenu-de-la-condamine",
+   "https://www.deplanche-immobilier.com/fr/bien/121326/location-appartement-grand-prix-formule-1-terrasse-22-places",
+   "https://www.deplanche-immobilier.com/fr/bien/119201/achat-appartement-magnifique-2-pièces-rénové-avec-vue-sur-le-port-de-monaco",
+   "https://www.deplanche-immobilier.com/fr/bien/119203/achat-appartement-sous-offre-3-pièces-spacieux-à-monaco-calme-et-sérénité-excellent-état-et-vue-panoramique"
+  ],
+  "listing_samples": [
+   "https://www.deplanche-immobilier.com/fr/bien/124234/achat-appartement-rare-à-monaco-appartement-sur-les-remparts-avec-vue-panoramique-sur-la-mer-et-la-principauté",
+   "https://www.deplanche-immobilier.com/fr/bien/124191/achat-cave-local-à-vendre-au-calme-sur-la-placette-de-fontvieille",
+   "https://www.deplanche-immobilier.com/fr/bien/124198/achat-cave-local-avec-de-grandes-vitrines-regardant-la-mer",
+   "https://www.deplanche-immobilier.com/fr/bien/123167/achat-appartement-grand-appartement-situé-en-dernier-étage-de-la-résidence-de-standing-du-parc-saint-roman",
+   "https://www.deplanche-immobilier.com/fr/bien/122230/achat-maison-villa-villa-rénovée-avec-jardin-piscine-chauffée-et-garage-pour-4-véhicules"
+  ],
+  "listing_links_seen": 9,
+  "agent_hint": false,
+  "detail_tel_links": 3,
+  "detail_mailto": 0,
+  "jsonld_types": [
+   "ContactPoint",
+   "GeoCoordinates",
+   "OpeningHoursSpecification",
+   "Person",
+   "PostalAddress",
+   "RealEstateAgent"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "PREMIUM PROPERTIES MC",
+  "website": "https://www.pp-mc.com/",
+  "ok": false,
+  "error": "https://www.pp-mc.com/: SSLError"
+ },
+ {
+  "name": "Prestige Properties",
+  "website": "https://www.prestigeproperties.mc/",
+  "ok": true,
+  "platforms": [
+   "apimo",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://prestigeproperties.mc/wp-content/themes/federall-main-child/assets/img/Prestige-Properties-ALt-UHNW-V4_lite2.mp4",
+   "https://prestigeproperties.mc/wp-content/uploads/2026/07/Prestige-Properties-Monaco-1.png",
+   "https://prestigeproperties.mc/prestige-properties-sengage/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "Soma International Realty",
+  "website": "https://soma-monaco.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": true,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Agence Thomas",
+  "website": "https://www.agence-thomas.com/",
+  "ok": true,
+  "platforms": [
+   "immosoft",
+   "immotoolbox"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.agence-thomas.com/ventes/monaco/",
+   "https://www.agence-thomas.com/locations/monaco/",
+   "https://www.agence-thomas.com/ventes/france/",
+   "https://www.agence-thomas.com/locations/france/",
+   "https://www.agence-thomas.com/produit-vente/120081-rose-de-france-appartements-3-pieces/",
+   "https://www.agence-thomas.com/produit-location/119241-monte-carlo-palace-caves/",
+   "https://www.agence-thomas.com/produit-vente/113641-le-plati-autres-produits/",
+   "https://www.agence-thomas.com/produit-vente/104097-parc-saint-roman-appartements-studios/",
+   "https://www.agence-thomas.com/produit-location/103698-villa-celine-chambres-de-service-studios/",
+   "https://www.agence-thomas.com/produit-vente/99888-raphael-autres-produits/",
+   "https://www.agence-thomas.com/produit-vente/99886-titien-autres-produits-2-pieces/",
+   "https://www.agence-thomas.com/produit-vente/81190-auteuil-appartements-2-pieces/",
+   "https://www.agence-thomas.com/produit-vente/77578-saint-martin-vesubie-proprietes/",
+   "https://www.agence-thomas.com/produit-vente/56953-larvotto-appartements-2-pieces/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Agence Plan B",
+  "website": "https://planb-monaco.com/",
+  "ok": true,
+  "platforms": [
+   "wordpress",
+   "wp-houzez"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://planb-monaco.com/fr/acheter-un-appartement-a-monaco/",
+   "https://planb-monaco.com/fr/louer/",
+   "https://planb-monaco.com/fr/a-propos-agence-immobiliere-depuis-25-ans/",
+   "https://planb-monaco.com/fr/acheter/",
+   "https://planb-monaco.com/louer/",
+   "https://planb-monaco.com/fr/acheter-un-bien-immobilier-a-monaco-guide-complet/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Beretta Real Estate",
+  "website": "https://www.berettarealestate.mc/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "zebrasoft"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.berettarealestate.mc/fr/ventes",
+   "https://www.berettarealestate.mc/fr/ventes/monaco/",
+   "https://www.berettarealestate.mc/fr/locations",
+   "https://www.berettarealestate.mc/fr/locations/monaco/",
+   "https://www.berettarealestate.mc/fr/acheter-un-appartement-a-monaco.html",
+   "https://www.berettarealestate.mc/fr/louer-un-appartement-a-monaco.html",
+   "https://www.berettarealestate.mc/fr/produit-vente/117970-park-palace-appartements-3-pieces/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Rosengart Luxury Real Estate",
+  "website": "https://www.rosengart.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.rosengart.mc/property-development",
+   "https://www.rosengart.mc/portfolio-properties",
+   "https://www.rosengart.mc/apartment-for-sale-monaco",
+   "https://www.rosengart.mc/apartments-for-sale-monaco/11011-exceptional-duplex-penthouse-panoramic-view-monaco",
+   "https://www.rosengart.mc/apartments-for-sale-monaco/11012-investment-opportunity-3-bedroom-apartment",
+   "https://www.rosengart.mc/apartments-for-sale-monaco/11006-panoramic-sea-view-living-at-the-gates-of-monaco",
+   "https://www.rosengart.mc/apartments-for-sale-monaco/10982-the-skyline-penthouse-above-monaco-the-mediterranean",
+   "https://www.rosengart.mc/apartment-rentals-monaco"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Monte Carlo Privilège",
+  "website": "https://www.mcprivilege-immobilier.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.mcprivilege-immobilier.com/sales/",
+   "https://www.mcprivilege-immobilier.com/rentals/",
+   "https://www.mcprivilege-immobilier.com/seasonal-rentals/",
+   "https://www.mcprivilege-immobilier.com/off-market-properties/",
+   "https://www.mcprivilege-immobilier.com/propertyselection/"
+  ],
+  "listing_samples": [
+   "https://www.mcprivilege-immobilier.com/property/124287-villa-cap-dail-france/",
+   "https://www.mcprivilege-immobilier.com/property/117581-apartment-carre-dor-monaco/",
+   "https://www.mcprivilege-immobilier.com/property/117183-villa-roquebrune-cap-martin-france/",
+   "https://www.mcprivilege-immobilier.com/property/113117-apartment-monte-carlo-monaco/",
+   "https://www.mcprivilege-immobilier.com/property/93667-villa-la-rousse-saint-roman-monaco/"
+  ],
+  "listing_links_seen": 7,
+  "agent_hint": false,
+  "detail_tel_links": 3,
+  "detail_mailto": 1,
+  "jsonld_types": [
+   "BreadcrumbList",
+   "EntryPoint",
+   "ImageObject",
+   "ListItem",
+   "Organization",
+   "PropertyValueSpecification",
+   "ReadAction",
+   "SearchAction"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "Universal Office",
+  "website": "https://www.universalmonaco.com/",
+  "ok": false,
+  "error": "https://www.universalmonaco.com/: SSLError"
+ },
+ {
+  "name": "SOLAMITO PROPERTIES",
+  "website": "https://www.solamito-properties-real-estate.mc/",
+  "ok": true,
+  "platforms": [
+   "apimo",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.solamito-properties-real-estate.mc/properties/45-g/",
+   "https://www.solamito-properties-real-estate.mc/properties/les-ligures/",
+   "https://www.solamito-properties-real-estate.mc/properties/palais-du-printemps/",
+   "https://www.solamito-properties-real-estate.mc/properties/larmorial/",
+   "https://www.solamito-properties-real-estate.mc/properties/riviera-palace/",
+   "https://www.solamito-properties-real-estate.mc/properties/",
+   "https://www.solamito-properties-real-estate.mc/ventes/",
+   "https://www.solamito-properties-real-estate.mc/locations/"
+  ],
+  "listing_samples": [
+   "https://www.solamito-properties-real-estate.mc/properties/45-g/",
+   "https://www.solamito-properties-real-estate.mc/properties/45-g/feed/",
+   "https://www.solamito-properties-real-estate.mc/wp-json/wp/v2/property/2992",
+   "https://www.solamito-properties-real-estate.mc/wp-json/wp/v2/property/3200",
+   "https://www.solamito-properties-real-estate.mc/wp-json/wp/v2/property/3141"
+  ],
+  "listing_links_seen": 5,
+  "agent_hint": false,
+  "detail_tel_links": 2,
+  "detail_mailto": 2,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "Atlantic Agency",
+  "website": "https://www.atlantic.monte-carlo.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.atlantic.monte-carlo.mc/fr/ventes",
+   "https://www.atlantic.monte-carlo.mc/fr/locations",
+   "https://www.atlantic.monte-carlo.mc/fr/produit-location/127364-villa-jose-denis-appartements-studios/",
+   "https://www.atlantic.monte-carlo.mc/fr/produit-location/20494-les-ligures-parkings/",
+   "https://www.atlantic.monte-carlo.mc/fr/produit-vente/93303-rue-grimaldi-cessions-de-droit-au-bail-3-pieces/",
+   "https://www.atlantic.monte-carlo.mc/fr/produit-location/34770-les-orangers-bureaux-studios/",
+   "https://www.atlantic.monte-carlo.mc/fr/produit-vente/89983-41-boulevard-du-jardin-exotique-appartements-2-pieces/",
+   "https://www.atlantic.monte-carlo.mc/fr/produit-vente/125702-cap-d-ail-appartements-3-pieces/",
+   "https://www.atlantic.monte-carlo.mc/fr/produit-vente/125478-roma-appartements-4-pieces/",
+   "https://www.atlantic.monte-carlo.mc/fr/produit-location/93695-palais-belvedere-appartements-3-pieces/",
+   "https://www.atlantic.monte-carlo.mc/fr/produit-location/125264-22-rue-basse-locaux/",
+   "https://www.atlantic.monte-carlo.mc/fr/produit-vente/92515-mercator-locaux/",
+   "https://www.atlantic.monte-carlo.mc/fr/produit-vente/118650-le-massena-appartements-2-pieces/",
+   "https://www.atlantic.monte-carlo.mc/fr/produit-vente/108515-les-amaryllis-fonds-de-commerce/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "ABK Real Estate",
+  "website": "https://www.abkrealestatemonaco.com/",
+  "ok": false,
+  "error": "https://www.abkrealestatemonaco.com/: HTTP 200"
+ },
+ {
+  "name": "Agence Laetitia",
+  "website": "https://www.agence-laetitia.com/",
+  "ok": false,
+  "error": "https://www.agence-laetitia.com/: HTTP 200"
+ },
+ {
+  "name": "Agence EIP",
+  "website": "https://www.eip.mc/",
+  "ok": true,
+  "platforms": [
+   "immosoft",
+   "immotoolbox"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.eip.mc/fr/ventes",
+   "https://www.eip.mc/fr/ventes/monaco/",
+   "https://www.eip.mc/fr/ventes/france/",
+   "https://www.eip.mc/fr/locations",
+   "https://www.eip.mc/fr/locations/monaco/",
+   "https://www.eip.mc/fr/locations/france/",
+   "https://www.eip.mc/fr/produit-vente/98603-carre-d-or/",
+   "https://www.eip.mc/fr/produit-vente/50866-le-panorama-appartements-studios/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Agora Real Estate",
+  "website": "https://agorarealestate.mc/",
+  "ok": true,
+  "platforms": [
+   "immosoft",
+   "immotoolbox"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://agorarealestate.mc/fr/ventes",
+   "https://agorarealestate.mc/fr/locations",
+   "https://agorarealestate.mc/fr/produit-vente/115723-villa-hermosa-appartements-3-pieces/",
+   "https://agorarealestate.mc/fr/produit-vente/115363-le-parador-appartements-4-pieces/",
+   "https://agorarealestate.mc/fr/produit-vente/114939-tour-odeon-appartements-5-pieces/",
+   "https://agorarealestate.mc/fr/produit-vente/114937-tour-odeon-appartements-5-pieces/",
+   "https://agorarealestate.mc/fr/produit-location/125941-villa-hermosa-caves/",
+   "https://agorarealestate.mc/fr/produit-vente/121305-bay-house-appartements/",
+   "https://agorarealestate.mc/fr/ventes-residentielles",
+   "https://agorarealestate.mc/fr/locations-residentielles"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Lux Home",
+  "website": "https://www.luxhome.mc/",
+  "ok": true,
+  "platforms": [
+   "wp-houzez",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://luxhome.mc/status/acheter/",
+   "https://luxhome.mc/property/spacieux-3-pieces-boulevard-du-larvotto/",
+   "https://luxhome.mc/property/appartement-au-villa-joseph-josephine-50mq/",
+   "https://luxhome.mc/property/appartement-au-montecarlo-sun-87-mq/",
+   "https://luxhome.mc/property/appartement-de-quatre-pieces-a-roqueville/",
+   "https://luxhome.mc/property/seaside/",
+   "https://luxhome.mc/property/montecarlo-sun/",
+   "https://luxhome.mc/property/chateau-roquebrune/",
+   "https://luxhome.mc/property/appartement-a-saint-tropez/"
+  ],
+  "listing_samples": [
+   "https://luxhome.mc/property/appartement-au-villa-joseph-josephine-50mq/",
+   "https://luxhome.mc/property/appartement-au-montecarlo-sun-87-mq/"
+  ],
+  "listing_links_seen": 2,
+  "detail_error": "NotFound('https://luxhome.mc/property/appartement-au-villa-joseph-josephine-50mq/')",
+  "sitemap": false
+ },
+ {
+  "name": "Agence Marchetti Monaco",
+  "website": "https://www.agencemarchetti.com/",
+  "ok": true,
+  "platforms": [
+   "immosoft",
+   "immotoolbox"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.agencemarchetti.com/fr/ventes-residentielles",
+   "https://www.agencemarchetti.com/fr/ventes-residentielles/monaco/",
+   "https://www.agencemarchetti.com/fr/ventes-residentielles/france/",
+   "https://www.agencemarchetti.com/fr/locations-residentielles",
+   "https://www.agencemarchetti.com/fr/produit-vente/111340-le-palmier-appartements-5-pieces/",
+   "https://www.agencemarchetti.com/fr/produit-vente/122031-condamine-appartements/",
+   "https://www.agencemarchetti.com/fr/produit-vente/118908-villa-les-lauriers-chambres-de-service/",
+   "https://www.agencemarchetti.com/fr/produit-location/124075-bel-horizon-appartements-3-pieces/",
+   "https://www.agencemarchetti.com/fr/produit-location/38077-palais-heracles-appartements-3-pieces/",
+   "https://www.agencemarchetti.com/fr/produit-location/122879-condamine-locaux/",
+   "https://www.agencemarchetti.com/fr/produit-vente/125453-beausoleil-superieur-garages/",
+   "https://www.agencemarchetti.com/fr/produit-vente/79607-carre-d-or-murs-locaux-commerciaux/",
+   "https://www.agencemarchetti.com/fr/ventes-residentielles/r-1-studios/",
+   "https://www.agencemarchetti.com/fr/ventes-residentielles/r-2-2-pieces/",
+   "https://www.agencemarchetti.com/fr/ventes-residentielles/r-3-3-pieces/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "One Properties",
+  "website": "https://www.oneproperties.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": true,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "Pastor & Reiss",
+  "website": "https://www.pastor-reiss.com/",
+  "ok": false,
+  "error": "https://www.pastor-reiss.com/: HTTP 200"
+ },
+ {
+  "name": "Rey  & Nouvion Immobilier",
+  "website": "https://www.rey-nouvion.com/",
+  "ok": true,
+  "platforms": [
+   "immosoft",
+   "immotoolbox"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.rey-nouvion.com/fr/ventes/",
+   "https://www.rey-nouvion.com/fr/locations/",
+   "https://www.rey-nouvion.com/fr/pages/gestion-immobiliere-monaco.html",
+   "https://www.rey-nouvion.com/fr/produit/50468-vente-monaco-appartements-de-luxe-dans-la-tour-od%C3%A9on",
+   "https://www.rey-nouvion.com/fr/produit/127093-vente-monaco-appartement-bourgeois-avec-jardin-dans-le-centre-ville",
+   "https://www.rey-nouvion.com/fr/produit/104585-location-monaco-3-pi%C3%A8ces-carr%C3%A9-d-or-one-monte-carlo",
+   "https://www.rey-nouvion.com/fr/produit/89629-vente-monaco-vendu-!!!-bureaux-local-commercial-fontvieille-le-titien",
+   "https://www.rey-nouvion.com/fr/produit/116729-vente-monaco-vendu-!!!-mareterra-4-pi%C3%A8ces-le-renzo",
+   "https://www.rey-nouvion.com/fr/produit/106418-vente-monaco-vendu-!!!-bureaux-local-commercial-fontvieille-le-michelangelo"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "Izadora Realty",
+  "website": "https://www.izadora-group.com/",
+  "ok": true,
+  "platforms": [
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "The Agency",
+  "website": "https://theagency.mc/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://theagency.mc/properties-for-sale/",
+   "https://theagency.mc/properties-for-rent/",
+   "https://theagency.mc/international-properties-for-sale/",
+   "https://theagency.mc/france-properties-for-sale/",
+   "https://theagency.mc/property/127439-apartment-cap-martin-france/",
+   "https://theagency.mc/property/126979-house-monaco-ville-monaco/",
+   "https://theagency.mc/property/127089-parking-la-rousse-saint-roman-monaco/",
+   "https://theagency.mc/property/122848-apartment-carre-dor-monaco/",
+   "https://theagency.mc/property/121310-apartment-la-rousse-saint-roman-monaco/",
+   "https://theagency.mc/property/123075-apartment-moneghetti-monaco/",
+   "https://theagency.mc/property/123072-apartment-carre-dor-monaco/",
+   "https://theagency.mc/property/123121-apartment-la-rousse-saint-roman-monaco/",
+   "https://theagency.mc/property/126973-apartment-port-monaco/",
+   "https://theagency.mc/property/122851-apartment-dubai-united-arab-emirates/",
+   "https://theagency.mc/property/122850-apartment-dubai-united-arab-emirates/"
+  ],
+  "listing_samples": [
+   "https://theagency.mc/property/127439-apartment-cap-martin-france/",
+   "https://theagency.mc/property/126979-house-monaco-ville-monaco/",
+   "https://theagency.mc/property/127089-parking-la-rousse-saint-roman-monaco/",
+   "https://theagency.mc/property/122848-apartment-carre-dor-monaco/",
+   "https://theagency.mc/property/121310-apartment-la-rousse-saint-roman-monaco/"
+  ],
+  "listing_links_seen": 14,
+  "agent_hint": false,
+  "detail_tel_links": 1,
+  "detail_mailto": 1,
+  "jsonld_types": [
+   "BreadcrumbList",
+   "EntryPoint",
+   "ImageObject",
+   "ListItem",
+   "Organization",
+   "PropertyValueSpecification",
+   "ReadAction",
+   "SearchAction"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "A&S Estate",
+  "website": "https://www.as-estate.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "Bureau d'Affaires Immobilières",
+  "website": "https://www.bureauaffairesimmobilieres.com/",
+  "ok": false,
+  "error": "https://www.bureauaffairesimmobilieres.com/: SSLError"
+ },
+ {
+  "name": "CAPI",
+  "website": "https://www.capi.mc/",
+  "ok": true,
+  "platforms": [
+   "hektor"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.capi.mc/location/1",
+   "https://www.capi.mc/vente/1",
+   "https://www.capi.mc/commerces/location/1",
+   "https://www.capi.mc/vente/monaco/2-appartement/t4/154-4-pieces-trocadero/",
+   "https://www.capi.mc/vente/monaco/2-appartement/t2/155-2-pieces-trocadero/",
+   "https://www.capi.mc/vente/monaco/2-appartement/t3/156-3-pieces-trocadero/",
+   "https://www.capi.mc/location/monaco/4-studio/1",
+   "https://www.capi.mc/location/monaco/2-appartement/1",
+   "https://www.capi.mc/commerces/vente/monaco/2-cession-de-droit-au-bail/1",
+   "https://www.capi.mc/commerces/vente/monaco/1",
+   "https://www.capi.mc/commerces/location/75-paris/1",
+   "https://www.capi.mc/commerces/vente/75-paris/1",
+   "https://www.capi.mc/location/monaco/1",
+   "https://www.capi.mc/location/monaco/2-appartement/t2/1",
+   "https://www.capi.mc/location/monaco/2-appartement/t3/1"
+  ],
+  "listing_samples": [
+   "https://www.capi.mc/vente/monaco/2-appartement/t4/154-4-pieces-trocadero/",
+   "https://www.capi.mc/vente/monaco/2-appartement/t2/155-2-pieces-trocadero/",
+   "https://www.capi.mc/vente/monaco/2-appartement/t3/156-3-pieces-trocadero/",
+   "https://www.capi.mc/commerces/location/75-paris/1",
+   "https://www.capi.mc/commerces/vente/75-paris/1"
+  ],
+  "listing_links_seen": 5,
+  "agent_hint": false,
+  "detail_tel_links": 1,
+  "detail_mailto": 1,
+  "jsonld_types": [
+   "Brand",
+   "BreadcrumbList",
+   "ListItem",
+   "LocalBusiness",
+   "Offer",
+   "PostalAddress",
+   "Product"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "CCRG",
+  "website": "https://www.ccrg.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": true,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "AGEDI",
+  "website": "https://www.agedigroup.com/",
+  "ok": true,
+  "platforms": [
+   "webflow"
+  ],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Cote investissement",
+  "website": "https://www.cote.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "Cabinet P. Palmero",
+  "website": "https://www.palmero.mc/",
+  "ok": true,
+  "platforms": [
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://palmero.mc/categorie-produit/ventes/",
+   "https://palmero.mc/categorie-produit/locations/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "Kretz Family Real Estate",
+  "website": "https://kretzrealestate.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://kretzrealestate.com/fr/property-type/loft/",
+   "https://kretzrealestate.com/fr/property-type/appartment/",
+   "https://kretzrealestate.com/fr/property-type/house/",
+   "https://kretzrealestate.com/fr/property-type/villa/",
+   "https://kretzrealestate.com/fr/property-type/hotelparticulier/",
+   "https://kretzrealestate.com/fr/property-type/castle/",
+   "https://kretzrealestate.com/fr/property-type/chalet/",
+   "https://kretzrealestate.com/fr/property-type/mas/",
+   "https://kretzrealestate.com/fr/acheter/",
+   "https://kretzrealestate.com/fr/louer/"
+  ],
+  "listing_samples": [
+   "https://kretzrealestate.com/fr/annonce/kp1-9742/house/",
+   "https://kretzrealestate.com/fr/annonce/kp4-994/loft/",
+   "https://kretzrealestate.com/fr/annonce/kp1-9743c/loft/",
+   "https://kretzrealestate.com/fr/annonce/kp4-1112/loft/",
+   "https://kretzrealestate.com/fr/annonce/kp1-12706a/loft/"
+  ],
+  "listing_links_seen": 14,
+  "agent_hint": true,
+  "detail_tel_links": 1,
+  "detail_mailto": 0,
+  "jsonld_types": [
+   "BreadcrumbList",
+   "GeoCoordinates",
+   "ListItem",
+   "Offer",
+   "PostalAddress",
+   "QuantitativeValue",
+   "RealEstateAgent",
+   "Residence"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "RI Properties",
+  "website": "https://www.ri-properties.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.ri-properties.com/fr/ventes",
+   "https://www.ri-properties.com/sales.php",
+   "https://www.ri-properties.com/fr/ventes/111775-auteuil-appartements-3-pieces/"
+  ],
+  "listing_samples": [
+   "https://www.ri-properties.com/fr/ventes/111775-auteuil-appartements-3-pieces/",
+   "https://www.ri-properties.com/fr/ventes/120540-france-appartements-3-pieces/",
+   "https://www.ri-properties.com/fr/ventes/117428-riviera-palace-appartements-4-pieces/",
+   "https://www.ri-properties.com/fr/ventes/117363-suffren-appartements-3-pieces/",
+   "https://www.ri-properties.com/fr/ventes/96920-vallespir-appartements-3-pieces/"
+  ],
+  "listing_links_seen": 10,
+  "agent_hint": false,
+  "detail_tel_links": 0,
+  "detail_mailto": 0,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "Parkings and cellars for sale Monaco",
+  "website": "https://www.17keysrealestate.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Blu Immobilier",
+  "website": "https://www.blu.mc/",
+  "ok": true,
+  "platforms": [
+   "immosoft",
+   "immotoolbox"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.blu.mc/fr/ventes/monaco/",
+   "https://www.blu.mc/fr/ventes/monaco/r-1-studios/",
+   "https://www.blu.mc/fr/ventes/monaco/r-2-2-pieces/",
+   "https://www.blu.mc/fr/ventes/monaco/r-3-3-pieces/",
+   "https://www.blu.mc/fr/ventes/monaco/r-4-4-pieces/",
+   "https://www.blu.mc/fr/ventes/monaco/r-5-5-pieces/",
+   "https://www.blu.mc/fr/ventes/monaco/r-10-5-pieces/",
+   "https://www.blu.mc/fr/ventes/monaco/r-0-openspaces/",
+   "https://www.blu.mc/fr/locations/monaco/",
+   "https://www.blu.mc/fr/locations/monaco/r-1-studios/",
+   "https://www.blu.mc/fr/locations/monaco/r-2-2-pieces/",
+   "https://www.blu.mc/fr/locations/monaco/r-3-3-pieces/",
+   "https://www.blu.mc/fr/locations/monaco/r-4-4-pieces/",
+   "https://www.blu.mc/fr/locations/monaco/r-5-5-pieces/",
+   "https://www.blu.mc/fr/locations/monaco/r-10-5-pieces/"
+  ],
+  "listing_samples": [
+   "https://www.blu.mc/fr/ventes/monaco/r-10-5-pieces/",
+   "https://www.blu.mc/fr/locations/monaco/r-10-5-pieces/"
+  ],
+  "listing_links_seen": 2,
+  "agent_hint": false,
+  "detail_tel_links": 4,
+  "detail_mailto": 1,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "Fine Properties Monte Carlo",
+  "website": "https://www.fpmc-agency.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Bollati Immobilier",
+  "website": "https://www.bollati-immobilier.mc/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://bollati-immobilier.mc/wp-content/uploads/2026/05/Favicon-Bollati-Immobilier.svg",
+   "https://bollati-immobilier.mc/fr/ventes/",
+   "https://bollati-immobilier.mc/fr/locations/",
+   "https://www.bollati-immobilier.mc/fr/type/vente",
+   "https://www.bollati-immobilier.mc/fr/ventes",
+   "https://www.bollati-immobilier.mc/fr/type/location",
+   "https://www.bollati-immobilier.mc/fr/locations",
+   "https://bollati-immobilier.mc/fr/votre-guide-pour-acquerir-un-bien-immobilier-a-monaco/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Access Properties Monaco",
+  "website": "https://www.accesspropertiesmonaco.com/",
+  "ok": true,
+  "platforms": [
+   "nextjs"
+  ],
+  "js_rendered": true,
+  "index_candidates": [
+   "https://www.accesspropertiesmonaco.com/fr/sale"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Beton57",
+  "website": "https://www.beton57.com/",
+  "ok": false,
+  "error": "https://www.beton57.com/: HTTP 200"
+ },
+ {
+  "name": "Sogestmar SARL",
+  "website": "https://www.sogestmar.mc/",
+  "ok": false,
+  "error": "https://www.sogestmar.mc/: HTTP 202"
+ },
+ {
+  "name": "López de la Osa & Franco Real Estate",
+  "website": "https://www.lofrealestate.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "zebrasoft"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.lofrealestate.com/fr/ventes",
+   "https://www.lofrealestate.com/fr/locations",
+   "https://www.lofrealestate.com/fr/parc-immobilier-monaco.html"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Agence B.I.A.I.",
+  "website": "https://www.biairealestate.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.biairealestate.com/properties/?bus=1&country=492",
+   "https://www.biairealestate.com/properties/?bus=2&country=492",
+   "http://www.biairealestate.com/properties?dst=3028&mtype=4%2C6%2C8",
+   "https://www.biairealestate.com/properties/?country=250%2C380"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Elite International",
+  "website": "https://www.eliteimmo.com/",
+  "ok": true,
+  "platforms": [
+   "colibri"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.eliteimmo.com/fr/recherche/vente",
+   "https://www.eliteimmo.com/fr/recherche/location"
+  ],
+  "listing_samples": [
+   "https://www.eliteimmo.com/fr/bien/L%27appartement+enti%C3%A8/charmant-appartement-de-2-piÃ¨ces-entiÃ¨rement-rÃ©novÃ©-avec-une-pla"
+  ],
+  "listing_links_seen": 1,
+  "detail_error": "NotFound('https://www.eliteimmo.com/fr/bien/L%27appartement+enti%C3%A8/charmant-appartement-de-2-piÃ¨ces-entiÃ¨rement-rÃ",
+  "sitemap": true
+ },
+ {
+  "name": "IRIS Real Estate",
+  "website": "https://www.iris.mc/",
+  "ok": false,
+  "error": "https://www.iris.mc/: HTTP 202"
+ },
+ {
+  "name": "BERTOLA Real Estate",
+  "website": "https://www.bertola.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.bertola.mc/properties?type=sale",
+   "https://www.bertola.mc/properties?type=rent",
+   "https://www.bertola.mc/properties/sumptuous-splender-and-horizon-sumptuous-293-m2-renovated-facing-the-rock-of-monaco-VDBeX",
+   "https://www.bertola.mc/properties/studio-of-54-m2-with-sea-view-wdaFJ",
+   "https://www.bertola.mc/properties/seaside-plaza-an-exceptional-mediterranean-panorama-jdx0I",
+   "https://www.bertola.mc/properties/unique-maison-de-maitre-jardin-exotique",
+   "https://www.bertola.mc/properties/rare-grand-appartement-rocher",
+   "https://www.bertola.mc/properties/luxueux-3-pieces-monaco-ville"
+  ],
+  "listing_samples": [
+   "https://www.bertola.mc/properties/sumptuous-splender-and-horizon-sumptuous-293-m2-renovated-facing-the-rock-of-monaco-VDBeX",
+   "https://www.bertola.mc/properties/studio-of-54-m2-with-sea-view-wdaFJ"
+  ],
+  "listing_links_seen": 2,
+  "agent_hint": true,
+  "detail_tel_links": 1,
+  "detail_mailto": 1,
+  "jsonld_types": [
+   "Offer",
+   "PostalAddress",
+   "RealEstateAgent",
+   "RealEstateListing"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "Findr. by Interalia",
+  "website": "https://www.findr.mc/",
+  "ok": false,
+  "error": "https://www.findr.mc/: HTTP 200"
+ },
+ {
+  "name": "LBMC Properties",
+  "website": "https://www.lbmc-properties.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "webflow"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.lbmc-properties.com/properties/sale",
+   "https://www.lbmc-properties.com/properties/rental",
+   "https://www.lbmc-properties.com/property/126880-3-rooms-in-a-new-residence-in-la-condamine",
+   "https://www.lbmc-properties.com/property/127213-5-luxury-rooms-at-the-residence-metropole",
+   "https://www.lbmc-properties.com/property/122019-renovated-2-beds-in-the-vallespir",
+   "https://www.lbmc-properties.com/property/125457-opportunity-off-market-5-room-apartment-with-panor",
+   "https://www.lbmc-properties.com/property/125884-3-rooms-renovated-in-monte-carlo",
+   "https://www.lbmc-properties.com/property/123972-off-market-opportunity-large-4-bed-apartment-in-mo"
+  ],
+  "listing_samples": [
+   "https://www.lbmc-properties.com/property/126880-3-rooms-in-a-new-residence-in-la-condamine",
+   "https://www.lbmc-properties.com/property/127213-5-luxury-rooms-at-the-residence-metropole",
+   "https://www.lbmc-properties.com/property/122019-renovated-2-beds-in-the-vallespir",
+   "https://www.lbmc-properties.com/property/125457-opportunity-off-market-5-room-apartment-with-panor",
+   "https://www.lbmc-properties.com/property/125884-3-rooms-renovated-in-monte-carlo"
+  ],
+  "listing_links_seen": 6,
+  "agent_hint": false,
+  "detail_tel_links": 0,
+  "detail_mailto": 0,
+  "jsonld_types": [
+   "Agency",
+   "BreadcrumbList",
+   "City",
+   "Country",
+   "District",
+   "Image",
+   "ListItem",
+   "Offer"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "Infinity Homes",
+  "website": "https://www.infinityhomes.mc/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "nextjs"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.infinityhomes.mc/buy",
+   "https://www.infinityhomes.mc/rent",
+   "https://www.infinityhomes.mc/tools/buying-costs",
+   "https://www.infinityhomes.mc/stories/selling-property-monaco",
+   "https://www.infinityhomes.mc/stories/renting-property-monaco"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Azura Properties Monaco",
+  "website": "https://www.azurapropertiesmonaco.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://azurapropertiesmonaco.com/sales"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "J&K Wentz Real Estate Monaco",
+  "website": "https://www.wentz.mc/",
+  "ok": false,
+  "error": "https://www.wentz.mc/: SSLError"
+ },
+ {
+  "name": "FY Real Estate",
+  "website": "https://vallat.mc/",
+  "ok": false,
+  "error": "https://vallat.mc/: SSLError"
+ },
+ {
+  "name": "JV PASTOR REAL ESTATE",
+  "website": "https://www.jvpastor-realestate.com/",
+  "ok": true,
+  "platforms": [
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "Regal Estates Monaco",
+  "website": "https://www.regalestates.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.regalestates.mc/properties"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "ZREALInvest",
+  "website": "https://www.zrealinvest.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.zrealinvest.com/wp-content/uploads/2018/03/slider-location.png",
+   "https://www.zrealinvest.com/biens-immobilier/?nsearch%5Bcountry%5D=&amp;nsearch%5Btype%5D=sale",
+   "https://www.zrealinvest.com/biens-immobilier/?nsearch%5Bcountry%5D=MC&amp;nsearch%5Btype%5D=sale",
+   "https://www.zrealinvest.com/biens-immobilier/?nsearch%5Bcountry%5D=FR&amp;nsearch%5Btype%5D=sale",
+   "https://www.zrealinvest.com/biens-immobilier/?nsearch%5Bcountry%5D=&amp;nsearch%5Btype%5D=rental",
+   "https://www.zrealinvest.com/biens-immobilier/?nsearch%5Bcountry%5D=MC&amp;nsearch%5Btype%5D=rental",
+   "https://www.zrealinvest.com/biens-immobilier/?nsearch%5Bcountry%5D=FR&amp;nsearch%5Btype%5D=rental",
+   "https://www.zrealinvest.com/biens-immobilier/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "SARL GOLDEN SQUARE",
+  "website": "https://www.goldensquaremonaco.com/",
+  "ok": false,
+  "error": "https://www.goldensquaremonaco.com/: HTTP 503"
+ },
+ {
+  "name": "Waldhof Real Estate",
+  "website": "https://waldhof.fr/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://waldhof.fr/fr/ventes",
+   "https://waldhof.fr/fr/location-saisonniere",
+   "https://waldhof.fr/fr/location-longue-duree",
+   "https://waldhof.fr/fr/location-estimation",
+   "https://waldhof.fr/fr/vente-estimation",
+   "https://waldhof.fr/fr/location",
+   "https://waldhof.fr/fr/propriete/vente+maison+cannes+villa-400-m2-d-exception-proche-coeur-de-ville-+86782976",
+   "https://waldhof.fr/fr/propriete/vente+appartement+beausoleil+prestigieux-appartement-renove-de-3-chambres-avec-vue-panoramique-sur-la-mer-a-quelques-pas-de-monaco+86070833",
+   "https://waldhof.fr/fr/propriete/vente+maison+tourrettes+villa-d-exception-meublee-dans-le-prestigieux-domaine-de-terre-blanche+86385914",
+   "https://waldhof.fr/fr/propriete/vente+maison+cap-d-ail+luxueuse-villa-en-bord-de-mer-a-cap-d-ail-a-5-minutes-de-monaco+84764105",
+   "https://waldhof.fr/fr/propriete/vente+maison+roquebrune-cap-martin+villa-contemporaine-avec-vue-mer-a-roquebrune-cap-martin+87336115",
+   "https://waldhof.fr/fr/propriete/vente+maison+cannes+villa-californienne-vue-mer-panoramique+86701707",
+   "https://waldhof.fr/fr/propriete/vente+maison+grasse+grasse-propriete-d-exception-avec-deux-villas-en-pierre-piscines-et-oliviers-centenaires+87016900",
+   "https://waldhof.fr/fr/propriete/vente+maison+roquebrune-cap-martin+propriete-renovee-avec-piscine-et-dependance+85907784",
+   "https://waldhof.fr/fr/propriete/vente+maison+saint-jean-cap-ferrat+saint-jean-cap-ferrat-villa-avec-vue-panoramique-sur-la-mer-et-potentiel-exceptionnel+86426473"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Hammer Draff",
+  "website": "https://www.hammerdraff.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.hammerdraff.com/properties-sale-monaco",
+   "https://www.hammerdraff.com/properties-rent-monaco"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "Eden Agency",
+  "website": "https://www.edenagency.mc/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "zebrasoft"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.edenagency.mc/fr/ventes",
+   "https://www.edenagency.mc/fr/locations"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "DAMA Monaco",
+  "website": "https://dama-agency.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://dama-agency.com/vente",
+   "https://dama-agency.com/location",
+   "https://dama-agency.com/location/joyau-de-luxe-avec-des-services-exceptionnels-villefranche-sur-mer",
+   "https://dama-agency.com/location/villa-neuve-aux-prestations-exceptionnelles-villfranche-sur-mer"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "ImmoSoft",
+  "website": "https://www.immosoft.mc/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "immosoft"
+  ],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "Agence Le Phare",
+  "website": "https://www.agencelephare.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.agencelephare.com/fr/vente/1/",
+   "https://www.agencelephare.com/fr/location/1/",
+   "https://www.agencelephare.com/fr/da/agences-immobilieres/rating/726-nos-avis",
+   "https://www.agencelephare.com/vente/1/",
+   "https://www.agencelephare.com/location/1/",
+   "https://www.agencelephare.com/fr/vente/1/1821198-terrain-a-batir-maupertus-sur-mer-50330",
+   "https://www.agencelephare.com/fr/vente/1/1821202-atelier-valcanville-50760",
+   "https://www.agencelephare.com/fr/vente/1/1996357-grange-la-hague-50440",
+   "https://www.agencelephare.com/fr/vente/1/1959940-grange-la-hague-50460",
+   "https://www.agencelephare.com/fr/vente/1/1999310-terrain-constructible-la-hague-50440",
+   "https://www.agencelephare.com/fr/vente/1/2003015-garage-cherbourg-en-cotentin-50130",
+   "https://www.agencelephare.com/fr/vente/1/1962299-appartement-cherbourg-en-cotentin-50100",
+   "https://www.agencelephare.com/fr/vente/1/1963381-terrain-a-batir-negreville-50260",
+   "https://www.agencelephare.com/fr/vente/1/1937397-terrain-de-loisirs-anneville-en-saire-50760",
+   "https://www.agencelephare.com/fr/vente/1/1996356-grange-la-hague-50440"
+  ],
+  "listing_samples": [
+   "https://www.agencelephare.com/fr/vente/1/1821198-terrain-a-batir-maupertus-sur-mer-50330",
+   "https://www.agencelephare.com/fr/vente/1/1821202-atelier-valcanville-50760",
+   "https://www.agencelephare.com/fr/vente/1/1996357-grange-la-hague-50440",
+   "https://www.agencelephare.com/fr/vente/1/1959940-grange-la-hague-50460",
+   "https://www.agencelephare.com/fr/vente/1/1999310-terrain-constructible-la-hague-50440"
+  ],
+  "listing_links_seen": 10,
+  "agent_hint": false,
+  "detail_tel_links": 3,
+  "detail_mailto": 0,
+  "jsonld_types": [
+   "Answer",
+   "BreadcrumbList",
+   "FAQPage",
+   "GeoCoordinates",
+   "ListItem",
+   "Offer",
+   "PostalAddress",
+   "QuantitativeValue"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "Amber International",
+  "website": "https://www.amber-international.com/",
+  "ok": true,
+  "platforms": [
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://amber-international.com/post-property/",
+   "https://www.amber-international.com/post-property"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Apartments for Rent Monaco",
+  "website": "https://www.apartments-for-rent-monaco.com/",
+  "ok": true,
+  "platforms": [
+   "immosoft",
+   "immotoolbox"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.apartments-for-rent-monaco.com/apartment/x4cel-city-center-cellar-for-rent",
+   "https://www.apartments-for-rent-monaco.com/apartment/x4lja-rental-sole-agent-rare-opportunity-in-the-carre-d-or-exceptional-residence-in-monaco"
+  ],
+  "listing_samples": [
+   "https://www.apartments-for-rent-monaco.com/apartment/x49a8-fairmont-residence-golden-square-1-bedroom-apartment-with-patio-view",
+   "https://www.apartments-for-rent-monaco.com/apartment/x4682-3-bedroom-apartment-in-a-prestigious-residence"
+  ],
+  "listing_links_seen": 2,
+  "agent_hint": false,
+  "detail_tel_links": 1,
+  "detail_mailto": 0,
+  "jsonld_types": [],
+  "sitemap": false
+ },
+ {
+  "name": "Du Midi Agency",
+  "website": "https://www.agencedumidi.mc/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "Festa Real Estate",
+  "website": "https://www.festainvestments.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": true,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Hermitage Riviera",
+  "website": "https://www.hermitageriviera.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.hermitageriviera.com/sale/",
+   "https://www.hermitageriviera.com/rental/",
+   "https://www.hermitageriviera.com/villa-for-sale-menton-garavan-an-exceptional-historic-estate-in-splendid-botanic-gardens-hr1498",
+   "https://www.hermitageriviera.com/villa-for-sale-menton-garavan-belle-epoque-villa-calm-sea-view-panoramic-hr2995",
+   "https://www.hermitageriviera.com/villa-to-rent-saint-jean-cap-ferrat-magnificent-waterfront-property-sea-view-pool-guest-house-hr2748",
+   "https://www.hermitageriviera.com/villa-for-sale-eze-village-provencal-villa-panoramic-sea-view-calm-hr3007",
+   "https://www.hermitageriviera.com/penthouse-for-sale-cap-dail-luxury-residence-pool-sea-view-terrasse-close-to-beach-mala-hr2725",
+   "https://www.hermitageriviera.com/villa-for-sale-cap-dail-property-of-two-modern-villas-sea-views-pool-close-to-monaco-hr2851",
+   "https://www.hermitageriviera.com/villa-for-sale-nice-mont-boron-contemporary-villa-sea-views-pool-hr2084",
+   "https://www.hermitageriviera.com/penthouse-for-sale-nice-mont-boron-exceptional-apartment-top-floor-breathtaking-sea-view-hr2958",
+   "https://www.hermitageriviera.com/apartment-for-sale-menton-garavan-luxury-dwelling-in-the-potager-of-the-mirazur-hotel-complex-hr2841",
+   "https://www.hermitageriviera.com/villa-for-sale-cannes-super-cannes-alm-sea-view-pool-guest-house-garage-hr2705",
+   "https://www.hermitageriviera.com/villa-for-sale-roquebrune-cap-martin-new-villa-sea-view-pool-hr2928",
+   "https://www.hermitageriviera.com/villa-for-sale-villefranche-sur-mer-new-contemporary-property-sea-view-gated-estate-pool-hr2472",
+   "https://www.hermitageriviera.com/apartment-for-sale-nice-cours-saleya-3-bedroom-apartment-xviith-century-baroque-building-cours-saleya-hr2795"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Knight Frank Monaco",
+  "website": "https://www.knightfrank.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.knightfrank.com/property-for-sale",
+   "https://www.knightfrank.com/buying-property",
+   "https://www.knightfrank.com/commercial-property",
+   "https://www.knightfrank.com/property-for-sale/caribbean",
+   "https://www.knightfrank.com/property-for-sale/italy",
+   "https://www.knightfrank.com/property-for-sale/monaco",
+   "https://www.knightfrank.com/property-for-sale/portugal"
+  ],
+  "listing_samples": [
+   "https://www.knightfrank.com/properties/residential/for-sale/all-locations/all-types/all-beds;officeid=171/"
+  ],
+  "listing_links_seen": 1,
+  "agent_hint": false,
+  "detail_tel_links": 0,
+  "detail_mailto": 0,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "Le Figaro Properties",
+  "website": "https://properties.lefigaro.com/",
+  "ok": true,
+  "platforms": [
+   "adaptimmo",
+   "hektor",
+   "netty",
+   "nuxt",
+   "ubiflow"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://properties.lefigaro.com/announces/house-real+estate-properties+for+sale-france/",
+   "https://properties.lefigaro.com/announces/villa-real+estate-properties+for+sale-france/",
+   "https://properties.lefigaro.com/announces/chalet-real+estate-properties+for+sale-france/",
+   "https://properties.lefigaro.com/announces/apartment-real+estate-properties+for+sale-france/",
+   "https://properties.lefigaro.com/announces/chateau-real+estate-properties+for+sale-france/",
+   "https://properties.lefigaro.com/announces/manoir-real+estate-properties+for+sale-france/",
+   "https://properties.lefigaro.com/announces/property-real+estate-properties+for+sale-france/",
+   "https://properties.lefigaro.com/announces/farm-real+estate-properties+for+sale-france/",
+   "https://properties.lefigaro.com/announces/loft-real+estate-properties+for+sale-france/",
+   "https://properties.lefigaro.com/announces/houseboat-real+estate-properties+for+sale-france/",
+   "https://properties.lefigaro.com/announces/vineyard-real+estate-properties+for+sale-france/",
+   "https://properties.lefigaro.com/announces/luxury-real+estate-poitou+charentes-france/",
+   "https://properties.lefigaro.com/announces/luxury-real+estate-properties+for+sale-france/",
+   "https://properties.lefigaro.com/rental/house-rental-properties+for+rent-france/",
+   "https://properties.lefigaro.com/rental/villa-rental-properties+for+rent-france/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Livein Monaco",
+  "website": "https://www.livein.mc/",
+  "ok": false,
+  "error": "https://www.livein.mc/: HTTP 200"
+ },
+ {
+  "name": "Meridian Real Estate",
+  "website": "https://www.meridian.mc/",
+  "ok": false,
+  "error": "https://www.meridian.mc/: HTTP 403"
+ },
+ {
+  "name": "Monaco Villas",
+  "website": "https://www.monaco-villas.com/",
+  "ok": false,
+  "error": "https://www.monaco-villas.com/: ConnectionError"
+ },
+ {
+  "name": "Phoenix Properties",
+  "website": "https://www.phoenix.mc/",
+  "ok": true,
+  "platforms": [
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Quantum Properties",
+  "website": "https://www.quantum.mc/",
+  "ok": true,
+  "platforms": [
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://quantum.mc/index.php/shop/sale?id=3536",
+   "https://quantum.mc/index.php/shop/sale/womens-shoes-sale/womens-sandals-sale?id=340626",
+   "https://quantum.mc/index.php/shop/sale/lowest-prices-of-the-season/furniture-lowest-prices-of-the-season/Price_discount_range/20_PERCENT_%20off%20%26%20more?id=70983",
+   "https://quantum.mc/index.php/shop/sale/jewelry-watches?id=228492",
+   "https://quantum.mc/index.php/shop/sale/womens-sale/womens-clothing-sale?id=338161",
+   "https://quantum.mc/index.php/s/how-to-buy-a-suit/",
+   "https://quantum.mc/index.php/shop/sale/mens-sale?id=9559",
+   "https://quantum.mc/index.php/shop/brands/yves-saint-laurent-perfume?id=31759",
+   "https://quantum.mc/index.php/shop/sale/beauty-products-sale?id=66190",
+   "https://quantum.mc/index.php/shop/sale/womens-shoes-sale/womens-sneakers-sale?id=340545",
+   "https://quantum.mc/index.php/shop/sale/womens-shoes-sale/womens-sandals-sale/Price_discount_range/40_PERCENT_%20off%20%26%20more?id=340626",
+   "https://quantum.mc/index.php/shop/sale/womens-shoes-sale?id=13604",
+   "https://quantum.mc/index.php/shop/sale/lowest-prices-of-the-season/furniture-lowest-prices-of-the-season?id=70983",
+   "https://quantum.mc/index.php/shop/sale/home-sale?id=24294",
+   "https://quantum.mc/index.php/shop/sale/handbags-sale?id=28273"
+  ],
+  "listing_samples": [
+   "https://quantum.mc/index.php/shop/sale/lowest-prices-of-the-season/furniture-lowest-prices-of-the-season/Price_discount_range/20_PERCENT_%20off%20%26%20more?id=70983",
+   "https://quantum.mc/index.php/shop/sale/womens-shoes-sale/womens-sandals-sale/Price_discount_range/40_PERCENT_%20off%20%26%20more?id=340626",
+   "https://quantum.mc/index.php/shop/sale/lowest-prices-of-the-season/mattress-lowest-prices-of-the-season/Price_discount_range/30_PERCENT_%20off%20%26%20more?id=341238",
+   "https://quantum.mc/index.php/shop/sale/lowest-prices-of-the-season/rugs-lowest-prices-of-the-season/Price_discount_range/60_PERCENT_%20off%20%26%20more?id=355181",
+   "https://quantum.mc/index.php/shop/sale/sales-for-kids/Price/1%257C25?id=6086"
+  ],
+  "listing_links_seen": 10,
+  "agent_hint": false,
+  "detail_tel_links": 0,
+  "detail_mailto": 0,
+  "jsonld_types": [],
+  "sitemap": false
+ },
+ {
+  "name": "The Agency Monaco",
+  "website": "https://www.theagency.mc/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://theagency.mc/properties-for-sale/",
+   "https://theagency.mc/properties-for-rent/",
+   "https://theagency.mc/international-properties-for-sale/",
+   "https://theagency.mc/france-properties-for-sale/",
+   "https://theagency.mc/property/127439-apartment-cap-martin-france/",
+   "https://theagency.mc/property/126979-house-monaco-ville-monaco/",
+   "https://theagency.mc/property/127089-parking-la-rousse-saint-roman-monaco/",
+   "https://theagency.mc/property/122848-apartment-carre-dor-monaco/",
+   "https://theagency.mc/property/121310-apartment-la-rousse-saint-roman-monaco/",
+   "https://theagency.mc/property/123075-apartment-moneghetti-monaco/",
+   "https://theagency.mc/property/123072-apartment-carre-dor-monaco/",
+   "https://theagency.mc/property/123121-apartment-la-rousse-saint-roman-monaco/",
+   "https://theagency.mc/property/126973-apartment-port-monaco/",
+   "https://theagency.mc/property/122851-apartment-dubai-united-arab-emirates/",
+   "https://theagency.mc/property/122850-apartment-dubai-united-arab-emirates/"
+  ],
+  "listing_samples": [
+   "https://theagency.mc/property/127439-apartment-cap-martin-france/",
+   "https://theagency.mc/property/126979-house-monaco-ville-monaco/",
+   "https://theagency.mc/property/127089-parking-la-rousse-saint-roman-monaco/",
+   "https://theagency.mc/property/122848-apartment-carre-dor-monaco/",
+   "https://theagency.mc/property/121310-apartment-la-rousse-saint-roman-monaco/"
+  ],
+  "listing_links_seen": 14,
+  "agent_hint": false,
+  "detail_tel_links": 1,
+  "detail_mailto": 1,
+  "jsonld_types": [
+   "BreadcrumbList",
+   "EntryPoint",
+   "ImageObject",
+   "ListItem",
+   "Organization",
+   "PropertyValueSpecification",
+   "ReadAction",
+   "SearchAction"
+  ],
+  "sitemap": false
+ }
+]

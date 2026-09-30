@@ -300,7 +300,8 @@
   ],
   "website": null,
   "phone": "0037797777000",
-  "address": "13 Bd Princesse Charlotte, 98000 - Monaco"
+  "address": "13 Bd Princesse Charlotte, 98000 - Monaco",
+  "own_website": "none_found_portal_only"
  },
  {
   "name": "Caroline Olds Real Estate",
@@ -604,7 +605,8 @@
   "in_official_directory": true,
   "covered_by": [
    "cim"
-  ]
+  ],
+  "own_website": "none_found_portal_only"
  },
  {
   "name": "Volumes",
@@ -983,7 +985,8 @@
   ],
   "website": null,
   "phone": "0037792006969",
-  "address": "Le Prince des Galles&#xD;&#xA;3/5 Av. des Citronniers, 98000 - Monaco"
+  "address": "Le Prince des Galles&#xD;&#xA;3/5 Av. des Citronniers, 98000 - Monaco",
+  "own_website": "none_found_portal_only"
  },
  {
   "name": "BALDO REALTY GROUP",
@@ -1197,7 +1200,7 @@
   "address": "1/5, avenue de  Grande Bretagne",
   "phone": "+37793507959",
   "email": "info@ambassadeursimmo.mc",
-  "website": null,
+  "website": "https://www.realestateambassadeurs.com/",
   "cim_listing_count": 14,
   "mcre_slug": "agence-des-ambassadeurs-monaco-tc-20",
   "mcre_tc": 20,
@@ -1394,7 +1397,8 @@
   ],
   "csv_names": [
    "Invest Real Estate"
-  ]
+  ],
+  "own_website": "none_found_portal_only"
  },
  {
   "name": "Prestige Properties",
@@ -1688,7 +1692,8 @@
   "covered_by": [
    "cim",
    "mcre"
-  ]
+  ],
+  "own_website": "none_found_portal_only"
  },
  {
   "name": "Agence Marchetti Monaco",
@@ -1758,7 +1763,8 @@
   "covered_by": [
    "cim",
    "mcre"
-  ]
+  ],
+  "own_website": "none_found_portal_only"
  },
  {
   "name": "Rey  & Nouvion Immobilier",
@@ -1816,7 +1822,8 @@
   "covered_by": [
    "mcre"
   ],
-  "website": null
+  "website": null,
+  "own_website": "none_found_portal_only"
  },
  {
   "name": "A&S Estate",
@@ -2090,7 +2097,8 @@
   ],
   "csv_names": [
    "Majestic Real Estate"
-  ]
+  ],
+  "own_website": "none_found_portal_only"
  },
  {
   "name": "López de la Osa & Franco Real Estate",
@@ -2123,7 +2131,8 @@
   "covered_by": [
    "mcre"
   ],
-  "website": null
+  "website": null,
+  "own_website": "none_found_portal_only"
  },
  {
   "name": "Agence B.I.A.I.",
@@ -2229,7 +2238,8 @@
   "covered_by": [
    "mcre"
   ],
-  "website": null
+  "website": null,
+  "own_website": "none_found_portal_only"
  },
  {
   "name": "LBMC Properties",
@@ -2284,7 +2294,8 @@
   ],
   "website": null,
   "phone": "0037792167070",
-  "address": "1, rue du T&#xE9;nao, 98000 - Monaco"
+  "address": "1, rue du T&#xE9;nao, 98000 - Monaco",
+  "own_website": "none_found_portal_only"
  },
  {
   "name": "J&K Wentz Real Estate Monaco",
@@ -2312,7 +2323,8 @@
   "covered_by": [
    "mcre"
   ],
-  "website": null
+  "website": null,
+  "own_website": "none_found_portal_only"
  },
  {
   "name": "FY Real Estate",
@@ -2383,7 +2395,8 @@
   "in_official_directory": true,
   "covered_by": [
    "cim"
-  ]
+  ],
+  "own_website": "none_found_portal_only"
  },
  {
   "name": "Norea Agency",
@@ -2396,7 +2409,8 @@
   ],
   "website": null,
   "phone": "0033620960729",
-  "address": "38 Quai Jean-Charles Rey, 98000 - Monaco"
+  "address": "38 Quai Jean-Charles Rey, 98000 - Monaco",
+  "own_website": "none_found_portal_only"
  },
  {
   "name": "SARL GOLDEN SQUARE",
@@ -2440,7 +2454,8 @@
   "covered_by": [
    "mcre"
   ],
-  "website": null
+  "website": null,
+  "own_website": "none_found_portal_only"
  },
  {
   "name": "Cabinet Wolzok",
@@ -2452,7 +2467,8 @@
   "email": null,
   "website": null,
   "cim_listing_count": null,
-  "covered_by": []
+  "covered_by": [],
+  "own_website": "none_found"
  },
  {
   "name": "SARL Gramaglia Syndic",
@@ -2464,7 +2480,8 @@
   "email": null,
   "website": null,
   "cim_listing_count": null,
-  "covered_by": []
+  "covered_by": [],
+  "own_website": "none_found"
  },
  {
   "name": "Cabinet Vivalda",
@@ -2476,7 +2493,8 @@
   "email": null,
   "website": null,
   "cim_listing_count": null,
-  "covered_by": []
+  "covered_by": [],
+  "own_website": "none_found"
  },
  {
   "name": "SAM PASTOR",
@@ -2488,7 +2506,8 @@
   "email": null,
   "website": null,
   "cim_listing_count": null,
-  "covered_by": []
+  "covered_by": [],
+  "own_website": "none_found"
  },
  {
   "name": "Hammer Draff",
@@ -2536,7 +2555,8 @@
   "website": null,
   "cim_listing_count": 0,
   "in_official_directory": true,
-  "covered_by": []
+  "covered_by": [],
+  "own_website": "none_found"
  },
  {
   "name": "Helene Pastor Properties",
@@ -2548,7 +2568,8 @@
   "email": null,
   "website": null,
   "cim_listing_count": null,
-  "covered_by": []
+  "covered_by": [],
+  "own_website": "none_found"
  },
  {
   "name": "DAMA Monaco",
@@ -2580,7 +2601,8 @@
   "address": "6 quai Jean-Charles Rey - Fontvieille",
   "phone": "+37793302727",
   "covered_by": [],
-  "website": null
+  "website": null,
+  "own_website": "none_found"
  },
  {
   "name": "Agence des Etrangers",
@@ -2589,7 +2611,7 @@
   "address": "6 avenue de la Madone - Monte-Carlo",
   "phone": "+37793105555",
   "covered_by": [],
-  "website": null,
+  "website": "https://www.agencedesetrangers.mc/",
   "csv_names": [
    "Agence des Etrangers"
   ]
@@ -2601,7 +2623,8 @@
   "address": "30 boulevard des Moulins - Monte-Carlo",
   "phone": "+37797700555",
   "covered_by": [],
-  "website": null
+  "website": null,
+  "own_website": "none_found"
  },
  {
   "name": "Agence Landau",
@@ -2610,7 +2633,8 @@
   "address": "5 avenue de l' Hermitage - Monte-Carlo",
   "phone": "+37793304514",
   "covered_by": [],
-  "website": null
+  "website": null,
+  "own_website": "none_found"
  },
  {
   "name": "Agence Le Zodiaque",
@@ -2619,7 +2643,8 @@
   "address": "Le Continental, 3 place des Moulins - Monte-Carlo",
   "phone": "+37793505302",
   "covered_by": [],
-  "website": null
+  "website": null,
+  "own_website": "none_found"
  },
  {
   "name": "Agence Regenti",
@@ -2628,7 +2653,8 @@
   "address": "34 quai Jean-Charles Rey - Fontvieille",
   "phone": "+37799922099",
   "covered_by": [],
-  "website": null
+  "website": null,
+  "own_website": "none_found"
  },
  {
   "name": "Benjamin Pratt",
@@ -2637,7 +2663,8 @@
   "address": "3 avenue des Citronniers - Larvotto - La Rousse",
   "phone": "+37799990808",
   "covered_by": [],
-  "website": null
+  "website": null,
+  "own_website": "none_found"
  },
  {
   "name": "Berry & Quinti Monaco - International Realty",
@@ -2646,7 +2673,8 @@
   "address": "53 rue Grimaldi - Condamine",
   "phone": "+37797971520",
   "covered_by": [],
-  "website": null
+  "website": null,
+  "own_website": "none_found"
  },
  {
   "name": "Chic Immobilier",
@@ -2655,7 +2683,8 @@
   "address": "41 avenue Hector Otto - Jardin Exotique - Moneghetti",
   "phone": "+37797983398",
   "covered_by": [],
-  "website": null
+  "website": null,
+  "own_website": "none_found"
  },
  {
   "name": "Faggionato Real Estates",
@@ -2664,7 +2693,8 @@
   "address": "5 Avenue Princesse Alice",
   "phone": "+37799905927",
   "covered_by": [],
-  "website": null
+  "website": null,
+  "own_website": "none_found"
  },
  {
   "name": "First Properties",
@@ -2676,7 +2706,8 @@
   "website": null,
   "csv_names": [
    "First Home Real Estate"
-  ]
+  ],
+  "own_website": "none_found"
  },
  {
   "name": "G² Immo",
@@ -2688,7 +2719,8 @@
   "website": null,
   "csv_names": [
    "G-Estates"
-  ]
+  ],
+  "own_website": "none_found"
  },
  {
   "name": "L'Agence",
@@ -2697,7 +2729,8 @@
   "address": "1 Avenue Henry Dunant",
   "phone": "+37799926630",
   "covered_by": [],
-  "website": null
+  "website": null,
+  "own_website": "none_found"
  },
  {
   "name": "La Costa Properties Monaco",
@@ -2706,7 +2739,8 @@
   "address": null,
   "phone": "+37797979900",
   "covered_by": [],
-  "website": null
+  "website": null,
+  "own_website": "none_found"
  },
  {
   "name": "Luk Immobilier",
@@ -2715,7 +2749,8 @@
   "address": "7 rue Princesse Antoinette - Condamine",
   "phone": "+37793505550",
   "covered_by": [],
-  "website": null
+  "website": null,
+  "own_website": "none_found"
  },
  {
   "name": "Monégasque Immobilier (La)",
@@ -2724,7 +2759,8 @@
   "address": "18 quai Jean-Charles Rey - Fontvieille",
   "phone": "+37792052880",
   "covered_by": [],
-  "website": null
+  "website": null,
+  "own_website": "none_found"
  },
  {
   "name": "Monte-Carlo Estates",
@@ -2733,7 +2769,8 @@
   "address": "3 avenue des Citronniers - Larvotto - La Rousse",
   "phone": "+37797771221",
   "covered_by": [],
-  "website": null
+  "website": null,
+  "own_website": "none_found"
  },
  {
   "name": "Munegu Real Estate",
@@ -2742,7 +2779,8 @@
   "address": "17 boulevard Albert 1er - Condamine",
   "phone": "+37797975020",
   "covered_by": [],
-  "website": null
+  "website": null,
+  "own_website": "none_found"
  },
  {
   "name": "P. Palace Immobilier",
@@ -2754,7 +2792,8 @@
   "website": null,
   "csv_names": [
    "Palace Properties"
-  ]
+  ],
+  "own_website": "none_found"
  },
  {
   "name": "Prime Property",
@@ -2762,7 +2801,8 @@
   "in_official_directory": true,
   "address": null,
   "covered_by": [],
-  "website": null
+  "website": null,
+  "own_website": "none_found"
  },
  {
   "name": "Private Estate Solutions",
@@ -2771,7 +2811,8 @@
   "address": "16 rue du Gabian - Fontvieille",
   "phone": "+37799902612",
   "covered_by": [],
-  "website": null
+  "website": null,
+  "own_website": "none_found"
  },
  {
   "name": "Agence Le Phare",

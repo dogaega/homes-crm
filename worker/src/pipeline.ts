@@ -104,11 +104,15 @@ export function scoreMatch(a: MatchSide, b: MatchSide): MatchResult | null {
   if (bedsKnown && !bedsEqual) return null
   const floorsKnown = a.floor != null && b.floor != null
   if (floorsKnown && a.floor !== b.floor) return null
+  // Two units in one building often share size and layout; a price gap
+  // over 10% means "maybe", never an automatic merge.
+  const pricesDiffer = a.price != null && b.price != null && !within(a.price, b.price, 0.10)
 
   // Tier 1: exact coordinates published by both listings + area ±2%.
   if (a.coord_source === 'listing' && b.coord_source === 'listing' && a.lat != null && b.lat != null &&
       round5(a.lat) === round5(b.lat) && round5(a.lng!) === round5(b.lng!) && within(a.area, b.area, 0.02)) {
-    return { tier: 'coords', score: 1, reasons: ['exact_coords', 'area_2pct', ...(bedsEqual ? ['bedrooms'] : [])] }
+    const reasons = ['exact_coords', 'area_2pct', ...(bedsEqual ? ['bedrooms'] : [])]
+    return pricesDiffer ? { tier: 'review', score: 0.6, reasons: [...reasons, 'price_differs'] } : { tier: 'coords', score: 1, reasons }
   }
 
   const sameBuilding = (a.building_id != null && a.building_id === b.building_id) ||
@@ -116,7 +120,8 @@ export function scoreMatch(a: MatchSide, b: MatchSide): MatchResult | null {
 
   // Tier 2: same building + area ±3% + same bedrooms (+ floor when both known).
   if (sameBuilding && bedsEqual && within(a.area, b.area, 0.03)) {
-    return { tier: 'building', score: 0.95, reasons: ['same_building', 'area_3pct', 'bedrooms', ...(floorsKnown ? ['floor'] : [])] }
+    const reasons = ['same_building', 'area_3pct', 'bedrooms', ...(floorsKnown ? ['floor'] : [])]
+    return pricesDiffer ? { tier: 'review', score: 0.6, reasons: [...reasons, 'price_differs'] } : { tier: 'building', score: 0.95, reasons }
   }
 
   // Tier 4: partial match → review queue.
@@ -449,10 +454,15 @@ async function ingestListing(ctx: Ctx, run: any, agencyId: string, agentId: stri
   }
   // Tier 0: the same agency's listing already came in through another site
   // (its CIM page vs MCRE vs its own website) under the same reference.
-  const refMatch = str(l.external_ref) && agencyId ? await ctx.db.prepare(
+  // Immotoolbox-powered agency sites reuse the CIM portal's listing id.
+  const cimId = typeof l.extra?.cim_id === 'string' && /^\d{4,7}$/.test(l.extra.cim_id as string) ? l.extra.cim_id as string : null
+  const cimMatch = cimId ? await ctx.db.prepare(
+    `SELECT property_id FROM property_sources WHERE source_url = ? AND removed_at IS NULL`
+  ).bind(`https://www.chambre-immobiliere-monaco.mc/fr/bien/${cimId}/bien`).first<{ property_id: string }>() : null
+  const refMatch = cimMatch ?? (str(l.external_ref) && agencyId ? await ctx.db.prepare(
     `SELECT property_id FROM property_sources
      WHERE agency_id = ? AND external_ref = ? AND site_key != ? AND transaction_type = ? AND removed_at IS NULL LIMIT 1`
-  ).bind(agencyId, str(l.external_ref), run.site_key, l.transaction_type).first<{ property_id: string }>() : null
+  ).bind(agencyId, str(l.external_ref), run.site_key, l.transaction_type).first<{ property_id: string }>() : null)
   const decision: MatchDecision = refMatch
     ? { autoTo: { id: refMatch.property_id, tier: 'ref' }, review: [] }
     : await findMatches(ctx, side, l.transaction_type, run.site_key, coordsShared)
@@ -798,6 +808,8 @@ async function phashMatch(ctx: Ctx, source: any): Promise<Json | null> {
     // A building exterior shared by several units of different value is
     // not the same flat: prices more than 20% apart rule the pair out.
     if (source.price_at_source && r.price_at_source && !within(source.price_at_source, r.price_at_source, 0.2)) continue
+    if (source.living_area_sqm && r.living_area_sqm && !within(source.living_area_sqm, r.living_area_sqm, 0.05)) continue
+    if (source.bedrooms != null && r.bedrooms != null && source.bedrooms !== r.bedrooms) continue
     const d = hamming64(source.hero_phash, r.hero_phash)
     if (d < bestD) { best = r; bestD = d }
   }
