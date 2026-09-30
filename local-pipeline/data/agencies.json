@@ -7,7 +7,7 @@
   "address": "13 Boulevard Princesse Charlotte",
   "phone": "+33610124074",
   "email": "contact@bc-properties.com",
-  "website": "https://bc-properties.com",
+  "website": "https://bc-properties.com/",
   "cim_listing_count": 129,
   "mcre_slug": "bc-properties-monaco-tc-79",
   "mcre_tc": 79,
@@ -34,6 +34,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Petrini Exclusive Real Estate"
   ]
  },
  {
@@ -44,7 +47,7 @@
   "address": "7 Avenue des Papalins « Immeuble Michelangelo »",
   "phone": "+37792161632",
   "email": "monaco@barnes-international.com",
-  "website": "https://www.valeri-agency.com",
+  "website": "https://www.valeri-agency.com/",
   "cim_listing_count": 107,
   "mcre_slug": "barnes-i-valeri-agency-monaco-tc-63",
   "mcre_tc": 63,
@@ -53,6 +56,10 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "BARNES Monaco",
+   "Valeri Agency"
   ]
  },
  {
@@ -63,7 +70,10 @@
   "mcre_listing_count": 82,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://carat-properties.com/",
+  "phone": "0037799991818",
+  "address": "Tour Od&#xE9;on&#xD;&#xA;36 av. de l&#x27;Annonciade, 98000 - Monaco"
  },
  {
   "name": "Miells Monaco Real Estate",
@@ -73,11 +83,14 @@
   "address": "14 Avenue de la Costa",
   "phone": "+37797977929",
   "email": "info@miells.com",
-  "website": "https://www.miells.com",
+  "website": "https://www.miells.com/",
   "cim_listing_count": 79,
   "in_official_directory": true,
   "covered_by": [
    "cim"
+  ],
+  "csv_names": [
+   "Miells Real Estate"
   ]
  },
  {
@@ -88,7 +101,7 @@
   "address": "1, avenue Henri Dunant",
   "phone": "+37797702400",
   "email": "contact@vcb.mc",
-  "website": "http://www.vcb.mc",
+  "website": "https://www.vcb.mc/",
   "cim_listing_count": 68,
   "mcre_slug": "viviani-champfleury-barco-monaco-tc-89",
   "mcre_tc": 89,
@@ -97,6 +110,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Viviani Champfleury Barco"
   ]
  },
  {
@@ -107,11 +123,14 @@
   "address": "29 Bd d'Italie",
   "phone": "+37797973397",
   "email": "info@mpmonaco.com",
-  "website": "https://www.monacoproperties.mc",
+  "website": "https://www.monacoproperties.mc/",
   "cim_listing_count": 65,
   "in_official_directory": true,
   "covered_by": [
    "cim"
+  ],
+  "csv_names": [
+   "Monaco Properties"
   ]
  },
  {
@@ -122,7 +141,7 @@
   "address": "4, boulevard des Moulins",
   "phone": "+37792165800",
   "email": "info@groupesmir.com",
-  "website": "http://www.groupesmir.com/",
+  "website": "https://www.groupesmir.com/",
   "cim_listing_count": 62,
   "mcre_slug": "groupe-s-m-i-r-monaco-tc-19",
   "mcre_tc": 19,
@@ -160,7 +179,7 @@
   "address": "20, boulevard des Moulins",
   "phone": "+37793503070",
   "email": "monaco@john-taylor.com",
-  "website": "https://www.john-taylor.mc",
+  "website": "https://www.john-taylor.mc/",
   "cim_listing_count": 52,
   "mcre_slug": "john-taylor-monaco-tc-15",
   "mcre_tc": 15,
@@ -169,6 +188,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "John Taylor Monaco"
   ]
  },
  {
@@ -179,7 +201,7 @@
   "address": "22, boulevard des Moulins",
   "phone": "+37793506799",
   "email": "contact@westrope-monaco.com",
-  "website": "http://www.westrope-monaco.com",
+  "website": "https://www.westrope-monaco.com/",
   "cim_listing_count": 51,
   "mcre_slug": "westrope-real-estate-monaco-tc-139",
   "mcre_tc": 139,
@@ -198,11 +220,14 @@
   "address": "Palais Miami 10 Bd d'Italie",
   "phone": "+37793502530",
   "email": "info@dameno.mc",
-  "website": "http://www.dameno.mc",
+  "website": "https://www.dameno.mc/",
   "cim_listing_count": 50,
   "in_official_directory": true,
   "covered_by": [
    "cim"
+  ],
+  "csv_names": [
+   "Dameno Monaco Real Estate"
   ]
  },
  {
@@ -213,7 +238,7 @@
   "address": "47, boulevard du Jardin Exotique",
   "phone": "+37797970277",
   "email": "request@lvsmonaco.com",
-  "website": "http://www.lorenzavonstein.com",
+  "website": "https://www.lorenzavonstein.com/",
   "cim_listing_count": 49,
   "mcre_slug": "lorenza-von-stein-monaco-tc-23",
   "mcre_tc": 23,
@@ -232,7 +257,7 @@
   "address": "4 Rue R.P. Louis Frolla",
   "phone": "+37793308585",
   "email": "info@aibb.mc",
-  "website": "http://www.aibb.mc",
+  "website": "https://www.aibb.mc/",
   "cim_listing_count": 47,
   "mcre_slug": "a-i-b-b-real-estate-monaco-tc-17",
   "mcre_tc": 17,
@@ -251,7 +276,7 @@
   "address": "31, avenue Princesse Grace",
   "phone": "+37797709720",
   "email": "contact@heritageproperties.mc",
-  "website": "https://www.heritageproperties.mc",
+  "website": "https://www.heritageproperties.mc/",
   "cim_listing_count": 43,
   "mcre_slug": "heritage-properties-monaco-tc-73",
   "mcre_tc": 73,
@@ -259,6 +284,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Heritage Properties"
   ]
  },
  {
@@ -269,7 +297,10 @@
   "mcre_listing_count": 46,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": null,
+  "phone": "0037797777000",
+  "address": "13 Bd Princesse Charlotte, 98000 - Monaco"
  },
  {
   "name": "Caroline Olds Real Estate",
@@ -298,7 +329,7 @@
   "address": "23 Bd Princesse Charlotte",
   "phone": "+37797981549",
   "email": "info@exclusive-estate.mc",
-  "website": "https://www.exclusive-estate.mc",
+  "website": "https://www.exclusive-estate.mc/",
   "cim_listing_count": 45,
   "mcre_slug": "exclusive-estate-monaco-tc-72",
   "mcre_tc": 72,
@@ -307,6 +338,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Exclusive Estates Monaco"
   ]
  },
  {
@@ -331,7 +365,7 @@
   "address": "25, avenue de la Costa",
   "phone": "+37797979900",
   "email": "info@25lcp.com",
-  "website": "http://www.25lcp.com",
+  "website": "https://www.25lcp.com/",
   "cim_listing_count": 40,
   "mcre_slug": "la-costa-properties-monaco-tc-40",
   "mcre_tc": 40,
@@ -340,6 +374,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "La Costa Properties Monaco"
   ]
  },
  {
@@ -350,7 +387,7 @@
   "address": "1, avenue Prince Pierre",
   "phone": "+37793250101",
   "email": "info@marsanimmobiliermonaco.mc",
-  "website": "https://www.marsanimmobiliermonaco.mc",
+  "website": "https://www.marsanimmobiliermonaco.mc/",
   "cim_listing_count": 39,
   "mcre_slug": "marsan-immobilier-monaco-tc-45",
   "mcre_tc": 45,
@@ -369,7 +406,7 @@
   "address": "14, boulevard des Moulins",
   "phone": null,
   "email": null,
-  "website": null,
+  "website": "https://www.gramaglia.mc/",
   "cim_listing_count": null,
   "mcre_slug": "agence-gramaglia-monaco-tc-11",
   "mcre_tc": 11,
@@ -386,7 +423,7 @@
   "address": "3, avenue de Grande Bretagne",
   "phone": "+37797978787",
   "email": "afim@afim.mc",
-  "website": "http://www.afim.mc",
+  "website": "https://www.afim.mc/",
   "cim_listing_count": 38,
   "mcre_slug": "afim-sam-monaco-tc-7",
   "mcre_tc": 7,
@@ -405,7 +442,7 @@
   "address": "Les Arcades du Métropole 2a, avenue de Grande Bretagne",
   "phone": "+37793253727",
   "email": "info@montecarlo-sothebysrealty.com",
-  "website": "https://www.montecarlo-sothebysrealty.com",
+  "website": "https://www.montecarlo-sothebysrealty.com/",
   "cim_listing_count": 37,
   "mcre_slug": "monte-carlo-sotheby-s-international-realty-monaco-tc-18",
   "mcre_tc": 18,
@@ -414,6 +451,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Monte-Carlo Sotheby's International Realty"
   ]
  },
  {
@@ -424,7 +464,7 @@
   "address": "15, Bd Princesse Charlotte",
   "phone": "+37793251818",
   "email": "contact@houseandco.mc",
-  "website": "http://www.houseandco.mc",
+  "website": "https://www.houseandco.mc/",
   "cim_listing_count": 37,
   "mcre_slug": "house-co-monaco-tc-38",
   "mcre_tc": 38,
@@ -452,6 +492,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Coldwell Banker Etic Realty"
   ]
  },
  {
@@ -471,6 +514,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Caroli Real Estate"
   ]
  },
  {
@@ -481,7 +527,7 @@
   "address": "8 boulevard des Moulins",
   "phone": "+37797770777",
   "email": "laurence@town-sea.com",
-  "website": "http://www.town-sea.com",
+  "website": "https://www.town-sea.com/",
   "cim_listing_count": 34,
   "in_official_directory": true,
   "covered_by": [
@@ -499,6 +545,10 @@
   "phone": "+37799907767",
   "covered_by": [
    "mcre"
+  ],
+  "website": "https://prime-estate.mc/",
+  "csv_names": [
+   "Prime Real Estate"
   ]
  },
  {
@@ -509,7 +559,7 @@
   "address": "21, boulevard des Moulins",
   "phone": "+37793307561",
   "email": "fcf@fcfrealestate.com",
-  "website": "https://www.fcfrealestate.com",
+  "website": "https://www.fcfrealestate.com/",
   "cim_listing_count": 31,
   "mcre_slug": "fcf-cristea-flandrin-immobilier-monaco-tc-5",
   "mcre_tc": 5,
@@ -518,6 +568,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Cristea-Flandrin Immobilier"
   ]
  },
  {
@@ -528,11 +581,14 @@
   "address": "5bis, avenue Princesse Alice",
   "phone": "+37797982000",
   "email": "transaction@dotta.mc",
-  "website": "http://www.dotta.mc/",
+  "website": "https://www.dotta.mc/",
   "cim_listing_count": 30,
   "in_official_directory": true,
   "covered_by": [
    "cim"
+  ],
+  "csv_names": [
+   "Dotta Real Estate"
   ]
  },
  {
@@ -558,7 +614,7 @@
   "address": "25 Rue Grimaldi",
   "phone": "+37793308980",
   "email": "infos@volumes.mc",
-  "website": "http://www.volumes.mc",
+  "website": "https://www.volumes.mc/",
   "cim_listing_count": 27,
   "mcre_slug": "volumes-monaco-tc-147",
   "mcre_tc": 147,
@@ -577,7 +633,10 @@
   "mcre_listing_count": 29,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://www.mycrownestates.mc/",
+  "phone": "0037799997680",
+  "address": "1 Bd Princesse Charlotte, 98000 - Monaco"
  },
  {
   "name": "Agence Nouvelle",
@@ -587,7 +646,7 @@
   "address": "16 Av. de la Costa",
   "phone": "+37797973160",
   "email": "info@agencenouvellemonaco.com",
-  "website": "http://www.agencenouvellemonaco.com/",
+  "website": "https://www.agencenouvellemonaco.com/",
   "cim_listing_count": 27,
   "mcre_slug": "agence-nouvelle-monaco-tc-99",
   "mcre_tc": 99,
@@ -596,6 +655,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Agence Nouvelle de Monaco"
   ]
  },
  {
@@ -606,7 +668,7 @@
   "address": "45 Rue Grimaldi",
   "phone": "+37792053577",
   "email": "info@segond.com",
-  "website": "https://www.segond-immobilier.com",
+  "website": "https://www.segond-immobilier.com/",
   "cim_listing_count": 26,
   "mcre_slug": "segond-immobilier-monaco-tc-93",
   "mcre_tc": 93,
@@ -615,6 +677,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Segond Immobilier"
   ]
  },
  {
@@ -625,7 +690,7 @@
   "address": "30, boulevard des Moulins",
   "phone": "+37797700555",
   "email": "info@colettirealestate.com",
-  "website": "http://www.colettirealestate.com",
+  "website": "https://www.colettirealestate.com/",
   "cim_listing_count": 24,
   "mcre_slug": "coletti-real-estate-monaco-tc-6",
   "mcre_tc": 6,
@@ -643,7 +708,10 @@
   "mcre_listing_count": 25,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://wolf-estates.com/",
+  "phone": "0033607934810",
+  "address": "17 Av. Albert II, 98000 - Monaco"
  },
  {
   "name": "Magrey And Sons Monaco",
@@ -653,6 +721,12 @@
   "mcre_listing_count": 25,
   "covered_by": [
    "mcre"
+  ],
+  "website": "https://www.magreymonaco.com/",
+  "phone": "0037797701010",
+  "address": "2, avenue Saint Laurent, 98000 - Monaco",
+  "csv_names": [
+   "Magrey & Sons Monaco"
   ]
  },
  {
@@ -663,7 +737,7 @@
   "address": "17, Avenue de l'Annonciade",
   "phone": "+37793506684",
   "email": "info@intermedia.mc",
-  "website": "https://www.intermedia.mc",
+  "website": "https://www.intermedia.mc/",
   "cim_listing_count": 24,
   "mcre_slug": "intermedia-monaco-tc-81",
   "mcre_tc": 81,
@@ -686,6 +760,9 @@
   "cim_listing_count": 24,
   "covered_by": [
    "cim"
+  ],
+  "csv_names": [
+   "SL Agency"
   ]
  },
  {
@@ -714,7 +791,7 @@
   "address": "18, boulevard des Moulins",
   "phone": "+37797971414",
   "email": "info@ageprim.com",
-  "website": "http://www.ageprim.com/",
+  "website": "https://www.ageprim.com/",
   "cim_listing_count": 24,
   "mcre_slug": "ageprim-monaco-tc-49",
   "mcre_tc": 49,
@@ -723,6 +800,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Ageprim"
   ]
  },
  {
@@ -748,7 +828,7 @@
   "address": "25, boulevard Albert 1er",
   "phone": "+37797974026",
   "email": "info@faggionatoimmo.com",
-  "website": "http://www.faggionatoimmo.com",
+  "website": "https://www.faggionatoimmo.com/",
   "cim_listing_count": 23,
   "mcre_slug": "faggionato-real-estate-monaco-tc-55",
   "mcre_tc": 55,
@@ -757,6 +837,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Faggionato Real Estate"
   ]
  },
  {
@@ -767,7 +850,7 @@
   "address": "19, boulevard des Moulins",
   "phone": "+37793505464",
   "email": "contact@continentale.mc",
-  "website": "https://www.continentale.mc",
+  "website": "https://www.continentale.mc/",
   "cim_listing_count": 23,
   "mcre_slug": "agence-continentale-monaco-tc-2",
   "mcre_tc": 2,
@@ -789,7 +872,8 @@
   "phone": "+37799902367",
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://www.stars-real-estate.com/"
  },
  {
   "name": "LIFE PROPERTIES",
@@ -799,7 +883,7 @@
   "address": "9 Avenue des Papalins, Monaco",
   "phone": "+37799923647",
   "email": "info@lifeproperties.mc",
-  "website": "https://www.lifeproperties.mc",
+  "website": "https://www.lifeproperties.mc/",
   "cim_listing_count": 22,
   "mcre_slug": "life-properties-monaco-tc-80",
   "mcre_tc": 80,
@@ -818,7 +902,7 @@
   "address": "1, rue des Genêts",
   "phone": "+37797970108",
   "email": "wolzok@monte-carlo.mc",
-  "website": "http://www.wolzok.com",
+  "website": "https://www.wolzok.com/",
   "cim_listing_count": 20,
   "mcre_slug": "wolzok-immobilier-monaco-tc-1",
   "mcre_tc": 1,
@@ -836,7 +920,7 @@
   "address": "17, avenue Saint Michel",
   "phone": "+37793506070",
   "email": "info@realestatemontecarlo.mc",
-  "website": "https://www.realestatemontecarlo.mc",
+  "website": "https://www.realestatemontecarlo.mc/",
   "cim_listing_count": 22,
   "mcre_slug": "real-estate-monte-carlo-monaco-tc-42",
   "mcre_tc": 42,
@@ -855,7 +939,7 @@
   "address": "2A avenue de Grande-Bretagne",
   "phone": "+37797708505",
   "email": "info@montecarlotransactions.com",
-  "website": "http://www.montecarlotransactions.com",
+  "website": "https://www.montecarlotransactions.com/",
   "cim_listing_count": 21,
   "mcre_slug": "monte-carlo-transactions-monaco-tc-167",
   "mcre_tc": 167,
@@ -883,6 +967,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Harroch Real Estate"
   ]
  },
  {
@@ -893,7 +980,10 @@
   "mcre_listing_count": 21,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": null,
+  "phone": "0037792006969",
+  "address": "Le Prince des Galles&#xD;&#xA;3/5 Av. des Citronniers, 98000 - Monaco"
  },
  {
   "name": "BALDO REALTY GROUP",
@@ -903,7 +993,10 @@
   "mcre_listing_count": 21,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://www.baldorealtygroup.com/",
+  "phone": "0037793258043",
+  "address": "27 Av. de la Costa, 98000 - Monaco"
  },
  {
   "name": "REVIMMO",
@@ -913,7 +1006,7 @@
   "address": "LE SOLEIL D'OR 20, boulevard Rainier III",
   "phone": "+37799907003",
   "email": "info@revimmo.mc",
-  "website": "http://www.revimmo.mc",
+  "website": "https://www.revimmo.mc/",
   "cim_listing_count": 20,
   "mcre_slug": "revimmo-monaco-tc-131",
   "mcre_tc": 131,
@@ -934,6 +1027,10 @@
   "phone": "+37799996363",
   "covered_by": [
    "mcre"
+  ],
+  "website": "https://www.capitalrealestate.mc/",
+  "csv_names": [
+   "Capital Real Estate"
   ]
  },
  {
@@ -944,7 +1041,7 @@
   "address": "1, avenue Henry Dunant",
   "phone": "+37793308100",
   "email": "contact@europagence.mc",
-  "website": "http://www.europagence.mc/",
+  "website": "https://www.europagence.mc/",
   "cim_listing_count": 18,
   "mcre_slug": "europagence-monaco-tc-83",
   "mcre_tc": 83,
@@ -953,6 +1050,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Europagence"
   ]
  },
  {
@@ -966,6 +1066,10 @@
   "phone": "+37793253000",
   "covered_by": [
    "mcre"
+  ],
+  "website": "https://www.pirasimmobilier.com/",
+  "csv_names": [
+   "Piras Immobilier"
   ]
  },
  {
@@ -976,7 +1080,10 @@
   "mcre_listing_count": 17,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://www.panorama.mc/",
+  "phone": "0037797971520",
+  "address": "57 Rue Grimaldi, 98000 - Monaco"
  },
  {
   "name": "CM MONACO REAL ESTATE",
@@ -986,7 +1093,7 @@
   "address": "3 Avenue Saint-Laurent",
   "phone": "+37799908059",
   "email": "info@cm-monaco.com",
-  "website": "https://www.cm-monaco.com",
+  "website": "https://www.cm-monaco.com/",
   "cim_listing_count": 16,
   "covered_by": [
    "cim"
@@ -1000,7 +1107,7 @@
   "address": "LE MANTEGNA\" 18 quai Jean-Charles Rey",
   "phone": "+37792052880",
   "email": "contact@lamonegasqueimmobilier.mc",
-  "website": "http://lamonegasqueimmobilier.mc",
+  "website": "https://lamonegasqueimmobilier.mc/",
   "cim_listing_count": 15,
   "mcre_slug": "la-monegasque-immobilier-monaco-tc-170",
   "mcre_tc": 170,
@@ -1009,6 +1116,11 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Chambre Immobilière Monégasque",
+   "Compagnie Monégasque Immobilière (CMI)",
+   "La Monégasque Immobilière"
   ]
  },
  {
@@ -1028,6 +1140,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Pastor Immobilier"
   ]
  },
  {
@@ -1038,11 +1153,14 @@
   "address": "Roqueville, 20 boulevard Princesse Charlotte",
   "phone": "+37797704200",
   "email": "monaco@savills.com",
-  "website": "http://www.savills.mc/",
+  "website": "https://www.savills.mc/",
   "cim_listing_count": 15,
   "in_official_directory": true,
   "covered_by": [
    "cim"
+  ],
+  "csv_names": [
+   "Savills Monaco"
   ]
  },
  {
@@ -1053,7 +1171,10 @@
   "mcre_listing_count": 15,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://elliman.mc/",
+  "phone": "0037799926730",
+  "address": "57 Rue Grimaldi, 98000 - Monaco"
  },
  {
   "name": "ASTRAL PROPERTIES SAM",
@@ -1063,7 +1184,10 @@
   "mcre_listing_count": 15,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://www.astralproperties.mc/",
+  "phone": "0037799906151",
+  "address": "1 Avenue Henry Dunant, 98000 - Monaco"
  },
  {
   "name": "Agence des Ambassadeurs",
@@ -1082,6 +1206,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Agence des Ambassadeurs"
   ]
  },
  {
@@ -1092,7 +1219,7 @@
   "address": "17, boulevard Albert 1er",
   "phone": "+37793503000",
   "email": "info@balkin.mc",
-  "website": "https://www.balkin.mc",
+  "website": "https://www.balkin.mc/",
   "cim_listing_count": 13,
   "mcre_slug": "balkin-estates-monaco-tc-58",
   "mcre_tc": 58,
@@ -1101,6 +1228,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Balkin Estates"
   ]
  },
  {
@@ -1111,7 +1241,7 @@
   "address": "28, rue Comte Felix Gastaldi",
   "phone": "+37793253520",
   "email": "jyl@rocagency.com",
-  "website": "http://www.rocagency.com",
+  "website": "https://www.rocagency.com/",
   "cim_listing_count": 14,
   "mcre_slug": "roc-agency-monaco-tc-13",
   "mcre_tc": 13,
@@ -1120,6 +1250,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Lorenzi Roc Agency"
   ]
  },
  {
@@ -1130,7 +1263,7 @@
   "address": "46, boulevard des Moulins",
   "phone": "+37793304823",
   "email": "info@pacificagency.mc",
-  "website": "http://www.pacificagency.mc",
+  "website": "https://www.pacificagency.mc/",
   "cim_listing_count": 14,
   "mcre_slug": "pacific-agency-monaco-tc-57",
   "mcre_tc": 57,
@@ -1152,6 +1285,10 @@
   "phone": "+37799923424",
   "covered_by": [
    "mcre"
+  ],
+  "website": "https://www.pcm-realestate.com/",
+  "csv_names": [
+   "Concept Immobilier"
   ]
  },
  {
@@ -1162,7 +1299,7 @@
   "address": "11 Av. Saint-Michel",
   "phone": "+37797971008",
   "email": "hello@homesmontecarlo.com",
-  "website": "http://www.homesmontecarlo.com",
+  "website": "https://www.homesmontecarlo.com/",
   "cim_listing_count": 12,
   "mcre_slug": "homes-sandro-piras-real-estate-monaco-tc-148",
   "mcre_tc": 148,
@@ -1180,7 +1317,7 @@
   "address": "6, impasse de la Fontaine",
   "phone": "+37797707020",
   "email": "pvnrealestate@monaco.mc",
-  "website": "http://www.pvnrealestate.com/",
+  "website": "https://www.pvnrealestate.com/",
   "cim_listing_count": 13,
   "in_official_directory": true,
   "covered_by": [
@@ -1195,11 +1332,14 @@
   "address": "3, rue Langlé",
   "phone": "+37793302236",
   "email": "info@agencegaremonaco.com",
-  "website": "http://www.agencegaremonaco.com/",
+  "website": "https://www.agencegaremonaco.com/",
   "cim_listing_count": 13,
   "in_official_directory": true,
   "covered_by": [
    "cim"
+  ],
+  "csv_names": [
+   "Agence de la Gare"
   ]
  },
  {
@@ -1210,7 +1350,7 @@
   "address": "29, boulevard des Moulins",
   "phone": "+37793504144",
   "email": "info@deplanche-immobilier.com",
-  "website": "http://www.deplanche-immobilier.com/",
+  "website": "https://www.deplanche-immobilier.com/",
   "cim_listing_count": 13,
   "mcre_slug": "deplanche-immobilier-monaco-tc-4",
   "mcre_tc": 4,
@@ -1229,7 +1369,10 @@
   "mcre_listing_count": 13,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://www.pp-mc.com/",
+  "phone": "00377607934604",
+  "address": "1 Avenue Henry Dunant, 98000 - Monaco"
  },
  {
   "name": "Promotion Invest",
@@ -1248,6 +1391,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Invest Real Estate"
   ]
  },
  {
@@ -1258,7 +1404,7 @@
   "address": "6, Rue Suffren Reymond",
   "phone": "+37799904057",
   "email": "contact@prestigeproperties.mc",
-  "website": "https://www.prestigeproperties.mc",
+  "website": "https://www.prestigeproperties.mc/",
   "cim_listing_count": 12,
   "mcre_slug": "prestige-properties-monaco-tc-66",
   "mcre_tc": 66,
@@ -1266,6 +1412,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Prestige Properties"
   ]
  },
  {
@@ -1294,7 +1443,7 @@
   "address": "25, boulevard Princesse Charlotte",
   "phone": "+37793307292",
   "email": "contact@agence-thomas.com",
-  "website": "https://www.agence-thomas.com",
+  "website": "https://www.agence-thomas.com/",
   "cim_listing_count": 12,
   "mcre_slug": "agence-thomas-monaco-tc-77",
   "mcre_tc": 77,
@@ -1313,7 +1462,7 @@
   "address": "6 avenue Saint-Michel",
   "phone": "+37797979720",
   "email": "blazy@monaco.mc",
-  "website": "https://planb-monaco.com/fr/",
+  "website": "https://planb-monaco.com/",
   "cim_listing_count": 12,
   "mcre_slug": "agence-plan-b-monaco-tc-64",
   "mcre_tc": 64,
@@ -1335,7 +1484,8 @@
   "phone": "+37792001595",
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://www.berettarealestate.mc/"
  },
  {
   "name": "Rosengart Luxury Real Estate",
@@ -1345,7 +1495,7 @@
   "address": "Le Mirabel; 4 avenue des Citronniers",
   "phone": "+37793500030",
   "email": "info@rosengart.mc",
-  "website": "http://www.rosengart.mc",
+  "website": "https://www.rosengart.mc/",
   "cim_listing_count": 11,
   "mcre_slug": "rosengart-luxury-real-estate-monaco-tc-43",
   "mcre_tc": 43,
@@ -1367,6 +1517,10 @@
   "phone": "+37799907044",
   "covered_by": [
    "mcre"
+  ],
+  "website": "https://www.mcprivilege-immobilier.com/",
+  "csv_names": [
+   "Privilege Real Estate"
   ]
  },
  {
@@ -1377,7 +1531,7 @@
   "address": "6, avenue des Citronniers",
   "phone": "+37793305228",
   "email": "info@universalmonaco.com",
-  "website": "http://www.universalmonaco.com/",
+  "website": "https://www.universalmonaco.com/",
   "cim_listing_count": 10,
   "mcre_slug": "universal-office-monaco-tc-163",
   "mcre_tc": 163,
@@ -1386,6 +1540,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Universal Properties"
   ]
  },
  {
@@ -1396,7 +1553,7 @@
   "address": "Le Montaigne 6 Bd des Moulins",
   "phone": "+37799904858",
   "email": "info@solamito-properties.mc",
-  "website": "http://www.solamito-properties-real-estate.mc/",
+  "website": "https://www.solamito-properties-real-estate.mc/",
   "cim_listing_count": 10,
   "mcre_slug": "solamito-properties-monaco-tc-47",
   "mcre_tc": 47,
@@ -1405,6 +1562,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Solamito Properties"
   ]
  },
  {
@@ -1424,6 +1584,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Atlantic Agency"
   ]
  },
  {
@@ -1434,7 +1597,7 @@
   "address": "5 rue des Lilas",
   "phone": "+37793502950",
   "email": "info@abkproperties.com",
-  "website": "https://www.abkrealestatemonaco.com",
+  "website": "https://www.abkrealestatemonaco.com/",
   "cim_listing_count": 10,
   "mcre_slug": "abk-real-estate-monaco-tc-25",
   "mcre_tc": 25,
@@ -1443,6 +1606,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "ABK Real Estate"
   ]
  },
  {
@@ -1453,7 +1619,7 @@
   "address": "16, rue de Millo",
   "phone": "+37797973636",
   "email": "info@agence-laetitia.com",
-  "website": "http://www.agence-laetitia.com",
+  "website": "https://www.agence-laetitia.com/",
   "cim_listing_count": 9,
   "mcre_slug": "agence-laetitia-monaco-tc-136",
   "mcre_tc": 136,
@@ -1475,7 +1641,8 @@
   "phone": "+37793505371",
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://www.eip.mc/"
  },
  {
   "name": "Agora Real Estate",
@@ -1488,7 +1655,8 @@
   "phone": "+37799925550",
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://agorarealestate.mc/"
  },
  {
   "name": "Lux Home",
@@ -1498,7 +1666,10 @@
   "mcre_listing_count": 9,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://www.luxhome.mc/",
+  "phone": "0033788724919",
+  "address": "3 Av. des Citronniers, 98000 - Monaco"
  },
  {
   "name": "Agence Olivie",
@@ -1546,7 +1717,7 @@
   "address": "8 Avenue Saint Laurent",
   "phone": "+37792052323",
   "email": "sh@oneproperties.mc",
-  "website": "https://www.oneproperties.mc",
+  "website": "https://www.oneproperties.mc/",
   "cim_listing_count": 8,
   "mcre_slug": "one-properties-monaco-tc-3",
   "mcre_tc": 3,
@@ -1564,7 +1735,7 @@
   "address": "5 Av. Princesse Alice",
   "phone": "+37799901413",
   "email": "contact@pastor-reiss.com",
-  "website": "https://www.pastor-reiss.com",
+  "website": "https://www.pastor-reiss.com/",
   "cim_listing_count": 8,
   "in_official_directory": true,
   "covered_by": [
@@ -1597,7 +1768,7 @@
   "address": "11 bis, rue Princesse Antoinette",
   "phone": "+37797704500",
   "email": null,
-  "website": null,
+  "website": "https://www.rey-nouvion.com/",
   "cim_listing_count": 0,
   "mcre_slug": "rey-nouvion-immobilier-monaco-tc-33",
   "mcre_tc": 33,
@@ -1615,7 +1786,10 @@
   "mcre_listing_count": 8,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://www.izadora-group.com/",
+  "phone": "00377607933504",
+  "address": "2 Rue du Gabian, 98000 - Monaco"
  },
  {
   "name": "The Agency",
@@ -1625,7 +1799,10 @@
   "mcre_listing_count": 8,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://theagency.mc/",
+  "phone": "0033675941330",
+  "address": "2a Av. de Grande Bretagne&#xD;&#xA;Les Arcades du M&#xE9;tropole, 98000 - Monaco"
  },
  {
   "name": "SOTRIM",
@@ -1638,7 +1815,8 @@
   "phone": "+37793506310",
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": null
  },
  {
   "name": "A&S Estate",
@@ -1651,6 +1829,10 @@
   "phone": "+37799905617",
   "covered_by": [
    "mcre"
+  ],
+  "website": "https://www.as-estate.mc/",
+  "csv_names": [
+   "A&S Estate"
   ]
  },
  {
@@ -1661,7 +1843,7 @@
   "address": "11, boulevard Albert 1er",
   "phone": "+37793301827",
   "email": "gilbert@camozzicazal.com",
-  "website": "http://www.bureauaffairesimmobilieres.com",
+  "website": "https://www.bureauaffairesimmobilieres.com/",
   "cim_listing_count": 7,
   "in_official_directory": true,
   "covered_by": [
@@ -1676,7 +1858,7 @@
   "address": "31, avenue Princesse Grace",
   "phone": "+37793159777",
   "email": "capi@capi.mc",
-  "website": "http://www.capi.mc",
+  "website": "https://www.capi.mc/",
   "cim_listing_count": 7,
   "covered_by": [
    "cim"
@@ -1695,6 +1877,9 @@
   "in_official_directory": true,
   "covered_by": [
    "cim"
+  ],
+  "csv_names": [
+   "CCRG Real Estate"
   ]
  },
  {
@@ -1708,7 +1893,8 @@
   "phone": "+37792165959",
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://www.agedigroup.com/"
  },
  {
   "name": "Cote investissement",
@@ -1718,7 +1904,7 @@
   "address": "1, rue Louis Notari",
   "phone": "+37792160202",
   "email": "info@cote.mc",
-  "website": "http://www.cote.mc",
+  "website": "https://www.cote.mc/",
   "cim_listing_count": 5,
   "in_official_directory": true,
   "covered_by": [
@@ -1733,7 +1919,7 @@
   "address": "5 avenue Princesse Grace",
   "phone": "+37793505152",
   "email": "cpp@palmero.mc",
-  "website": "http://www.palmero.mc",
+  "website": "https://www.palmero.mc/",
   "cim_listing_count": 5,
   "in_official_directory": true,
   "covered_by": [
@@ -1748,7 +1934,10 @@
   "mcre_listing_count": 5,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://kretzrealestate.com/",
+  "phone": "0037797981144",
+  "address": "1 Av. Henry Dunant, 98000 - Monaco"
  },
  {
   "name": "RI Properties",
@@ -1758,7 +1947,10 @@
   "mcre_listing_count": 5,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://www.ri-properties.com/",
+  "phone": "0033615703350",
+  "address": "1 Bd Princesse Charlotte, 98000 - Monaco"
  },
  {
   "name": "Parkings and cellars for sale Monaco",
@@ -1768,6 +1960,12 @@
   "mcre_listing_count": 5,
   "covered_by": [
    "mcre"
+  ],
+  "website": "https://www.17keysrealestate.mc/",
+  "phone": "0033678631423",
+  "address": "1 Rue du Gabian, 98000 - Monaco",
+  "csv_names": [
+   "Property for Sale Monaco"
   ]
  },
  {
@@ -1805,6 +2003,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Fine Properties Monaco"
   ]
  },
  {
@@ -1815,7 +2016,7 @@
   "address": "1, avenue de la Madone",
   "phone": "+37797707272",
   "email": "info@bollati-immobilier.mc",
-  "website": "http://www.bollati-immobilier.mc",
+  "website": "https://www.bollati-immobilier.mc/",
   "cim_listing_count": 4,
   "in_official_directory": true,
   "covered_by": [
@@ -1830,7 +2031,7 @@
   "address": "Le Soleil d'Or 20 Boulevard Rainier III",
   "phone": "+37793251853",
   "email": "contact@apmonaco.com",
-  "website": "http://www.accesspropertiesmonaco.com",
+  "website": "https://www.accesspropertiesmonaco.com/",
   "cim_listing_count": 4,
   "mcre_slug": "access-properties-monaco-tc-32",
   "mcre_tc": 32,
@@ -1838,6 +2039,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Access Properties"
   ]
  },
  {
@@ -1851,7 +2055,8 @@
   "phone": "+37792053666",
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://www.beton57.com/"
  },
  {
   "name": "Sogestmar SARL",
@@ -1861,7 +2066,10 @@
   "mcre_listing_count": 4,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://www.sogestmar.mc/",
+  "phone": "0037799994050",
+  "address": "36, avenue l&#x27;Annonciade, 98000 - Monaco"
  },
  {
   "name": "Majestic Real Estate",
@@ -1879,6 +2087,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Majestic Real Estate"
   ]
  },
  {
@@ -1889,7 +2100,7 @@
   "address": "Villa des Cigognes 17 Rue Louis Aureglia",
   "phone": "+37797701560",
   "email": "info@lofrealestate.com",
-  "website": "https://www.lofrealestate.com",
+  "website": "https://www.lofrealestate.com/",
   "cim_listing_count": 3,
   "mcre_slug": "lopez-de-la-osa-franco-real-estate-monaco-tc-41",
   "mcre_tc": 41,
@@ -1911,7 +2122,8 @@
   "phone": "+37797702383",
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": null
  },
  {
   "name": "Agence B.I.A.I.",
@@ -1924,7 +2136,8 @@
   "phone": "+37792052200",
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://www.biairealestate.com/"
  },
  {
   "name": "Elite International",
@@ -1934,7 +2147,7 @@
   "address": "26 boulevard des Moulins",
   "phone": "+37797979420",
   "email": "jessica@eliteimmo.com",
-  "website": "http://www.eliteimmo.com",
+  "website": "https://www.eliteimmo.com/",
   "cim_listing_count": 2,
   "mcre_slug": "elite-international-monaco-tc-9",
   "mcre_tc": 9,
@@ -1943,6 +2156,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Elite Properties"
   ]
  },
  {
@@ -1953,7 +2169,7 @@
   "address": "4, rue des Iris",
   "phone": "+37793305353",
   "email": "iris@iris.mc",
-  "website": "http://www.iris.mc",
+  "website": "https://www.iris.mc/",
   "cim_listing_count": 2,
   "mcre_slug": "iris-real-estate-monaco-tc-14",
   "mcre_tc": 14,
@@ -1962,6 +2178,9 @@
   "covered_by": [
    "cim",
    "mcre"
+  ],
+  "csv_names": [
+   "Iris Properties"
   ]
  },
  {
@@ -1972,7 +2191,7 @@
   "address": "18, quai Jean Charles Rey",
   "phone": "+37797772000",
   "email": "info@bertola.mc",
-  "website": "http://www.bertola.mc/",
+  "website": "https://www.bertola.mc/",
   "cim_listing_count": 2,
   "in_official_directory": true,
   "covered_by": [
@@ -1987,7 +2206,7 @@
   "address": "31, boulevard des Moulins",
   "phone": "+37793507835",
   "email": "hello@findr.mc",
-  "website": "https://www.findr.mc",
+  "website": "https://www.findr.mc/",
   "cim_listing_count": 2,
   "mcre_slug": "findr-by-interalia-monaco-tc-144",
   "mcre_tc": 144,
@@ -2009,7 +2228,8 @@
   "phone": "+37792052323",
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": null
  },
  {
   "name": "LBMC Properties",
@@ -2019,7 +2239,10 @@
   "mcre_listing_count": 2,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://www.lbmc-properties.com/",
+  "phone": "0033607935256",
+  "address": "C/O The Office&#xD;&#xA;17 Av. Albert II, 98000 - Monaco"
  },
  {
   "name": "Infinity Homes",
@@ -2029,6 +2252,12 @@
   "mcre_listing_count": 2,
   "covered_by": [
    "mcre"
+  ],
+  "website": "https://www.infinityhomes.mc/",
+  "phone": "0037799902612",
+  "address": "Les flots bleus, 16 Rue du Gabian, 98000 - Monaco",
+  "csv_names": [
+   "Infinity Properties"
   ]
  },
  {
@@ -2039,7 +2268,10 @@
   "mcre_listing_count": 2,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://www.azurapropertiesmonaco.com/",
+  "phone": "00377678634020",
+  "address": "1 Rue du Gabian, 98000 - Monaco"
  },
  {
   "name": "CMTG",
@@ -2049,7 +2281,10 @@
   "mcre_listing_count": 2,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": null,
+  "phone": "0037792167070",
+  "address": "1, rue du T&#xE9;nao, 98000 - Monaco"
  },
  {
   "name": "J&K Wentz Real Estate Monaco",
@@ -2062,7 +2297,8 @@
   "phone": "+37797971234",
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://www.wentz.mc/"
  },
  {
   "name": "SG IMMOBILIER",
@@ -2075,7 +2311,8 @@
   "phone": "+37797980198",
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": null
  },
  {
   "name": "FY Real Estate",
@@ -2085,7 +2322,10 @@
   "mcre_listing_count": 2,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://vallat.mc/",
+  "phone": "0033616254401",
+  "address": "41 Av. Hector Otto, 98000 - Monaco"
  },
  {
   "name": "JV PASTOR REAL ESTATE",
@@ -2095,7 +2335,7 @@
   "address": "31, boulevard Princesse Charlotte",
   "phone": "+37792001215",
   "email": "mdavid@jvpastor.mc",
-  "website": "https://www.jvpastor-realestate.com",
+  "website": "https://www.jvpastor-realestate.com/",
   "cim_listing_count": 1,
   "covered_by": [
    "cim"
@@ -2109,7 +2349,7 @@
   "address": "2 Avenue de la Madone",
   "phone": "+37797975275",
   "email": "anita@regalestates.mc",
-  "website": "http://www.regalestates.mc",
+  "website": "https://www.regalestates.mc/",
   "cim_listing_count": 1,
   "in_official_directory": true,
   "covered_by": [
@@ -2153,7 +2393,10 @@
   "mcre_listing_count": 1,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": null,
+  "phone": "0033620960729",
+  "address": "38 Quai Jean-Charles Rey, 98000 - Monaco"
  },
  {
   "name": "SARL GOLDEN SQUARE",
@@ -2163,6 +2406,13 @@
   "mcre_listing_count": 1,
   "covered_by": [
    "mcre"
+  ],
+  "website": "https://www.goldensquaremonaco.com/",
+  "phone": "0033762784676",
+  "address": "9 Av. des Papalins, 98000 - Monaco",
+  "csv_names": [
+   "Golden Square Real Estate",
+   "Square Real Estate"
   ]
  },
  {
@@ -2173,7 +2423,10 @@
   "mcre_listing_count": 1,
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": "https://waldhof.fr/",
+  "phone": "0033621416539",
+  "address": "2, RUE DU GABIAN-C/&#xB0; IBC&#xD;&#xA;3 ETG - BUREAU EXCLUSIF N&#xB0; 707 98000 MONACO, 98000 - Monaco"
  },
  {
   "name": "Peninsula Real Estate",
@@ -2186,7 +2439,8 @@
   "phone": "+37797985166",
   "covered_by": [
    "mcre"
-  ]
+  ],
+  "website": null
  },
  {
   "name": "Cabinet Wolzok",
@@ -2244,10 +2498,13 @@
   "address": "Palais de la Scala 1, Avenue Henry Dunant",
   "phone": "+37797976333",
   "email": null,
-  "website": null,
+  "website": "https://www.hammerdraff.com/",
   "cim_listing_count": null,
   "in_official_directory": true,
-  "covered_by": []
+  "covered_by": [],
+  "csv_names": [
+   "Hammer Draff"
+  ]
  },
  {
   "name": "Eden Agency",
@@ -2257,13 +2514,16 @@
   "address": "Le Montaigne, Bloc A,  2 avenue de la Madone",
   "phone": "+37799905589",
   "email": null,
-  "website": null,
+  "website": "https://www.edenagency.mc/",
   "cim_listing_count": null,
   "mcre_slug": "eden-agency-monaco-tc-86",
   "mcre_tc": 86,
   "mcre_listing_count": 0,
   "in_official_directory": true,
-  "covered_by": []
+  "covered_by": [],
+  "csv_names": [
+   "Eden Properties"
+  ]
  },
  {
   "name": "M & K Real Estate MC",
@@ -2299,7 +2559,8 @@
   "in_official_directory": true,
   "address": "1 Avenue Henry Dunant",
   "phone": "+37797982269",
-  "covered_by": []
+  "covered_by": [],
+  "website": "https://dama-agency.com/"
  },
  {
   "name": "ImmoSoft",
@@ -2307,7 +2568,10 @@
   "mcre_slug": "immosoft-monaco-tc-159",
   "mcre_tc": 159,
   "mcre_listing_count": 0,
-  "covered_by": []
+  "covered_by": [],
+  "website": "https://www.immosoft.mc/",
+  "phone": "0037793507475",
+  "address": "Tour Od&#xE9;on&#xD;&#xA;36 Av. de l&#x27;Annonciade, 98000 - Monaco"
  },
  {
   "name": "27 Property Monaco",
@@ -2315,7 +2579,8 @@
   "in_official_directory": true,
   "address": "6 quai Jean-Charles Rey - Fontvieille",
   "phone": "+37793302727",
-  "covered_by": []
+  "covered_by": [],
+  "website": null
  },
  {
   "name": "Agence des Etrangers",
@@ -2323,7 +2588,11 @@
   "in_official_directory": true,
   "address": "6 avenue de la Madone - Monte-Carlo",
   "phone": "+37793105555",
-  "covered_by": []
+  "covered_by": [],
+  "website": null,
+  "csv_names": [
+   "Agence des Etrangers"
+  ]
  },
  {
   "name": "Agence Immobilia 2000",
@@ -2331,7 +2600,8 @@
   "in_official_directory": true,
   "address": "30 boulevard des Moulins - Monte-Carlo",
   "phone": "+37797700555",
-  "covered_by": []
+  "covered_by": [],
+  "website": null
  },
  {
   "name": "Agence Landau",
@@ -2339,7 +2609,8 @@
   "in_official_directory": true,
   "address": "5 avenue de l' Hermitage - Monte-Carlo",
   "phone": "+37793304514",
-  "covered_by": []
+  "covered_by": [],
+  "website": null
  },
  {
   "name": "Agence Le Zodiaque",
@@ -2347,7 +2618,8 @@
   "in_official_directory": true,
   "address": "Le Continental, 3 place des Moulins - Monte-Carlo",
   "phone": "+37793505302",
-  "covered_by": []
+  "covered_by": [],
+  "website": null
  },
  {
   "name": "Agence Regenti",
@@ -2355,7 +2627,8 @@
   "in_official_directory": true,
   "address": "34 quai Jean-Charles Rey - Fontvieille",
   "phone": "+37799922099",
-  "covered_by": []
+  "covered_by": [],
+  "website": null
  },
  {
   "name": "Benjamin Pratt",
@@ -2363,7 +2636,8 @@
   "in_official_directory": true,
   "address": "3 avenue des Citronniers - Larvotto - La Rousse",
   "phone": "+37799990808",
-  "covered_by": []
+  "covered_by": [],
+  "website": null
  },
  {
   "name": "Berry & Quinti Monaco - International Realty",
@@ -2371,7 +2645,8 @@
   "in_official_directory": true,
   "address": "53 rue Grimaldi - Condamine",
   "phone": "+37797971520",
-  "covered_by": []
+  "covered_by": [],
+  "website": null
  },
  {
   "name": "Chic Immobilier",
@@ -2379,7 +2654,8 @@
   "in_official_directory": true,
   "address": "41 avenue Hector Otto - Jardin Exotique - Moneghetti",
   "phone": "+37797983398",
-  "covered_by": []
+  "covered_by": [],
+  "website": null
  },
  {
   "name": "Faggionato Real Estates",
@@ -2387,7 +2663,8 @@
   "in_official_directory": true,
   "address": "5 Avenue Princesse Alice",
   "phone": "+37799905927",
-  "covered_by": []
+  "covered_by": [],
+  "website": null
  },
  {
   "name": "First Properties",
@@ -2395,7 +2672,11 @@
   "in_official_directory": true,
   "address": "11 boulevard du Jardin Exotique - Jardin Exotique - Moneghetti",
   "phone": "+37793250288",
-  "covered_by": []
+  "covered_by": [],
+  "website": null,
+  "csv_names": [
+   "First Home Real Estate"
+  ]
  },
  {
   "name": "G² Immo",
@@ -2403,7 +2684,11 @@
   "in_official_directory": true,
   "address": "6 rue Suffren Reymond - Condamine",
   "phone": "+37799904057",
-  "covered_by": []
+  "covered_by": [],
+  "website": null,
+  "csv_names": [
+   "G-Estates"
+  ]
  },
  {
   "name": "L'Agence",
@@ -2411,7 +2696,8 @@
   "in_official_directory": true,
   "address": "1 Avenue Henry Dunant",
   "phone": "+37799926630",
-  "covered_by": []
+  "covered_by": [],
+  "website": null
  },
  {
   "name": "La Costa Properties Monaco",
@@ -2419,7 +2705,8 @@
   "in_official_directory": true,
   "address": null,
   "phone": "+37797979900",
-  "covered_by": []
+  "covered_by": [],
+  "website": null
  },
  {
   "name": "Luk Immobilier",
@@ -2427,7 +2714,8 @@
   "in_official_directory": true,
   "address": "7 rue Princesse Antoinette - Condamine",
   "phone": "+37793505550",
-  "covered_by": []
+  "covered_by": [],
+  "website": null
  },
  {
   "name": "Monégasque Immobilier (La)",
@@ -2435,7 +2723,8 @@
   "in_official_directory": true,
   "address": "18 quai Jean-Charles Rey - Fontvieille",
   "phone": "+37792052880",
-  "covered_by": []
+  "covered_by": [],
+  "website": null
  },
  {
   "name": "Monte-Carlo Estates",
@@ -2443,7 +2732,8 @@
   "in_official_directory": true,
   "address": "3 avenue des Citronniers - Larvotto - La Rousse",
   "phone": "+37797771221",
-  "covered_by": []
+  "covered_by": [],
+  "website": null
  },
  {
   "name": "Munegu Real Estate",
@@ -2451,7 +2741,8 @@
   "in_official_directory": true,
   "address": "17 boulevard Albert 1er - Condamine",
   "phone": "+37797975020",
-  "covered_by": []
+  "covered_by": [],
+  "website": null
  },
  {
   "name": "P. Palace Immobilier",
@@ -2459,14 +2750,19 @@
   "in_official_directory": true,
   "address": "2 a avenue de Grande-Bretagne - Monte-Carlo",
   "phone": "+37797776277",
-  "covered_by": []
+  "covered_by": [],
+  "website": null,
+  "csv_names": [
+   "Palace Properties"
+  ]
  },
  {
   "name": "Prime Property",
   "cim_member": false,
   "in_official_directory": true,
   "address": null,
-  "covered_by": []
+  "covered_by": [],
+  "website": null
  },
  {
   "name": "Private Estate Solutions",
@@ -2474,6 +2770,133 @@
   "in_official_directory": true,
   "address": "16 rue du Gabian - Fontvieille",
   "phone": "+37799902612",
+  "covered_by": [],
+  "website": null
+ },
+ {
+  "name": "Agence Le Phare",
+  "cim_member": false,
+  "website": "https://www.agencelephare.com/",
+  "csv_names": [
+   "Agence Le Phare"
+  ],
+  "covered_by": []
+ },
+ {
+  "name": "Amber International",
+  "cim_member": false,
+  "website": "https://www.amber-international.com/",
+  "csv_names": [
+   "Amber International"
+  ],
+  "covered_by": []
+ },
+ {
+  "name": "Apartments for Rent Monaco",
+  "cim_member": false,
+  "website": "https://www.apartments-for-rent-monaco.com/",
+  "csv_names": [
+   "Apartments for Rent Monaco"
+  ],
+  "covered_by": []
+ },
+ {
+  "name": "Du Midi Agency",
+  "cim_member": false,
+  "website": "https://www.agencedumidi.mc/",
+  "csv_names": [
+   "Du Midi Agency"
+  ],
+  "covered_by": []
+ },
+ {
+  "name": "Festa Real Estate",
+  "cim_member": false,
+  "website": "https://www.festainvestments.com/",
+  "csv_names": [
+   "Festa Real Estate"
+  ],
+  "covered_by": []
+ },
+ {
+  "name": "Hermitage Riviera",
+  "cim_member": false,
+  "website": "https://www.hermitageriviera.com/",
+  "csv_names": [
+   "Hermitage Riviera"
+  ],
+  "covered_by": []
+ },
+ {
+  "name": "Knight Frank Monaco",
+  "cim_member": false,
+  "website": "https://www.knightfrank.com/",
+  "csv_names": [
+   "Knight Frank Monaco"
+  ],
+  "covered_by": []
+ },
+ {
+  "name": "Le Figaro Properties",
+  "cim_member": false,
+  "website": "https://properties.lefigaro.com/",
+  "csv_names": [
+   "Le Figaro Properties"
+  ],
+  "covered_by": []
+ },
+ {
+  "name": "Livein Monaco",
+  "cim_member": false,
+  "website": "https://www.livein.mc/",
+  "csv_names": [
+   "Livein Monaco"
+  ],
+  "covered_by": []
+ },
+ {
+  "name": "Meridian Real Estate",
+  "cim_member": false,
+  "website": "https://www.meridian.mc/",
+  "csv_names": [
+   "Meridian Real Estate"
+  ],
+  "covered_by": []
+ },
+ {
+  "name": "Monaco Villas",
+  "cim_member": false,
+  "website": "https://www.monaco-villas.com/",
+  "csv_names": [
+   "Monaco Villas"
+  ],
+  "covered_by": []
+ },
+ {
+  "name": "Phoenix Properties",
+  "cim_member": false,
+  "website": "https://www.phoenix.mc/",
+  "csv_names": [
+   "Phoenix Properties"
+  ],
+  "covered_by": []
+ },
+ {
+  "name": "Quantum Properties",
+  "cim_member": false,
+  "website": "https://www.quantum.mc/",
+  "csv_names": [
+   "Quantum Properties"
+  ],
+  "covered_by": []
+ },
+ {
+  "name": "The Agency Monaco",
+  "cim_member": false,
+  "website": "https://www.theagency.mc/",
+  "csv_names": [
+   "The Agency Monaco"
+  ],
   "covered_by": []
  }
 ]

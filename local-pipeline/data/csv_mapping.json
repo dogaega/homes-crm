@@ -1,0 +1,1787 @@
+[
+ {
+  "csv_name": "A&S Estate",
+  "csv_website": "https://www.as-estate.com",
+  "csv_domain_live": false,
+  "agency": "A&S Estate",
+  "website": "https://www.as-estate.mc/"
+ },
+ {
+  "csv_name": "ABK Real Estate",
+  "csv_website": "https://www.abkrealestate.com",
+  "csv_domain_live": true,
+  "agency": "ABK Real Estate",
+  "website": "https://www.abkrealestatemonaco.com/"
+ },
+ {
+  "csv_name": "Access Properties",
+  "csv_website": "https://www.accesspropertiesmonaco.com",
+  "csv_domain_live": true,
+  "agency": "Access Properties Monaco",
+  "website": "https://www.accesspropertiesmonaco.com/"
+ },
+ {
+  "csv_name": "Acropole Real Estate",
+  "csv_website": "https://www.acropolerealestate.com",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Ageprim",
+  "csv_website": "https://www.ageprim.com",
+  "csv_domain_live": true,
+  "agency": "AGEPRIM",
+  "website": "https://www.ageprim.com/"
+ },
+ {
+  "csv_name": "Agence Nouvelle de Monaco",
+  "csv_website": "https://www.agencenouvellemonaco.com",
+  "csv_domain_live": true,
+  "agency": "Agence Nouvelle",
+  "website": "https://www.agencenouvellemonaco.com/"
+ },
+ {
+  "csv_name": "Agence de la Gare",
+  "csv_website": "https://www.agencedelagare.mc",
+  "csv_domain_live": false,
+  "agency": "Agence de la Gare",
+  "website": "https://www.agencegaremonaco.com/"
+ },
+ {
+  "csv_name": "Agence des Ambassadeurs",
+  "csv_website": "https://www.ambassadeurs-realestate.com",
+  "csv_domain_live": false,
+  "agency": "Agence des Ambassadeurs",
+  "website": null
+ },
+ {
+  "csv_name": "Agence des Etrangers",
+  "csv_website": "https://www.agence-des-etrangers.com",
+  "csv_domain_live": false,
+  "agency": "Agence des Etrangers",
+  "website": null
+ },
+ {
+  "csv_name": "Agence du Boulevard",
+  "csv_website": "https://www.agenceboulevard.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Agence du Cap",
+  "csv_website": "https://www.caprealestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Agence Florida",
+  "csv_website": "https://www.agenceflorida.com",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Agence Horizon",
+  "csv_website": "https://www.agence-horizon.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Agence Imperator",
+  "csv_website": "https://www.imperator-immobilier.com",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Agence Le Phare",
+  "csv_website": "https://www.agencelephare.com",
+  "csv_domain_live": true,
+  "agency": "Agence Le Phare",
+  "website": "https://www.agencelephare.com/"
+ },
+ {
+  "csv_name": "Agence Maritime",
+  "csv_website": "https://www.agence-maritime.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Agence Riviera",
+  "csv_website": "https://www.agence-riviera.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Agence Standard",
+  "csv_website": "https://www.agencestandard.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Agence Transatlantique",
+  "csv_website": "https://www.agence-transatlantique.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Alfa Real Estate",
+  "csv_website": "https://www.alfa-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Alliance Immobilier",
+  "csv_website": "https://www.alliance-monaco.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Amber International",
+  "csv_website": "https://www.amber-international.com",
+  "csv_domain_live": true,
+  "agency": "Amber International",
+  "website": "https://www.amber-international.com/"
+ },
+ {
+  "csv_name": "Apartments for Rent Monaco",
+  "csv_website": "https://www.apartments-for-rent-monaco.com",
+  "csv_domain_live": true,
+  "agency": "Apartments for Rent Monaco",
+  "website": "https://www.apartments-for-rent-monaco.com/"
+ },
+ {
+  "csv_name": "Arcadia Immo",
+  "csv_website": "https://www.arcadia.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Ares Real Estate",
+  "csv_website": "https://www.ares.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Artis Monaco",
+  "csv_website": "https://www.artis.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Atlantic Agency",
+  "csv_website": "https://www.atlanticagency.mc",
+  "csv_domain_live": false,
+  "agency": "Atlantic Agency",
+  "website": "https://www.atlantic.monte-carlo.mc/"
+ },
+ {
+  "csv_name": "Azur Estate",
+  "csv_website": "https://www.azurestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "BARNES Monaco",
+  "csv_website": "https://www.barnes-monaco.com",
+  "csv_domain_live": false,
+  "agency": "Barnes I Valeri Agency",
+  "website": "https://www.valeri-agency.com/"
+ },
+ {
+  "csv_name": "BR Immobilier",
+  "csv_website": "https://www.br-immobilier.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Balkin Estates",
+  "csv_website": "https://www.balkin.mc",
+  "csv_domain_live": true,
+  "agency": "Balkin Estates",
+  "website": "https://www.balkin.mc/"
+ },
+ {
+  "csv_name": "Bari Real Estate",
+  "csv_website": "https://www.bari-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Belles Terres Real Estate",
+  "csv_website": "https://www.bellesterres.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Beni Immobilier",
+  "csv_website": "https://www.beni-immobilier.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Bentley Real Estate",
+  "csv_website": "https://www.bentley-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Beryls Real Estate",
+  "csv_website": "https://www.beryls-realestate.com",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Bovis Agency",
+  "csv_website": "https://www.agencebovis.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "C.A.R.E. (Central Agency Real Estate)",
+  "csv_website": "https://www.care.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "CCRG Real Estate",
+  "csv_website": "https://www.ccrg.mc",
+  "csv_domain_live": true,
+  "agency": "CCRG",
+  "website": "https://www.ccrg.mc/"
+ },
+ {
+  "csv_name": "CMC Real Estate",
+  "csv_website": "https://www.cmc-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Camelia Properties",
+  "csv_website": "https://www.camelia.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Capital Real Estate",
+  "csv_website": "https://www.capitalrealestate.mc",
+  "csv_domain_live": true,
+  "agency": "Capital Real Estate",
+  "website": "https://www.capitalrealestate.mc/"
+ },
+ {
+  "csv_name": "Caroli Real Estate",
+  "csv_website": "https://www.caroli-realestate.com",
+  "csv_domain_live": true,
+  "agency": "Caroli Real Estate",
+  "website": "https://www.caroli-realestate.com/"
+ },
+ {
+  "csv_name": "Carré d'Or Real Estate",
+  "csv_website": "https://www.carredor-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Cassini Real Estate",
+  "csv_website": "https://www.cassini-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Caves Agency",
+  "csv_website": "https://www.agence-caves.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Century 21 Monaco",
+  "csv_website": "https://www.century21.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Ceres Real Estate",
+  "csv_website": "https://www.ceres.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Chambre Immobilière Monégasque",
+  "csv_website": "https://www.chambre-immobiliere-monaco.mc",
+  "csv_domain_live": true,
+  "agency": "La Monégasque Immobilier",
+  "website": "https://lamonegasqueimmobilier.mc/"
+ },
+ {
+  "csv_name": "Check-In Real Estate",
+  "csv_website": "https://www.checkin-realestate.com",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Clarendon Properties",
+  "csv_website": "https://www.clarendon-monaco.com",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Coldwell Banker Etic Realty",
+  "csv_website": "https://www.eticrealty.com",
+  "csv_domain_live": false,
+  "agency": "Coldwell Banker Etic Realty",
+  "website": "https://www.eticimmobilier.com/"
+ },
+ {
+  "csv_name": "Compagnie Monégasque Immobilière (CMI)",
+  "csv_website": "https://www.cmi.mc",
+  "csv_domain_live": false,
+  "agency": "La Monégasque Immobilier",
+  "website": "https://lamonegasqueimmobilier.mc/"
+ },
+ {
+  "csv_name": "Concept Immobilier",
+  "csv_website": "https://www.concept-immobilier.mc",
+  "csv_domain_live": false,
+  "agency": "Property Concept Monaco",
+  "website": "https://www.pcm-realestate.com/"
+ },
+ {
+  "csv_name": "Consul Estates",
+  "csv_website": "https://www.consulestates.com",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Continental Real Estate",
+  "csv_website": "https://www.continental-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Core Real Estate",
+  "csv_website": "https://www.core.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Cosmopolitan Properties",
+  "csv_website": "https://www.cosmopolitan.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Cristea-Flandrin Immobilier",
+  "csv_website": "https://www.cristea-flandrin.com",
+  "csv_domain_live": false,
+  "agency": "FCF Cristea-Flandrin Immobilier",
+  "website": "https://www.fcfrealestate.com/"
+ },
+ {
+  "csv_name": "Crown Estates",
+  "csv_website": "https://www.crownestates.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Crystal Agency",
+  "csv_website": "https://www.crystal-agency.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "D&D Immobilier",
+  "csv_website": "https://www.dd-immobilier.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Dameno Monaco Real Estate",
+  "csv_website": "https://www.dameno.mc",
+  "csv_domain_live": true,
+  "agency": "DAMENO | MONACO REAL ESTATE",
+  "website": "https://www.dameno.mc/"
+ },
+ {
+  "csv_name": "De Planelles Real Estate",
+  "csv_website": "https://www.deplanelles.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Deluxe Real Estate",
+  "csv_website": "https://www.deluxerealestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Deo Gratias Real Estate",
+  "csv_website": "https://www.deogratias.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Diamond Real Estate",
+  "csv_website": "https://www.diamond-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Dominium Properties",
+  "csv_website": "https://www.dominium.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Dotta Real Estate",
+  "csv_website": "https://www.dotta.mc",
+  "csv_domain_live": true,
+  "agency": "Dotta Immobilier",
+  "website": "https://www.dotta.mc/"
+ },
+ {
+  "csv_name": "Du Grand Prix Agency",
+  "csv_website": "https://www.agencegrandprix.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Du Midi Agency",
+  "csv_website": "https://www.agencedumidi.mc",
+  "csv_domain_live": true,
+  "agency": "Du Midi Agency",
+  "website": "https://www.agencedumidi.mc/"
+ },
+ {
+  "csv_name": "E&G Properties",
+  "csv_website": "https://www.eg-properties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Eden Properties",
+  "csv_website": "https://www.edenproperties.mc",
+  "csv_domain_live": false,
+  "agency": "Eden Agency",
+  "website": "https://www.edenagency.mc/"
+ },
+ {
+  "csv_name": "Elite Properties",
+  "csv_website": "https://www.eliteproperties.mc",
+  "csv_domain_live": false,
+  "agency": "Elite International",
+  "website": "https://www.eliteimmo.com/"
+ },
+ {
+  "csv_name": "Elysium Real Estate",
+  "csv_website": "https://www.elysium.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Emirates Real Estate",
+  "csv_website": "https://www.emirates-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Empire Real Estate",
+  "csv_website": "https://www.empire.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Equator Properties",
+  "csv_website": "https://www.equatorproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Espace Immobilier",
+  "csv_website": "https://www.espace-immobilier.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Estator",
+  "csv_website": "https://www.estator.com",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Ethical Real Estate",
+  "csv_website": "https://www.ethical-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Etoile Properties",
+  "csv_website": "https://www.etoile-properties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Europagence",
+  "csv_website": "https://www.europagence.com",
+  "csv_domain_live": true,
+  "agency": "Europagence",
+  "website": "https://www.europagence.mc/"
+ },
+ {
+  "csv_name": "Excel Properties",
+  "csv_website": "https://www.excelproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Exclusive Estates Monaco",
+  "csv_website": "https://www.exclusive-estates.mc",
+  "csv_domain_live": false,
+  "agency": "Exclusive Estate Monaco",
+  "website": "https://www.exclusive-estate.mc/"
+ },
+ {
+  "csv_name": "Faggionato Real Estate",
+  "csv_website": "https://www.faggionato.com",
+  "csv_domain_live": false,
+  "agency": "Faggionato Real Estate",
+  "website": "https://www.faggionatoimmo.com/"
+ },
+ {
+  "csv_name": "Festa Real Estate",
+  "csv_website": "https://www.festainvestments.com",
+  "csv_domain_live": true,
+  "agency": "Festa Real Estate",
+  "website": "https://www.festainvestments.com/"
+ },
+ {
+  "csv_name": "Fiducia Real Estate",
+  "csv_website": "https://www.fiducia.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Fine Properties Monaco",
+  "csv_website": "https://www.fineproperties.mc",
+  "csv_domain_live": false,
+  "agency": "Fine Properties Monte Carlo",
+  "website": "https://www.fpmc-agency.com/"
+ },
+ {
+  "csv_name": "First Home Real Estate",
+  "csv_website": "https://www.firsthome.mc",
+  "csv_domain_live": false,
+  "agency": "First Properties",
+  "website": null
+ },
+ {
+  "csv_name": "Fontvieille Immobilier",
+  "csv_website": "https://www.fontvieille-immobilier.com",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Founis Properties",
+  "csv_website": "https://www.founis.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "G&G Real Estate",
+  "csv_website": "https://www.gg-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "G-Estates",
+  "csv_website": "https://www.g-estates.mc",
+  "csv_domain_live": false,
+  "agency": "G² Immo",
+  "website": null
+ },
+ {
+  "csv_name": "Galli Agency",
+  "csv_website": "https://www.agencegalli.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Gaston Agency",
+  "csv_website": "https://www.agencegaston.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Gemini Real Estate",
+  "csv_website": "https://www.gemini.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "General Immobilier",
+  "csv_website": "https://www.general-immobilier.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Gery Properties",
+  "csv_website": "https://www.gery-properties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Global Properties",
+  "csv_website": "https://www.globalproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Golden Square Real Estate",
+  "csv_website": "https://www.goldensquare.mc",
+  "csv_domain_live": true,
+  "agency": "SARL GOLDEN SQUARE",
+  "website": "https://www.goldensquaremonaco.com/"
+ },
+ {
+  "csv_name": "GP Real Estate",
+  "csv_website": "https://www.gp-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Grimaldi Real Estate",
+  "csv_website": "https://www.grimaldi-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Hammer Draff",
+  "csv_website": "https://www.hammerdraff.com",
+  "csv_domain_live": true,
+  "agency": "Hammer Draff",
+  "website": "https://www.hammerdraff.com/"
+ },
+ {
+  "csv_name": "Harroch Real Estate",
+  "csv_website": "https://www.harrochrealestate.com",
+  "csv_domain_live": true,
+  "agency": "Harroch Real Estate Monaco",
+  "website": "https://www.harrochrealestate.com/"
+ },
+ {
+  "csv_name": "Heliopolis Properties",
+  "csv_website": "https://www.heliopolis.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Heritage Properties",
+  "csv_website": "https://www.heritage-properties.mc",
+  "csv_domain_live": false,
+  "agency": "Heritage Properties",
+  "website": "https://www.heritageproperties.mc/"
+ },
+ {
+  "csv_name": "Hermitage Riviera",
+  "csv_website": "https://www.hermitageriviera.com",
+  "csv_domain_live": true,
+  "agency": "Hermitage Riviera",
+  "website": "https://www.hermitageriviera.com/"
+ },
+ {
+  "csv_name": "Hestia Real Estate",
+  "csv_website": "https://www.hestiaproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "High-End Properties",
+  "csv_website": "https://www.highendproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Home & Co",
+  "csv_website": "https://www.homeandco.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "ICM Real Estate",
+  "csv_website": "https://www.icm.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Impact Real Estate",
+  "csv_website": "https://www.impact-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Imperial Properties",
+  "csv_website": "https://www.imperialproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Infinity Properties",
+  "csv_website": "https://www.infinityproperties.mc",
+  "csv_domain_live": false,
+  "agency": "Infinity Homes",
+  "website": "https://www.infinityhomes.mc/"
+ },
+ {
+  "csv_name": "Inter-Acropole",
+  "csv_website": "https://www.inter-acropole.com",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "International Property Brokers",
+  "csv_website": "https://www.ipb.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Invest Real Estate",
+  "csv_website": "https://www.investrealestate.mc",
+  "csv_domain_live": false,
+  "agency": "Promotion Invest",
+  "website": null
+ },
+ {
+  "csv_name": "Iris Properties",
+  "csv_website": "https://www.irisproperties.mc",
+  "csv_domain_live": false,
+  "agency": "IRIS Real Estate",
+  "website": "https://www.iris.mc/"
+ },
+ {
+  "csv_name": "J&L Properties",
+  "csv_website": "https://www.jlproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "J-K Real Estate",
+  "csv_website": "https://www.jk-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "JamesEdition Monaco",
+  "csv_website": "https://www.jamesedition.com",
+  "csv_domain_live": true,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Jardin Exotique Agency",
+  "csv_website": "https://www.agencejardinexotique.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "John Taylor Monaco",
+  "csv_website": "https://www.john-taylor.com",
+  "csv_domain_live": true,
+  "agency": "John Taylor",
+  "website": "https://www.john-taylor.mc/"
+ },
+ {
+  "csv_name": "K-Properties",
+  "csv_website": "https://www.kproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Kingdom Properties",
+  "csv_website": "https://www.kingdomproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Kings Real Estate",
+  "csv_website": "https://www.kingsrealestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Knight Frank Monaco",
+  "csv_website": "https://www.knightfrank.com/monaco",
+  "csv_domain_live": true,
+  "agency": "Knight Frank Monaco",
+  "website": "https://www.knightfrank.com/"
+ },
+ {
+  "csv_name": "La Citadelle Agency",
+  "csv_website": "https://www.agencecitadelle.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "La Condamine Agency",
+  "csv_website": "https://www.agencecondamine.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "La Costa Properties Monaco",
+  "csv_website": "https://www.lacosta-properties-monaco.com",
+  "csv_domain_live": true,
+  "agency": "La Costa Properties Monaco",
+  "website": "https://www.25lcp.com/"
+ },
+ {
+  "csv_name": "La Monégasque Immobilière",
+  "csv_website": "https://www.lamonegasque.mc",
+  "csv_domain_live": false,
+  "agency": "La Monégasque Immobilier",
+  "website": "https://lamonegasqueimmobilier.mc/"
+ },
+ {
+  "csv_name": "La Rousse Agency",
+  "csv_website": "https://www.agencelarousse.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Larvotto Real Estate",
+  "csv_website": "https://www.larvottorealestate.com",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Le Figaro Properties",
+  "csv_website": "https://properties.lefigaro.com",
+  "csv_domain_live": true,
+  "agency": "Le Figaro Properties",
+  "website": "https://properties.lefigaro.com/"
+ },
+ {
+  "csv_name": "Le Rocher Real Estate",
+  "csv_website": "https://www.lerocher-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Leader Real Estate",
+  "csv_website": "https://www.leader-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Legacy Properties",
+  "csv_website": "https://www.legacy.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Level Real Estate",
+  "csv_website": "https://www.levelproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Livein Monaco",
+  "csv_website": "https://www.livein.mc",
+  "csv_domain_live": true,
+  "agency": "Livein Monaco",
+  "website": "https://www.livein.mc/"
+ },
+ {
+  "csv_name": "Logos Real Estate",
+  "csv_website": "https://www.logos.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Lorenzi Roc Agency",
+  "csv_website": "https://www.rocagency.com",
+  "csv_domain_live": true,
+  "agency": "Roc Agency",
+  "website": "https://www.rocagency.com/"
+ },
+ {
+  "csv_name": "Lotus Properties",
+  "csv_website": "https://www.lotusproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Luxury Living Monaco",
+  "csv_website": "https://www.luxuryliving.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "LuxuryEstate Monaco",
+  "csv_website": "https://www.luxuryestate.com",
+  "csv_domain_live": true,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "M&P Properties",
+  "csv_website": "https://www.mpproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Magrey & Sons Monaco",
+  "csv_website": "https://www.magrey.com",
+  "csv_domain_live": true,
+  "agency": "Magrey And Sons Monaco",
+  "website": "https://www.magreymonaco.com/"
+ },
+ {
+  "csv_name": "Main Square Real Estate",
+  "csv_website": "https://www.mainsquare.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Majestic Real Estate",
+  "csv_website": "https://www.majestic-realestate.mc",
+  "csv_domain_live": false,
+  "agency": "Majestic Real Estate",
+  "website": null
+ },
+ {
+  "csv_name": "Manera Real Estate",
+  "csv_website": "https://www.manerarealestate.com",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Map Real Estate",
+  "csv_website": "https://www.maprealestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Maximus Properties",
+  "csv_website": "https://www.maximus.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "MB Immobilier",
+  "csv_website": "https://www.mb-immobilier.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Mercury Real Estate",
+  "csv_website": "https://www.mercury.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Meridian Real Estate",
+  "csv_website": "https://www.meridian.mc",
+  "csv_domain_live": true,
+  "agency": "Meridian Real Estate",
+  "website": "https://www.meridian.mc/"
+ },
+ {
+  "csv_name": "Metropole Real Estate",
+  "csv_website": "https://www.metropolerealestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Miells Real Estate",
+  "csv_website": "https://www.miells.com",
+  "csv_domain_live": true,
+  "agency": "Miells Monaco Real Estate",
+  "website": "https://www.miells.com/"
+ },
+ {
+  "csv_name": "Milano Real Estate",
+  "csv_website": "https://www.milano-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Milo Properties",
+  "csv_website": "https://www.miloproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Mirabeau Real Estate",
+  "csv_website": "https://www.mirabeau-properties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Monaco International Real Estate",
+  "csv_website": "https://www.mire.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Monaco Properties",
+  "csv_website": "https://www.monacoproperties.mc",
+  "csv_domain_live": true,
+  "agency": "Monaco Properties",
+  "website": "https://www.monacoproperties.mc/"
+ },
+ {
+  "csv_name": "Monaco Villas",
+  "csv_website": "https://www.monaco-villas.com",
+  "csv_domain_live": true,
+  "agency": "Monaco Villas",
+  "website": "https://www.monaco-villas.com/"
+ },
+ {
+  "csv_name": "Moneghetti Agency",
+  "csv_website": "https://www.agencemoneghetti.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Montaigne Properties",
+  "csv_website": "https://www.montaigneproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Monte Carlo Real Estate",
+  "csv_website": "https://www.montecarlo-realestate.com",
+  "csv_domain_live": true,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Monte-Carlo Real Estate Agency",
+  "csv_website": "https://www.montecarlo-realestateagency.com",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Monte-Carlo Sotheby's International Realty",
+  "csv_website": "https://www.montecarlo-sothebysrealty.com",
+  "csv_domain_live": true,
+  "agency": "Monte-Carlo Sotheby's International Realty",
+  "website": "https://www.montecarlo-sothebysrealty.com/"
+ },
+ {
+  "csv_name": "Moulins Agency",
+  "csv_website": "https://www.agencemoulins.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "N&M Properties",
+  "csv_website": "https://www.nmproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "National Agency Monaco",
+  "csv_website": "https://www.agencenationale.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Nemesis Real Estate",
+  "csv_website": "https://www.nemesis.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Neptune Properties",
+  "csv_website": "https://www.neptuneproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Nexus Real Estate",
+  "csv_website": "https://www.nexus.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Noble Properties",
+  "csv_website": "https://www.nobleproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Nordic Real Estate",
+  "csv_website": "https://www.nordic.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Nova Properties",
+  "csv_website": "https://www.novaproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Oceanic Agency",
+  "csv_website": "https://www.agenceoceanic.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Olympia Real Estate",
+  "csv_website": "https://www.olympia.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Omega Real Estate",
+  "csv_website": "https://www.omega-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Optima Properties",
+  "csv_website": "https://www.optimaproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Orion Real Estate",
+  "csv_website": "https://www.orion.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Palace Properties",
+  "csv_website": "https://www.palaceproperties.mc",
+  "csv_domain_live": false,
+  "agency": "P. Palace Immobilier",
+  "website": null
+ },
+ {
+  "csv_name": "Palais Real Estate",
+  "csv_website": "https://www.palaisrealestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Park Real Estate",
+  "csv_website": "https://www.parkrealestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Pastor Immobilier",
+  "csv_website": "https://www.pastor-immobilier.com",
+  "csv_domain_live": true,
+  "agency": "PASTOR IMMOBILIER",
+  "website": "https://pastor-immobilier.com/"
+ },
+ {
+  "csv_name": "Pearl Real Estate",
+  "csv_website": "https://www.pearl-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Petrini Exclusive Real Estate",
+  "csv_website": "https://www.petrini.mc",
+  "csv_domain_live": true,
+  "agency": "Petrini Exclusive Real Estate Monaco",
+  "website": "https://www.petrini.mc/"
+ },
+ {
+  "csv_name": "Phoenix Properties",
+  "csv_website": "https://www.phoenix.mc",
+  "csv_domain_live": true,
+  "agency": "Phoenix Properties",
+  "website": "https://www.phoenix.mc/"
+ },
+ {
+  "csv_name": "Piras Immobilier",
+  "csv_website": "https://www.pirasimmobilier.com",
+  "csv_domain_live": true,
+  "agency": "Piras Immobilier",
+  "website": "https://www.pirasimmobilier.com/"
+ },
+ {
+  "csv_name": "Platinum Real Estate",
+  "csv_website": "https://www.platinum.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Plaza Real Estate",
+  "csv_website": "https://www.plazarealestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Port Real Estate",
+  "csv_website": "https://www.portrealestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Prestige Properties",
+  "csv_website": "https://www.prestigeproperties.mc",
+  "csv_domain_live": true,
+  "agency": "Prestige Properties",
+  "website": "https://www.prestigeproperties.mc/"
+ },
+ {
+  "csv_name": "Prime Real Estate",
+  "csv_website": "https://www.primerealestate.mc",
+  "csv_domain_live": false,
+  "agency": "PRIME Estate",
+  "website": "https://prime-estate.mc/"
+ },
+ {
+  "csv_name": "Principal Properties",
+  "csv_website": "https://www.principalproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Privilege Real Estate",
+  "csv_website": "https://www.privilege.mc",
+  "csv_domain_live": false,
+  "agency": "Monte Carlo Privilège",
+  "website": "https://www.mcprivilege-immobilier.com/"
+ },
+ {
+  "csv_name": "Pro-Immo Monaco",
+  "csv_website": "https://www.proimmo.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Properstar Monaco",
+  "csv_website": "https://www.properstar.com/monaco",
+  "csv_domain_live": true,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Property for Sale Monaco",
+  "csv_website": "https://www.property-for-sale-monaco.com",
+  "csv_domain_live": true,
+  "agency": "Parkings and cellars for sale Monaco",
+  "website": "https://www.17keysrealestate.mc/"
+ },
+ {
+  "csv_name": "Quantum Properties",
+  "csv_website": "https://www.quantum.mc",
+  "csv_domain_live": true,
+  "agency": "Quantum Properties",
+  "website": "https://www.quantum.mc/"
+ },
+ {
+  "csv_name": "Regency Real Estate",
+  "csv_website": "https://www.regency-monaco.com",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Renaissance Real Estate",
+  "csv_website": "https://www.renaissance.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Rightmove Overseas Monaco",
+  "csv_website": "https://www.rightmove.co.uk",
+  "csv_domain_live": true,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Rivoli Real Estate",
+  "csv_website": "https://www.rivoli.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Royal Estates",
+  "csv_website": "https://www.royalestates.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "SL Agency",
+  "csv_website": "https://www.slagency.mc",
+  "csv_domain_live": false,
+  "agency": "SL AGENCY",
+  "website": "https://www.slamonaco.com/"
+ },
+ {
+  "csv_name": "Sainte-Devote Agency",
+  "csv_website": "https://www.agencesaintedevote.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Salomon Real Estate",
+  "csv_website": "https://www.salomonproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Sartorio Real Estate",
+  "csv_website": "https://www.sartorio-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Savills Monaco",
+  "csv_website": "https://www.savills.mc",
+  "csv_domain_live": true,
+  "agency": "Savills Monaco Real Estate",
+  "website": "https://www.savills.mc/"
+ },
+ {
+  "csv_name": "Scorpio Real Estate",
+  "csv_website": "https://www.scorpio.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Segond Immobilier",
+  "csv_website": "https://www.segond-immobilier.mc",
+  "csv_domain_live": false,
+  "agency": "Segond Immobilier",
+  "website": "https://www.segond-immobilier.com/"
+ },
+ {
+  "csv_name": "Select Properties",
+  "csv_website": "https://www.selectproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Sextant Real Estate",
+  "csv_website": "https://www.sextantmonaco.com",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Signature Real Estate",
+  "csv_website": "https://www.signature.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Silver Properties",
+  "csv_website": "https://www.silverproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Solamito Properties",
+  "csv_website": "https://www.solamito-properties.mc",
+  "csv_domain_live": false,
+  "agency": "SOLAMITO PROPERTIES",
+  "website": "https://www.solamito-properties-real-estate.mc/"
+ },
+ {
+  "csv_name": "Sovereign Real Estate",
+  "csv_website": "https://www.sovereign.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Sparta Properties",
+  "csv_website": "https://www.spartaproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Square Real Estate",
+  "csv_website": "https://www.squarerealestate.mc",
+  "csv_domain_live": false,
+  "agency": "SARL GOLDEN SQUARE",
+  "website": "https://www.goldensquaremonaco.com/"
+ },
+ {
+  "csv_name": "Star Real Estate",
+  "csv_website": "https://www.star-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Stella Real Estate",
+  "csv_website": "https://www.stellaproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Sterling Properties",
+  "csv_website": "https://www.sterling.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Summit Real Estate",
+  "csv_website": "https://www.summit.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Sun Real Estate",
+  "csv_website": "https://www.sun-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Superior Real Estate",
+  "csv_website": "https://www.superior.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Synergy Real Estate",
+  "csv_website": "https://www.synergy.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "T&T Real Estate",
+  "csv_website": "https://www.tt-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Terrasses Agency",
+  "csv_website": "https://www.agenceterrasses.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "The Agency Monaco",
+  "csv_website": "https://www.theagency.mc",
+  "csv_domain_live": true,
+  "agency": "The Agency Monaco",
+  "website": "https://www.theagency.mc/"
+ },
+ {
+  "csv_name": "Titan Real Estate",
+  "csv_website": "https://www.titan.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Top Properties",
+  "csv_website": "https://www.topproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Trinity Monaco",
+  "csv_website": "https://www.trinitymonaco.com",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Trophy Real Estate",
+  "csv_website": "https://www.trophy-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Trust Real Estate",
+  "csv_website": "https://www.trustrealestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Universal Properties",
+  "csv_website": "https://www.universalproperties.mc",
+  "csv_domain_live": false,
+  "agency": "Universal Office",
+  "website": "https://www.universalmonaco.com/"
+ },
+ {
+  "csv_name": "Uranus Properties",
+  "csv_website": "https://www.uranus.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Valeri Agency",
+  "csv_website": "https://www.valeri-agency.com",
+  "csv_domain_live": true,
+  "agency": "Barnes I Valeri Agency",
+  "website": "https://www.valeri-agency.com/"
+ },
+ {
+  "csv_name": "Value Real Estate",
+  "csv_website": "https://www.valuerealestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Vanguard Properties",
+  "csv_website": "https://www.vanguard.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Vatrican Real Estate",
+  "csv_website": "https://www.vatrican-realestate.com",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Vector Real Estate",
+  "csv_website": "https://www.vector.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Venus Properties",
+  "csv_website": "https://www.venusproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Verde Real Estate",
+  "csv_website": "https://www.verderealestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Vesta Properties",
+  "csv_website": "https://www.vestaproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Victory Real Estate",
+  "csv_website": "https://www.victory.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Villa Real Estate",
+  "csv_website": "https://www.villarealestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Vip Real Estate",
+  "csv_website": "https://www.vip-realestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Vista Properties",
+  "csv_website": "https://www.vistaproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Viviani Champfleury Barco",
+  "csv_website": "https://www.vivianichampfleurybarco.com",
+  "csv_domain_live": false,
+  "agency": "Viviani Champfleury Barco",
+  "website": "https://www.vcb.mc/"
+ },
+ {
+  "csv_name": "W-Properties",
+  "csv_website": "https://www.wproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "X-Real Estate Monaco",
+  "csv_website": "https://www.xrealestate.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Zenith Properties",
+  "csv_website": "https://www.zenithproperties.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ },
+ {
+  "csv_name": "Zeus Real Estate",
+  "csv_website": "https://www.zeus.mc",
+  "csv_domain_live": false,
+  "agency": null,
+  "website": null
+ }
+]
