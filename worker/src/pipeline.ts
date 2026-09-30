@@ -117,6 +117,8 @@ export function scoreMatch(a: MatchSide, b: MatchSide): MatchResult | null {
 
   const sameBuilding = (a.building_id != null && a.building_id === b.building_id) ||
     (a.building_norm !== '' && a.building_norm === b.building_norm)
+  // Both name a building and they differ: two different flats.
+  if (!sameBuilding && a.building_norm !== '' && b.building_norm !== '') return null
 
   // Tier 2: same building + area ±3% + same bedrooms (+ floor when both known).
   if (sameBuilding && bedsEqual && within(a.area, b.area, 0.03)) {
@@ -306,6 +308,9 @@ async function createParent(ctx: Ctx, agentId: string, transaction: string, quar
 async function moveSource(ctx: Ctx, sourceId: string, fromId: string, toId: string, tier: string, runId: string | null) {
   await ctx.db.prepare('UPDATE property_sources SET property_id = ?, match_tier = ? WHERE id = ?').bind(toId, tier, sourceId).run()
   await ctx.db.prepare('UPDATE price_history SET property_id = ? WHERE source_id = ?').bind(toId, sourceId).run()
+  await ctx.db.prepare(
+    `UPDATE review_queue SET status = 'merged', decided_at = ? WHERE source_id = ? AND candidate_property_id = ? AND status = 'pending'`
+  ).bind(ctx.now, sourceId, toId).run()
   const left = await ctx.db.prepare('SELECT COUNT(*) AS n FROM property_sources WHERE property_id = ?').bind(fromId).first<{ n: number }>()
   if (!left?.n) {
     await ctx.db.prepare(
@@ -789,6 +794,12 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
     }
     const rows = results || []
     const last = rows.length ? rows[rows.length - 1].id : null
+    if (!body?.after) {
+      await ctx.db.prepare(
+        `UPDATE review_queue SET status = 'merged', decided_at = ? WHERE status = 'pending'
+         AND candidate_property_id = (SELECT property_id FROM property_sources WHERE id = review_queue.source_id)`
+      ).bind(ctx.now).run()
+    }
     return respond({ processed: (results || []).length, merged, next: (results || []).length === limit ? last : null })
   }
 
@@ -955,7 +966,9 @@ async function phashMatch(ctx: Ctx, source: any): Promise<Json | null> {
   if (rejected) return null
 
   const reasons = ['hero_phash', ...(areaOk ? ['area_5pct'] : []), ...(bedsOk ? ['bedrooms'] : [])]
-  if (bestD <= 4 && areaOk && (bedsOk || !bedsKnown) && priceOk && otherAgency) {
+  const strictSame = bestD <= 2 && within(source.living_area_sqm, best.living_area_sqm, 0.03) && (bedsOk || !bedsKnown)
+    && source.price_at_source && best.price_at_source && within(source.price_at_source, best.price_at_source, 0.05)
+  if (bestD <= 4 && areaOk && (bedsOk || !bedsKnown) && priceOk && (otherAgency || strictSame)) {
     const { results: all } = await ctx.db.prepare('SELECT id FROM property_sources WHERE property_id = ?').bind(source.property_id).all<{ id: string }>()
     const from = source.property_id
     for (const r of all || []) await moveSource(ctx, r.id, from, best.property_id, 'phash', null)

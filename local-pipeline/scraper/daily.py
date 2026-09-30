@@ -35,8 +35,13 @@ def agencies(match: list[str] | None) -> list[dict]:
     return [a for a in rows if not match or any(m.lower() in a["name"].lower() for m in match)]
 
 
+# The two portals are large, unprotected sites: 2–5 s between requests is
+# still gentle and keeps the full morning run within a few hours.
+PORTAL_DELAY = (2, 5)
+
+
 def family_cim(client, mode: str, results: list, match=None) -> None:
-    f = PoliteFetcher()
+    f = PoliteFetcher(delay=PORTAL_DELAY)
     for a in agencies(match):
         if not a.get("cim_listing_count"):
             continue
@@ -47,7 +52,7 @@ def family_cim(client, mode: str, results: list, match=None) -> None:
 
 
 def family_mcre(client, mode: str, results: list, match=None) -> None:
-    f = PoliteFetcher()
+    f = PoliteFetcher(delay=PORTAL_DELAY)
     for a in agencies(match):
         if not a.get("mcre_listing_count"):
             continue
