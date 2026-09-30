@@ -153,6 +153,25 @@ manual "contacted" marks per agency · review queue · publish toggle
    runner (launchd 06:00, KeepAlive on crash) for `runner: local` sites.
 7. **Alerts** — price drops, new matches for client saved searches.
 
+## Status (2026-09-30, cloud session 2)
+
+- **Phase 2 done:** `worker/migrations/0006_listings_aggregator.sql` +
+  `worker/src/pipeline.ts` (batch `/sync/runs`, `/sync/runs/:id/listings|finish`,
+  `/sync/sites/:key/known`, `/sync/sources/:id/hero`, `/sync/changelog`,
+  `/sync/buildings`; session-auth `/pipeline/review`). Dedup tiers, 3-day
+  removal rule (complete `ok` runs only; 0 or −50% index count = broken, no
+  removals), site health, changelog → R2 all tested end-to-end on local D1.
+  Runner client: `local-pipeline/sync/worker_client.py` (stdlib only).
+- Not yet applied to the remote D1: `wrangler d1 execute DB --remote --file
+  migrations/0006_listings_aggregator.sql`, then deploy. Optionally set
+  `PIPELINE_AGENT_ID` (defaults to the oldest agent).
+- D1/Workers Free has daily row read/write caps (enforced since 2026-09-01);
+  ~7k listings with several light checks a day fits, but Workers Paid ($5/mo)
+  removes the risk.
+- **Blocked:** the cloud environment's network policy denies agency sites
+  (chambre-immobiliere-monaco.mc refused). Steps 1–3 (agency list, CIM API,
+  scrapers) need network access widened to "Full" first.
+
 ## Open items
 
 - Link/notes from the earlier cloud session that brainstormed the same prompt.

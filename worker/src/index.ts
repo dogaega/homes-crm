@@ -13,6 +13,7 @@
 import puppeteer from '@cloudflare/puppeteer'
 import { PDFDocument } from 'pdf-lib'
 import { renderBrochureHtml, brochureFilename, type Lang } from './brochure'
+import { handlePipelineSync, handlePipelineUi } from './pipeline'
 
 export interface Env {
   DB: D1Database
@@ -26,6 +27,8 @@ export interface Env {
   // Shared secret for the local scraper pipeline (Bearer token on /sync/*).
   // Set via `wrangler secret put SYNC_API_TOKEN` — never checked in.
   SYNC_API_TOKEN: string
+  // Agent that owns scraped (origin='pipeline') properties; defaults to the oldest agent.
+  PIPELINE_AGENT_ID?: string
 }
 
 const TABLES = [
@@ -33,7 +36,8 @@ const TABLES = [
   'task_templates', 'documents', 'document_templates', 'document_signatures',
   'communications', 'showings', 'inquiries', 'client_property_interests',
   'activity_logs', 'agencies', 'agency_contacts', 'intake_documents',
-  'property_sources',
+  'property_sources', 'quarters', 'buildings', 'price_history', 'listing_events',
+  'scrape_runs', 'site_health', 'review_queue', 'contact_marks', 'saved_searches',
 ] as const
 type TableName = typeof TABLES[number]
 
@@ -50,7 +54,12 @@ const JSON_COLUMNS: Record<string, string[]> = {
   agencies: [],
   agency_contacts: [],
   intake_documents: ['extracted_fields'],
-  property_sources: [],
+  property_sources: ['photo_urls', 'extra'],
+  quarters: ['aliases', 'polygon'],
+  buildings: ['aliases'],
+  listing_events: ['data'],
+  review_queue: ['reasons'],
+  saved_searches: ['criteria'],
 }
 
 function corsHeaders(origin: string | null, env: Env) {
@@ -803,6 +812,10 @@ async function handleSync(req: Request, env: Env, url: URL, path: string, origin
   const headers = corsHeaders(origin, env)
   if (!requireSyncAuth(req, env)) return json({ error: 'Unauthorized' }, 401, headers)
 
+  // Batch aggregator endpoints (runs, listings, heroes, changelog) — see pipeline.ts.
+  const pipelineRes = await handlePipelineSync(req, env, path, (data, status = 200) => json(data, status, headers))
+  if (pipelineRes) return pipelineRes
+
   // POST /sync/properties — ingest one scraped listing (parent + one child).
   // Called once per listing found on any of the ~30-40 portals; called many
   // times for the same physical property when different agencies list it.
@@ -1105,6 +1118,14 @@ export default {
 
     if (url.pathname.startsWith('/sync/')) {
       return handleSync(req, env, url, url.pathname, origin)
+    }
+
+    if (url.pathname.startsWith('/pipeline/')) {
+      const headers = corsHeaders(origin, env)
+      const user = await getSessionUser(req, env)
+      if (!user) return json({ error: 'Unauthorized' }, 401, headers)
+      const agent = await env.DB.prepare('SELECT id FROM agents WHERE user_id = ?').bind(user.id).first<{ id: string }>()
+      return handlePipelineUi(req, env, url, url.pathname, agent?.id ?? null, (data, status = 200) => json(data, status, headers))
     }
 
     const parts = url.pathname.replace(/^\//, '').split('/')
