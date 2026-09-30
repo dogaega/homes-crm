@@ -92,7 +92,7 @@ export interface MatchSide {
   price: number | null
 }
 
-export type MatchTier = 'coords' | 'building' | 'review'
+export type MatchTier = 'ref' | 'coords' | 'building' | 'review'
 export interface MatchResult { tier: MatchTier; score: number; reasons: string[] }
 
 // PLAN.md "Merging duplicates" tiers 1, 2 and 4 (tier 3, hero phash, runs
@@ -280,11 +280,10 @@ async function refreshParent(ctx: Ctx, propertyId: string, runId: string | null)
   ).run()
 }
 
-async function nextPipelineRef(ctx: Ctx): Promise<string> {
-  const row = await ctx.db.prepare(
-    `SELECT MAX(CAST(SUBSTR(property_id, 5) AS INTEGER)) AS n FROM properties WHERE property_id LIKE 'MKT-%'`
-  ).first<{ n: number | null }>()
-  return `MKT-${String((row?.n ?? 0) + 1).padStart(6, '0')}`
+// Random, not max+1: runners sync several sites concurrently and a
+// sequential counter would hand two parents the same reference.
+function pipelineRef(): string {
+  return 'MKT-' + crypto.randomUUID().replace(/-/g, '').slice(0, 8).toUpperCase()
 }
 
 async function createParent(ctx: Ctx, agentId: string, transaction: string, quarter: string | null): Promise<string> {
@@ -293,7 +292,7 @@ async function createParent(ctx: Ctx, agentId: string, transaction: string, quar
     `INSERT INTO properties (id, property_id, address, city, state, zip_code, created_by, origin, transaction_type, quarter,
        listing_status, pipeline_status, created_at, updated_at)
      VALUES (?, ?, 'Monaco', 'Monaco', '', '98000', ?, 'pipeline', ?, ?, 'active', 'uncontacted', ?, ?)`
-  ).bind(id, await nextPipelineRef(ctx), agentId, transaction, quarter, ctx.now, ctx.now).run()
+  ).bind(id, pipelineRef(), agentId, transaction, quarter, ctx.now, ctx.now).run()
   return id
 }
 
@@ -448,7 +447,15 @@ async function ingestListing(ctx: Ctx, run: any, agencyId: string, agentId: stri
     ).bind(run.site_key, d.lat, d.lng).first<{ n: number }>()
     coordsShared = (shared?.n ?? 0) >= 3
   }
-  const decision = await findMatches(ctx, side, l.transaction_type, run.site_key, coordsShared)
+  // Tier 0: the same agency's listing already came in through another site
+  // (its CIM page vs MCRE vs its own website) under the same reference.
+  const refMatch = str(l.external_ref) && agencyId ? await ctx.db.prepare(
+    `SELECT property_id FROM property_sources
+     WHERE agency_id = ? AND external_ref = ? AND site_key != ? AND transaction_type = ? AND removed_at IS NULL LIMIT 1`
+  ).bind(agencyId, str(l.external_ref), run.site_key, l.transaction_type).first<{ property_id: string }>() : null
+  const decision: MatchDecision = refMatch
+    ? { autoTo: { id: refMatch.property_id, tier: 'ref' }, review: [] }
+    : await findMatches(ctx, side, l.transaction_type, run.site_key, coordsShared)
   const propertyId = decision.autoTo?.id ?? await createParent(ctx, agentId, l.transaction_type, side.quarter)
   const sourceId = crypto.randomUUID()
 
@@ -512,8 +519,12 @@ const BLOCKED_DAYS_TO_FLAG_LOCAL = 3
 
 interface AgencyPayload { name: string; website?: string; phone?: string; email?: string; cim_slug?: string; manager?: string; address?: string }
 
+// One agency can be scraped from several sites (its CIM portal page and its
+// own website): the first site to see it owns agencies.site_key, later ones
+// find it by cim_slug. Runs carry agency_id so attribution never depends on it.
 async function upsertAgency(ctx: Ctx, siteKey: string, a: AgencyPayload | undefined): Promise<string> {
   const row = await ctx.db.prepare('SELECT id FROM agencies WHERE site_key = ?').bind(siteKey).first<{ id: string }>()
+    ?? (str(a?.cim_slug) ? await ctx.db.prepare('SELECT id FROM agencies WHERE cim_slug = ?').bind(str(a!.cim_slug)).first<{ id: string }>() : null)
   if (row) {
     if (a) {
       await ctx.db.prepare(
@@ -664,8 +675,8 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
     const agencyId = await upsertAgency(ctx, siteKey, body.agency)
     const id = crypto.randomUUID()
     await ctx.db.prepare(
-      `INSERT INTO scrape_runs (id, site_key, runner, mode, status, started_at) VALUES (?, ?, ?, ?, 'running', ?)`
-    ).bind(id, siteKey, runner, mode, ctx.now).run()
+      `INSERT INTO scrape_runs (id, site_key, agency_id, runner, mode, status, started_at) VALUES (?, ?, ?, ?, ?, 'running', ?)`
+    ).bind(id, siteKey, agencyId, runner, mode, ctx.now).run()
     return respond({ run_id: id, agency_id: agencyId }, 201)
   }
 
@@ -684,7 +695,7 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
   const runMatch = path.match(/^\/sync\/runs\/([^/]+)\/(listings|finish)$/)
   if (runMatch && req.method === 'POST') {
     const run = await ctx.db.prepare(
-      `SELECT r.*, a.id AS agency_id FROM scrape_runs r LEFT JOIN agencies a ON a.site_key = r.site_key WHERE r.id = ?`
+      `SELECT * FROM scrape_runs WHERE id = ?`
     ).bind(runMatch[1]).first<any>()
     if (!run) return respond({ error: 'Run not found' }, 404)
     if (run.status !== 'running') return respond({ error: `Run already ${run.status}` }, 409)

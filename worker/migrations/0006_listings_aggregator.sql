@@ -39,6 +39,7 @@ ALTER TABLE agencies ADD COLUMN cim_slug TEXT;          -- chambre-immobiliere-m
 ALTER TABLE agencies ADD COLUMN manager TEXT;
 ALTER TABLE agencies ADD COLUMN address TEXT;
 CREATE UNIQUE INDEX idx_agencies_site_key ON agencies(site_key) WHERE site_key IS NOT NULL;
+CREATE INDEX idx_agencies_cim_slug ON agencies(cim_slug);
 
 -- ── property_sources: full per-listing detail ───────────────────────────
 ALTER TABLE property_sources ADD COLUMN site_key TEXT;
@@ -85,6 +86,7 @@ ALTER TABLE property_sources ADD COLUMN last_missed_date TEXT;
 ALTER TABLE property_sources ADD COLUMN removed_at TEXT;
 ALTER TABLE property_sources ADD COLUMN match_tier TEXT;            -- how it joined its parent: new|coords|building|phash|review
 CREATE INDEX idx_property_sources_site ON property_sources(site_key, is_off_market);
+CREATE INDEX idx_property_sources_agency_ref ON property_sources(agency_id, external_ref);
 CREATE INDEX idx_property_sources_phash ON property_sources(hero_phash) WHERE hero_phash IS NOT NULL;
 
 -- ── properties: merged parent ───────────────────────────────────────────
@@ -136,6 +138,7 @@ CREATE INDEX idx_listing_events_property ON listing_events(property_id);
 CREATE TABLE scrape_runs (
   id TEXT PRIMARY KEY,
   site_key TEXT NOT NULL,
+  agency_id TEXT REFERENCES agencies(id),
   runner TEXT NOT NULL CHECK (runner IN ('server','local')),
   mode TEXT NOT NULL CHECK (mode IN ('full','light')),
   status TEXT NOT NULL DEFAULT 'running'

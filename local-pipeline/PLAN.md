@@ -168,9 +168,25 @@ manual "contacted" marks per agency · review queue · publish toggle
 - D1/Workers Free has daily row read/write caps (enforced since 2026-09-01);
   ~7k listings with several light checks a day fits, but Workers Paid ($5/mo)
   removes the risk.
-- **Blocked:** the cloud environment's network policy denies agency sites
-  (chambre-immobiliere-monaco.mc refused). Steps 1–3 (agency list, CIM API,
-  scrapers) need network access widened to "Full" first.
+- **Backbones found (session 2):** two portals carry almost every Monaco
+  listing as plain server-rendered HTML (no browser, no bot protection):
+  - **CIM** `chambre-immobiliere-monaco.mc` — 95 member agencies, full fields,
+    exact coords when set (default centre 43.74,7.42 = none), agency contacts.
+    `scraper/cim.py`, one run per agency (`cim-<slug>`).
+  - **MCRE** `montecarlo-realestate.com` — ~118 agencies incl. non-members,
+    full features table + tags, agency phone, no coords. `scraper/mcre.py`
+    (`mcre-<tc>`).
+  - Neither shows the individual agent → per-agency site scrapers later add
+    agent contacts and cover the few agencies on neither portal.
+- Agency master list: `scraper/agencies.py` → `data/agencies.json` = CIM ∪ MCRE
+  ∪ official directory (annuaire-monaco.mc, 118 licensed agencies). The old
+  CSV is superseded (80% invented domains).
+- Area semantics: CIM "Superf. totale" includes the terrace; we store living
+  area (total − terrace) everywhere, total in `extra.total_area_sqm`.
+- Dedup tier 0: same agency + same reference on two sites → auto-merge
+  (agency identity across sites via `cim_slug`).
+- No LLM needed: deterministic parsers + keyword rules (`scraper/text_rules.py`).
+- Daily entry point: `python -m scraper.daily [--mode light]`.
 
 ## Open items
 
