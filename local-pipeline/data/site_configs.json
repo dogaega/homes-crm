@@ -1092,7 +1092,8 @@
   "runner": "local",
   "status": "unreachable",
   "immotoolbox": false,
-  "error": "https://www.25lcp.com/: HTTP 202"
+  "error": "https://www.25lcp.com/: HTTP 202",
+  "render": true
  },
  {
   "site_key": "web-marsanimmobiliermonaco-mc",
@@ -1168,7 +1169,7 @@
   "agency": "AFIM SAM",
   "website": "https://www.afim.mc/",
   "runner": "server",
-  "status": "no_listing_links",
+  "status": "ok",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
@@ -1179,7 +1180,59 @@
     "https://www.afim.mc/location-parking,garage.html",
     "https://www.afim.mc/location-appartement-studio.html"
    ]
-  }
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?afim\\.mc/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+\\.html/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}.html",
+  "links_seen": 79,
+  "samples": [
+   {
+    "url": "https://www.afim.mc/vente-appartement-2-pieces.html",
+    "hint": "rent",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 510000,
+     "living_area_sqm": 45,
+     "rooms": 2,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Vente et achat appartement 2 pièces, 12 annonces",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 13
+    }
+   },
+   {
+    "url": "https://www.afim.mc/vente-appartement-3-pieces.html",
+    "hint": "rent",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1600000,
+     "living_area_sqm": 188,
+     "rooms": 3,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Vente et achat appartement 3 pièces, 11 annonces",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 12
+    }
+   }
+  ],
+  "quality": 6
  },
  {
   "site_key": "web-montecarlo-sothebysrealty-com",
@@ -1266,17 +1319,70 @@
   "agency": "Coldwell Banker Etic Realty",
   "website": "https://www.eticimmobilier.com/",
   "runner": "server",
-  "status": "no_listing_links",
+  "status": "weak",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
-    "https://www.eticimmobilier.com/vente+immobilier.html",
-    "https://www.eticimmobilier.com/vente+parking-garage-box.html"
+    "https://www.eticimmobilier.com/vente+immobilier.html"
    ],
    "rent": [
     "https://www.eticimmobilier.com/location+immobilier.html"
    ]
-  }
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?eticimmobilier\\.com/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+\\.html/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}.html",
+  "links_seen": 22,
+  "samples": [
+   {
+    "url": "https://www.eticimmobilier.com/vente+immobilier+monaco+com98.html",
+    "hint": "rent",
+    "score": 5,
+    "missing": [
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 12480000,
+     "living_area_sqm": 230,
+     "rooms": 1,
+     "bedrooms": 3,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Vente Monaco - Immobilier à vendre Monaco (98) - Coldwell Banker Etic Realty",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 0
+    }
+   },
+   {
+    "url": "https://www.eticimmobilier.com/vente+appartement-studio-loft.html",
+    "hint": "rent",
+    "score": 5,
+    "missing": [
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 12480000,
+     "living_area_sqm": 230,
+     "rooms": 2,
+     "bedrooms": 3,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Appartement à vendre - Vente - Coldwell Banker Etic Realty",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 0
+    }
+   }
+  ],
+  "quality": 5
  },
  {
   "site_key": "web-caroli-realestate-com",
@@ -1512,15 +1618,66 @@
   "agency": "Volumes",
   "website": "https://www.volumes.mc/",
   "runner": "server",
-  "status": "no_listing_links",
+  "status": "weak",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
     "https://www.volumes.mc/index.php?page=liste&search=Location",
     "https://www.volumes.mc/index.php?page=liste&search=Vente"
-   ],
-   "rent": []
-  }
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?volumes\\.mc/index\\.php\\?(?:[^#]*&)?id=\\d{2,}(?:[&#].*)?$)",
+  "listing_shape": "/index.php?{id=}",
+  "links_seen": 29,
+  "samples": [
+   {
+    "url": "https://www.volumes.mc/index.php?page=liste&step2=details&id=119661",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "ref"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 14000,
+     "living_area_sqm": 133,
+     "rooms": null,
+     "bedrooms": 3,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Condamine",
+     "agent_name": "Elena Garcia",
+     "agent_phone": "+33607970383",
+     "agent_email": "elena@volumes.mc",
+     "photos": 2
+    }
+   },
+   {
+    "url": "https://www.volumes.mc/index.php?page=liste&step2=details&id=110703",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "area",
+     "ref",
+     "desc"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": 4,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Anse du Portier",
+     "agent_name": "Elena Garcia",
+     "agent_phone": "+33607970383",
+     "agent_email": "elena@volumes.mc",
+     "photos": 2
+    }
+   }
+  ],
+  "quality": 5
  },
  {
   "site_key": "web-mycrownestates-mc",
@@ -1865,32 +2022,134 @@
   "agency": "Magrey And Sons Monaco",
   "website": "https://www.magreymonaco.com/",
   "runner": "server",
-  "status": "no_listing_links",
+  "status": "weak",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
-    "https://www.magreymonaco.com/sale-apartment-monaco-port-a33.html"
-   ],
-   "rent": []
-  }
+    "https://www.magreymonaco.com/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?magreymonaco\\.com/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+\\.html/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}.html",
+  "links_seen": 17,
+  "samples": [
+   {
+    "url": "https://www.magreymonaco.com/rousse-saint-roman-p6.html",
+    "hint": null,
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 17500000,
+     "living_area_sqm": 276,
+     "rooms": null,
+     "bedrooms": 3,
+     "floor": null,
+     "external_ref": "MC291",
+     "quarter": "La Rousse - Saint-Roman",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 9
+    }
+   },
+   {
+    "url": "https://www.magreymonaco.com/working-in-monaco-p34.html",
+    "hint": null,
+    "score": 2,
+    "missing": [
+     "transaction",
+     "area",
+     "rooms",
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": null,
+     "price": 15000,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Working in Monaco: 5 advantages for companies",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 1
+    }
+   }
+  ],
+  "quality": 2
  },
  {
   "site_key": "web-intermedia-mc",
   "agency": "Intermedia",
   "website": "https://www.intermedia.mc/",
   "runner": "server",
-  "status": "no_listing_links",
+  "status": "ok",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
     "https://www.intermedia.mc/vente-studio-monaco.html",
-    "https://www.intermedia.mc/vente-appartement-a-monaco.html"
-   ],
-   "rent": [
-    "https://www.intermedia.mc/location+vacances,location-appartement,maison-monaco.html",
-    "https://www.intermedia.mc/location+vacances,location-appartement,maison-international.html"
+    "https://www.intermedia.mc/vente-appartement-monaco-la-rousse-&amp;-saint-roman-1-1029v47a.html"
    ]
-  }
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?intermedia\\.mc/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+\\.html/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}.html",
+  "links_seen": 17,
+  "samples": [
+   {
+    "url": "https://www.intermedia.mc/vente-appartement,maison-monaco.html",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1090000,
+     "living_area_sqm": 25,
+     "rooms": 5,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Vente et achat appartement et maison Monaco, 14 annonces",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 16
+    }
+   },
+   {
+    "url": "https://www.intermedia.mc/location+vacances,location-appartement,maison-monaco.html",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 2230,
+     "living_area_sqm": 25,
+     "rooms": 4,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Location vacances et location appartement et maison Monaco, 2 annonces",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 4
+    }
+   }
+  ],
+  "quality": 6
  },
  {
   "site_key": "web-slamonaco-com",
@@ -2033,7 +2292,8 @@
   "runner": "local",
   "status": "unreachable",
   "immotoolbox": false,
-  "error": "https://www.ageprim.com/: HTTP 202"
+  "error": "https://www.ageprim.com/: HTTP 202",
+  "render": true
  },
  {
   "site_key": "web-monacolegendproperties-com",
@@ -2111,12 +2371,69 @@
   "agency": "Faggionato Real Estate",
   "website": "https://www.faggionatoimmo.com/",
   "runner": "server",
-  "status": "no_listing_links",
+  "status": "weak",
   "immotoolbox": false,
   "index_urls": {
-   "sale": [],
-   "rent": []
-  }
+   "sale": [
+    "https://www.faggionatoimmo.com/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?faggionatoimmo\\.com/index\\.php\\?(?:[^#]*&)?id=\\d{2,}(?:[&#].*)?$)",
+  "listing_shape": "/index.php?{id=}",
+  "links_seen": 4,
+  "samples": [
+   {
+    "url": "https://www.faggionatoimmo.com/index.php?page=detail&id=2575",
+    "hint": null,
+    "score": 4,
+    "missing": [
+     "transaction",
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": null,
+     "price": null,
+     "living_area_sqm": 130,
+     "rooms": null,
+     "bedrooms": 3,
+     "floor": 0,
+     "external_ref": null,
+     "quarter": "Carré d’Or",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 0
+    }
+   },
+   {
+    "url": "https://www.faggionatoimmo.com/index.php?page=detail&id=2790",
+    "hint": null,
+    "score": 4,
+    "missing": [
+     "transaction",
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": null,
+     "price": null,
+     "living_area_sqm": 60,
+     "rooms": null,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Monte-Carlo",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 0
+    }
+   }
+  ],
+  "quality": 4
  },
  {
   "site_key": "web-continentale-mc",
@@ -2572,7 +2889,8 @@
   "runner": "local",
   "status": "unreachable",
   "immotoolbox": false,
-  "error": "https://www.revimmo.mc/: ProxyError"
+  "error": "https://www.revimmo.mc/: Error",
+  "render": true
  },
  {
   "site_key": "web-capitalrealestate-mc",
@@ -2650,15 +2968,68 @@
   "agency": "Europagence",
   "website": "https://www.europagence.mc/",
   "runner": "server",
-  "status": "no_listing_links",
+  "status": "weak",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
     "https://www.europagence.mc/index.php?page=liste&type=location",
     "https://www.europagence.mc/index.php?page=liste&type=vente"
-   ],
-   "rent": []
-  }
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?europagence\\.mc/index\\.php\\?(?:[^#]*&)?id=\\d{2,}(?:[&#].*)?$)",
+  "listing_shape": "/index.php?{id=}",
+  "links_seen": 25,
+  "samples": [
+   {
+    "url": "https://www.europagence.mc/index.php?page=detail&id=1869",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 9900,
+     "living_area_sqm": 110,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": 4,
+     "external_ref": null,
+     "quarter": null,
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 13
+    }
+   },
+   {
+    "url": "https://www.europagence.mc/index.php?page=detail&id=2764",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": 130,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": 4,
+     "external_ref": null,
+     "quarter": "Saint Roman",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 15
+    }
+   }
+  ],
+  "quality": 5
  },
  {
   "site_key": "web-pirasimmobilier-com",
@@ -2966,12 +3337,10 @@
   "immotoolbox": false,
   "index_urls": {
    "sale": [
-    "https://www.savills.mc/landing-pages/achat-appartement-monaco.aspx",
-    "https://www.savills.mc/landing-pages/propriete-a-la-vente-a-monaco.aspx"
+    "https://www.savills.mc/landing-pages/achat-appartement-monaco.aspx"
    ],
    "rent": [
-    "https://www.savills.mc/louer-appartement-monaco--monte-carlo/",
-    "https://www.savills.mc/landing-pages/appartements-a-louer-a-monaco.aspx"
+    "https://www.savills.mc/louer-appartement-monaco--monte-carlo/"
    ]
   }
  },
@@ -2982,7 +3351,8 @@
   "runner": "local",
   "status": "unreachable",
   "immotoolbox": false,
-  "error": "https://elliman.mc/: HTTP 403"
+  "error": "https://elliman.mc/: HTTP 403",
+  "render": true
  },
  {
   "site_key": "web-astralproperties-mc",
@@ -3973,11 +4343,14 @@
  {
   "site_key": "web-universalmonaco-com",
   "agency": "Universal Office",
-  "website": "https://www.universalmonaco.com/",
-  "runner": "local",
-  "status": "unreachable",
+  "website": "http://www.universalmonaco.com/",
+  "runner": "server",
+  "status": "no_listing_links",
   "immotoolbox": false,
-  "error": "https://www.universalmonaco.com/: SSLError"
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
  },
  {
   "site_key": "web-solamito-properties-real-estate-mc",
@@ -4738,11 +5111,14 @@
  {
   "site_key": "web-bureauaffairesimmobilieres-com",
   "agency": "Bureau d'Affaires Immobilières",
-  "website": "https://www.bureauaffairesimmobilieres.com/",
-  "runner": "local",
-  "status": "unreachable",
+  "website": "http://www.bureauaffairesimmobilieres.com/",
+  "runner": "server",
+  "status": "no_listing_links",
   "immotoolbox": false,
-  "error": "https://www.bureauaffairesimmobilieres.com/: SSLError"
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
  },
  {
   "site_key": "web-capi-mc",
@@ -5315,7 +5691,8 @@
   "runner": "local",
   "status": "unreachable",
   "immotoolbox": false,
-  "error": "https://www.sogestmar.mc/: HTTP 202"
+  "error": "https://www.sogestmar.mc/: HTTP 202",
+  "render": true
  },
  {
   "site_key": "web-lofrealestate-com",
@@ -5424,7 +5801,8 @@
   "runner": "local",
   "status": "unreachable",
   "immotoolbox": false,
-  "error": "https://www.iris.mc/: HTTP 202"
+  "error": "https://www.iris.mc/: HTTP 202",
+  "render": true
  },
  {
   "site_key": "web-bertola-mc",
@@ -5494,16 +5872,70 @@
   "agency": "Findr. by Interalia",
   "website": "https://www.findr.mc/",
   "runner": "server",
-  "status": "no_listing_links",
+  "status": "weak",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
-    "https://www.findr.mc/properties/for-sale"
+    "https://www.findr.mc/properties/for-sale/new-copori"
    ],
    "rent": [
-    "https://www.findr.mc/properties/for-rent"
+    "https://www.findr.mc/properties/for-rent/mirabel-2-room"
    ]
-  }
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?findr\\.mc/properties/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+/?(?:[?#].*)?$)",
+  "listing_shape": "/properties/{slug}",
+  "links_seen": 4,
+  "samples": [
+   {
+    "url": "https://www.findr.mc/properties/for-sale",
+    "hint": "rent",
+    "score": 5,
+    "missing": [
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 5400000,
+     "living_area_sqm": 2891,
+     "rooms": null,
+     "bedrooms": 12345,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Findr. Monaco Office",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 3
+    }
+   },
+   {
+    "url": "https://www.findr.mc/properties/for-rent",
+    "hint": "rent",
+    "score": 5,
+    "missing": [
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 2400,
+     "living_area_sqm": 24,
+     "rooms": null,
+     "bedrooms": 12345,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Findr. Monaco Office",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 3
+    }
+   }
+  ],
+  "quality": 5
  },
  {
   "site_key": "web-lbmc-properties-com",
@@ -5715,11 +6147,20 @@
  {
   "site_key": "web-wentz-mc",
   "agency": "J&K Wentz Real Estate Monaco",
-  "website": "https://www.wentz.mc/",
-  "runner": "local",
-  "status": "unreachable",
+  "website": "http://www.wentz.mc/",
+  "runner": "server",
+  "status": "no_listing_links",
   "immotoolbox": false,
-  "error": "https://www.wentz.mc/: SSLError"
+  "index_urls": {
+   "sale": [
+    "http://www.wentz.mc/achat/",
+    "http://www.wentz.mc/vente/"
+   ],
+   "rent": [
+    "http://www.wentz.mc/location/",
+    "http://www.wentz.mc/nos-produits/location/"
+   ]
+  }
  },
  {
   "site_key": "web-vallat-mc",
@@ -5888,7 +6329,8 @@
   "runner": "local",
   "status": "unreachable",
   "immotoolbox": false,
-  "error": "https://www.goldensquaremonaco.com/: HTTP 503"
+  "error": "https://www.goldensquaremonaco.com/: HTTP 503",
+  "render": true
  },
  {
   "site_key": "web-waldhof-fr",
@@ -6345,12 +6787,29 @@
   "agency": "Du Midi Agency",
   "website": "https://www.agencedumidi.mc/",
   "runner": "server",
-  "status": "no_listing_links",
+  "status": "weak",
   "immotoolbox": false,
   "index_urls": {
-   "sale": [],
-   "rent": []
-  }
+   "sale": [
+    "https://www.agencedumidi.mc/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?agencedumidi\\.mc/index\\.php\\?(?:[^#]*&)?id=\\d{2,}(?:[&#].*)?$)",
+  "listing_shape": "/index.php?{id=}",
+  "links_seen": 4,
+  "samples": [
+   {
+    "url": "https://www.agencedumidi.mc/index.php?page=detail&id=2575",
+    "score": 0,
+    "error": "NotFound('https://www.agencedumidi.mc/index.php?page=detail&id=2575')"
+   },
+   {
+    "url": "https://www.agencedumidi.mc/index.php?page=detail&id=2712",
+    "score": 0,
+    "error": "NotFound('https://www.agencedumidi.mc/index.php?page=detail&id=2712')"
+   }
+  ],
+  "quality": 0
  },
  {
   "site_key": "web-festainvestments-com",
@@ -6664,24 +7123,286 @@
   "agency": "Phoenix Properties",
   "website": "https://www.phoenix.mc/",
   "runner": "server",
-  "status": "no_listing_links",
+  "status": "weak",
   "immotoolbox": false,
   "index_urls": {
-   "sale": [],
-   "rent": []
-  }
+   "sale": [
+    "https://www.phoenix.mc/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?phoenix\\.mc/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}",
+  "links_seen": 7,
+  "samples": [
+   {
+    "url": "https://phoenix.mc/ils-parlent-de-nous/",
+    "hint": null,
+    "score": 3,
+    "missing": [
+     "transaction",
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": null,
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Ils parlent de nous",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 2
+    }
+   },
+   {
+    "url": "https://phoenix.mc/nos-formations-en-ligne/",
+    "hint": null,
+    "score": 3,
+    "missing": [
+     "transaction",
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": null,
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Nos formations en ligne",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 30
+    }
+   }
+  ],
+  "quality": 3,
+  "render": true
  },
  {
   "site_key": "web-quantum-mc",
   "agency": "Quantum Properties",
   "website": "https://www.quantum.mc/",
   "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://quantum.mc/index.php/p/hair-care-finder/?currentPage=1",
+    "https://quantum.mc/index.php/s/international-wholesale/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?quantum\\.mc/index\\.php/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+/\\d{3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/index.php/{slug}/{id}",
+  "links_seen": 26,
+  "samples": [
+   {
+    "url": "https://quantum.mc/index.php/Fast-Furious-1995-Nissan-Skyline-GT-R-R33-Diecast-Model-Car/771000",
+    "hint": "sale",
+    "score": 4,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 5,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Lego Cars For Adults Jada Toys 1:32 Fast & Furious 1995 Nissan Skyline GT-R (R33) Diecast Model Car - Silver, Opening Doors Lego Technic",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 9
+    }
+   },
+   {
+    "url": "https://quantum.mc/index.php/Rider-Wheels-Tires-Set-Upgrade-For-Hot-Wheels-Or-Diecast-Cars/559298",
+    "hint": "sale",
+    "score": 4,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 2.1,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "1/64 Diecast 1/64 Scale 10-Spoke Real Rider Wheels & Tires Set - Upgrade For Hot Wheels Or Diecast Cars Hot Wheels Real Riders 1:64 Scale Diecast Ships",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 12
+    }
+   }
+  ],
+  "quality": 4
+ },
+ {
+  "site_key": "web-prime-mc",
+  "agency": "PRIME Estate",
+  "website": "https://prime.mc/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://prime.mc/sales/"
+   ],
+   "rent": [
+    "https://prime.mc/rentals/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?prime\\.mc/property/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+/?(?:[?#].*)?$)",
+  "listing_shape": "/property/{slug}",
+  "links_seen": 66,
+  "samples": [
+   {
+    "url": "https://prime.mc/property/carre-dor-penthouse-villa-san-carlo/",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 16000000,
+     "living_area_sqm": 160,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "CARRÉ D’OR – PENTHOUSE – VILLA SAN CARLO",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 5
+    }
+   },
+   {
+    "url": "https://prime.mc/property/monte-carlo-large-4-room-apartment-le-saint-andre/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 15500000,
+     "living_area_sqm": 237.3,
+     "rooms": 4,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "MONTE-CARLO – LARGE 4 ROOM APARTMENT – LE SAINT ANDRÉ",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 2
+    }
+   }
+  ],
+  "quality": 5
+ },
+ {
+  "site_key": "web-harrochrealestate-mc",
+  "agency": "Harroch Real Estate Monaco",
+  "website": "https://www.harrochrealestate.mc/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "rent": [
+    "https://www.harrochrealestate.mc/a-louer-monaco/",
+    "https://www.harrochrealestate.mc/status/a-louer/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?harrochrealestate\\.mc/propriété/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+/?(?:[?#].*)?$)",
+  "listing_shape": "/propriété/{slug}",
+  "links_seen": 12,
+  "samples": [
+   {
+    "url": "https://www.harrochrealestate.mc/propriété/grand-2-pieces-en-usage-mixte-avec-parking-3/",
+    "hint": "rent",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 5700,
+     "living_area_sqm": 63,
+     "rooms": 2,
+     "bedrooms": 1,
+     "floor": 0,
+     "external_ref": "HHL240926",
+     "quarter": "Jardin exotique",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 10
+    }
+   },
+   {
+    "url": "https://www.harrochrealestate.mc/propriété/grand-2-pieces-en-usage-mixte-avec-parking-2/",
+    "hint": "rent",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 5700,
+     "living_area_sqm": 63,
+     "rooms": 2,
+     "bedrooms": 1,
+     "floor": 0,
+     "external_ref": "HHL230926",
+     "quarter": "Jardin exotique",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 10
+    }
+   }
+  ],
+  "quality": 7
+ },
+ {
+  "site_key": "web-cote-investissement-mc",
+  "agency": "Cote investissement",
+  "website": "https://www.cote-investissement.mc/",
+  "runner": "server",
   "status": "no_listing_links",
   "immotoolbox": false,
   "index_urls": {
    "sale": [
-    "https://quantum.mc/index.php/shop/sale?id=3536",
-    "https://quantum.mc/index.php/p/hair-care-finder/?currentPage=1"
+    "https://www.cote-investissement.mc/?page=detail&step2=27B3B2DB-5E84-44E5-90A7-6A3A2B28DB0E&type=Location"
    ],
    "rent": []
   }

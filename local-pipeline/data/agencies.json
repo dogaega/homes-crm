@@ -547,7 +547,7 @@
   "covered_by": [
    "mcre"
   ],
-  "website": "https://prime-estate.mc/",
+  "website": "https://prime.mc/",
   "csv_names": [
    "Prime Real Estate"
   ]
@@ -960,7 +960,7 @@
   "address": "2, rue de la Turbie",
   "phone": "+37797973108",
   "email": "info@harrochrealestate.com",
-  "website": "https://www.harrochrealestate.com/",
+  "website": "https://www.harrochrealestate.mc/",
   "cim_listing_count": 21,
   "mcre_slug": "harroch-real-estate-monaco-tc-34",
   "mcre_tc": 34,
@@ -1535,7 +1535,7 @@
   "address": "6, avenue des Citronniers",
   "phone": "+37793305228",
   "email": "info@universalmonaco.com",
-  "website": "https://www.universalmonaco.com/",
+  "website": "http://www.universalmonaco.com/",
   "cim_listing_count": 10,
   "mcre_slug": "universal-office-monaco-tc-163",
   "mcre_tc": 163,
@@ -1850,7 +1850,7 @@
   "address": "11, boulevard Albert 1er",
   "phone": "+37793301827",
   "email": "gilbert@camozzicazal.com",
-  "website": "https://www.bureauaffairesimmobilieres.com/",
+  "website": "http://www.bureauaffairesimmobilieres.com/",
   "cim_listing_count": 7,
   "in_official_directory": true,
   "covered_by": [
@@ -1911,7 +1911,7 @@
   "address": "1, rue Louis Notari",
   "phone": "+37792160202",
   "email": "info@cote.mc",
-  "website": "https://www.cote.mc/",
+  "website": "https://www.cote-investissement.mc/",
   "cim_listing_count": 5,
   "in_official_directory": true,
   "covered_by": [
@@ -2309,7 +2309,7 @@
   "covered_by": [
    "mcre"
   ],
-  "website": "https://www.wentz.mc/"
+  "website": "http://www.wentz.mc/"
  },
  {
   "name": "SG IMMOBILIER",

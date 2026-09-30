@@ -88,12 +88,22 @@ def web_site(client, mode: str, cfg: dict, agency: dict) -> dict:
 RUNNER = "server"
 
 
+def load_site_configs() -> list[dict]:
+    """Auto-drafted configs, overridden per site_key by hand-written ones."""
+    auto = {c["site_key"]: c for c in json.loads((DATA / "site_configs.json").read_text())}
+    manual_path = DATA / "site_configs_manual.json"
+    if manual_path.exists():
+        for c in json.loads(manual_path.read_text()):
+            auto[c["site_key"]] = {**auto.get(c["site_key"], {}), **c}
+    return list(auto.values())
+
+
 def family_web(client, mode: str, results: list, match=None) -> None:
     """Every agency's own website with a usable config for this runner
     (server: VPS/cloud; local: Mac, for sites that refuse server IPs)."""
     from concurrent.futures import ThreadPoolExecutor
     by_name = {a["name"]: a for a in agencies(None)}
-    cfgs = [c for c in json.loads((DATA / "site_configs.json").read_text())
+    cfgs = [c for c in load_site_configs()
             if c.get("listing_pattern") and c.get("status") in ("ok", "weak", "verified")
             and c.get("runner", "server") == RUNNER
             and (not match or any(m.lower() in c["agency"].lower() for m in match))]

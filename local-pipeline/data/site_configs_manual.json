@@ -1,0 +1,15 @@
+[
+ {"site_key": "web-westrope-monaco-com", "agency": "Westrope Real Estate", "website": "https://www.westrope-monaco.com/",
+  "status": "verified", "runner": "server",
+  "index_urls": {"sale": ["https://www.westrope-monaco.com/index.php?page=liste&type=vente"],
+                 "rent": ["https://www.westrope-monaco.com/index.php?page=liste&type=location"]},
+  "listing_pattern": "^https?://(?:www\\.)?westrope-monaco\\.com/index\\.php\\?page=liste&step2=detail&produit=[0-9A-Fa-f-]{36}$"},
+ {"site_key": "web-gramaglia-mc", "agency": "Agence Gramaglia", "website": "https://www.gramaglia.mc/",
+  "status": "verified", "runner": "server",
+  "index_urls": {"sale": ["https://www.gramaglia.mc/fr/ventes/"], "rent": ["https://www.gramaglia.mc/fr/locations/"]},
+  "listing_pattern": "^https?://(?:www\\.)?gramaglia\\.mc/fr/produit/\\d{4,}-[^/?#]+/?$"},
+ {"site_key": "web-dotta-mc", "agency": "Dotta Immobilier", "website": "https://www.dotta.mc/",
+  "status": "verified", "runner": "server",
+  "index_urls": {"sale": ["https://www.dotta.mc/monaco/vente/"], "rent": ["https://www.dotta.mc/monaco/location/"]},
+  "listing_pattern": "^https?://(?:www\\.)?dotta\\.mc/monaco/(?:vente|location)/[a-z]{1,4}\\d+/[^/?#]+/?$"}
+]

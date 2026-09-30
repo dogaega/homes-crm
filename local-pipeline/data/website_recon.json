@@ -626,7 +626,7 @@
  },
  {
   "name": "PRIME Estate",
-  "website": "https://prime-estate.mc/",
+  "website": "https://prime.mc/",
   "ok": true,
   "platforms": [
    "wp-houzez",
@@ -1166,7 +1166,7 @@
  },
  {
   "name": "Harroch Real Estate Monaco",
-  "website": "https://www.harrochrealestate.com/",
+  "website": "https://www.harrochrealestate.mc/",
   "ok": true,
   "platforms": [
    "wp-houzez",
@@ -1822,8 +1822,8 @@
  },
  {
   "name": "Universal Office",
-  "website": "https://www.universalmonaco.com/",
-  "ok": false,
+  "website": "http://www.universalmonaco.com/",
+  "ok": true,
   "error": "https://www.universalmonaco.com/: SSLError"
  },
  {
@@ -2119,8 +2119,8 @@
  },
  {
   "name": "Bureau d'Affaires Immobilières",
-  "website": "https://www.bureauaffairesimmobilieres.com/",
-  "ok": false,
+  "website": "http://www.bureauaffairesimmobilieres.com/",
+  "ok": true,
   "error": "https://www.bureauaffairesimmobilieres.com/: SSLError"
  },
  {
@@ -2196,7 +2196,7 @@
  },
  {
   "name": "Cote investissement",
-  "website": "https://www.cote.mc/",
+  "website": "https://www.cote-investissement.mc/",
   "ok": true,
   "platforms": [],
   "js_rendered": false,
@@ -2575,8 +2575,8 @@
  },
  {
   "name": "J&K Wentz Real Estate Monaco",
-  "website": "https://www.wentz.mc/",
-  "ok": false,
+  "website": "http://www.wentz.mc/",
+  "ok": true,
   "error": "https://www.wentz.mc/: SSLError"
  },
  {

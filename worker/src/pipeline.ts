@@ -819,6 +819,71 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
     return respond({ processed: rows.length, merged, next: rows.length === limit ? rows[rows.length - 1].id : null })
   }
 
+  // POST /sync/gazetteer — (re)build buildings from listings that carry
+  // exact coordinates (CIM): one row per normalised building name, median
+  // position, most common quarter. Names seen with coordinates >300 m apart
+  // are ambiguous (two "Le Palais" etc.) and skipped.
+  if (path === '/sync/gazetteer' && req.method === 'POST') {
+    const { results } = await ctx.db.prepare(
+      `SELECT building_name, lat, lng, quarter FROM property_sources
+       WHERE coord_source = 'listing' AND building_name IS NOT NULL AND removed_at IS NULL`
+    ).all<any>()
+    const groups = new Map<string, { names: Map<string, number>; pts: [number, number][]; q: Map<string, number> }>()
+    for (const r of results || []) {
+      const norm = normalizeBuildingName(r.building_name)
+      if (!norm || norm.length < 3) continue
+      const g = groups.get(norm) ?? { names: new Map<string, number>(), pts: [] as [number, number][], q: new Map<string, number>() }
+      g.names.set(r.building_name, (g.names.get(r.building_name) ?? 0) + 1)
+      g.pts.push([r.lat, r.lng])
+      if (r.quarter) g.q.set(r.quarter, (g.q.get(r.quarter) ?? 0) + 1)
+      groups.set(norm, g)
+    }
+    const median = (xs: number[]) => { const a = [...xs].sort((x, y) => x - y); return a[Math.floor(a.length / 2)] }
+    const top = (m: Map<string, number>) => [...m.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? null
+    let upserted = 0, ambiguous = 0
+    const stmts: D1PreparedStatement[] = []
+    for (const [norm, g] of groups) {
+      const lat = median(g.pts.map(p => p[0])), lng = median(g.pts.map(p => p[1]))
+      const spread = Math.max(...g.pts.map(p => Math.hypot((p[0] - lat) * 111000, (p[1] - lng) * 80000)))
+      if (spread > 300) { ambiguous++; continue }
+      stmts.push(ctx.db.prepare(
+        `INSERT INTO buildings (id, name, normalized_name, aliases, quarter, lat, lng, created_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+         ON CONFLICT(id) DO NOTHING`
+      ).bind(`b-${norm.replace(/\s+/g, '-')}`, top(g.names), norm, JSON.stringify([...g.names.keys()]), top(g.q), round5(lat), round5(lng), ctx.now))
+      stmts.push(ctx.db.prepare(
+        `UPDATE buildings SET name = ?, aliases = ?, quarter = COALESCE(?, quarter), lat = ?, lng = ? WHERE id = ?`
+      ).bind(top(g.names), JSON.stringify([...g.names.keys()]), top(g.q), round5(lat), round5(lng), `b-${norm.replace(/\s+/g, '-')}`))
+      upserted++
+    }
+    for (let i = 0; i < stmts.length; i += 50) await ctx.db.batch(stmts.slice(i, i + 50))
+    return respond({ buildings: upserted, ambiguous })
+  }
+
+  // POST /sync/regeo {after?, limit?} — give listings without their own
+  // coordinates the building position (and building_id) from the gazetteer.
+  if (path === '/sync/regeo' && req.method === 'POST') {
+    const body = await req.json<any>().catch(() => ({}))
+    const limit = Math.min(Number(body?.limit) || 200, 500)
+    const { results } = await ctx.db.prepare(
+      `SELECT id, property_id, building_name FROM property_sources
+       WHERE (coord_source IS NULL OR coord_source = 'quarter') AND building_name IS NOT NULL AND id > ?
+       ORDER BY id LIMIT ?`
+    ).bind(String(body?.after || ''), limit).all<any>()
+    const touched = new Set<string>()
+    for (const r of results || []) {
+      const b = await ctx.findBuilding(r.building_name)
+      if (b?.lat == null) continue
+      await ctx.db.prepare(
+        `UPDATE property_sources SET lat = ?, lng = ?, coord_source = 'building', building_id = ?, quarter = COALESCE(quarter, ?) WHERE id = ?`
+      ).bind(b.lat, b.lng, b.id, b.quarter, r.id).run()
+      touched.add(r.property_id)
+    }
+    for (const pid of touched) await refreshParent(ctx, pid, null)
+    const rows = results || []
+    return respond({ processed: rows.length, located: touched.size, next: rows.length === limit ? rows[rows.length - 1].id : null })
+  }
+
   // POST /sync/buildings {buildings:[{name, aliases?, quarter?, address?, lat?, lng?}]} — gazetteer upsert.
   if (path === '/sync/buildings' && req.method === 'POST') {
     const body = await req.json<{ buildings: any[] }>()

@@ -41,25 +41,51 @@ OUTSIDE = re.compile(r"\b(france|italie|italy|italia|cap[- ]d.?ail|roquebrune|me
                      r"gen[eè]ve|courchevel|gstaad|marbella|spain|espagne)\b", re.I)
 
 
+LISTING_DIR = re.compile(r"^(?:vente|ventes|location|locations|offers?|biens?|property|properties|propriete|proprietes|"
+                         r"annonces?|listings?|immobilier|detail|fiche|sale|rent|buy|achat|homes?|apartments?|villas?)$", re.I)
+QUERY_ID = re.compile(r"(?:^|&)((?:id|ref|bien|idbien|id_bien|annonce|id_annonce|property|prop|pid|item|itemid|code)[a-z_]*)=\d{2,}", re.I)
+EXT = re.compile(r"\.(?:html?|php|aspx?)$", re.I)
+
+
 def shape(url: str) -> str:
-    """/fr/ventes/111775-auteuil-appartements/ → /fr/ventes/{id-slug}/"""
+    """/fr/ventes/111775-auteuil-appartements/ → /fr/ventes/{id-slug}/
+    /vente+appartement+monaco+12345.html → /{id-slug}.html
+    /index.php?option=x&id=123 → /index.php?{id=}"""
+    pu = urlparse(url)
+    segs = pu.path.strip("/").split("/")
     parts = []
-    for seg in urlparse(url).path.strip("/").split("/"):
-        if re.fullmatch(r"\d{3,}", seg):
-            parts.append("{id}")
-        elif re.match(r"^\d{3,}[-_+]", seg) or re.search(r"[-_+]\d{3,}$", seg):
-            parts.append("{id-slug}")
-        elif re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+){3,}", seg) and not NOT_INDEX.search(seg):
-            parts.append("{slug}")
+    for i, seg in enumerate(segs):
+        ext = (EXT.search(seg) or [""])[0]
+        core = EXT.sub("", seg)
+        prev = segs[i - 1] if i else ""
+        if re.fullmatch(r"\d{3,}", core):
+            parts.append("{id}" + ext)
+        elif re.match(r"^\d{3,}[-_+,]", core) or re.search(r"[-_+,][a-z]?\d{3,}$", core, re.I):
+            parts.append("{id-slug}" + ext)
+        elif re.fullmatch(r"[a-z0-9]+(?:[-+,][a-z0-9]+){3,}", core, re.I) and not NOT_INDEX.search(core):
+            parts.append("{slug}" + ext)
+        elif LISTING_DIR.match(prev) and re.fullmatch(r"[a-z0-9]+(?:[-+][a-z0-9]+){1,}", core, re.I) \
+                and not NOT_INDEX.search(core) and i == len(segs) - 1:
+            parts.append("{slug}" + ext)
         else:
             parts.append(seg)
-    return "/" + "/".join(parts)
+    out = "/" + "/".join(parts)
+    q = QUERY_ID.search(pu.query or "")
+    if q and "{" not in out:
+        out += "?{" + q.group(1).lower() + "=}"
+    return out
 
 
 def shape_regex(host: str, sh: str) -> str:
-    rx = re.escape(sh).replace(re.escape("{id-slug}"), r"(?:\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\d{3,})")
-    rx = rx.replace(re.escape("{id}"), r"\d{3,}").replace(re.escape("{slug}"), r"[a-z0-9]+(?:-[a-z0-9]+){3,}")
-    return r"^https?://(?:www\.)?" + re.escape(host.removeprefix("www.")) + rx + r"/?(?:[?#].*)?$"
+    path, _, qkey = sh.partition("?{")
+    rx = re.escape(path)
+    rx = rx.replace(re.escape("{id-slug}"), r"(?:\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\d{3,})")
+    rx = rx.replace(re.escape("{id}"), r"\d{3,}").replace(re.escape("{slug}"), r"[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+")
+    tail = r"/?(?:[?#].*)?$"
+    if qkey:
+        key = qkey.rstrip("=}")
+        tail = r"\?(?:[^#]*&)?" + re.escape(key) + r"=\d{2,}(?:[&#].*)?$"
+    return r"^https?://(?:www\.)?" + re.escape(host.removeprefix("www.")) + rx + tail
 
 
 def same_host(u: str, site: str) -> bool:
