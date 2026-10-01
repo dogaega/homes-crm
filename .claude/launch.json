@@ -6,6 +6,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 3000
+    },
+    {
+      "name": "monaco-crm-dev-node20",
+      "runtimeExecutable": "/Users/markmirimsky/.nvm/versions/node/v20.20.2/bin/node",
+      "runtimeArgs": ["node_modules/next/dist/bin/next", "dev"],
+      "port": 3000
     }
   ]
 }

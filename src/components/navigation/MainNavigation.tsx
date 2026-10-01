@@ -5,7 +5,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
-import { Home, Building, Users, CheckSquare, TrendingUp, FileText, LogOut } from 'lucide-react'
+import { Home, Building, Users, CheckSquare, TrendingUp, FileText, LogOut, Search, Target } from 'lucide-react'
 
 interface MainNavigationProps {
   title?: string
@@ -29,9 +29,19 @@ export default function MainNavigation({ title = 'Real Estate CRM' }: MainNaviga
       icon: Building
     },
     {
+      label: t('nav.listings'),
+      path: '/listings',
+      icon: Search
+    },
+    {
       label: t('nav.clients'),
       path: '/clients',
       icon: Users
+    },
+    {
+      label: t('nav.requests'),
+      path: '/requests',
+      icon: Target
     },
     {
       label: t('nav.tasks'),

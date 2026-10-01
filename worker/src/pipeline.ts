@@ -15,6 +15,7 @@
 // completely; a blocked/failed/partial run never counts as a miss.
 
 import type { Env } from './index'
+import { handleCrm } from './crm'
 
 type Json = Record<string, unknown>
 type Respond = (data: unknown, status?: number) => Response
@@ -1265,6 +1266,8 @@ async function phashMatch(ctx: Ctx, source: any): Promise<Json | null> {
 // ── /pipeline/* (CRM, logged-in agent — auth checked by caller) ──────────
 
 export async function handlePipelineUi(req: Request, env: Env, url: URL, path: string, agentId: string | null, respond: Respond): Promise<Response> {
+  const crm = await handleCrm(req, env, url, path, agentId, respond)
+  if (crm) return crm
   const ctx = new Ctx(env, new Date().toISOString())
 
   // GET /pipeline/review?status=pending — both sides for a side-by-side view.
