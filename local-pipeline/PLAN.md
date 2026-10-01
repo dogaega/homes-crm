@@ -214,13 +214,34 @@ manual "contacted" marks per agency · review queue · publish toggle
   `render: true` configs.
 
 ### Loading tonight's data into production
-1. `npx wrangler d1 execute DB --remote --file worker/migrations/0006_listings_aggregator.sql`
-2. `npx wrangler deploy` (worker/), `wrangler secret put SYNC_API_TOKEN`
-3. `npx wrangler d1 execute DB --remote --file <export>.sql` — export made
-   with `python sync/export_d1.py <local.sqlite> <out.sql>` (owner agent is
-   resolved to production's oldest agent at import).
-4. Then call `POST /sync/gazetteer`, page through `/sync/regeo`,
-   `/sync/rematch-ids`, `/sync/rematch` once (repair passes are idempotent).
+Export: `data/export/monaco_listings_2026-10-01.tar.gz` (86 ordered SQL files,
+6,927 listings → 3,7xx merged properties, verified by a full test import).
+1. `cd worker && npx wrangler d1 execute DB --remote --file migrations/0006_listings_aggregator.sql`
+2. `npx wrangler deploy`, then `npx wrangler secret put SYNC_API_TOKEN`
+3. `mkdir /tmp/exp && tar -xzf ../local-pipeline/data/export/monaco_listings_2026-10-01.tar.gz -C /tmp/exp`
+   `for f in /tmp/exp/monaco_*.sql; do npx wrangler d1 execute DB --remote --file "$f" || break; done`
+   (files must load in order; each is re-runnable — INSERT OR IGNORE).
+4. Hero images are not in the export (they lived in the night's local R2):
+   `SYNC_API_BASE_URL=… SYNC_API_TOKEN=… python -m scraper.daily --refresh-details`
+   re-fetches details and uploads heroes. Afterwards daily runs are incremental.
+5. New export later: `python sync/export_d1.py <d1.sqlite> out.sql` (size-capped
+   chunks; `;`+newline inside text is encoded because wrangler splits on it).
+
+### Night 2026-09-30 → 10-01 results
+- Live: 6,927 listings (CIM 2,289 · MCRE 2,351 · agency sites ~2,300) from
+  166 agencies → ~3,670 properties, ~1,600 of them seen on 2+ sources.
+- 242 buildings in the gazetteer; properties located by exact coordinates or
+  building for ~2/3, quarter centroid for the rest.
+- Review queue: ~1,100 pairs (one candidate per listing, weak signals dropped).
+- Lessons: wrangler dev leaks memory (watchdog with health checks needed for
+  long local runs); the cloud container is reclaimed when the session idles;
+  ~40 agency sites share one Immotoolbox server — run them serially (done);
+  merges must be checked against every listing of a group (floors, price
+  range), not the summary row (done; /sync/split repairs old merges).
+- Not covered by own-site scrapers: JS-only sites, the shared-server sites that
+  started returning 500 after repeated crawling (CM Monaco, Wolzok, Gramaglia,
+  Exclusive Estate, Town & Sea, Rey & Nouvion — all CIM members, covered by
+  the portal), SSL/WAF sites (`runner: local`, Mac).
 
 ## Open items
 
