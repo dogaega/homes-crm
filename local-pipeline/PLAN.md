@@ -16,7 +16,7 @@ Phase 2 (later, separate tool): all Côte d'Azur agencies.
 
 | Topic | Decision |
 |---|---|
-| Scope | Monaco first. Sale + rent. All types: residential, new developments, commercial, parking, cellars. |
+| Scope | Monaco and the Côte d'Azur (Menton → Saint-Tropez; 2026-10-01: Mark has clients in other Riviera towns). Sale + rent. All types: residential, new developments, commercial, parking, cellars. |
 | Map | Official Monaco quarters. Exact coordinates when the listing gives them, else the building's position (building gazetteer), else quarter centroid. |
 | Duplicates | Auto-merge when confident; genuinely uncertain matches go to a review queue for Mark. Nothing is ever deleted. |
 | Contacts | Keep all: agency + individual agent (name, phone, email, WhatsApp). **Individual agent preferred** — extract it wherever the page shows one; agency contact is the fallback. |
@@ -272,6 +272,16 @@ can do all of it.
 - New generic options: `remove` (CSS blocks to drop), `overrides.transaction`,
   `transaction` pin, `accept_404`, onclick/data-href card links; parking spaces
   and cellars pass the listing gate without a size.
+- Scope widened to the Côte d'Azur. Agency-site listings carry `extra.city`
+  (`daily.city_of`: earliest Monaco/commune name in quarter/address/building/
+  title/URL, then description; "view on X", "near X" ignored). `OUTSIDE` no
+  longer drops Riviera towns — only places outside the region (`ABROAD`).
+  `require_monaco` → `require_riviera` (mixed agencies drop listings that name
+  no Monaco/Riviera place). Worker: non-Monaco listings skip the Monaco
+  quarters/gazetteer (listing coords only, Riviera box), parents get the real
+  city, and matching never crosses cities. Portals (CIM/MCRE) stay Monaco.
+  Not yet widened: Kretz (index /fr/monaco/), Savills (Monaco office only),
+  PVN and other Riviera-only agencies have no configs.
 - Balkin (20 listings) and Lux Home (4 Monaco listings) configured and verified.
   New option `overrides.photos` (gallery container, read before page chrome is
   stripped); a configured price element without digits means price on request.

@@ -60,6 +60,22 @@ export function inMonaco(lat: unknown, lng: unknown): boolean {
   return typeof lat === 'number' && typeof lng === 'number' && lat > 43.72 && lat < 43.76 && lng > 7.40 && lng < 7.45
 }
 
+// Côte d'Azur (Saint-Tropez → Menton) bounding box, for listings outside Monaco.
+export function inRiviera(lat: unknown, lng: unknown): boolean {
+  return typeof lat === 'number' && typeof lng === 'number' && lat > 43.1 && lat < 43.9 && lng > 6.4 && lng < 7.55
+}
+
+// Runners send the commune in extra.city; portal listings and older runners are Monaco.
+export function listingCity(l: { extra?: Json }): string {
+  const c = (l.extra as Record<string, unknown> | undefined)?.city
+  return typeof c === 'string' && c.trim() ? c.trim() : 'Monaco'
+}
+
+// Same for a stored property_sources row (extra is a JSON string).
+function sourceCity(extra: string | null): string {
+  try { return listingCity({ extra: JSON.parse(extra || '{}') }) } catch { return 'Monaco' }
+}
+
 export function round5(n: number): number {
   return Math.round(n * 1e5) / 1e5
 }
@@ -294,13 +310,14 @@ function pipelineRef(): string {
   return 'MKT-' + crypto.randomUUID().replace(/-/g, '').slice(0, 8).toUpperCase()
 }
 
-async function createParent(ctx: Ctx, agentId: string, transaction: string, quarter: string | null): Promise<string> {
+async function createParent(ctx: Ctx, agentId: string, transaction: string, quarter: string | null,
+                            city = 'Monaco'): Promise<string> {
   const id = crypto.randomUUID()
   await ctx.db.prepare(
     `INSERT INTO properties (id, property_id, address, city, state, zip_code, created_by, origin, transaction_type, quarter,
        listing_status, pipeline_status, created_at, updated_at)
-     VALUES (?, ?, 'Monaco', 'Monaco', '', '98000', ?, 'pipeline', ?, ?, 'active', 'uncontacted', ?, ?)`
-  ).bind(id, pipelineRef(), agentId, transaction, quarter, ctx.now, ctx.now).run()
+     VALUES (?, ?, ?, ?, '', ?, ?, 'pipeline', ?, ?, 'active', 'uncontacted', ?, ?)`
+  ).bind(id, pipelineRef(), city, city, city === 'Monaco' ? '98000' : '', agentId, transaction, quarter, ctx.now, ctx.now).run()
   return id
 }
 
@@ -342,7 +359,7 @@ function sideFromParent(p: any): MatchSide {
 interface MatchDecision { autoTo: { id: string; tier: MatchTier } | null; review: { id: string; m: MatchResult }[] }
 
 async function findMatches(ctx: Ctx, side: MatchSide, transaction: string, siteKey: string, coordsSharedOnSite: boolean,
-                           exclude: string | null = null): Promise<MatchDecision> {
+                           exclude: string | null = null, city = 'Monaco'): Promise<MatchDecision> {
   // Candidate pull is index-backed (idx_properties_origin) and bounded.
   const areaLo = side.area ? side.area * 0.95 : null
   const areaHi = side.area ? side.area * 1.05 : null
@@ -351,10 +368,11 @@ async function findMatches(ctx: Ctx, side: MatchSide, transaction: string, siteK
                   WHERE s.property_id = p.id AND s.removed_at IS NULL) AS site_keys
      FROM properties p
      WHERE p.origin = 'pipeline' AND p.transaction_type = ? AND p.merged_into IS NULL AND p.id != ?
+       AND COALESCE(p.city, 'Monaco') = ?
        AND (? IS NULL OR p.living_area_sqm IS NULL OR p.living_area_sqm BETWEEN ? AND ?)
        AND (? IS NULL OR p.quarter IS NULL OR p.quarter = ? OR p.building_id = ?)
      LIMIT 300`
-  ).bind(transaction, exclude ?? '', side.area, areaLo, areaHi, side.quarter, side.quarter, side.building_id).all<any>()
+  ).bind(transaction, exclude ?? '', city, side.area, areaLo, areaHi, side.quarter, side.quarter, side.building_id).all<any>()
 
   const decision: MatchDecision = { autoTo: null, review: [] }
   const scored: { id: string; m: MatchResult; sameSite: boolean }[] = []
@@ -583,9 +601,9 @@ async function ingestListing(ctx: Ctx, run: any, agencyId: string, agentId: stri
   ).bind(agencyId, str(l.external_ref), run.site_key, l.transaction_type).first<{ property_id: string }>() : null)
   const decision: MatchDecision = refMatch
     ? { autoTo: { id: refMatch.property_id, tier: 'ref' }, review: [] }
-    : await findMatches(ctx, side, l.transaction_type, run.site_key, coordsShared)
+    : await findMatches(ctx, side, l.transaction_type, run.site_key, coordsShared, null, listingCity(l))
   if (!decision.autoTo && decision.review.length) await galleryDecide(ctx, decision, agencyId, d.photo_phashes as string | null, side)
-  const propertyId = decision.autoTo?.id ?? await createParent(ctx, agentId, l.transaction_type, side.quarter)
+  const propertyId = decision.autoTo?.id ?? await createParent(ctx, agentId, l.transaction_type, side.quarter, listingCity(l))
   const sourceId = crypto.randomUUID()
 
   const cols: Record<string, unknown> = {
@@ -615,13 +633,15 @@ async function ingestListing(ctx: Ctx, run: any, agencyId: string, agentId: stri
 
 // Detail-page columns shared by insert and update, with geo resolution:
 // listing coords (inside Monaco) → gazetteer building → quarter centroid.
+// Outside Monaco the gazetteer and quarters don't apply: listing coords only.
 async function detailColumns(ctx: Ctx, l: ListingPayload): Promise<Record<string, unknown>> {
-  const quarters = await ctx.getQuarters()
-  const building = await ctx.findBuilding(l.building_name)
-  const quarter = resolveQuarter(l.quarter, quarters) ?? resolveQuarter(l.address, quarters) ?? building?.quarter
+  const monaco = listingCity(l) === 'Monaco'
+  const quarters = monaco ? await ctx.getQuarters() : []
+  const building = monaco ? await ctx.findBuilding(l.building_name) : null
+  const quarter = !monaco ? null : resolveQuarter(l.quarter, quarters) ?? resolveQuarter(l.address, quarters) ?? building?.quarter
     ?? resolveQuarter(l.title, quarters) ?? resolveQuarter((l.description || '').slice(0, 300), quarters) ?? null
   let lat: number | null = null, lng: number | null = null, coordSource: string | null = null
-  if (inMonaco(l.lat, l.lng)) { lat = round5(l.lat!); lng = round5(l.lng!); coordSource = 'listing' }
+  if (monaco ? inMonaco(l.lat, l.lng) : inRiviera(l.lat, l.lng)) { lat = round5(l.lat!); lng = round5(l.lng!); coordSource = 'listing' }
   else if (building?.lat != null) { lat = building.lat; lng = building.lng; coordSource = 'building' }
   else if (quarter) {
     const q = quarters.find(x => x.id === quarter)
@@ -948,7 +968,8 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
   if (path === '/sync/gazetteer' && req.method === 'POST') {
     const { results } = await ctx.db.prepare(
       `SELECT building_name, lat, lng, quarter FROM property_sources
-       WHERE coord_source = 'listing' AND building_name IS NOT NULL AND removed_at IS NULL`
+       WHERE coord_source = 'listing' AND building_name IS NOT NULL AND removed_at IS NULL
+         AND lat BETWEEN 43.72 AND 43.76 AND lng BETWEEN 7.40 AND 7.45`
     ).all<any>()
     const groups = new Map<string, { names: Map<string, number>; pts: [number, number][]; q: Map<string, number> }>()
     for (const r of results || []) {
@@ -990,6 +1011,7 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
     const { results } = await ctx.db.prepare(
       `SELECT id, property_id, building_name FROM property_sources
        WHERE (coord_source IS NULL OR coord_source = 'quarter') AND building_name IS NOT NULL AND id > ?
+         AND (extra IS NULL OR extra NOT LIKE '%"city":%' OR extra LIKE '%"city":"Monaco"%')
        ORDER BY id LIMIT ?`
     ).bind(String(body?.after || ''), limit).all<any>()
     const touched = new Set<string>()
@@ -1020,7 +1042,7 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
     const agentId = await pipelineAgentId(env)
     const detached: any[] = []
     for (const src of srcs.slice(1)) {
-      const np = await createParent(ctx, agentId, src.transaction_type, src.quarter)
+      const np = await createParent(ctx, agentId, src.transaction_type, src.quarter, sourceCity(src.extra))
       await ctx.db.prepare(`UPDATE property_sources SET property_id = ?, match_tier = 'new' WHERE id = ?`).bind(np, src.id).run()
       await ctx.db.prepare('UPDATE price_history SET property_id = ? WHERE source_id = ?').bind(np, src.id).run()
       detached.push({ ...src, property_id: np })
@@ -1049,7 +1071,7 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
           floor: cur.floor, building_id: cur.building_id, building_norm: normalizeBuildingName(cur.building_name),
           quarter: cur.quarter, price: cur.price_on_request ? null : cur.price_at_source,
         }
-        const d = await findMatches(ctx, side, cur.transaction_type, cur.site_key, false, cur.property_id)
+        const d = await findMatches(ctx, side, cur.transaction_type, cur.site_key, false, cur.property_id, sourceCity(cur.extra))
         if (d.autoTo) target = d.autoTo
         for (const r of d.review) { await queueReview(ctx, cur.id, r.id, r.m); reviews++ }
       }

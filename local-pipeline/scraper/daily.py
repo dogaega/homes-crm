@@ -65,9 +65,8 @@ def family_mcre(client, mode: str, results: list, match=None) -> None:
 
 
 def accept(d: dict, html: str, url: str, cfg: dict) -> dict | None:
-    """Keeps only available Monaco listings (shared by web runs and scraper.trysite)."""
-    from scraper.autoconfig import OUTSIDE
-    if OUTSIDE.search(" ".join(str(d.get(k) or "") for k in ("title", "quarter"))) or not d.get("transaction_type"):
+    """Keeps only available Monaco / Côte d'Azur listings (shared by web runs and scraper.trysite)."""
+    if ABROAD.search(" ".join(str(d.get(k) or "") for k in ("title", "quarter"))) or not d.get("transaction_type"):
         return None
     # Already sold / rented: not available. Under offer: kept, flagged.
     status = title_status(d.get("title"))
@@ -75,9 +74,13 @@ def accept(d: dict, html: str, url: str, cfg: dict) -> dict | None:
         return None
     if status == "under_offer":
         d.setdefault("extra", {})["under_offer"] = True
-    # Mixed Monaco + Riviera agencies: keep only what says it is in Monaco.
-    if cfg.get("require_monaco") and not MONACO.search(" ".join(str(d.get(k) or "") for k in ("title", "quarter", "description")) + url):
+    # City for the CRM and for matching (the worker never merges across cities).
+    # Agencies that also list elsewhere (require_riviera) keep only listings
+    # that name Monaco or a Côte d'Azur commune; the others are Monaco agencies.
+    city = city_of(d, url)
+    if city is None and cfg.get("require_riviera"):
         return None
+    d.setdefault("extra", {})["city"] = city or "Monaco"
     # A listing has a price (or "on request") and some size: articles,
     # category and agency pages never pass this.
     has_price = d.get("price") is not None or bool(re.search(
@@ -92,7 +95,6 @@ def accept(d: dict, html: str, url: str, cfg: dict) -> dict | None:
 
 
 def web_site(client, mode: str, cfg: dict, agency: dict) -> dict:
-    from scraper.autoconfig import OUTSIDE
     if cfg.get("render"):
         from scraper.browser import BrowserFetcher
         f = BrowserFetcher()
@@ -101,7 +103,7 @@ def web_site(client, mode: str, cfg: dict, agency: dict) -> dict:
     hints: dict[str, str] = {}
 
     def index() -> list[dict]:
-        cards = [c for c in generic.crawl_index(f, cfg) if not OUTSIDE.search(c["source_url"])]
+        cards = [c for c in generic.crawl_index(f, cfg) if not ABROAD.search(c["source_url"])]
         hints.update({c["source_url"]: c["transaction_hint"] for c in cards})
         return cards
 
@@ -120,6 +122,63 @@ RUNNER = "server"
 PARKING = re.compile(r"\b(?:parkings?|garages?|box|caves?|cellars?|posto auto|stationnement)\b", re.I)
 MONACO = re.compile(r"monaco|monte[- ]?carlo|fontvieille|condamine|larvotto|moneghetti|carr[ée] d.or|la rousse|saint[- ]roman|"
                     r"jardin exotique|mareterra|portier|r[ée]voires|98000", re.I)
+# Côte d'Azur communes (Menton → Saint-Tropez) → canonical city name.
+RIVIERA = [(re.compile(rf"\b(?:{pat})\b", re.I), city) for pat, city in [
+    (r"menton|garavan", "Menton"),
+    (r"roquebrune|cap[- ]martin", "Roquebrune-Cap-Martin"),
+    (r"beausoleil", "Beausoleil"),
+    (r"cap[- ]d.?ail", "Cap-d'Ail"),
+    (r"la[- ]turbie", "La Turbie"),
+    (r"[eè]ze(?:[- ]sur[- ]mer|[- ]village|[- ]bord[- ]de[- ]mer)?", "Èze"),
+    (r"peille", "Peille"), (r"gorbio", "Gorbio"), (r"sainte?[- ]agn[eè]s", "Sainte-Agnès"), (r"castellar", "Castellar"),
+    (r"beaulieu(?:[- ]sur[- ]mer)?", "Beaulieu-sur-Mer"),
+    (r"(?:saint|st)[- ]jean[- ]cap[- ]ferrat|cap[- ]ferrat", "Saint-Jean-Cap-Ferrat"),
+    (r"villefranche(?:[- ]sur[- ]mer)?", "Villefranche-sur-Mer"),
+    # "Nice" only as a name: not "nice apartment", "Nice 3 rooms".
+    (r"(?-i:Nice)(?!\s+(?:[a-z]|\d))|mont[- ]boron|cimiez", "Nice"),
+    (r"(?:saint|st)[- ]laurent[- ]du[- ]var", "Saint-Laurent-du-Var"),
+    (r"cagnes(?:[- ]sur[- ]mer)?", "Cagnes-sur-Mer"),
+    (r"villeneuve[- ]loubet", "Villeneuve-Loubet"),
+    (r"(?:saint|st)[- ]paul[- ]de[- ]vence", "Saint-Paul-de-Vence"),
+    (r"vence", "Vence"),
+    (r"antibes|juan[- ]les[- ]pins", "Antibes"),
+    (r"biot", "Biot"), (r"valbonne|sophia[- ]antipolis", "Valbonne"),
+    (r"vallauris|golfe[- ]juan", "Vallauris"),
+    (r"le[- ]cannet", "Le Cannet"),
+    (r"cannes", "Cannes"),
+    (r"mougins", "Mougins"),
+    (r"grasse", "Grasse"),
+    (r"mandelieu", "Mandelieu-la-Napoule"), (r"th[ée]oule", "Théoule-sur-Mer"),
+    (r"(?:saint|st)[- ]rapha[eë]l", "Saint-Raphaël"),
+    (r"fr[ée]jus", "Fréjus"),
+    (r"sainte?[- ]maxime", "Sainte-Maxime"),
+    (r"(?:saint|st)[- ]tropez", "Saint-Tropez"), (r"ramatuelle", "Ramatuelle"), (r"gassin", "Gassin"),
+    (r"grimaud|port[- ]grimaud", "Grimaud"), (r"cavalaire", "Cavalaire-sur-Mer"),
+]]
+# Places outside Monaco and the Côte d'Azur: never ingested.
+ABROAD = re.compile(r"\b(?:italie|italy|italia|sanremo|bordighera|ventimiglia|vintimille|london|londres|dubai|miami|"
+                    r"suisse|switzerland|gen[eè]ve|geneva|courchevel|meg[eè]ve|gstaad|marbella|spain|espagne|paris|"
+                    r"normandie|deauville|new york)\b", re.I)
+
+
+# "view on Cap Ferrat", "close to Monaco", "10 min from Nice" name another place.
+NEARBY = re.compile(r"\b(?:views?|vues?|vista|close to|near(?:by)?|next to|minutes? (?:from|to)|mins? (?:from|to)|"
+                    r"proche d[eu']?|à (?:quelques|\d+) (?:minutes|min|pas) d[eu']?|aux portes d[eu']?)"
+                    r"\s*(?:on|over|of|onto|across|sur|su|de|du|des|the|la|le|l')*\s*[\w'’-]+(?:[ -][A-Z\u00C0-\u00DD][\w'’-]*)*", re.I)
+
+
+def city_of(d: dict, url: str) -> str | None:
+    """Monaco or a Côte d'Azur commune: the earliest place named in the strong
+    fields (quarter, address, building, title, URL) wins, then the description."""
+    path = re.sub(r"[-_/]+", " ", url.split("://", 1)[-1].split("/", 1)[-1])
+    for text in (" | ".join(str(d.get(k) or "") for k in ("quarter", "address", "building_name", "title")) + " | " + path,
+                 str(d.get("description") or "")[:1500]):
+        text = NEARBY.sub(" ", text)
+        hits = [(m.start(), "Monaco") for m in [MONACO.search(text)] if m]
+        hits += [(m.start(), city) for rx, city in RIVIERA for m in [rx.search(text)] if m]
+        if hits:
+            return min(hits)[1]
+    return None
 
 
 def load_site_configs() -> list[dict]:

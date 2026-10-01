@@ -49,8 +49,8 @@ def main() -> None:
         f = PoliteFetcher(delay=(1, 2), block_wait=5, retries=1, accept_404=bool(cfg.get("accept_404")))
     try:
         cards = generic.crawl_index(f, cfg)
-        from scraper.autoconfig import OUTSIDE
-        cards = [c for c in cards if not OUTSIDE.search(c["source_url"])]
+        from scraper.daily import ABROAD
+        cards = [c for c in cards if not ABROAD.search(c["source_url"])]
         print(f"index: {len(cards)} listing URLs  "
               f"(sale {sum(c['transaction_hint'] == 'sale' for c in cards)}, rent {sum(c['transaction_hint'] == 'rent' for c in cards)})")
         for c in cards[:5]:
@@ -67,7 +67,8 @@ def main() -> None:
                 continue
             ok += kept is not None
             print(f"\n{u}\n   {'KEPT' if kept else 'DROPPED'}  title={str(d.get('title'))[:70]!r}  photos={len(d.get('photo_urls') or [])}")
-            print("   " + "  ".join(f"{k}={d.get(k)!r}" for k in FIELDS if d.get(k) not in (None, False, "")))
+            print("   " + "  ".join(f"{k}={d.get(k)!r}" for k in FIELDS if d.get(k) not in (None, False, ""))
+                  + f"  city={((kept or d).get('extra') or {}).get('city')!r}")
         print(f"\nsamples kept: {ok}/{min(args.n, len(cards))}")
         sys.exit(0 if cards and ok else 1)
     finally:

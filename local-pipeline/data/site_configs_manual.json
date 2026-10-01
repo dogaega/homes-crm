@@ -21,7 +21,7 @@
   },
   "listing_pattern": "^https?://www\\.lacosta-properties-monaco\\.com/en/property-2/\\d{4,}-[a-z0-9-]+/$",
   "render": true,
-  "require_monaco": true,
+  "require_riviera": true,
   "overrides": {
    "price": "h3:-soup-contains('Price:'), h3:-soup-contains('Monthly rent:')",
    "bedrooms": ".stk-f15839d",
@@ -48,7 +48,7 @@
   },
   "listing_pattern": "^https?://(?:www\\.)?accesspropertiesmonaco\\.com/property/\\d+/[^/?#]+/?$",
   "render": true,
-  "require_monaco": true,
+  "require_riviera": true,
   "overrides": {
    "title": "h1",
    "price": "h1 + h2",
@@ -159,7 +159,7 @@
     "https://www.agencenouvellemonaco.com/fr/locations/grid/2"
    ]
   },
-  "listing_pattern": "^https?://(?:www\\.)?agencenouvellemonaco\\.com/fr/bien/\\d{3,}/(?![^/]*(?:valberg|mougins))[^/?#]+/?$",
+  "listing_pattern": "^https?://(?:www\\.)?agencenouvellemonaco\\.com/fr/bien/\\d{3,}/(?![^/]*valberg)[^/?#]+/?$",
   "overrides": {
    "quarter": "p.lieu",
    "reference": "p.ref"
@@ -287,7 +287,7 @@
   },
   "listing_pattern": "^https?://(?:www\\.)?baldorealtygroup\\.com/property/[^/?#]+/?$",
   "render": false,
-  "require_monaco": true
+  "require_riviera": true
  },
  {
   "site_key": "web-balkin-mc",
@@ -570,7 +570,7 @@
    ]
   },
   "listing_pattern": "^https?://(?:www\\.)?colettirealestate\\.com/bien/[^/?#]+/$",
-  "require_monaco": true,
+  "require_riviera": true,
   "render": false,
   "overrides": {
    "price": ".elementor-element-60fa02d .elementor-heading-title",
@@ -596,7 +596,7 @@
    ]
   },
   "listing_pattern": "^https?://(?:www\\.)?continentale\\.mc/bien_immobilier/[a-z0-9][^/?#]*-ref[^/?#]+/?$",
-  "require_monaco": true,
+  "require_riviera": true,
   "render": false,
   "overrides": {
    "living": ".elementor-element-5e4faf8",
@@ -773,7 +773,7 @@
    ]
   },
   "listing_pattern": "^https?://(?:www\\.)?hammerdraff\\.com/(?:sale|rent)-result\\.php\\?ref=[a-z]{2}\\d-\\d+.*$",
-  "require_monaco": true,
+  "require_riviera": true,
   "render": false,
   "overrides": {
    "title": ".property-title h3",
@@ -805,7 +805,7 @@
   },
   "index_source": "sitemap",
   "listing_pattern": "^https?://(?:www\\.)?heritageproperties\\.mc/fr/a_(?:vendre|louer)/HP-[A-Za-z0-9_-]+/[^/?]+$",
-  "require_monaco": true,
+  "require_riviera": true,
   "render": false,
   "overrides": {
    "bedrooms": "p:-soup-contains('Chambre(s)')",
@@ -1058,8 +1058,8 @@
   },
   "listing_pattern": "^https?://(?:www\\.)?luxhome\\.mc/property/[a-z0-9]+(?:-[a-z0-9]+)*/?$",
   "accept_404": true,
-  "require_monaco": true,
-  "note": "WordPress (Houzez); serves real pages with HTTP 404 (accept_404). Index mixes Monaco and French listings: require_monaco drops Saint-Tropez/Roquebrune, but also Seaside and Villa Joseph Josephine whose pages never name Monaco (site files them under /city/monaco/; covered by the portals if listed there)."
+  "require_riviera": true,
+  "note": "WordPress (Houzez); serves real pages with HTTP 404 (accept_404). Index mixes Monaco and French listings (require_riviera). Seaside and Villa Joseph Josephine never name a town (site files them under /city/monaco/) and are dropped; Saint-Tropez/Château Roquebrune show no price, so the listing gate drops them."
  },
  {
   "site_key": "web-magreymonaco-com",
@@ -1077,7 +1077,7 @@
    ]
   },
   "listing_pattern": "^https?://(?:www\\.)?magreymonaco\\.com/(?:sale|rental)-[a-z-]+-a\\d+\\.html$",
-  "require_monaco": true,
+  "require_riviera": true,
   "render": false
  },
  {
@@ -1096,7 +1096,7 @@
    ]
   },
   "listing_pattern": "(?:^https?://(?:www\\.)?mazza\\-immobilier\\.com/fr/propri%C3%A9t%C3%A9/\\d{3,}/?(?:[?#].*)?$)",
-  "require_monaco": true,
+  "require_riviera": true,
   "overrides": {
    "quarter": "h2.title"
   },

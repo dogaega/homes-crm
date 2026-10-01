@@ -6905,7 +6905,7 @@
    }
   ],
   "quality": 7,
-  "require_monaco": true
+  "require_riviera": true
  },
  {
   "site_key": "web-knightfrank-com",
