@@ -48,7 +48,7 @@ def family_cim(client, mode: str, results: list, match=None) -> None:
             continue
         slug = a["cim_slug"]
         info = {k: a[k] for k in ("name", "cim_slug", "manager", "address", "website", "phone", "email") if a.get(k)}
-        results.append(run_site(f, client, f"cim-{slug}"[:60], info, lambda s=slug: cim.crawl_index(f, s),
+        results.append(run_site(f, client, re.sub(r"[^a-z0-9_-]+", "-", f"cim-{slug}")[:60], info, lambda s=slug: cim.crawl_index(f, s),
                                 cim.parse_detail, mode=mode))
 
 
@@ -121,8 +121,25 @@ def family_web(client, mode: str, results: list, match=None) -> None:
             if c.get("listing_pattern") and c.get("status") in ("ok", "weak", "verified")
             and c.get("runner", "server") == RUNNER
             and (not match or any(m.lower() in c["agency"].lower() for m in match))]
+    # Many agency sites share one hosting server (e.g. ~40 Immotoolbox sites on
+    # one IP): sites on the same server run one after another, servers in parallel.
+    import socket
+    from urllib.parse import urlparse
+    groups: dict[str, list[dict]] = {}
+    for c in cfgs:
+        host = urlparse(c["website"]).netloc
+        try:
+            ip = socket.gethostbyname(host)
+        except OSError:
+            ip = host
+        groups.setdefault(ip, []).append(c)
+
+    def run_group(group: list[dict]) -> list[dict]:
+        return [web_site(client, mode, c, by_name.get(c["agency"], {"name": c["agency"]})) for c in group]
+
     with ThreadPoolExecutor(max_workers=6) as ex:
-        results += list(ex.map(lambda c: web_site(client, mode, c, by_name.get(c["agency"], {"name": c["agency"]})), cfgs))
+        for res in ex.map(run_group, sorted(groups.values(), key=len, reverse=True)):
+            results += res
 
 
 FAMILIES = {"cim": family_cim, "mcre": family_mcre, "web": family_web}
@@ -136,10 +153,14 @@ def main() -> None:
     ap.add_argument("--runner", choices=["server", "local"], default="server",
                     help="local = Mac: only sites that block server IPs (implies --only web)")
     ap.add_argument("--refresh-details", action="store_true", help="re-fetch all detail pages (after parser fixes)")
+    ap.add_argument("--refresh-before", help="re-fetch detail pages last scraped before this ISO time")
     args = ap.parse_args()
     if args.refresh_details:
         from scraper import runner
         runner.REFRESH_ALL = True
+    if args.refresh_before:
+        from scraper import runner
+        runner.REFRESH_BEFORE = args.refresh_before
     global RUNNER
     RUNNER = args.runner
     if RUNNER == "local":

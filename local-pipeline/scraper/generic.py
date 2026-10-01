@@ -445,6 +445,8 @@ def crawl_index(f: PoliteFetcher, cfg: dict) -> list[dict]:
         return [{"source_url": u, "transaction_hint": None} for u in urls]
     max_pages = cfg.get("max_pages", 60)
     found: dict[str, dict] = {}
+    dead_starts: list[str] = []
+    all_starts = [u for v in (cfg.get("index_urls") or {}).values() for u in v]
     for transaction, starts in (cfg.get("index_urls") or {}).items():
         for start in starts:
             queue, seen_pages = [start], set()
@@ -457,7 +459,7 @@ def crawl_index(f: PoliteFetcher, cfg: dict) -> list[dict]:
                     h = f.get(page)
                 except NotFound:
                     if page == start:
-                        raise
+                        dead_starts.append(start)
                     continue  # a dead "next page" link just ends that pagination
                 b = soup(h)
                 new = 0
@@ -478,4 +480,6 @@ def crawl_index(f: PoliteFetcher, cfg: dict) -> list[dict]:
                 cands = list(dict.fromkeys(filter(None, (page_url(start, u) for u in raw))))
                 if new or page == start:
                     queue += [c for c in cands if c not in seen_pages and c not in queue]
+    if all_starts and len(dead_starts) == len(all_starts):
+        raise NotFound(f"every index page is gone: {dead_starts}")
     return list(found.values())

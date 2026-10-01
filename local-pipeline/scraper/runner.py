@@ -24,6 +24,7 @@ DETAIL_REFRESH_DAYS = 7
 # Set by `daily.py --refresh-details`: re-fetch every known listing's detail
 # page (after an extractor fix), not just the weekly rotation.
 REFRESH_ALL = False
+REFRESH_BEFORE: str | None = None
 
 
 def run_site(f: PoliteFetcher, client, site_key: str, agency: dict,
@@ -41,8 +42,8 @@ def run_site(f: PoliteFetcher, client, site_key: str, agency: dict,
                 if mode == "light":
                     todo = [c["source_url"] for c in cards if c["source_url"] in unknown]
                 else:
-                    stale = (datetime.now(timezone.utc) + timedelta(days=1)).isoformat() if REFRESH_ALL else \
-                        (datetime.now(timezone.utc) - timedelta(days=DETAIL_REFRESH_DAYS)).isoformat()
+                    stale = REFRESH_BEFORE or ((datetime.now(timezone.utc) + timedelta(days=1)).isoformat() if REFRESH_ALL else
+                                               (datetime.now(timezone.utc) - timedelta(days=DETAIL_REFRESH_DAYS)).isoformat())
                     todo = [c["source_url"] for c in cards if c["source_url"] in unknown] + [
                         c["source_url"] for c in cards
                         if c["source_url"] in known and (known[c["source_url"]].get("detail_scraped_at") or "") < stale]
