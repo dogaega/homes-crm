@@ -59,7 +59,8 @@ class WorkerClient:
     def request(self, method: str, path: str, body: Any = None, *, raw: bytes | None = None,
                 headers: dict[str, str] | None = None, retries: int = 6) -> Any:
         data = raw if raw is not None else (json.dumps(body).encode() if body is not None else None)
-        hdrs = {"Authorization": f"Bearer {self.token}", **(headers or {})}
+        # Cloudflare answers 403 / error 1010 to urllib's default User-Agent.
+        hdrs = {"Authorization": f"Bearer {self.token}", "User-Agent": "monaco-listings-runner/1.0", **(headers or {})}
         if raw is None and body is not None:
             hdrs["Content-Type"] = "application/json"
         for attempt in range(retries + 1):

@@ -215,7 +215,7 @@
   "site_key": "web-astralproperties-mc",
   "agency": "ASTRAL PROPERTIES SAM",
   "website": "https://www.astralproperties.mc/",
-  "runner": "server",
+  "runner": "local",
   "status": "verified",
   "immotoolbox": false,
   "index_urls": {
