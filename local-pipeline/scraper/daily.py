@@ -66,6 +66,8 @@ def family_mcre(client, mode: str, results: list, match=None) -> None:
 
 def accept(d: dict, html: str, url: str, cfg: dict) -> dict | None:
     """Keeps only available Monaco / Côte d'Azur listings (shared by web runs and scraper.trysite)."""
+    if cfg.get("skip_if") and generic.soup(html).select_one(cfg["skip_if"]):
+        return None
     if ABROAD.search(" ".join(str(d.get(k) or "") for k in ("title", "quarter"))) or not d.get("transaction_type"):
         return None
     # Already sold / rented: not available. Under offer: kept, flagged.
@@ -188,6 +190,9 @@ ABROAD = re.compile(r"\b(?<!d')(?<!d’)(?<!de )(?<!d-)(?<!de-)(?:italie|italy|i
                     r"normandie|deauville|new york)\b", re.I)
 
 
+# Street names ("rue d'Antibes" in Cannes, "boulevard de Suisse" in Monaco) are not towns.
+STREET = re.compile(r"\b(?:rue|avenue|av\.|boulevard|bd|route|chemin|corniche|promenade|quai|place)\s+"
+                    r"(?:de la |de l'|de |du |des |d'|d’)?[A-ZÀ-Ý][\w'’-]*", re.I)
 # "view on Cap Ferrat", "close to Monaco", "10 min from Nice" name another place.
 NEARBY = re.compile(r"\b(?:views?|vues?|vista|close to|near(?:by)?|next to|minutes? (?:from|to)|mins? (?:from|to)|"
                     r"proche d[eu']?|à (?:quelques|\d+) (?:minutes|min|pas) d[eu']?|aux portes d[eu']?)"
@@ -200,7 +205,7 @@ def city_of(d: dict, url: str) -> str | None:
     path = re.sub(r"[-_/]+", " ", url.split("://", 1)[-1].split("/", 1)[-1])
     for text in (" | ".join(str(d.get(k) or "") for k in ("quarter", "address", "building_name", "title")) + " | " + path,
                  str(d.get("description") or "")[:1500]):
-        text = NEARBY.sub(" ", text)
+        text = NEARBY.sub(" ", STREET.sub(" ", text))
         hits = [(m.start(), "Monaco") for m in [MONACO.search(text)] if m]
         hits += [(m.start(), city) for rx, city in RIVIERA for m in [rx.search(text)] if m]
         if hits:

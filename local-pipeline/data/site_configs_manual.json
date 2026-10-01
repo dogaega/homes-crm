@@ -513,6 +513,21 @@
   }
  },
  {
+  "site_key": "web-carlton-international-com",
+  "agency": "Carlton International",
+  "website": "https://www.carlton-international.com/",
+  "status": "verified",
+  "runner": "server",
+  "require_riviera": true,
+  "index_source": "sitemap",
+  "listing_pattern": "^https?://www\\.carlton-international\\.com/annonce/[a-z0-9-]+/?$",
+  "overrides": {
+   "transaction": ".single-annonce-field-attr"
+  },
+  "skip_if": ".single-annonce-field-attr:-soup-contains('couchages'), .single-annonce-field-attr:-soup-contains('Couchages')",
+  "note": "Cannes-based network (also Alps, Costa del Sol). Index = annonce sitemaps (~580 FR URLs); the town/price scope keeps Monaco-Riviera ones. Holiday lets (field 'couchages') skipped via skip_if; '€ / Mois' in the fields block marks long-term rent."
+ },
+ {
   "site_key": "web-caroli-realestate-com",
   "agency": "Caroli Real Estate",
   "website": "https://www.caroli-realestate.com/",

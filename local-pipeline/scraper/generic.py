@@ -15,7 +15,8 @@ Config per site:
    "overrides": {"<field>": "<css selector>"},     # optional bespoke fixes ("photos": gallery container)
    "remove": ["<css selector>", ...],              # optional: blocks that are not the listing
    "transaction": "sale" | "rent",                 # optional: single-type sites
-   "accept_404": true}                             # optional: site serves real pages with status 404
+   "accept_404": true,                             # optional: site serves real pages with status 404
+   "skip_if": "<css selector>"}                    # optional: page is not wanted when it matches (holiday lets)
 """
 
 from __future__ import annotations
@@ -261,7 +262,7 @@ def images(b: BeautifulSoup, base: str) -> list[str]:
 
 def transaction_from(url: str, text: str, labels: dict) -> str | None:
     blob = " ".join([url.lower(), (labels.get("transaction") or "").lower()])
-    if re.search(r"locat|louer|rent|to-let|affitt|аренд", blob):
+    if re.search(r"locat(?!if)|louer|rent|to-let|affitt|аренд|€\s*/\s*(?:mois|month)\b", blob):
         return "rent"
     if re.search(r"vente|vendre|acheter|sale|buy|vendita|продаж", blob):
         return "sale"
