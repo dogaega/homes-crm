@@ -80,7 +80,11 @@ def accept(d: dict, html: str, url: str, cfg: dict) -> dict | None:
     city = city_of(d, url)
     if city is None and cfg.get("require_riviera"):
         return None
-    d.setdefault("extra", {})["city"] = city or "Monaco"
+    city = city or "Monaco"
+    if not in_scope(d, city):
+        log.info("%s: out of scope (%s, %s): %s", cfg["site_key"], city, d.get("price"), url)
+        return None
+    d.setdefault("extra", {})["city"] = city
     # A listing has a price (or "on request") and some size: articles,
     # category and agency pages never pass this.
     page_text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html[:200000]))  # "PRICE <span>On Request"
@@ -156,6 +160,28 @@ RIVIERA = [(re.compile(rf"\b(?:{pat})\b", re.I), city) for pat, city in [
     (r"(?:saint|st)[- ]tropez", "Saint-Tropez"), (r"ramatuelle", "Ramatuelle"), (r"gassin", "Gassin"),
     (r"grimaud|port[- ]grimaud", "Grimaud"), (r"cavalaire", "Cavalaire-sur-Mer"),
 ]]
+# Towns Mark's clients buy in (2026-10-02) → minimum sale price; rentals from
+# €3,000/month outside Monaco. Listings in other towns are not ingested.
+SCOPE_MIN_SALE = {
+    "Monaco": 0, "Beausoleil": 500_000, "Roquebrune-Cap-Martin": 500_000,
+    **dict.fromkeys(["Menton", "Cap-d'Ail", "La Turbie", "Èze", "Beaulieu-sur-Mer", "Villefranche-sur-Mer",
+                     "Saint-Jean-Cap-Ferrat", "Nice", "Cannes", "Antibes", "Saint-Tropez", "Ramatuelle", "Gassin"],
+                    1_000_000),
+}
+
+
+MIN_RENT = 3_000
+
+
+def in_scope(d: dict, city: str) -> bool:
+    if city not in SCOPE_MIN_SALE:
+        return False
+    price = d.get("price")
+    if price is None or city == "Monaco":
+        return True
+    return price >= (SCOPE_MIN_SALE[city] if d.get("transaction_type") == "sale" else MIN_RENT)
+
+
 # Places outside Monaco and the Côte d'Azur: never ingested.
 ABROAD = re.compile(r"\b(?<!d')(?<!d’)(?<!de )(?<!d-)(?<!de-)(?:italie|italy|italia|sanremo|bordighera|ventimiglia|vintimille|london|londres|dubai|miami|"
                     r"suisse|switzerland|gen[eè]ve|geneva|courchevel|meg[eè]ve|gstaad|marbella|spain|espagne|paris|"

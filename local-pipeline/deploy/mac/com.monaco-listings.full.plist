@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Install: cp com.monaco-listings.*.plist ~/Library/LaunchAgents/ && launchctl load ~/Library/LaunchAgents/com.monaco-listings.full.plist
+     Runs at these Mac-local times; a time missed while asleep runs on wake. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.monaco-listings.full</string>
+  <key>ProgramArguments</key>
+  <array><string>/Users/markmirimsky/Projects/monaco-riviera-crm-app/local-pipeline/deploy/mac/run.sh</string><string>full</string></array>
+  <key>StartCalendarInterval</key><array><dict><key>Hour</key><integer>6</integer><key>Minute</key><integer>0</integer></dict></array>
+  <key>LowPriorityIO</key><true/>
+  <key>Nice</key><integer>10</integer>
+</dict>
+</plist>
