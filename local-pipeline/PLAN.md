@@ -282,6 +282,20 @@ can do all of it.
   city, and matching never crosses cities. Portals (CIM/MCRE) stay Monaco.
   Not yet widened: Kretz (index /fr/monaco/), Savills (Monaco office only),
   PVN and other Riviera-only agencies have no configs.
+- Scope (Mark, 2026-10-02): Monaco all; Beausoleil + Roquebrune-Cap-Martin
+  sales ≥ €500k; Menton→Nice coast, Cap Ferrat, Cannes, Antibes, Saint-Tropez
+  (+ Ramatuelle, Gassin) sales ≥ €1M; rentals outside Monaco ≥ €3k/month; no
+  holiday lets. `daily.SCOPE_MIN_SALE` / `in_scope`. Rejected pages go to a
+  14-day skip list (`~/.cache/monaco-listings/skipped.json`) so the daily run
+  doesn't re-fetch them.
+- Riviera networks added: Michaël Zingraf (region pages), Côte d'Azur
+  Sotheby's (sitemap, postcode-filtered), Carlton International (sitemap,
+  `skip_if` for holiday lets). Next candidates: John Taylor (sitemap is
+  country/area pages), Knight Frank FR, Engel & Völkers, Coldwell Banker
+  (sitemap .gz, 406 to plain requests), Barnes Côte d'Azur (timeout). Le Figaro
+  Propriétés, Lux-Residence, Belles Demeures answer 403.
+- Runner: Mark's Mac (decision 2026-10-02). launchd: `deploy/mac/` — full run
+  06:00, light 10/13/16/19, Mac-local time; skips while another run is going.
 - Balkin (20 listings) and Lux Home (4 Monaco listings) configured and verified.
   New option `overrides.photos` (gallery container, read before page chrome is
   stripped); a configured price element without digits means price on request.
