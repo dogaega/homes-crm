@@ -290,6 +290,30 @@
   "require_monaco": true
  },
  {
+  "site_key": "web-balkin-mc",
+  "agency": "Balkin Estates",
+  "website": "https://www.balkin.mc/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.balkin.mc/fr/proprietes"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?balkin\\.mc/fr/nos-proprietes/[a-z0-9]+(?:-[a-z0-9]+)*/?$",
+  "overrides": {
+   "transaction": ".property_block-wrap .property_flex-wrap .text-weight-bold",
+   "photos": ".property_images-collection-list",
+   "building": "h1.property_name",
+   "quarter": ".property_detail-wrap.is-address",
+   "price": ".property_block-wrap .property_name:not(h1)"
+  },
+  "remove": [
+   ".others-properties_collection-list"
+  ],
+  "note": "Webflow. Index /fr/proprietes (sale+rent mixed; transaction from the Vente/Location badge). Gallery sits in <header> (overrides.photos); similar-listings carousel removed; price element reads 'Prix sur demande' when on request."
+ },
+ {
   "site_key": "web-bc-properties-com",
   "agency": "BC PROPERTIES MONACO",
   "website": "https://bc-properties.com/",
@@ -1020,6 +1044,22 @@
   },
   "listing_pattern": "^https?://(?:www\\.)?lofrealestate\\.com/fr/produit-(?:vente|location)/\\d{4,}-[^/?#]+/?$",
   "render": false
+ },
+ {
+  "site_key": "web-luxhome-mc",
+  "agency": "Lux Home",
+  "website": "https://www.luxhome.mc/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://luxhome.mc/status/acheter/"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?luxhome\\.mc/property/[a-z0-9]+(?:-[a-z0-9]+)*/?$",
+  "accept_404": true,
+  "require_monaco": true,
+  "note": "WordPress (Houzez); serves real pages with HTTP 404 (accept_404). Index mixes Monaco and French listings: require_monaco drops Saint-Tropez/Roquebrune, but also Seaside and Villa Joseph Josephine whose pages never name Monaco (site files them under /city/monaco/; covered by the portals if listed there)."
  },
  {
   "site_key": "web-magreymonaco-com",

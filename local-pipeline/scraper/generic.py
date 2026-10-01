@@ -12,7 +12,7 @@ Config per site:
    "index_urls": {"sale": [...], "rent": [...]},
    "listing_pattern": "<regex on absolute URL>",
    "runner": "server" | "local", "max_pages": 60,
-   "overrides": {"<field>": "<css selector>"},     # optional bespoke fixes
+   "overrides": {"<field>": "<css selector>"},     # optional bespoke fixes ("photos": gallery container)
    "remove": ["<css selector>", ...],              # optional: blocks that are not the listing
    "transaction": "sale" | "rent",                 # optional: single-type sites
    "accept_404": true}                             # optional: site serves real pages with status 404
@@ -301,6 +301,13 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
     b = soup(html)
     ld = jsonld(b)
     js_photos = raw_images(html, url)
+    # Gallery picked by CSS before page chrome is stripped (some sites put it in <header>).
+    gallery: list[str] = []
+    for el in b.select((cfg.get("overrides") or {}).get("photos") or ":not(*)"):
+        for img in [el] if el.name == "img" else el.find_all("img"):
+            src = img.get("data-src") or img.get("data-lazy") or img.get("src")
+            if src and not IMG_JUNK.search(src) and urljoin(url, src) not in gallery:
+                gallery.append(urljoin(url, src))
     for t in b.find_all(["script", "style", "noscript", "header", "footer", "nav", "aside", "form"]):
         if not t.decomposed:
             t.decompose()
@@ -345,14 +352,16 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
     price_text = sel("price") or (labels.get("rent_price") or labels.get("price") if transaction == "rent"
                                   else labels.get("price") or (labels.get("rent_price") if transaction is None else None))
     price = parse_number(price_text) if price_text else ld.get("price")
-    if price is None:
+    # The configured price element says "on request" (no digits): don't hunt for other amounts (fees etc.).
+    on_request = bool(ov.get("price")) and bool(price_text) and not re.search(r"\d", price_text)
+    if price is None and not on_request:
         # Templates mark the headline price with a price/prix class.
         for el in b.find_all(True, attrs={"class": re.compile(r"price|prix|prezzo", re.I)}):
             t = el.get_text(" ", strip=True)
             if re.search(r"\d", t) and re.search(r"€|eur", t, re.I) and len(t) < 60 and not re.search(r"/\s*mois|month|charges", t, re.I):
                 price = parse_number(t)
                 break
-    if price is None:
+    if price is None and not on_request:
         amounts = [parse_number(m.group(1) or m.group(2)) for m in
                    re.finditer(r"(\d[\d\s.,\u00a0\u202f]{3,})\s*(?:€|eur\b)|€\s*(\d[\d\s.,\u00a0\u202f]{3,})", text[:6000], re.I)]
         amounts = [a for a in amounts if a]
@@ -391,7 +400,7 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
     agent = {k: v for k, v in ld.items() if k.startswith("agent_") and v}
     if not agent:
         agent = find_agent(b, agency.get("phone"), agency.get("name"))
-    photos = [u for u in (ld.get("images") or []) if isinstance(u, str)] or images(b, url)
+    photos = [u for u in (ld.get("images") or []) if isinstance(u, str)] or gallery[:60] or images(b, url)
     if len(photos) < 2:
         # Keep URLs that look like listing media (share a path with the ones we have, or mention the id).
         lid = re.search(r"\d{4,}", urlparse(url).path)

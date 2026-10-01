@@ -259,9 +259,8 @@ can do all of it.
   CIM/MCRE members): Astral and the WAF/403 sites (`runner: local`, Mac);
   needs_code: card-only pages without detail pages (17 Keys, Bureau d'Affaires),
   PVN (Vue app on a JSON API, mostly Côte d'Azur), Elite (broken links on the
-  site itself), Vallat (1 Monaco listing, no price shown), Balkin and Lux Home
-  (fixable with the new `overrides.transaction` / `accept_404` options — the
-  checking session ran out before finishing them).
+  site itself), Vallat (1 Monaco listing, no price shown). Balkin and Lux Home
+  are done (see below).
 - Duplicates: gallery matching. Each listing's first 6 photos are fingerprinted
   (dHash, `photo_phashes`, migration 0007). At ingest a would-be review is
   settled: another agency sharing ≥3 photos (or ≥2 covering half the smaller
@@ -273,6 +272,9 @@ can do all of it.
 - New generic options: `remove` (CSS blocks to drop), `overrides.transaction`,
   `transaction` pin, `accept_404`, onclick/data-href card links; parking spaces
   and cellars pass the listing gate without a size.
+- Balkin (20 listings) and Lux Home (4 Monaco listings) configured and verified.
+  New option `overrides.photos` (gallery container, read before page chrome is
+  stripped); a configured price element without digits means price on request.
 
 ## Open items
 
