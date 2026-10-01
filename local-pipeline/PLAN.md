@@ -213,19 +213,23 @@ manual "contacted" marks per agency · review queue · publish toggle
 - Browser: `scraper/browser.py` (headless Chromium, same interface) for
   `render: true` configs.
 
-### Loading tonight's data into production
-Export: `data/export/monaco_listings_2026-10-01.tar.gz` (86 ordered SQL files,
-6,927 listings → 3,7xx merged properties, verified by a full test import).
-1. `cd worker && npx wrangler d1 execute DB --remote --file migrations/0006_listings_aggregator.sql`
-2. `npx wrangler deploy`, then `npx wrangler secret put SYNC_API_TOKEN`
-3. `mkdir /tmp/exp && tar -xzf ../local-pipeline/data/export/monaco_listings_2026-10-01.tar.gz -C /tmp/exp`
+### Loading the data into production
+Export: `data/export/monaco_listings_2026-10-01b.tar.gz` (103 ordered SQL files,
+8,264 listings → 4,3xx merged properties; full test import: 0 failed files).
+Migrations 0006 and 0007 are already applied to the production D1 (2026-10-01,
+via the Cloudflare connector) — do not re-run them.
+1. `cd worker && npx wrangler deploy`, then `npx wrangler secret put SYNC_API_TOKEN`
+2. `mkdir /tmp/exp && tar -xzf ../local-pipeline/data/export/monaco_listings_2026-10-01b.tar.gz -C /tmp/exp`
    `for f in /tmp/exp/monaco_*.sql; do npx wrangler d1 execute DB --remote --file "$f" || break; done`
    (files must load in order; each is re-runnable — INSERT OR IGNORE).
-4. Hero images are not in the export (they lived in the night's local R2):
+3. Hero images are not in the export (they lived in the local R2):
    `SYNC_API_BASE_URL=… SYNC_API_TOKEN=… python -m scraper.daily --refresh-details`
    re-fetches details and uploads heroes. Afterwards daily runs are incremental.
-5. New export later: `python sync/export_d1.py <d1.sqlite> out.sql` (size-capped
+4. New export later: `python sync/export_d1.py <d1.sqlite> out.sql` (size-capped
    chunks; `;`+newline inside text is encoded because wrangler splits on it).
+Alternative to steps 1–3 by hand: put a Cloudflare API token (Workers Scripts,
+D1, R2 edit) in the cloud environment as `CLOUDFLARE_API_TOKEN` and a session
+can do all of it.
 
 ### Night 2026-09-30 → 10-01 results
 - Live: 6,927 listings (CIM 2,289 · MCRE 2,351 · agency sites ~2,300) from
@@ -242,6 +246,33 @@ Export: `data/export/monaco_listings_2026-10-01.tar.gz` (86 ordered SQL files,
   started returning 500 after repeated crawling (CM Monaco, Wolzok, Gramaglia,
   Exclusive Estate, Town & Sea, Rey & Nouvion — all CIM members, covered by
   the portal), SSL/WAF sites (`runner: local`, Mac).
+
+### Day 2 (2026-10-01)
+- Agency websites: every config hand-checked with `scraper/trysite.py` (dry run:
+  index + sample details, nothing pushed). `site_configs_manual.json` now holds
+  the verified configs plus 25 sites confirmed to have no Monaco listings
+  online (dead/parked/brochure-only/duplicate domains; agencelephare.com is a
+  Normandy agency of the same name — its listings were retired via
+  `/sync/sites/:key/retire`). Result: 102 agency sites produce listings
+  (was 75), 3,573 listings (was ~2,300). Live total 8,200 → 4,295 properties.
+- Still not covered by own-site scrapers (portals cover them where they are
+  CIM/MCRE members): Astral and the WAF/403 sites (`runner: local`, Mac);
+  needs_code: card-only pages without detail pages (17 Keys, Bureau d'Affaires),
+  PVN (Vue app on a JSON API, mostly Côte d'Azur), Elite (broken links on the
+  site itself), Vallat (1 Monaco listing, no price shown), Balkin and Lux Home
+  (fixable with the new `overrides.transaction` / `accept_404` options — the
+  checking session ran out before finishing them).
+- Duplicates: gallery matching. Each listing's first 6 photos are fingerprinted
+  (dHash, `photo_phashes`, migration 0007). At ingest a would-be review is
+  settled: another agency sharing ≥3 photos (or ≥2 covering half the smaller
+  gallery) joins the property (tier `photos`); the same agency relisting with
+  no shared photo is not queued; one agency's shared photos (new-development
+  renders) still go to a person. `sync/photo_review.py` applies the same rule
+  to the existing queue (settled 77 of 1,099; the rest have no photo overlap
+  across agencies — different photographers or different flats — or no photos).
+- New generic options: `remove` (CSS blocks to drop), `overrides.transaction`,
+  `transaction` pin, `accept_404`, onclick/data-href card links; parking spaces
+  and cellars pass the listing gate without a size.
 
 ## Open items
 

@@ -71,7 +71,7 @@ ROLE_WORDS = re.compile(r"\s+(?:Agent|Agente|Director|Directrice|Directeur|Manag
                         r"Sales|Senior|Junior|Broker|Advisor|Assistant|Assistante|Gérant|Gérante)\b.*$")
 IMG_EXT = re.compile(r"\.(?:jpe?g|png|webp)(?:\?|$)", re.I)
 IMG_JUNK = re.compile(r"logo|icon|sprite|avatar|placeholder|flag|marker|pin\b|loader|blank|pixel|"
-                      r"favicon|badge|banner|thumb[_-]?\d{2}\b|/wp-content/themes/", re.I)
+                      r"favicon|badge|banner|thumb[_-]?\d{2}\b|/wp-content/themes/|/_?templates?[a-z]?/", re.I)
 
 
 def soup(html: str) -> BeautifulSoup:
