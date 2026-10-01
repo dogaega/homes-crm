@@ -43,6 +43,26 @@ def make_hero(data: bytes) -> tuple[bytes, str]:
     return out.getvalue(), phash
 
 
+GALLERY = 6
+
+
+def gallery_hashes(f: PoliteFetcher, photo_urls: list[str], n: int = GALLERY) -> list[str]:
+    """dHash of the first n photos, for the Worker's gallery matching. Blank or
+    flat images (logos on white, placeholders) are skipped: they match anything."""
+    out: list[str] = []
+    for url in photo_urls[:n]:
+        try:
+            img = Image.open(io.BytesIO(f.get_bytes(url)))
+            img.load()
+            h = dhash64(img)
+        except Exception as e:
+            log.debug("gallery photo %s failed: %s", url, e)
+            continue
+        if 8 <= bin(int(h, 16)).count("1") <= 56 and h not in out:
+            out.append(h)
+    return out
+
+
 def upload_hero(f: PoliteFetcher, run, source_id: str, photo_urls: list[str]) -> bool:
     """Best effort: a missing hero never fails the listing."""
     for url in photo_urls[:2]:

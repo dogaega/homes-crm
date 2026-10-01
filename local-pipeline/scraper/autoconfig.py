@@ -35,7 +35,9 @@ NOT_INDEX = re.compile(r"gestion|management|estimation|estimate|valuation|guide|
                        r"equipe|team|blog|news|actualit|article|mentions|legal|privacy|cookie|recrut|career|"
                        r"services|syndic|saisonni|seasonal|\.pdf|\.jpg|\.png|wp-content|/tag/|/category/|login|"
                        r"favorites|favoris|alert|compare|wishlist|/feed", re.I)
-OUTSIDE = re.compile(r"\b(france|italie|italy|italia|cap[- ]d.?ail|roquebrune|menton|beausoleil|eze|[eè]ze|"
+# Monaco has streets named after countries (Boulevard d'Italie, de Suisse,
+# de France…): "d'"/"de " right before the name means a street, not a place.
+OUTSIDE = re.compile(r"\b(?<!d')(?<!d’)(?<!de )(?<!d-)(?<!de-)(france|italie|italy|italia|cap[- ]d.?ail|roquebrune|menton|beausoleil|eze|[eè]ze|"
                      r"villefranche|nice|cannes|antibes|saint[- ]jean|st[- ]jean|la[- ]turbie|peille|"
                      r"cap[- ]martin|sanremo|bordighera|ventimiglia|london|dubai|miami|suisse|switzerland|"
                      r"gen[eè]ve|courchevel|gstaad|marbella|spain|espagne)\b", re.I)

@@ -64,6 +64,33 @@ def family_mcre(client, mode: str, results: list, match=None) -> None:
                                 mcre.parse_detail, mode=mode))
 
 
+def accept(d: dict, html: str, url: str, cfg: dict) -> dict | None:
+    """Keeps only available Monaco listings (shared by web runs and scraper.trysite)."""
+    from scraper.autoconfig import OUTSIDE
+    if OUTSIDE.search(" ".join(str(d.get(k) or "") for k in ("title", "quarter"))) or not d.get("transaction_type"):
+        return None
+    # Already sold / rented: not available. Under offer: kept, flagged.
+    status = title_status(d.get("title"))
+    if status == "gone":
+        return None
+    if status == "under_offer":
+        d.setdefault("extra", {})["under_offer"] = True
+    # Mixed Monaco + Riviera agencies: keep only what says it is in Monaco.
+    if cfg.get("require_monaco") and not MONACO.search(" ".join(str(d.get(k) or "") for k in ("title", "quarter", "description")) + url):
+        return None
+    # A listing has a price (or "on request") and some size: articles,
+    # category and agency pages never pass this.
+    has_price = d.get("price") is not None or bool(re.search(
+        r"prix sur demande|price on request|sur demande|on application", html[:200000], re.I))
+    # Parking spaces and cellars are real listings here, sold without a size.
+    has_size = any(d.get(k) is not None for k in ("living_area_sqm", "rooms", "bedrooms")) or bool(
+        PARKING.search(f"{d.get('title') or ''} {d.get('property_type') or ''} {url}"))
+    if not (has_price and has_size):
+        log.info("%s: not a listing page, skipped: %s", cfg["site_key"], url)
+        return None
+    return d
+
+
 def web_site(client, mode: str, cfg: dict, agency: dict) -> dict:
     from scraper.autoconfig import OUTSIDE
     if cfg.get("render"):
@@ -79,27 +106,7 @@ def web_site(client, mode: str, cfg: dict, agency: dict) -> dict:
         return cards
 
     def detail(html: str, url: str) -> dict | None:
-        d = generic.parse_detail(html, url, cfg, agency, hint=hints.get(url))
-        if OUTSIDE.search(" ".join(str(d.get(k) or "") for k in ("title", "quarter"))) or not d.get("transaction_type"):
-            return None
-        # Already sold / rented: not available. Under offer: kept, flagged.
-        status = title_status(d.get("title"))
-        if status == "gone":
-            return None
-        if status == "under_offer":
-            d.setdefault("extra", {})["under_offer"] = True
-        # Mixed Monaco + Riviera agencies: keep only what says it is in Monaco.
-        if cfg.get("require_monaco") and not MONACO.search(" ".join(str(d.get(k) or "") for k in ("title", "quarter", "description")) + url):
-            return None
-        # A listing has a price (or "on request") and some size: articles,
-        # category and agency pages never pass this.
-        has_price = d.get("price") is not None or bool(re.search(
-            r"prix sur demande|price on request|sur demande|on application", html[:200000], re.I))
-        has_size = any(d.get(k) is not None for k in ("living_area_sqm", "rooms", "bedrooms"))
-        if not (has_price and has_size):
-            log.info("%s: not a listing page, skipped: %s", cfg["site_key"], url)
-            return None
-        return d
+        return accept(generic.parse_detail(html, url, cfg, agency, hint=hints.get(url)), html, url, cfg)
 
     info = {k: agency[k] for k in ("name", "cim_slug", "website", "phone", "email", "address") if agency.get(k)}
     try:
@@ -110,6 +117,7 @@ def web_site(client, mode: str, cfg: dict, agency: dict) -> dict:
 
 
 RUNNER = "server"
+PARKING = re.compile(r"\b(?:parkings?|garages?|box|caves?|cellars?|posto auto|stationnement)\b", re.I)
 MONACO = re.compile(r"monaco|monte[- ]?carlo|fontvieille|condamine|larvotto|moneghetti|carr[ée] d.or|la rousse|saint[- ]roman|"
                     r"jardin exotique|mareterra|portier|r[ée]voires|98000", re.I)
 
@@ -120,7 +128,11 @@ def load_site_configs() -> list[dict]:
     manual_path = DATA / "site_configs_manual.json"
     if manual_path.exists():
         for c in json.loads(manual_path.read_text()):
-            auto[c["site_key"]] = {**auto.get(c["site_key"], {}), **c}
+            # A complete hand-written config (or a "no listings" verdict) replaces
+            # the draft outright, so keys it leaves out on purpose stay out;
+            # anything else patches the draft.
+            whole = c.get("listing_pattern") or c.get("status") == "no_listings"
+            auto[c["site_key"]] = c if whole else {**auto.get(c["site_key"], {}), **c}
     return list(auto.values())
 
 

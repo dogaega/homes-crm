@@ -12,7 +12,9 @@ Config per site:
    "index_urls": {"sale": [...], "rent": [...]},
    "listing_pattern": "<regex on absolute URL>",
    "runner": "server" | "local", "max_pages": 60,
-   "overrides": {"<field>": "<css selector>"}}      # optional bespoke fixes
+   "overrides": {"<field>": "<css selector>"},     # optional bespoke fixes
+   "remove": ["<css selector>", ...],              # optional: blocks that are not the listing
+   "transaction": "sale" | "rent"}                 # optional: single-type sites
 """
 
 from __future__ import annotations
@@ -43,7 +45,7 @@ LABELS: list[tuple[str, re.Pattern]] = [(k, re.compile(v, re.I)) for k, v in [
     ("floor", r"^(?:[eé]tage|floor|level|niveau|piano|этаж)\b"),
     ("parking", r"^(?:parkings?|garages?|parking spaces?|box|posti auto|парковк)"),
     ("cellar", r"^(?:caves?|cellars?|cantina|storage)\b"),
-    ("reference", r"^(?:r[ée]f(?:[ée]rence)?\.?|reference|ref\.?|mandat|riferimento|id)\b"),
+    ("reference", r"^(?:r[éeè]f(?:[ée]rence)?\.?|reference|ref\.?|mandat|riferimento|id)\b"),
     ("transaction", r"^(?:transaction|contract|type de transaction|type of transaction|offre|contrat)\b"),
     ("type", r"^(?:type(?! de transaction| of transaction)(?: de (?:bien|produit))?|property type|typology|tipologia|"
              r"type of property|тип)"),
@@ -60,7 +62,9 @@ NOT_PERSON = re.compile(r"monaco|monte|carlo|real|estate|immobili|immeuble|r[ée
                         r"tower|park|agence|agency|contact|propert|prix|price|"
                         r"voir|view|send|envoyer|appeler|call|visite|visit|boulevard|avenue|rue|place|chambre|"
                         r"bedroom|salle|group|sam\b|sarl|luxury|prestige|international|properties|homes|"
-                        r"privacy|cookie|mentions|conditions|terms|galerie|gallery", re.I)
+                        r"privacy|cookie|mentions|conditions|terms|galerie|gallery|r[ée]sum[ée]|r[ée]f[ée]rence|"
+                        r"description|d[ée]tails?|surface|jardin|exotique|condamine|fontvieille|larvotto|moneghetti|"
+                        r"revoires|r[ée]voires|rousse|saint|portier|mareterra|carr[ée]|golden|square", re.I)
 ROLE_WORDS = re.compile(r"\s+(?:Agent|Agente|Director|Directrice|Directeur|Manager|Consultant|Consultante|Associate|"
                         r"Partner|Associ[ée]e?|N[ée]gociat(?:eur|rice)|Conseill[eè]re?|Founder|Fondat(?:eur|rice)|CEO|"
                         r"Sales|Senior|Junior|Broker|Advisor|Assistant|Assistante|Gérant|Gérante)\b.*$")
@@ -260,13 +264,22 @@ def transaction_from(url: str, text: str, labels: dict) -> str | None:
         return "rent"
     if re.search(r"vente|vendre|acheter|sale|buy|vendita|продаж", blob):
         return "sale"
+    return None
+
+
+def transaction_from_text(text: str, labels: dict) -> str | None:
+    """Weak signal: a sale description can mention the current tenant's rent."""
     if "rent_price" in labels or re.search(r"€\s*/\s*mois|per month|/month|par mois", text, re.I):
         return "rent"
     return None
 
 
-NOISE = re.compile(r"similar|related|recommend|other-propert|autres|also-like|footer|cookie|newsletter|"
-                   r"menu|navbar|breadcrumb|modal|popup|share|social", re.I)
+# Class tokens of blocks that are not the listing. Matched as whole
+# hyphen/underscore-separated words: "no-share" or "card-footer-price" wrappers
+# can hold the listing itself.
+NOISE = re.compile(r"^(?:[\w]+[-_])*(?:similar|related|recommend\w*|other-propert\w*|autres|also-like|cookies?|newsletter|"
+                   r"menu|navbar|breadcrumbs?|modal|popup|social)(?:[-_][\w-]+)?$|"
+                   r"^(?:site|page|main|global)?[-_]?footer$|^(?:share|sharing|social-share|share-\w+)$", re.I)
 ITB_ID = re.compile(r"/(\d{5,6})(?:[-_/]|$)")
 
 
@@ -290,10 +303,20 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
     for t in b.find_all(["script", "style", "noscript", "header", "footer", "nav", "aside", "form"]):
         if not t.decomposed:
             t.decompose()
+    # Site-specific blocks that are not the listing (config "remove": [css, ...]).
+    for css in cfg.get("remove") or []:
+        for t in b.select(css):
+            if not t.decomposed:
+                t.decompose()
     # "Similar properties" blocks would leak their bedrooms/prices into ours.
+    total = len(b.get_text(" ", strip=True)) or 1
     for t in b.find_all(True, attrs={"class": NOISE}):
-        if not t.decomposed and t.name not in ("body", "html", "main"):
-            t.decompose()
+        if t.decomposed or t.name in ("body", "html", "main"):
+            continue
+        # Never the block that holds the listing itself.
+        if t.find("h1") or len(t.get_text(" ", strip=True)) > 0.4 * total:
+            continue
+        t.decompose()
     labels = map_labels(label_pairs(b))
     text = b.get_text(" ", strip=True)
     ov = cfg.get("overrides") or {}
@@ -312,7 +335,11 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
                         key=len, reverse=True)
         desc = clean(blocks[0]) if blocks and len(blocks[0]) > 150 else None
 
-    transaction = transaction_from(url, text, labels) or hint
+    # URL/label first, then the index the listing was found on (sale vs rent
+    # pages), then page text; a config can pin it for single-type sites.
+    tx_text = (sel("transaction") or "").lower()
+    transaction = cfg.get("transaction") or transaction_from(tx_text, "", {}) or transaction_from(url, text, labels) or hint \
+        or transaction_from_text(text, labels)
     # A business lease for sale also shows its monthly rent: pick by transaction.
     price_text = sel("price") or (labels.get("rent_price") or labels.get("price") if transaction == "rent"
                                   else labels.get("price") or (labels.get("rent_price") if transaction is None else None))
@@ -409,12 +436,29 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
         }.items() if v is not None},
     }
     if listing["external_ref"]:
-        listing["external_ref"] = re.sub(r"^(?:r[ée]f(?:[ée]rence)?\.?|ref\.?)\s*[:#]?\s*", "",
+        listing["external_ref"] = re.sub(r"^(?:r[éeè]f(?:[ée]rence)?\.?|ref\.?)\s*[:#]?\s*", "",
                                          listing["external_ref"], flags=re.I).strip() or None
     return listing
 
 
 # ── index ───────────────────────────────────────────────────────────────
+
+LINK_ATTRS = ("onclick", "data-href", "data-url", "data-link")
+QUOTED_URL = re.compile(r"""['"]((?:https?://|/)[^'"\s]+)['"]""")
+
+
+def card_links(b: BeautifulSoup) -> list[str]:
+    """hrefs, plus cards that navigate by script: onclick="window.open('…')",
+    data-href / data-url attributes."""
+    out = [a["href"] for a in b.find_all("a", href=True)]
+    for el in b.find_all(lambda t: any(t.has_attr(k) for k in LINK_ATTRS)):
+        for k in LINK_ATTRS:
+            v = el.get(k)
+            if not v:
+                continue
+            out += QUOTED_URL.findall(v) if k == "onclick" else [v]
+    return out
+
 
 def page_url(start: str, u: str) -> str | None:
     from urllib.parse import parse_qsl, urlencode
@@ -463,8 +507,8 @@ def crawl_index(f: PoliteFetcher, cfg: dict) -> list[dict]:
                     continue  # a dead "next page" link just ends that pagination
                 b = soup(h)
                 new = 0
-                for a in b.find_all("a", href=True):
-                    u = urljoin(page, a["href"]).split("#")[0]
+                for href in card_links(b):
+                    u = urljoin(page, href).split("#")[0]
                     if pattern.search(u) and u not in found:
                         found[u] = {"source_url": u, "transaction_hint": transaction}
                         new += 1

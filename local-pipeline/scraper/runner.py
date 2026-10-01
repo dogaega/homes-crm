@@ -16,7 +16,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Callable
 
 from scraper.fetch import Blocked, NotFound, PoliteFetcher
-from scraper.hero import upload_hero
+from scraper.hero import gallery_hashes, upload_hero
 
 log = logging.getLogger("runner")
 
@@ -55,6 +55,10 @@ def run_site(f: PoliteFetcher, client, site_key: str, agency: dict,
                         listing = parse_detail(f.get(url), url)
                         if listing is None:  # out of scope (e.g. outside Monaco)
                             continue
+                        # Gallery fingerprints let the Worker settle duplicates at
+                        # ingest; sent once per listing (new, or not yet hashed).
+                        if heroes and not known.get(url, {}).get("has_phashes"):
+                            listing["photo_phashes"] = gallery_hashes(f, listing.get("photo_urls") or [])
                         res = run.push([listing])[0]
                         details += 1
                         if heroes and res.get("source_id") and not known.get(url, {}).get("has_hero"):

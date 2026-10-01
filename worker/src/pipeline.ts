@@ -92,7 +92,7 @@ export interface MatchSide {
   price: number | null
 }
 
-export type MatchTier = 'ref' | 'coords' | 'building' | 'review'
+export type MatchTier = 'ref' | 'coords' | 'building' | 'photos' | 'review'
 export interface MatchResult { tier: MatchTier; score: number; reasons: string[] }
 
 // PLAN.md "Merging duplicates" tiers 1, 2 and 4 (tier 3, hero phash, runs
@@ -177,6 +177,7 @@ export interface ListingPayload {
   agency_phone?: string
   agency_email?: string
   photo_urls?: string[]
+  photo_phashes?: string[]           // dHash hex of the first photos (gallery matching)
   extra?: Json
 }
 
@@ -423,6 +424,63 @@ function worthReview(m: MatchResult, aPrice: number | null, bPrice: number | nul
   return true
 }
 
+// Apply a review decision (person in the UI, or the photo comparer via
+// /sync/reviews/decide, which records its evidence in the reasons).
+async function decideReview(ctx: Ctx, item: any, decision: 'merge' | 'reject', agentId: string | null, evidence: string | null): Promise<Json> {
+  const source = await ctx.db.prepare('SELECT id, property_id FROM property_sources WHERE id = ?').bind(item.source_id).first<any>()
+  if (decision === 'merge' && source && source.property_id !== item.candidate_property_id) {
+    await moveSource(ctx, source.id, source.property_id, item.candidate_property_id, 'review', null)
+  }
+  const reasons = evidence ? JSON.stringify([...JSON.parse(item.reasons), evidence]) : item.reasons
+  await ctx.db.prepare(`UPDATE review_queue SET status = ?, decided_by = ?, decided_at = ?, reasons = ? WHERE id = ?`)
+    .bind(decision === 'merge' ? 'merged' : 'rejected', agentId, ctx.now, reasons, item.id).run()
+  return { id: item.id, status: decision === 'merge' ? 'merged' : 'rejected', property_id: decision === 'merge' ? item.candidate_property_id : source?.property_id }
+}
+
+// ── gallery matching ─────────────────────────────────────────────────────
+
+const PHASH_NEAR = 4  // differing bits for "same photo" after resize/recompression
+
+function phashList(v: unknown): string | null {
+  if (!Array.isArray(v)) return null
+  const ok = v.filter((h): h is string => typeof h === 'string' && /^[0-9a-f]{16}$/.test(h)).slice(0, 8)
+  return ok.length ? JSON.stringify(ok) : null
+}
+
+export function sharedPhotos(mine: string[], theirs: string[]): number {
+  return mine.filter(h => theirs.some(o => hamming64(h, o) <= PHASH_NEAR)).length
+}
+
+// Same rule as sync/photo_review.py: ≥3 shared photos, or ≥2 covering half
+// the smaller gallery.
+export function galleriesMatch(shared: number, mine: number, theirs: number): boolean {
+  return shared >= 3 || (shared >= 2 && shared * 2 >= Math.min(mine, theirs))
+}
+
+// Settle a would-be review from photo galleries: another agency's listing of
+// the same flat shares its photos → join it; the same agency relisting with
+// none of the same photos is a different unit → no review. One agency's
+// shared photos (new-development renders) still go to a person.
+async function galleryDecide(ctx: Ctx, decision: MatchDecision, agencyId: string, phashesJson: string | null, side: MatchSide) {
+  const mine: string[] = phashesJson ? JSON.parse(phashesJson) : []
+  if (mine.length < 2) return
+  const cand = decision.review[0]
+  const { results } = await ctx.db.prepare(
+    `SELECT agency_id, photo_phashes FROM property_sources WHERE property_id = ? AND removed_at IS NULL AND photo_phashes IS NOT NULL`
+  ).bind(cand.id).all<{ agency_id: string; photo_phashes: string }>()
+  const theirs = (results || []).flatMap(r => JSON.parse(r.photo_phashes) as string[])
+  if (theirs.length < 2) return
+  const sameAgency = (results || []).some(r => r.agency_id === agencyId)
+  const shared = sharedPhotos(mine, theirs)
+  const mineProfile: Profile = { floors: new Set(side.floor != null ? [side.floor] : []), minP: side.price, maxP: side.price }
+  if (!sameAgency && galleriesMatch(shared, mine.length, theirs.length) && compatible(mineProfile, await profileOf(ctx, cand.id))) {
+    decision.autoTo = { id: cand.id, tier: 'photos' }
+    decision.review = []
+  } else if (sameAgency && shared === 0 && mine.length >= 3 && theirs.length >= 3) {
+    decision.review = []
+  }
+}
+
 async function queueReview(ctx: Ctx, sourceId: string, candidateId: string, m: MatchResult) {
   await ctx.db.prepare(
     `INSERT OR IGNORE INTO review_queue (id, source_id, candidate_property_id, score, reasons, status, created_at)
@@ -526,6 +584,7 @@ async function ingestListing(ctx: Ctx, run: any, agencyId: string, agentId: stri
   const decision: MatchDecision = refMatch
     ? { autoTo: { id: refMatch.property_id, tier: 'ref' }, review: [] }
     : await findMatches(ctx, side, l.transaction_type, run.site_key, coordsShared)
+  if (!decision.autoTo && decision.review.length) await galleryDecide(ctx, decision, agencyId, d.photo_phashes as string | null, side)
   const propertyId = decision.autoTo?.id ?? await createParent(ctx, agentId, l.transaction_type, side.quarter)
   const sourceId = crypto.randomUUID()
 
@@ -578,6 +637,7 @@ async function detailColumns(ctx: Ctx, l: ListingPayload): Promise<Record<string
     agent_name: str(l.agent_name), agent_phone: str(l.agent_phone), agent_email: str(l.agent_email),
     agent_whatsapp: str(l.agent_whatsapp), agency_phone: str(l.agency_phone), agency_email: str(l.agency_email),
     photo_urls: Array.isArray(l.photo_urls) ? JSON.stringify(l.photo_urls.filter(u => typeof u === 'string')) : null,
+    photo_phashes: phashList(l.photo_phashes),
     extra: l.extra ? JSON.stringify(l.extra) : null,
   }
 }
@@ -757,7 +817,8 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
   if (knownMatch && req.method === 'GET') {
     const { results } = await ctx.db.prepare(
       `SELECT id, source_url, price_at_source AS price, listing_title AS title, detail_scraped_at, last_seen_at,
-              hero_image_key IS NOT NULL AS has_hero, removed_at IS NOT NULL AS removed
+              hero_image_key IS NOT NULL AS has_hero, photo_phashes IS NOT NULL AS has_phashes,
+              removed_at IS NOT NULL AS removed
        FROM property_sources WHERE site_key = ?`
     ).bind(knownMatch[1]).all()
     return respond(results || [])
@@ -1014,6 +1075,64 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
   }
 
   // POST /sync/buildings {buildings:[{name, aliases?, quarter?, address?, lat?, lng?}]} — gazetteer upsert.
+  // POST /sync/phashes {items: [{source_id, phashes: [hex, ...]}]} — gallery
+  // fingerprints computed outside a listing push (sync/photo_review.py).
+  if (path === '/sync/phashes' && req.method === 'POST') {
+    const { items } = await req.json<{ items: { source_id: string; phashes: string[] }[] }>()
+    if (!Array.isArray(items) || items.length > 100) return respond({ error: 'items: array of at most 100' }, 400)
+    let n = 0
+    for (const it of items) {
+      const v = phashList(it.phashes)
+      if (!v || typeof it.source_id !== 'string') continue
+      await ctx.db.prepare('UPDATE property_sources SET photo_phashes = ? WHERE id = ?').bind(v, it.source_id).run()
+      n++
+    }
+    return respond({ updated: n })
+  }
+
+  // GET /sync/reviews?offset=0 — pending reviews with both sides' photo URLs,
+  // for the local photo comparer (sync/photo_review.py). 100 per page.
+  if (path === '/sync/reviews' && req.method === 'GET') {
+    const offset = Math.max(0, Number(new URL(req.url).searchParams.get('offset')) || 0)
+    const { results: items } = await ctx.db.prepare(
+      `SELECT r.id, r.source_id, r.candidate_property_id, r.reasons, s.property_id AS source_property_id,
+              s.agency_id, s.site_key, s.photo_urls
+       FROM review_queue r JOIN property_sources s ON s.id = r.source_id
+       WHERE r.status = 'pending' ORDER BY r.created_at, r.id LIMIT 100 OFFSET ?`
+    ).bind(offset).all<any>()
+    const ids = [...new Set((items || []).map(r => r.candidate_property_id))]
+    const cands: any[] = ids.length ? (await ctx.db.prepare(
+      `SELECT id, property_id, agency_id, site_key, photo_urls FROM property_sources
+       WHERE removed_at IS NULL AND property_id IN (${ids.map(() => '?').join(',')})`
+    ).bind(...ids).all<any>()).results || [] : []
+    const parse = (p: string | null) => { try { return JSON.parse(p || '[]') } catch { return [] } }
+    return respond((items || []).map(r => ({
+      ...r, reasons: JSON.parse(r.reasons), photo_urls: parse(r.photo_urls),
+      candidate_sources: cands.filter(c => c.property_id === r.candidate_property_id)
+        .map(c => ({ id: c.id, agency_id: c.agency_id, site_key: c.site_key, photo_urls: parse(c.photo_urls) })),
+    })))
+  }
+
+  // POST /sync/reviews/decide {decisions: [{id, decision: 'merge'|'reject', evidence}]}
+  // Automatic decisions; a merge still has to pass the floor/price profile check.
+  if (path === '/sync/reviews/decide' && req.method === 'POST') {
+    const { decisions } = await req.json<{ decisions: { id: string; decision: string; evidence?: string }[] }>()
+    if (!Array.isArray(decisions) || decisions.length > 25) return respond({ error: 'decisions: array of at most 25' }, 400)
+    const out: Json[] = []
+    for (const d of decisions) {
+      if (d.decision !== 'merge' && d.decision !== 'reject') { out.push({ id: d.id, error: 'bad decision' }); continue }
+      const item = await ctx.db.prepare(`SELECT * FROM review_queue WHERE id = ? AND status = 'pending'`).bind(d.id).first<any>()
+      if (!item) { out.push({ id: d.id, skipped: 'not pending' }); continue }
+      if (d.decision === 'merge') {
+        const src = await ctx.db.prepare('SELECT floor, price_at_source AS p FROM property_sources WHERE id = ?').bind(item.source_id).first<any>()
+        const mine: Profile = { floors: new Set(src?.floor != null ? [src.floor] : []), minP: src?.p || null, maxP: src?.p || null }
+        if (!compatible(mine, await profileOf(ctx, item.candidate_property_id))) { out.push({ id: d.id, skipped: 'profile conflict' }); continue }
+      }
+      out.push(await decideReview(ctx, item, d.decision, null, str(d.evidence)))
+    }
+    return respond({ results: out })
+  }
+
   if (path === '/sync/buildings' && req.method === 'POST') {
     const body = await req.json<{ buildings: any[] }>()
     const quarters = await ctx.getQuarters()
@@ -1129,13 +1248,7 @@ export async function handlePipelineUi(req: Request, env: Env, url: URL, path: s
     const item = await ctx.db.prepare('SELECT * FROM review_queue WHERE id = ?').bind(reviewMatch[1]).first<any>()
     if (!item) return respond({ error: 'Not found' }, 404)
     if (item.status !== 'pending') return respond({ error: `Already ${item.status}` }, 409)
-    const source = await ctx.db.prepare('SELECT id, property_id FROM property_sources WHERE id = ?').bind(item.source_id).first<any>()
-    if (decision === 'merge' && source && source.property_id !== item.candidate_property_id) {
-      await moveSource(ctx, source.id, source.property_id, item.candidate_property_id, 'review', null)
-    }
-    await ctx.db.prepare(`UPDATE review_queue SET status = ?, decided_by = ?, decided_at = ? WHERE id = ?`)
-      .bind(decision === 'merge' ? 'merged' : 'rejected', agentId, ctx.now, item.id).run()
-    return respond({ id: item.id, status: decision === 'merge' ? 'merged' : 'rejected', property_id: decision === 'merge' ? item.candidate_property_id : source?.property_id })
+    return respond(await decideReview(ctx, item, decision, agentId, null))
   }
 
   return respond({ error: 'Not found' }, 404)
