@@ -232,14 +232,14 @@ async function pipelineAgentId(env: Env & { PIPELINE_AGENT_ID?: string }): Promi
 const COORD_RANK: Record<string, number> = { listing: 3, building: 2, quarter: 1 }
 
 // Re-derive the parent's summary from its live sources: lowest price,
-// best-known coordinates, first non-null of each field (newest detail first).
+// best-known coordinates, first non-null of each field (portal listings first — their fields are structured — then newest detail).
 // When no source is live the parent goes off-market (event emitted once).
 async function refreshParent(ctx: Ctx, propertyId: string, runId: string | null) {
   const parent = await ctx.db.prepare('SELECT pipeline_status, origin FROM properties WHERE id = ?').bind(propertyId).first<any>()
   if (!parent || parent.origin !== 'pipeline') return
   const { results } = await ctx.db.prepare(
     `SELECT * FROM property_sources WHERE property_id = ? AND is_off_market = 0 AND removed_at IS NULL
-     ORDER BY detail_scraped_at DESC`
+     ORDER BY (site_key LIKE 'web-%') ASC, detail_scraped_at DESC`
   ).bind(propertyId).all<any>()
   const live = results || []
 
@@ -317,7 +317,10 @@ async function moveSource(ctx: Ctx, sourceId: string, fromId: string, toId: stri
       `UPDATE properties SET merged_into = ?, pipeline_status = 'archived', source_count = 0, updated_at = ? WHERE id = ?`
     ).bind(toId, ctx.now, fromId).run()
     await ctx.db.prepare('UPDATE contact_marks SET property_id = ? WHERE property_id = ?').bind(toId, fromId).run()
-    await ctx.db.prepare(`UPDATE review_queue SET candidate_property_id = ? WHERE candidate_property_id = ? AND status = 'pending'`).bind(toId, fromId).run()
+    // Redirect pending reviews to the surviving parent; a review that would
+    // duplicate an existing pair is closed instead.
+    await ctx.db.prepare(`UPDATE OR IGNORE review_queue SET candidate_property_id = ? WHERE candidate_property_id = ? AND status = 'pending'`).bind(toId, fromId).run()
+    await ctx.db.prepare(`UPDATE review_queue SET status = 'merged', decided_at = ? WHERE candidate_property_id = ? AND status = 'pending'`).bind(ctx.now, fromId).run()
   } else {
     await refreshParent(ctx, fromId, runId)
   }
@@ -337,7 +340,8 @@ function sideFromParent(p: any): MatchSide {
 
 interface MatchDecision { autoTo: { id: string; tier: MatchTier } | null; review: { id: string; m: MatchResult }[] }
 
-async function findMatches(ctx: Ctx, side: MatchSide, transaction: string, siteKey: string, coordsSharedOnSite: boolean): Promise<MatchDecision> {
+async function findMatches(ctx: Ctx, side: MatchSide, transaction: string, siteKey: string, coordsSharedOnSite: boolean,
+                           exclude: string | null = null): Promise<MatchDecision> {
   // Candidate pull is index-backed (idx_properties_origin) and bounded.
   const areaLo = side.area ? side.area * 0.95 : null
   const areaHi = side.area ? side.area * 1.05 : null
@@ -345,11 +349,11 @@ async function findMatches(ctx: Ctx, side: MatchSide, transaction: string, siteK
     `SELECT p.*, (SELECT GROUP_CONCAT(DISTINCT s.site_key) FROM property_sources s
                   WHERE s.property_id = p.id AND s.removed_at IS NULL) AS site_keys
      FROM properties p
-     WHERE p.origin = 'pipeline' AND p.transaction_type = ? AND p.merged_into IS NULL
+     WHERE p.origin = 'pipeline' AND p.transaction_type = ? AND p.merged_into IS NULL AND p.id != ?
        AND (? IS NULL OR p.living_area_sqm IS NULL OR p.living_area_sqm BETWEEN ? AND ?)
        AND (? IS NULL OR p.quarter IS NULL OR p.quarter = ? OR p.building_id = ?)
      LIMIT 300`
-  ).bind(transaction, side.area, areaLo, areaHi, side.quarter, side.quarter, side.building_id).all<any>()
+  ).bind(transaction, exclude ?? '', side.area, areaLo, areaHi, side.quarter, side.quarter, side.building_id).all<any>()
 
   const decision: MatchDecision = { autoTo: null, review: [] }
   const scored: { id: string; m: MatchResult; sameSite: boolean }[] = []
@@ -364,13 +368,59 @@ async function findMatches(ctx: Ctx, side: MatchSide, transaction: string, siteK
     scored.push({ id: p.id, m, sameSite })
   }
   scored.sort((x, y) => y.m.score - x.m.score)
+  const mineProfile: Profile = { floors: new Set(side.floor != null ? [side.floor] : []), minP: side.price, maxP: side.price }
   for (const s of scored) {
+    if (s.m.tier !== 'review' && !compatible(mineProfile, await profileOf(ctx, s.id))) {
+      s.m = { ...s.m, tier: 'review', score: Math.min(s.m.score, 0.6), reasons: [...s.m.reasons, 'group_conflict'] }
+    }
     // An agency listing two identical units (new developments) must never
     // auto-collapse them — that goes to review instead.
-    if (!decision.autoTo && s.m.tier !== 'review' && !s.sameSite) decision.autoTo = { id: s.id, tier: s.m.tier }
-    else if (decision.review.length < 3) decision.review.push({ id: s.id, m: s.m.tier === 'review' ? s.m : { ...s.m, tier: 'review', reasons: [...s.m.reasons, 'same_agency'] } })
+    if (!decision.autoTo && s.m.tier !== 'review' && !s.sameSite) { decision.autoTo = { id: s.id, tier: s.m.tier }; continue }
+    if (decision.autoTo || decision.review.length >= 1) continue
+    const rm = s.m.tier === 'review' ? s.m : { ...s.m, tier: 'review' as MatchTier, reasons: [...s.m.reasons, 'same_agency'] }
+    const cand = (results || []).find((p: any) => p.id === s.id)
+    if (worthReview(rm, side.price, cand?.price ?? null, side.area, cand?.living_area_sqm ?? null)) decision.review.push({ id: s.id, m: rm })
   }
   return decision
+}
+
+// What a parent's live sources say about the flat: every known floor and
+// the price range. Merges are checked against all of them, not just the
+// parent's summary row, so one floor-less listing can't bridge two units.
+interface Profile { floors: Set<number>; minP: number | null; maxP: number | null }
+
+async function profileOf(ctx: Ctx, propertyId: string): Promise<Profile> {
+  const { results } = await ctx.db.prepare(
+    `SELECT floor, price_at_source AS p FROM property_sources WHERE property_id = ? AND removed_at IS NULL`
+  ).bind(propertyId).all<{ floor: number | null; p: number | null }>()
+  const floors = new Set<number>(); let minP: number | null = null, maxP: number | null = null
+  for (const r of results || []) {
+    if (r.floor != null) floors.add(r.floor)
+    if (r.p != null && r.p > 0) { minP = minP == null ? r.p : Math.min(minP, r.p); maxP = maxP == null ? r.p : Math.max(maxP, r.p) }
+  }
+  return { floors, minP, maxP }
+}
+
+function compatible(a: Profile, b: Profile): boolean {
+  if (a.floors.size && b.floors.size && ![...a.floors].some(f => b.floors.has(f))) return false
+  if (a.floors.size > 1 || b.floors.size > 1) {
+    // A group that already spans floors is suspect: only join on a shared floor set.
+    if ([...a.floors].some(f => !b.floors.has(f)) && b.floors.size) return false
+  }
+  const lo = [a.minP, b.minP].filter((x): x is number => x != null), hi = [a.maxP, b.maxP].filter((x): x is number => x != null)
+  if (lo.length === 2 && Math.max(...hi) / Math.min(...lo) > 1.12) return false
+  return true
+}
+
+// Only pairs a person can usefully decide reach the review queue: Monaco has
+// many look-alike flats, so weak signals are dropped rather than queued.
+function worthReview(m: MatchResult, aPrice: number | null, bPrice: number | null, aArea: number | null, bArea: number | null): boolean {
+  const r = new Set(m.reasons)
+  const priceWithin = (pct: number) => aPrice != null && bPrice != null && within(aPrice, bPrice, pct)
+  if (r.has('same_agency')) return priceWithin(0.01)          // one agency's two units: only near-identical
+  if (r.has('hero_phash') && !r.has('area_5pct')) return false  // shared building photo
+  if (r.has('same_quarter') && !r.has('same_building')) return within(aArea, bArea, 0.03) && priceWithin(0.05)
+  return true
 }
 
 async function queueReview(ctx: Ctx, sourceId: string, candidateId: string, m: MatchResult) {
@@ -895,6 +945,74 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
     return respond({ processed: rows.length, located: touched.size, next: rows.length === limit ? rows[rows.length - 1].id : null })
   }
 
+  // POST /sync/split {property_id} — take an over-merged group apart and
+  // re-match each listing under the current rules. The most complete listing
+  // keeps the original parent (contact marks stay attached).
+  if (path === '/sync/split' && req.method === 'POST') {
+    const { property_id: pid } = await req.json<{ property_id: string }>()
+    const { results } = await ctx.db.prepare(
+      `SELECT * FROM property_sources WHERE property_id = ? AND removed_at IS NULL
+       ORDER BY (living_area_sqm IS NOT NULL) + (floor IS NOT NULL) + (price_at_source IS NOT NULL) + (bedrooms IS NOT NULL) DESC, created_at`
+    ).bind(pid).all<any>()
+    const srcs = results || []
+    if (srcs.length < 2) return respond({ property_id: pid, detached: 0 })
+    const agentId = await pipelineAgentId(env)
+    const detached: any[] = []
+    for (const src of srcs.slice(1)) {
+      const np = await createParent(ctx, agentId, src.transaction_type, src.quarter)
+      await ctx.db.prepare(`UPDATE property_sources SET property_id = ?, match_tier = 'new' WHERE id = ?`).bind(np, src.id).run()
+      await ctx.db.prepare('UPDATE price_history SET property_id = ? WHERE source_id = ?').bind(np, src.id).run()
+      detached.push({ ...src, property_id: np })
+    }
+    await refreshParent(ctx, pid, null)
+    let rejoined = 0, reviews = 0
+    for (const src of detached) {
+      await refreshParent(ctx, src.property_id, null)
+      const cur = await ctx.db.prepare('SELECT * FROM property_sources WHERE id = ?').bind(src.id).first<any>()
+      if (!cur) continue
+      const cimId = (() => { try { return JSON.parse(cur.extra || '{}').cim_id } catch { return null } })()
+      const cimUrlId = String(cur.source_url).match(/chambre-immobiliere-monaco\.mc\/fr\/bien\/(\d+)\//)?.[1]
+      const sameFlat = await ctx.db.prepare(
+        `SELECT property_id FROM property_sources
+         WHERE agency_id = ? AND property_id != ? AND removed_at IS NULL AND (
+           (external_ref IS NOT NULL AND external_ref = ? AND site_key != ? AND transaction_type = ?)
+           OR source_url = ? OR extra LIKE ?)
+         LIMIT 1`
+      ).bind(cur.agency_id, cur.property_id, cur.external_ref, cur.site_key, cur.transaction_type,
+        cimId ? `https://www.chambre-immobiliere-monaco.mc/fr/bien/${cimId}/bien` : '-', cimUrlId ? `%"cim_id":"${cimUrlId}"%` : '-'
+      ).first<{ property_id: string }>()
+      let target: { id: string; tier: string } | null = sameFlat ? { id: sameFlat.property_id, tier: 'ref' } : null
+      if (!target) {
+        const side: MatchSide = {
+          lat: cur.lat, lng: cur.lng, coord_source: cur.coord_source, area: cur.living_area_sqm, bedrooms: cur.bedrooms,
+          floor: cur.floor, building_id: cur.building_id, building_norm: normalizeBuildingName(cur.building_name),
+          quarter: cur.quarter, price: cur.price_on_request ? null : cur.price_at_source,
+        }
+        const d = await findMatches(ctx, side, cur.transaction_type, cur.site_key, false, cur.property_id)
+        if (d.autoTo) target = d.autoTo
+        for (const r of d.review) { await queueReview(ctx, cur.id, r.id, r.m); reviews++ }
+      }
+      if (target && compatible(await profileOf(ctx, cur.property_id), await profileOf(ctx, target.id))) {
+        await moveSource(ctx, cur.id, cur.property_id, target.id, target.tier, null)
+        rejoined++
+      }
+    }
+    return respond({ property_id: pid, detached: detached.length, rejoined, reviews })
+  }
+
+  // POST /sync/refresh-parents {after?, limit?} — re-derive every pipeline
+  // parent from its sources (after a change to the derivation rules).
+  if (path === '/sync/refresh-parents' && req.method === 'POST') {
+    const body = await req.json<any>().catch(() => ({}))
+    const limit = Math.min(Number(body?.limit) || 100, 200)
+    const { results } = await ctx.db.prepare(
+      `SELECT id FROM properties WHERE origin = 'pipeline' AND merged_into IS NULL AND id > ? ORDER BY id LIMIT ?`
+    ).bind(String(body?.after || ''), limit).all<{ id: string }>()
+    const rows = results || []
+    for (const r of rows) await refreshParent(ctx, r.id, null)
+    return respond({ processed: rows.length, next: rows.length === limit ? rows[rows.length - 1].id : null })
+  }
+
   // POST /sync/buildings {buildings:[{name, aliases?, quarter?, address?, lat?, lng?}]} — gazetteer upsert.
   if (path === '/sync/buildings' && req.method === 'POST') {
     const body = await req.json<{ buildings: any[] }>()
@@ -932,7 +1050,7 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
 // source must be alone under its parent. Anything weaker → review.
 async function phashMatch(ctx: Ctx, source: any): Promise<Json | null> {
   const { results } = await ctx.db.prepare(
-    `SELECT s.id, s.property_id, s.site_key, s.hero_phash, s.living_area_sqm, s.bedrooms, s.price_at_source
+    `SELECT s.id, s.property_id, s.site_key, s.hero_phash, s.living_area_sqm, s.bedrooms, s.price_at_source, s.floor
      FROM property_sources s JOIN properties p ON p.id = s.property_id
      WHERE s.hero_phash IS NOT NULL AND s.id != ? AND s.property_id != ? AND s.transaction_type = ?
        AND s.removed_at IS NULL AND p.merged_into IS NULL`
@@ -944,6 +1062,7 @@ async function phashMatch(ctx: Ctx, source: any): Promise<Json | null> {
     if (source.price_at_source && r.price_at_source && !within(source.price_at_source, r.price_at_source, 0.2)) continue
     if (source.living_area_sqm && r.living_area_sqm && !within(source.living_area_sqm, r.living_area_sqm, 0.05)) continue
     if (source.bedrooms != null && r.bedrooms != null && source.bedrooms !== r.bedrooms) continue
+    if (source.floor != null && r.floor != null && source.floor !== r.floor) continue
     const d = hamming64(source.hero_phash, r.hero_phash)
     if (d < bestD) { best = r; bestD = d }
   }
@@ -968,13 +1087,17 @@ async function phashMatch(ctx: Ctx, source: any): Promise<Json | null> {
   const reasons = ['hero_phash', ...(areaOk ? ['area_5pct'] : []), ...(bedsOk ? ['bedrooms'] : [])]
   const strictSame = bestD <= 2 && within(source.living_area_sqm, best.living_area_sqm, 0.03) && (bedsOk || !bedsKnown)
     && source.price_at_source && best.price_at_source && within(source.price_at_source, best.price_at_source, 0.05)
-  if (bestD <= 4 && areaOk && (bedsOk || !bedsKnown) && priceOk && (otherAgency || strictSame)) {
+  const groupsOk = compatible(await profileOf(ctx, source.property_id), await profileOf(ctx, best.property_id))
+  if (bestD <= 4 && areaOk && (bedsOk || !bedsKnown) && priceOk && (otherAgency || strictSame) && groupsOk) {
     const { results: all } = await ctx.db.prepare('SELECT id FROM property_sources WHERE property_id = ?').bind(source.property_id).all<{ id: string }>()
     const from = source.property_id
     for (const r of all || []) await moveSource(ctx, r.id, from, best.property_id, 'phash', null)
     return { action: 'merged', into: best.property_id, distance: bestD, moved: (all || []).length }
   }
-  await queueReview(ctx, source.id, best.property_id, { tier: 'review', score: 0.5 + (areaOk ? 0.15 : 0) + (bedsOk ? 0.15 : 0), reasons })
+  const rm: MatchResult = { tier: 'review', score: 0.5 + (areaOk ? 0.15 : 0) + (bedsOk ? 0.15 : 0), reasons }
+  if (worthReview(rm, source.price_at_source, best.price_at_source, source.living_area_sqm, best.living_area_sqm)) {
+    await queueReview(ctx, source.id, best.property_id, rm)
+  }
   return { action: 'review', candidate: best.property_id, distance: bestD }
 }
 

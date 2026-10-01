@@ -57,7 +57,7 @@ class WorkerClient:
         self.timeout = timeout
 
     def request(self, method: str, path: str, body: Any = None, *, raw: bytes | None = None,
-                headers: dict[str, str] | None = None, retries: int = 3) -> Any:
+                headers: dict[str, str] | None = None, retries: int = 6) -> Any:
         data = raw if raw is not None else (json.dumps(body).encode() if body is not None else None)
         hdrs = {"Authorization": f"Bearer {self.token}", **(headers or {})}
         if raw is None and body is not None:
