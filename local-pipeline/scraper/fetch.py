@@ -37,8 +37,10 @@ class NotFound(RuntimeError):
 
 class PoliteFetcher:
     def __init__(self, delay: tuple[float, float] = (3, 8), block_wait: float = 30, retries: int = 3,
-                 timeout: float = 30):
+                 timeout: float = 30, accept_404: bool = False):
         self.delay = delay
+        # Some misconfigured sites send every page with status 404 but full content.
+        self.accept_404 = accept_404
         self.block_wait = block_wait
         self.retries = retries
         self.timeout = timeout
@@ -68,8 +70,10 @@ class PoliteFetcher:
             try:
                 r = self.session.get(url, timeout=self.timeout)
                 is_html = "html" in r.headers.get("Content-Type", "")
-                if r.status_code in (404, 410):
+                if r.status_code in (404, 410) and not (self.accept_404 and r.status_code == 404 and len(r.text) > 5000):
                     raise NotFound(url)
+                if r.status_code == 404:
+                    return r
                 if r.status_code in BLOCK_STATUS or (is_html and any(m in r.text[:5000] for m in CHALLENGE_MARKERS)):
                     reason = f"HTTP {r.status_code}"
                 elif r.ok:

@@ -1,35 +1,614 @@
 [
  {
-  "site_key": "web-westrope-monaco-com",
-  "agency": "Westrope Real Estate",
-  "website": "https://www.westrope-monaco.com/",
+  "site_key": "web-25lcp-com",
+  "agency": "La Costa Properties Monaco",
+  "website": "https://www.lacosta-properties-monaco.com/",
   "status": "verified",
-  "runner": "server",
+  "runner": "local",
   "index_urls": {
    "sale": [
-    "https://www.westrope-monaco.com/index.php?page=liste&type=vente"
+    "https://www.lacosta-properties-monaco.com/en/sales/",
+    "https://www.lacosta-properties-monaco.com/en/sales/?npage=2",
+    "https://www.lacosta-properties-monaco.com/en/sales/?npage=3",
+    "https://www.lacosta-properties-monaco.com/en/sales/?npage=4",
+    "https://www.lacosta-properties-monaco.com/en/sales/?npage=5"
    ],
    "rent": [
-    "https://www.westrope-monaco.com/index.php?page=liste&type=location"
+    "https://www.lacosta-properties-monaco.com/en/rentals/",
+    "https://www.lacosta-properties-monaco.com/en/rentals/?npage=2",
+    "https://www.lacosta-properties-monaco.com/en/rentals/?npage=3"
    ]
   },
-  "listing_pattern": "^https?://(?:www\\.)?westrope-monaco\\.com/index\\.php\\?page=liste&step2=detail&produit=[0-9A-Fa-f-]{36}$"
+  "listing_pattern": "^https?://www\\.lacosta-properties-monaco\\.com/en/property-2/\\d{4,}-[a-z0-9-]+/$",
+  "render": true,
+  "require_monaco": true,
+  "overrides": {
+   "price": "h3:-soup-contains('Price:'), h3:-soup-contains('Monthly rent:')",
+   "bedrooms": ".stk-f15839d",
+   "building": ".stk-9fce389",
+   "quarter": ".stk-9183e02",
+   "living_hab": ".stk-a1a4bb9",
+   "living": ".stk-a680a98"
+  },
+  "note": "25lcp.com 301-> lacosta-properties-monaco.com (AWS WAF: HTTP 202 challenge to plain HTTP). Headless Chromium DOES pass the challenge (JS sets a token cookie and reloads, ~5-10 s; later pages in the same context get 200, the challenge reappears now and then), but scraper/browser.py BrowserFetcher fails it: it judges the INITIAL goto status (202) and opens a fresh context per URL, so no token is kept. To run on the server: BrowserFetcher should reuse one context and, on 202/awswaf, wait for the reload and re-read status/content. Config built and checked by parsing pages fetched with a custom Playwright session (sale 114491: price 9,800,000, living 114, 2 bedrooms, building Riviera Palace; rent 123465: 21,000/month, 84 sqm living, 1 bedroom): ~44 sale (3 pages, 20/page, pagination param 'npage' which crawl_index does not follow -> explicit ?npage=N start URLs; extra pages are harmless), 14 rent (1 page). Sales include France (La Turbie, Cap d'Ail) -> require_monaco."
  },
  {
-  "site_key": "web-gramaglia-mc",
-  "agency": "Agence Gramaglia",
-  "website": "https://www.gramaglia.mc/",
+  "site_key": "web-accesspropertiesmonaco-com",
+  "agency": "Access Properties Monaco",
+  "website": "https://www.accesspropertiesmonaco.com/",
   "status": "verified",
   "runner": "server",
   "index_urls": {
    "sale": [
-    "https://www.gramaglia.mc/fr/ventes/"
+    "https://www.accesspropertiesmonaco.com/en/sale"
    ],
    "rent": [
-    "https://www.gramaglia.mc/fr/locations/"
+    "https://www.accesspropertiesmonaco.com/en/lease"
    ]
   },
-  "listing_pattern": "^https?://(?:www\\.)?gramaglia\\.mc/fr/produit/\\d{4,}-[^/?#]+/?$"
+  "listing_pattern": "^https?://(?:www\\.)?accesspropertiesmonaco\\.com/property/\\d+/[^/?#]+/?$",
+  "render": true,
+  "require_monaco": true,
+  "overrides": {
+   "title": "h1",
+   "price": "h1 + h2",
+   "living": "div:has(> img[src*='Acreage']) > span",
+   "bedrooms": "div:has(> img[src*='Bed.']) > span",
+   "reference": "div:has(> img[src*='/ref.']) > span",
+   "quarter": "h1"
+  },
+  "note": "Next.js grid needs render; detail pages SSR (immotoolbox-backed). 4 sale / 0 rent on site. Listing 102905 returns HTTP 500 on the site itself. Known issue: 'Top Deal' (sale, tenanted) is typed rent because description says 'par mois' and there is no transaction label — needs a transaction override in code."
+ },
+ {
+  "site_key": "web-afim-mc",
+  "agency": "AFIM SAM",
+  "website": "https://www.afim.mc/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.afim.mc/vente-appartement.html"
+   ],
+   "rent": [
+    "https://www.afim.mc/location-appartement.html"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?afim\\.mc/(?:vente|location|professionnel)-[^/?#]*-1-517[a-z]\\d+[a-z]\\.html$",
+  "note": "index: stored pattern missed rentals (517l...a ids), garages/villas/commercial (…p/…m/…c ids) and paginated pages (vente-appartement-2.html not followed) -> sitemap index (all FR listings); reference override",
+  "index_source": "sitemap",
+  "overrides": {
+   "reference": ".offer-detail-tools-ref"
+  }
+ },
+ {
+  "site_key": "web-agedigroup-com",
+  "agency": "AGEDI",
+  "website": "https://www.agedigroup.com/",
+  "status": "no_listings",
+  "note": "agedigroup.com is the Italian AGEDI group corporate site (about, case studies, news; sitemap has only those pages, in EN/FR/IT). No property listings online; the Monaco office (2 rue du Gabian, Fontvieille) lists only via portals (MCRE ~6 listings)."
+ },
+ {
+  "site_key": "web-agence-laetitia-com",
+  "agency": "Agence Laetitia",
+  "website": "https://www.agence-laetitia.com/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.agence-laetitia.com/fr/ventes"
+   ],
+   "rent": [
+    "https://www.agence-laetitia.com/fr/locations"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?agence-laetitia\\.com/fr/propriete/(?:vente|location)\\+[^+/?#]+\\+monaco\\+[^/?#]*\\d{6,}$",
+  "overrides": {
+   "quarter": "h2.property-title-2"
+  },
+  "note": "pattern restricted to +monaco+ listings (Fayence/Le Cannet villas were passing); quarter from header h2 (was title)"
+ },
+ {
+  "site_key": "web-agencedumidi-mc",
+  "agency": "Du Midi Agency",
+  "website": "https://www.agencedumidi.mc/",
+  "status": "no_listings",
+  "note": "Duplicate agency: agencedumidi.mc redirects to https://faggionatoimmo.com/ whose footer reads 'S.A.M. Agence du Midi' - i.e. Du Midi Agency IS Faggionato Real Estate (same phone +377 97 97 40 26, same address Les Caravelles, 25 Bd Albert 1er). Its listings belong to config web-faggionatoimmo-com; a separate config would duplicate them under a second agency name. FYI for that config (it is currently 'weak', index = homepage only): index_urls sale https://www.faggionatoimmo.com/index.php?page=liste&type=1 (18), rent ...&type=2 (7); listing_pattern ^https?://(?:www\\.)?faggionatoimmo\\.com/index\\.php\\?page=detail&id=\\d+$; detail pages still need overrides (title None, photos 0, many price_on_request) - not done here."
+ },
+ {
+  "site_key": "web-agencelephare-com",
+  "agency": "Agence Le Phare",
+  "website": "https://www.agencelephare.com/",
+  "status": "no_listings",
+  "note": "WRONG WEBSITE: agencelephare.com is Agence Le Phare in Cherbourg-en-Cotentin (Normandy, 50100); all listings are La Hague/Cherbourg, none in Monaco. Config must not run."
+ },
+ {
+  "site_key": "web-agencemarchetti-com",
+  "agency": "Agence Marchetti Monaco",
+  "website": "https://www.agencemarchetti.com/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.agencemarchetti.com/fr/ventes"
+   ],
+   "rent": [
+    "https://www.agencemarchetti.com/fr/locations"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?agencemarchetti\\.com/fr/produit-(?:vente|location)/\\d+-[^/?#]+/?$",
+  "note": "pattern matched category pages (ventes-residentielles/r-4-4-pieces/ parsed as listings with bogus 13M price); now produit-vente/location only; index /fr/ventes + /fr/locations (all incl. commercial) - rentals were missing"
+ },
+ {
+  "site_key": "web-agencenouvellemonaco-com",
+  "agency": "Agence Nouvelle",
+  "website": "https://www.agencenouvellemonaco.com/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.agencenouvellemonaco.com/fr/ventes/grid",
+    "https://www.agencenouvellemonaco.com/fr/ventes/grid/2",
+    "https://www.agencenouvellemonaco.com/fr/ventes/grid/3"
+   ],
+   "rent": [
+    "https://www.agencenouvellemonaco.com/fr/locations/grid",
+    "https://www.agencenouvellemonaco.com/fr/locations/grid/2"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?agencenouvellemonaco\\.com/fr/bien/\\d{3,}/(?![^/]*(?:valberg|mougins))[^/?#]+/?$",
+  "overrides": {
+   "quarter": "p.lieu",
+   "reference": "p.ref"
+  },
+  "note": "index: JS pagination (/grid/2) not followed + pattern rejected accented slugs (carré, méridien) -> 24 of 43 found; explicit page URLs + looser slug; Valberg/Mougins listings excluded by slug (require_monaco useless: host contains 'monaco'); quarter from p.lieu (was title), reference from p.ref"
+ },
+ {
+  "site_key": "web-aibb-mc",
+  "agency": "A.I.B.B. Real Estate",
+  "website": "https://www.aibb.mc/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://aibb.mc/ventes-monaco/",
+    "https://aibb.mc/ventes-monaco/?npage=2",
+    "https://aibb.mc/ventes-monaco/?npage=3",
+    "https://aibb.mc/ventes-monaco/?npage=4",
+    "https://aibb.mc/ventes-monaco/?npage=5"
+   ],
+   "rent": [
+    "https://aibb.mc/locations-monaco/",
+    "https://aibb.mc/locations-monaco/?npage=2",
+    "https://aibb.mc/locations-monaco/?npage=3"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?aibb\\.mc/property-details/\\d{3,}-[^/?#]+/?$",
+  "note": "index: site shows 57 sales but pagination uses ?npage=N (not followed) -> only 22 found; explicit npage URLs"
+ },
+ {
+  "site_key": "web-amber-international-com",
+  "agency": "Amber International",
+  "website": "https://www.amber-international.com/",
+  "status": "no_listings",
+  "note": "Wrong website: amber-international.com is 'Amber Realty', a Bangkok (Thailand) condo agency, not the Monaco agency. No Monaco listings. Real Monaco site unknown."
+ },
+ {
+  "site_key": "web-apartments-for-rent-monaco-com",
+  "agency": "Apartments for Rent Monaco",
+  "website": "https://www.apartments-for-rent-monaco.com/",
+  "status": "no_listings",
+  "note": "ImmoSoft SEO portal (sister of property-for-sale-monaco.com, location-appartement-monaco.com); every search page (plain and rendered) shows \"No product found for this search\" - zero listings online. Stored pattern /apartment/<slug> matched nothing."
+ },
+ {
+  "site_key": "web-as-estate-mc",
+  "agency": "A&S Estate",
+  "website": "https://www.as-estate.mc/",
+  "status": "no_listings",
+  "note": "Contact-only one-page site (ASP.NET/Syselio): states it specialises in off-market properties, shows only team and contact; no listings, no listing pages."
+ },
+ {
+  "site_key": "web-astralproperties-mc",
+  "agency": "ASTRAL PROPERTIES SAM",
+  "website": "https://www.astralproperties.mc/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.astralproperties.mc/status/for-sale/"
+   ],
+   "rent": [
+    "https://www.astralproperties.mc/status/for-rent/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?astralproperties\\.mc/property/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "overrides": {
+   "quarter": "li.detail-area span"
+  },
+  "note": "quarter from Houzez address block li.detail-area (was title; Area label was swallowed by living-area rule)"
+ },
+ {
+  "site_key": "web-atlantic-monte-carlo-mc",
+  "agency": "Atlantic Agency",
+  "website": "https://www.atlantic.monte-carlo.mc/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.atlantic.monte-carlo.mc/fr/ventes"
+   ],
+   "rent": [
+    "https://www.atlantic.monte-carlo.mc/fr/locations"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?atlantic\\.monte-carlo\\.mc/fr/produit-(?:vente|location)/\\d+-(?!roma-|rome-)[^/?#]+/?$",
+  "note": "Rome (Ludovisi) apartment was kept as a Monaco sale (quarter=title): excluded roma- slugs (require_monaco cannot work, host contains monte-carlo). Titles keep the Immotoolbox price suffix (h1 contains price span; no clean title element)."
+ },
+ {
+  "site_key": "web-azurapropertiesmonaco-com",
+  "agency": "Azura Properties Monaco",
+  "website": "https://www.azurapropertiesmonaco.com/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://azurapropertiesmonaco.com/sales"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?azurapropertiesmonaco\\.com/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "overrides": {
+   "title": "title",
+   "description": "h3.fontheight-357766",
+   "living": ".data-field--meters .data-field-value",
+   "bedrooms": ".data-field--bedrooms .data-field-value"
+  },
+  "note": "title was None (page has no h1; only <title>, which carries a \" - Azura Properties Monaco\" suffix) -> title from <title>; description from teaser h3 (was empty); living/bedrooms from data-field blocks (page-text fallback picked a 2.4 m2 cellar). No rentals on site (sales only). Known: very-large-studio-in-la-condamine is marked \"Sold in 2 months\" in its teaser but still listed; photo count inflated by srcset size variants (~8 real)."
+ },
+ {
+  "site_key": "web-baldorealtygroup-com",
+  "agency": "BALDO REALTY GROUP",
+  "website": "https://www.baldorealtygroup.com/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://baldorealtygroup.com/properties-sale-monaco/"
+   ],
+   "rent": [
+    "https://baldorealtygroup.com/properties-rent-monaco/"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?baldorealtygroup\\.com/property/[^/?#]+/?$",
+  "render": false,
+  "require_monaco": true
+ },
+ {
+  "site_key": "web-bc-properties-com",
+  "agency": "BC PROPERTIES MONACO",
+  "website": "https://bc-properties.com/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://bc-properties.com/listing/?sale_type=rent"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?bc\\-properties\\.com/property/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "index_source": "sitemap",
+  "overrides": {
+   "quarter": ".property_data .location",
+   "description": ".property_details p",
+   "rooms": ".property_extra p:-soup-contains(\"Total no. of rooms\") span"
+  },
+  "note": "quarter from .property_data .location (was title); description from body (was og \"B&C Monaco\"); rooms from \"Total no. of rooms\" (was missing). STILL OPEN (needs code): rentals are DROPPED - sitemap gives no sale/rent hint, page says 'FOR rental' only in h4.sale_type and rent prices (<150k) carry no '/month', so transaction stays None; /listing/?sale_type=rental is JS infinite-scroll (9 cards rendered). Needs a transaction override selector (h4.sale_type). Agent names keep role word 'Managing' (ROLE_WORDS lacks it)."
+ },
+ {
+  "site_key": "web-bertola-mc",
+  "agency": "BERTOLA Real Estate",
+  "website": "https://www.bertola.mc/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.bertola.mc/properties?type=sale"
+   ],
+   "rent": [
+    "https://www.bertola.mc/properties?type=rent"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?bertola\\.mc/properties/[A-Za-z0-9-]+/?$",
+  "overrides": {
+   "price": "[data-testid=text-detail-price]",
+   "quarter": ".text-navy\\/50.text-sm"
+  },
+  "note": "price was 19,000,000 on every listing (label pairs grabbed \"Voir les details\" and the fallback took max of the similar-listings prices) -> price from [data-testid=text-detail-price]; quarter from district line (was title); pattern missed mixed-case slugs (…-jdx0I) -> 7/7 sales (was 4); rent index split from sale (0 rentals online now). Agent name still wrong (\"Italiano Demander\" from languages line; real agent Remy BERTOLA) - not overridable."
+ },
+ {
+  "site_key": "web-beton57-com",
+  "agency": "Beton57",
+  "website": "https://www.beton57.com/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.beton57.com/fr/vente"
+   ],
+   "rent": [
+    "https://www.beton57.com/fr/location",
+    "https://www.beton57.com/fr/location-monaco"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?beton57\\.com/fr/propriete/(?:vente|location)\\+[^+/?#]+\\+monaco\\+[^/?#]*\\d{6,}$",
+  "note": "pattern restricted to +monaco+ listings (Saint-Tropez villa etc. were kept as Monaco listings). Quarter stays = title (titles name the district; header h1 often has no district)."
+ },
+ {
+  "site_key": "web-biairealestate-com",
+  "agency": "Agence B.I.A.I.",
+  "website": "https://www.biairealestate.com/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.biairealestate.com/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?biairealestate\\.com/property/[a-z0-9]+(?:-[a-z0-9]+){3,}/\\d{3,}/?(?:[?#].*)?$)",
+  "index_source": "sitemap",
+  "render": true,
+  "overrides": {
+   "quarter": "div.propertyLocation"
+  },
+  "note": "detail pages are JS-rendered (eGO): plain HTML gave no living area, no ref, ~3 photos -> render:true (sitemap index unchanged, it covers sale+rent ~156 incl. old ones); quarter from div.propertyLocation (was title). STILL OPEN (needs code): many sitemap/index listings are sold but only marked by a SOLD sticker (.stickerRender .stickerText) and \"This property has been sold.\" at the top of the description, not in the title - title_status() does not catch them."
+ },
+ {
+  "site_key": "web-blu-mc",
+  "agency": "Blu Immobilier",
+  "website": "https://www.blu.mc/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.blu.mc/fr/ventes/monaco/"
+   ],
+   "rent": [
+    "https://www.blu.mc/fr/locations/monaco/"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?blu\\.mc/fr/produit-(?:vente|location)/\\d+-[^/?#]+/?$",
+  "note": "pattern matched only room-filter category pages (ventes/monaco/r-4-4-pieces/ parsed as listings, title \"Produits a la vente a Monaco\", 12.4M price, 0 photos) and missed every real listing -> produit-vente/location pattern; 4 sales, 0 rentals online; international sales index dropped"
+ },
+ {
+  "site_key": "web-bollati-immobilier-mc",
+  "agency": "Bollati Immobilier",
+  "website": "https://www.bollati-immobilier.mc/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.bollati-immobilier.mc/fr/ventes"
+   ],
+   "rent": [
+    "https://www.bollati-immobilier.mc/fr/locations"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?bollati-immobilier\\.mc/fr/details-de-l-annonce/\\d+-[^/?#]+/?$",
+  "overrides": {
+   "quarter": "li:-soup-contains(\"Quartier\")",
+   "description": ".single-property-intro-content"
+  },
+  "note": "pattern matched agency pages (a-propos-de-notre-agence parsed as a listing) -> details-de-l-annonce only; description was the agency boilerplate -> .single-property-intro-content; quarter from \"Quartier\" line (was title). Known edge: 82401 (sold with sitting tenant, text 'Loue 2.461 EUR/mois') can be typed rent by the '/mois' rule. external_ref sometimes polluted ('124754 Appartement Type de bien...'); no clean element (ID only in a div text node)."
+ },
+ {
+  "site_key": "web-capi-mc",
+  "agency": "CAPI",
+  "website": "https://www.capi.mc/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.capi.mc/vente/1",
+    "https://www.capi.mc/commerces/1"
+   ],
+   "rent": [
+    "https://www.capi.mc/location/1"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?capi\\.mc/(?:commerces/)?vente/monaco/\\d+-[a-z0-9-]+/t\\d*/\\d+-[^/?#]+/?$|^https?://(?:www\\.)?capi\\.mc/location/monaco/\\d+-[a-z0-9-]+/t\\d*/\\d+-[^/?#]+/?$",
+  "note": "pattern only accepted the 20-autre category (3 of 7 sales, no apartments 2-appartement/t2..t4, no parking rental, no commerces) -> any Monaco La-Boite-Immo detail URL (Paris rental excluded by /monaco/ segment); commerces/location excluded: commercial rents are quoted per YEAR ('333 560 EUR / an HT') and would be stored as monthly"
+ },
+ {
+  "site_key": "web-capitalrealestate-mc",
+  "agency": "Capital Real Estate",
+  "website": "https://www.capitalrealestate.mc/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.capitalrealestate.mc/properties-for-sale",
+    "https://www.capitalrealestate.mc/properties-for-sale?npage=2",
+    "https://www.capitalrealestate.mc/properties-for-sale?npage=3",
+    "https://www.capitalrealestate.mc/properties-for-sale?npage=4"
+   ],
+   "rent": [
+    "https://www.capitalrealestate.mc/properties-for-rent",
+    "https://www.capitalrealestate.mc/properties-for-rent?npage=2"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?capitalrealestate\\.mc/property/\\d{3,}-[^/?#]+/?$",
+  "overrides": {
+   "quarter": ".itb-property__address-list li:-soup-contains(\"District\")",
+   "description": ".itb-property__description"
+  },
+  "note": "index: stored district-filtered search URLs found 2 sales of 14 (npage pagination not followed) -> properties-for-sale/-for-rent with explicit ?npage=N; quarter from address list District (was title/site name); description from .itb-property__description (was empty). Listings whose h1 is empty (e.g. 127427) still get title \"Capital Real Estate\" from JSON-LD - no other title element exists."
+ },
+ {
+  "site_key": "web-carat-properties-com",
+  "agency": "Carat Properties",
+  "website": "https://www.carat-properties.com/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.carat-properties.com/ventes-monaco"
+   ],
+   "rent": [
+    "https://www.carat-properties.com/locations-monaco"
+   ]
+  },
+  "index_source": "sitemap",
+  "listing_pattern": "^https?://(?:www\\.)?carat-properties\\.com/property/[^/?#]+/?$",
+  "render": false,
+  "overrides": {
+   "title": "h1",
+   "price": ".property-price div > p:first-of-type",
+   "living_hab": ".property-details div.row:has(> p:-soup-contains('Surface habitable')) > p:nth-of-type(2)",
+   "bathrooms": ".property-details div.row:has(> p:-soup-contains('Salle(s) de bain')) > p:nth-of-type(2)",
+   "quarter": ".property-details:not(:has(div.row:has(> p:-soup-contains('Pays')) > p:nth-of-type(2):-soup-contains('Monaco'))) div.row:has(> p:-soup-contains('Pays')) > p:nth-of-type(2), .property-details:has(div.row:has(> p:-soup-contains('Pays')) > p:nth-of-type(2):-soup-contains('Monaco')) div.row:has(> p:-soup-contains('Quartier')) > p:nth-of-type(2)"
+  }
+ },
+ {
+  "site_key": "web-caroli-realestate-com",
+  "agency": "Caroli Real Estate",
+  "website": "https://www.caroli-realestate.com/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.caroli-realestate.com/"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?caroli-realestate\\.com/fr/produit-(?:vente|location)/\\d+-[^/?#]+/?$",
+  "index_source": "sitemap",
+  "note": "pattern only accepted produit-vente: all 17 rentals in the sitemap were missing -> produit-(vente|location) (sitemap index kept)"
+ },
+ {
+  "site_key": "web-carolineolds-com",
+  "agency": "Caroline Olds Real Estate",
+  "website": "https://www.carolineolds.com/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://carolineolds.com/for-sale/"
+   ],
+   "rent": [
+    "https://carolineolds.com/for-rent/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?carolineolds\\.com/property/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "overrides": {
+   "quarter": ".lg-heading > div:first-child",
+   "price": ".lg-heading > div:nth-of-type(2)",
+   "building": ".large-body-text.mont-md > div.mt-3"
+  },
+  "note": "quarter from header line (\"Saint Roman, Monaco\"; was the h1 tagline); price from header (pcm/sale figure) so the per-sqm figure is never picked; building from the header building line (was the \"EXPLORE BUILDING\" button text). Known: off-market POA listings (header \"POA\") still fall through to the generic amount fallback (got 95,238 = per-sqm figure) since POA without dots is not recognised as on-request."
+ },
+ {
+  "site_key": "web-ccrg-mc",
+  "agency": "CCRG",
+  "website": "https://www.ccrg.mc/",
+  "status": "no_listings",
+  "note": "Site returns HTTP 200 with an empty body (also rendered in Chromium: blank page); sitemap empty. Dead site."
+ },
+ {
+  "site_key": "web-colettirealestate-com",
+  "agency": "Coletti Real Estate",
+  "website": "https://colettirealestate.com/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://colettirealestate.com/properties-for-sale-monaco/",
+    "https://colettirealestate.com/properties-for-sale-monaco/?e-page-5d9c292=2",
+    "https://colettirealestate.com/properties-for-sale-monaco/?e-page-5d9c292=3",
+    "https://colettirealestate.com/properties-for-sale-monaco/?e-page-5d9c292=4"
+   ],
+   "rent": [
+    "https://colettirealestate.com/apartments-for-rent-monaco/",
+    "https://colettirealestate.com/apartments-for-rent-monaco/?e-page-5d9c292=2"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?colettirealestate\\.com/bien/[^/?#]+/$",
+  "require_monaco": true,
+  "render": false,
+  "overrides": {
+   "price": ".elementor-element-60fa02d .elementor-heading-title",
+   "quarter": ".elementor-element-cc5c8ef .elementor-heading-title",
+   "living": ".elementor-element-d712468 .elementor-icon-list-text:-soup-contains('sqm')",
+   "rooms": ".elementor-element-d712468 .elementor-icon-list-text:-soup-contains('Room')",
+   "bedrooms": ".elementor-element-d712468 .elementor-icon-list-text:-soup-contains('Bedroom')",
+   "bathrooms": ".elementor-element-d712468 .elementor-icon-list-text:-soup-contains('Bathroom')"
+  }
+ },
+ {
+  "site_key": "web-continentale-mc",
+  "agency": "Agence Continentale",
+  "website": "https://continentale.mc/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://continentale.mc/bien_a/acheter/"
+   ],
+   "rent": [
+    "https://continentale.mc/bien_a/louer/"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?continentale\\.mc/bien_immobilier/[a-z0-9][^/?#]*-ref[^/?#]+/?$",
+  "require_monaco": true,
+  "render": false,
+  "overrides": {
+   "living": ".elementor-element-5e4faf8",
+   "rooms": ".elementor-element-c77da74",
+   "bedrooms": ".elementor-element-739df05",
+   "bathrooms": ".elementor-element-3e24fdf"
+  }
+ },
+ {
+  "site_key": "web-cote-investissement-mc",
+  "agency": "Cote investissement",
+  "website": "https://www.cote-investissement.mc/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.cote-investissement.mc/index.php?page=liste&search=Vente"
+   ],
+   "rent": [
+    "https://www.cote-investissement.mc/index.php?page=liste&search=Location"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?cote-investissement\\.mc/(?:index\\.php)?\\?page=(?:liste&step2=)?detail&(?:step2=|produit=)[0-9A-Fa-f-]{36}(?:&type=(?:Vente|Location))?$",
+  "overrides": {
+   "title": ".property-overview h4.listing-title",
+   "price": ".property-overview .listing-price",
+   "quarter": ".property-overview .listing-location"
+  },
+  "note": "13 listings (7 sale/6 rent). Template has placeholder 'Plans: Intérieur [78m2]' on every page, so listings without a Surface label (parkings) get living_area_sqm=78 from the m² text fallback. agent_name picks 'Jardin Exotique' (not a person)."
+ },
+ {
+  "site_key": "web-cote-mc",
+  "agency": "Cote investissement",
+  "website": "https://www.cote.mc/",
+  "status": "no_listings",
+  "note": "duplicate of web-cote-investissement-mc: www.cote.mc redirects to www.cote-investissement.mc (same agency, same listings)"
  },
  {
   "site_key": "web-dotta-mc",
@@ -48,37 +627,11 @@
   "listing_pattern": "^https?://(?:www\\.)?dotta\\.mc/monaco/(?:vente|location)/[a-z]{1,4}\\d+/[^/?#]+/?$"
  },
  {
-  "site_key": "web-intermedia-mc",
-  "agency": "Intermedia",
-  "website": "https://www.intermedia.mc/",
-  "status": "verified",
-  "runner": "server",
-  "index_urls": {
-   "sale": [
-    "https://www.intermedia.mc/vente-appartement,maison-monaco.html",
-    "https://www.intermedia.mc/autres+biens-monaco.html"
-   ],
-   "rent": [
-    "https://www.intermedia.mc/location+vacances,location-appartement,maison-monaco.html"
-   ]
-  },
-  "listing_pattern": "^https?://(?:www\\.)?intermedia\\.mc/(?:vente|location)[^/?#]*-\\d+v\\d+a\\.html$"
- },
- {
-  "site_key": "web-afim-mc",
-  "agency": "AFIM SAM",
-  "website": "https://www.afim.mc/",
-  "status": "verified",
-  "runner": "server",
-  "index_urls": {
-   "sale": [
-    "https://www.afim.mc/vente-appartement.html"
-   ],
-   "rent": [
-    "https://www.afim.mc/location-appartement.html"
-   ]
-  },
-  "listing_pattern": "^https?://(?:www\\.)?afim\\.mc/(?:vente|location)[^/?#]*-\\d+v\\d+a\\.html$"
+  "site_key": "web-edenagency-mc",
+  "agency": "Eden Agency",
+  "website": "https://www.edenagency.mc/",
+  "status": "no_listings",
+  "note": "ImmoToolBox/ZebraSoft site currently shows 'Produits à la vente (0)' and 'Produits à la location (0)'; sitemapproperties-fr.xml is empty. No listings online today; revisit later (detail URL shape unknown)."
  },
  {
   "site_key": "web-eticimmobilier-com",
@@ -97,20 +650,73 @@
   "listing_pattern": "^https?://(?:www\\.)?eticimmobilier\\.com/monaco\\+98\\+[^/?#]*\\+r\\d+\\.html(?:\\?.*)?$"
  },
  {
-  "site_key": "web-homesmontecarlo-com",
-  "agency": "HOMES Sandro Piras Real Estate",
-  "website": "https://www.homesmontecarlo.com/",
+  "site_key": "web-festainvestments-com",
+  "agency": "Festa Real Estate",
+  "website": "https://www.festainvestments.com/",
+  "status": "no_listings",
+  "note": "Domain parked: redirects to /lander -> GoDaddy 'for sale' page. Dead site."
+ },
+ {
+  "site_key": "web-findr-mc",
+  "agency": "Findr. by Interalia",
+  "website": "https://findr.mc/",
   "status": "verified",
   "runner": "server",
   "index_urls": {
    "sale": [
-    "https://www.homesmontecarlo.com/our-properties-for-sale/"
+    "https://findr.mc/properties/for-sale"
    ],
    "rent": [
-    "https://www.homesmontecarlo.com/our-properties-for-rent/"
+    "https://findr.mc/properties/for-rent"
    ]
   },
-  "listing_pattern": "^https?://(?:www\\.)?homesmontecarlo\\.com/property/\\d{4,}-[^/?#]+/?$"
+  "listing_pattern": "^https?://(?:www\\.)?findr\\.mc/properties/for-(?:sale|rent)/[^/?#]+/?$",
+  "render": false,
+  "overrides": {
+   "title": ".property-info-panel h1",
+   "quarter": ".property-info-panel .location span",
+   "price": ".property-info-panel .price",
+   "living": ".specifications .detail:has(i.fa-arrows-v) .bottom-line",
+   "bedrooms": ".specifications .detail:has(i.fa-bed) .bottom-line",
+   "bathrooms": ".specifications .detail:has(i.fa-bath) .bottom-line",
+   "description": ".property-info-panel .description p"
+  }
+ },
+ {
+  "site_key": "web-fpmc-agency-com",
+  "agency": "Fine Properties Monte Carlo",
+  "website": "https://www.fpmc-agency.com/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.fpmc-agency.com/unites?search_type%5B%5D=0&city%5B%5D=1"
+   ],
+   "rent": [
+    "https://www.fpmc-agency.com/unites?search_type%5B%5D=1&city%5B%5D=1"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?fpmc-agency\\.com/unites/[a-z0-9]+(?:-[a-z0-9]+)*/?$",
+  "overrides": {
+   "living": "div:has(> label:-soup-contains('Intérieur')) > div"
+  },
+  "note": "Index filtered to Monaco (city[]=1); detail pages carry no district, so quarter falls back to the unit name. 2 sale / 0 rent on site."
+ },
+ {
+  "site_key": "web-gramaglia-mc",
+  "agency": "Agence Gramaglia",
+  "website": "https://www.gramaglia.mc/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.gramaglia.mc/fr/ventes/"
+   ],
+   "rent": [
+    "https://www.gramaglia.mc/fr/locations/"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?gramaglia\\.mc/fr/produit/\\d{4,}-[^/?#]+/?$"
  },
  {
   "site_key": "web-groupesmir-com",
@@ -127,5 +733,731 @@
    ]
   },
   "listing_pattern": "^https?://(?:www\\.)?groupesmir\\.com/fr/detail/(?:sale|rent|location)/[A-Za-z0-9]{10,}$"
+ },
+ {
+  "site_key": "web-hammerdraff-com",
+  "agency": "Hammer Draff",
+  "website": "https://www.hammerdraff.com/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.hammerdraff.com/properties-sale-monaco"
+   ],
+   "rent": [
+    "https://www.hammerdraff.com/properties-rent-monaco"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?hammerdraff\\.com/(?:sale|rent)-result\\.php\\?ref=[a-z]{2}\\d-\\d+.*$",
+  "require_monaco": true,
+  "render": false,
+  "overrides": {
+   "title": ".property-title h3",
+   "price": ".property-price span",
+   "reference": ".single-property p:-soup-contains('REF:') span",
+   "transaction": ".property-price p"
+  }
+ },
+ {
+  "site_key": "web-harrochrealestate-com",
+  "agency": "Harroch Real Estate Monaco",
+  "website": "https://www.harrochrealestate.com/",
+  "status": "no_listings",
+  "note": "duplicate of web-harrochrealestate-mc (www.harrochrealestate.com redirects to www.harrochrealestate.mc)"
+ },
+ {
+  "site_key": "web-heritageproperties-mc",
+  "agency": "Heritage Properties",
+  "website": "https://www.heritageproperties.mc/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.heritageproperties.mc/fr/recherche/achat/grid"
+   ],
+   "rent": [
+    "https://www.heritageproperties.mc/fr/recherche/location/grid"
+   ]
+  },
+  "index_source": "sitemap",
+  "listing_pattern": "^https?://(?:www\\.)?heritageproperties\\.mc/fr/a_(?:vendre|louer)/HP-[A-Za-z0-9_-]+/[^/?]+$",
+  "require_monaco": true,
+  "render": false,
+  "overrides": {
+   "bedrooms": "p:-soup-contains('Chambre(s)')",
+   "floor": "p:-soup-contains('Étage :')",
+   "reference": "p#ref",
+   "living": "p#surface",
+   "rooms": "p#pieces"
+  }
+ },
+ {
+  "site_key": "web-homesmontecarlo-com",
+  "agency": "HOMES Sandro Piras Real Estate",
+  "website": "https://www.homesmontecarlo.com/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.homesmontecarlo.com/our-properties-for-sale/"
+   ],
+   "rent": [
+    "https://www.homesmontecarlo.com/our-properties-for-rent/"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?homesmontecarlo\\.com/property/\\d{4,}-[^/?#]+/?$"
+ },
+ {
+  "site_key": "web-houseandco-mc",
+  "agency": "House & Co.",
+  "website": "https://houseandco.mc/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://houseandco.mc/ventes/monaco/"
+   ],
+   "rent": [
+    "https://houseandco.mc/location/monaco/"
+   ]
+  },
+  "listing_pattern": "^https?://houseandco\\.mc/apimo/[^/?#]+/?$",
+  "render": false,
+  "overrides": {
+   "title": ".content__banner--apimo h1",
+   "quarter": ".content__banner--apimo h3",
+   "price": ".price__apimo h4",
+   "living": ".details__biens .cubic p",
+   "rooms": ".details__biens .pieces p",
+   "bedrooms": ".details__biens .chambres p"
+  },
+  "note": "Config otherwise works (index 43: 38 sale + 5 rent, ?paged=N pagination; overrides give correct title/price/size/rooms/quarter). Blocker: detail pages end with a 'Ces biens pourraient aussi vous intéresser' block (div.section__selection--biens) that generic.NOISE does not match, so its rentals' '€ / mois' text makes transaction_from() return 'rent' for SALE listings (e.g. 4,700,000 tagged rent), and it leaks ~40 foreign photos plus sizes (cave got 69 m²). Fix: add 'selection--biens' (or 'selection') to NOISE in scraper/generic.py, or let the index transaction_hint win over the text '/mois' heuristic. Verified with NOISE patched: sale/rent correct, photos 3-11, sizes correct.",
+  "remove": [
+   "div.section__selection--biens"
+  ]
+ },
+ {
+  "site_key": "web-immosoft-mc",
+  "agency": "ImmoSoft",
+  "website": "https://www.immosoft.mc/",
+  "status": "no_listings",
+  "note": "Not an agency: ImmoSoft is the software vendor (ImmoToolBox / montecarlo-realestate.com). Homepage only links to those products; no listings."
+ },
+ {
+  "site_key": "web-intermedia-mc",
+  "agency": "Intermedia",
+  "website": "https://www.intermedia.mc/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.intermedia.mc/vente-appartement,maison-monaco.html",
+    "https://www.intermedia.mc/autres+biens-monaco.html"
+   ],
+   "rent": [
+    "https://www.intermedia.mc/location+vacances,location-appartement,maison-monaco.html"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?intermedia\\.mc/(?:vente|location)[^?#]*-\\d+[vl]\\d+a\\.html$",
+  "note": "audit: living area read 'Surface terrasse' instead of the flat's m2 (override from h2 title); rent price misparsed (2 230 €/mois -> 22230), override from .offer-description-price-main; rent listings (…-1029l3a.html, some with '/' in slug) were not matched by listing_pattern",
+  "overrides": {
+   "living": "h2.offer-description-title",
+   "price": ".offer-description-price-main span"
+  }
+ },
+ {
+  "site_key": "web-izadora-group-com",
+  "agency": "Izadora Realty",
+  "website": "https://www.izadora-group.com/",
+  "status": "no_listings",
+  "note": "Off-market advisory: /realty page is a brochure (services + contacts), only a login-gated 'Private Area'; no public listings."
+ },
+ {
+  "site_key": "web-jvpastor-realestate-com",
+  "agency": "JV PASTOR REAL ESTATE",
+  "website": "https://www.jvpastor-realestate.com/",
+  "status": "no_listings",
+  "note": "One-page Elementor brochure site (about/zones/services/team anchors); explicitly off-market/confidential, no listing pages online."
+ },
+ {
+  "site_key": "web-knightfrank-com",
+  "agency": "Knight Frank Monaco",
+  "website": "https://www.knightfrank.com/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.knightfrank.com/properties/residential/for-sale/monaco/all-types/all-beds"
+   ],
+   "rent": [
+    "https://www.knightfrank.com/properties/residential/to-let/monaco/all-types/all-beds"
+   ]
+  },
+  "listing_pattern": "^https?://www\\.knightfrank\\.com/properties/residential/(?:for-sale|to-let)/[a-z0-9-]+/[a-z]{3}\\d{6,}/?$",
+  "render": true,
+  "overrides": {
+   "price": ".pdp-top-price .main-price-wrapper .price",
+   "quarter": "property-title h1"
+  }
+ },
+ {
+  "site_key": "web-kretzrealestate-com",
+  "agency": "Kretz Family Real Estate",
+  "website": "https://kretzrealestate.com/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://kretzrealestate.com/fr/monaco/"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?kretzrealestate\\.com/fr/annonce/kp\\d-[0-9a-z]+/[a-z]+/?$",
+  "note": "audit: index was the worldwide /fr/acheter/ (109 pages, France villas only matched by a /villa/-only pattern, Monaco apartments missed); now /fr/monaco/ (7 Monaco listings) and pattern accepts every property type. No Monaco rentals online. Remaining: photos=1 (gallery not in HTML even rendered); kp1-1187 shows 'Prix confidentiel' on page but JSON-LD carries a price"
+ },
+ {
+  "site_key": "web-lamonegasqueimmobilier-mc",
+  "agency": "La Monégasque Immobilier",
+  "website": "https://lamonegasqueimmobilier.mc/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://lamonegasqueimmobilier.mc/fr/ventes/grid"
+   ],
+   "rent": [
+    "https://lamonegasqueimmobilier.mc/fr/locations/grid"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?lamonegasqueimmobilier\\.mc/fr/bien/\\d{3,}/[a-z0-9-]+/?$",
+  "note": "audit: listing_pattern required 4+ slug words and missed short slugs (chateau-amiral-studio, l-exotique-4p, bureau-fontvieille): 12 -> 15 listings. Parking-only listings are dropped by the gate (no size)."
+ },
+ {
+  "site_key": "web-lbmc-properties-com",
+  "agency": "LBMC Properties",
+  "website": "https://www.lbmc-properties.com/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.lbmc-properties.com/properties/sale"
+   ],
+   "rent": [
+    "https://www.lbmc-properties.com/properties/rental"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?lbmc\\-properties\\.com/property/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "overrides": {
+   "rooms": "#property-characteristics span.text-foreground:-soup-contains(\"Room\"), span:-soup-contains(\"District\") + h2",
+   "bedrooms": "#property-characteristics span.text-foreground:-soup-contains(\"Bedroom\"), span:-soup-contains(\"District\") + h2",
+   "living": "#property-characteristics span.text-foreground",
+   "floor": "#property-characteristics span.text-foreground:-soup-contains(\"Floor\"), span:-soup-contains(\"District\") + h2",
+   "quarter": "span:-soup-contains(\"District\") + h2"
+  },
+  "remove": [
+   "section:has(h2:-soup-contains(\"Other\"))"
+  ],
+  "note": "audit: rooms/bedrooms/floor leaked from the 'Other properties' carousel (premises got rooms=2/3, rooftop rooms=1); now remove that section and read rooms/bedrooms/floor from #property-characteristics (a miss falls back to the district h2, which has no number); quarter from the District block (was the title). Still needs code: (1) server sends 'text/html' without charset so requests decodes UTF-8 as latin-1 (CarrÃ© dâ€™Or in titles/quarters); (2) JSON-LD has 1 image so parse_detail adds every jpg found in the page's JS blob (other listings, all size variants) -> photos=60 instead of the ~5-20 gallery photos."
+ },
+ {
+  "site_key": "web-lifeproperties-mc",
+  "agency": "LIFE PROPERTIES",
+  "website": "https://www.lifeproperties.mc/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.lifeproperties.mc/properties"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?lifeproperties\\.mc/properties/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "overrides": {
+   "transaction": ".property-lable",
+   "rooms": "div.flex-3:-soup-contains(\"rooms\") > div:nth-child(1)",
+   "bedrooms": "div.flex-3:-soup-contains(\"rooms\") > div:nth-child(4)",
+   "quarter": "#Location"
+  },
+  "note": "audit: the ?category= filter is client-side (both index URLs return the same 28 cards), so every rental was tagged 'sale' (Monator 10 000 EUR/month stored as a sale). Single index /properties + overrides.transaction from the .property-lable badge (sale/rental). Rooms/bedrooms from the Configuration block (were missing), quarter from #Location (was the title)."
+ },
+ {
+  "site_key": "web-livein-mc",
+  "agency": "Livein Monaco",
+  "website": "https://www.livein.mc/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.livein.mc/fr/vente"
+   ],
+   "rent": [
+    "https://www.livein.mc/fr/location"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?livein\\.mc/fr/(?:vente|location)/[a-z-]+/monaco/\\d{3,}/?$",
+  "overrides": {
+   "title": "h1"
+  },
+  "note": "audit: pattern only matched /appartement/monaco/ (villas, offices, shops missed): 355 -> 500 listings; title was the SEO <title> ('Vente Appartement ... #ref | Livein.mc'), now the h1 with the listing's own headline. Note: livein.mc is a multi-agency portal (detail pages credit e.g. DAMENO), so these listings duplicate other agencies' sites."
+ },
+ {
+  "site_key": "web-lofrealestate-com",
+  "agency": "López de la Osa & Franco Real Estate",
+  "website": "https://www.lofrealestate.com/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.lofrealestate.com/fr/ventes"
+   ],
+   "rent": [
+    "https://www.lofrealestate.com/fr/locations"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?lofrealestate\\.com/fr/produit-(?:vente|location)/\\d{4,}-[^/?#]+/?$",
+  "render": false
+ },
+ {
+  "site_key": "web-magreymonaco-com",
+  "agency": "Magrey And Sons Monaco",
+  "website": "https://www.magreymonaco.com/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.magreymonaco.com/listing.php?id=53&page=1",
+    "https://www.magreymonaco.com/listing.php?id=53&page=2",
+    "https://www.magreymonaco.com/listing.php?id=53&page=3",
+    "https://www.magreymonaco.com/listing.php?id=53&page=4",
+    "https://www.magreymonaco.com/listing.php?id=53&page=5"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?magreymonaco\\.com/(?:sale|rental)-[a-z-]+-a\\d+\\.html$",
+  "require_monaco": true,
+  "render": false
+ },
+ {
+  "site_key": "web-mazza-immobilier-com",
+  "agency": "Mazza Immobilier",
+  "website": "https://mazza-immobilier.com/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://mazza-immobilier.com/fr/ventes"
+   ],
+   "rent": [
+    "https://mazza-immobilier.com/fr/locations"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?mazza\\-immobilier\\.com/fr/propri%C3%A9t%C3%A9/\\d{3,}/?(?:[?#].*)?$)",
+  "require_monaco": true,
+  "overrides": {
+   "quarter": "h2.title"
+  },
+  "note": "audit: France listings leaked (e.g. 87341577 'à Éze' was KEPT: OUTSIDE regex misses 'Éze'; also Beausoleil/Nice cards). Added require_monaco with quarter from h2.title ('<type> <city>', the only place the city is stated) so Monaco listings whose text never says Monaco (Rue Plati) stay kept. Otherwise fields correct; site gives no district."
+ },
+ {
+  "site_key": "web-mcprivilege-immobilier-com",
+  "agency": "Monte Carlo Privilège",
+  "website": "https://www.mcprivilege-immobilier.com/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.mcprivilege-immobilier.com/sales/"
+   ],
+   "rent": [
+    "https://www.mcprivilege-immobilier.com/rentals/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?mcprivilege\\-immobilier\\.com/property/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "overrides": {
+   "quarter": "[data-tooltip=\"District\"]",
+   "building": "[data-tooltip=\"Building\"]",
+   "living": "[data-tooltip=\"Living Area\"], [data-tooltip=\"Total Area\"]",
+   "rooms": "[data-tooltip=\"Number of Rooms\"]",
+   "bedrooms": "[data-tooltip=\"Number of Bedrooms\"]",
+   "price": ".property-meta .price"
+  },
+  "note": "audit: no label was parsed on this template (bedrooms/living missing, quarter = title); overrides read the data-tooltip fields (District, Building, Living/Total Area, Number of Rooms/Bedrooms) and the .property-meta price."
+ },
+ {
+  "site_key": "web-miells-com",
+  "agency": "Miells Monaco Real Estate",
+  "website": "https://www.miells.com/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.miells.com/fr/ventes/",
+    "https://www.miells.com/fr/ventes/?sf_paged=2",
+    "https://www.miells.com/fr/ventes/?sf_paged=3",
+    "https://www.miells.com/fr/ventes/?sf_paged=4",
+    "https://www.miells.com/fr/ventes/?sf_paged=5",
+    "https://www.miells.com/fr/ventes/?sf_paged=6",
+    "https://www.miells.com/fr/ventes/?sf_paged=7",
+    "https://www.miells.com/fr/ventes/?sf_paged=8",
+    "https://www.miells.com/fr/ventes/?sf_paged=9"
+   ],
+   "rent": [
+    "https://www.miells.com/fr/locations/",
+    "https://www.miells.com/fr/locations/?sf_paged=2",
+    "https://www.miells.com/fr/locations/?sf_paged=3",
+    "https://www.miells.com/fr/locations/?sf_paged=4",
+    "https://www.miells.com/fr/locations/?sf_paged=5",
+    "https://www.miells.com/fr/locations/?sf_paged=6",
+    "https://www.miells.com/fr/locations/?sf_paged=7"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?miells\\.com/fr/(?:ventes|locations)/(?!(?:studio|2-pieces|3-pieces|4-pieces-et-plus|parking|bureaux-commerces|autres)/)[a-z0-9-]+/$",
+  "render": false,
+  "index_source": null,
+  "overrides": {
+   "price": ".infobien .prixbien",
+   "quarter": ".infobien .arrondissementbien",
+   "living": ".secondpart td:-soup-contains('Surface habitable') > span, .secondpart p:-soup-contains('Surface habitable') > span",
+   "rooms": ".secondpart p:-soup-contains('Pièce(s)') > span",
+   "bedrooms": ".secondpart p:-soup-contains('Chambre(s)') > span",
+   "floor": ".secondpart p:-soup-contains('Etage') > span",
+   "building": ".secondpart span[style*='capitalize']",
+   "reference": ".secondpart .valuimpr"
+  }
+ },
+ {
+  "site_key": "web-montecarlo-sothebysrealty-com",
+  "agency": "Monte-Carlo Sotheby's International Realty",
+  "website": "https://www.montecarlo-sothebysrealty.com/",
+  "status": "verified",
+  "runner": "server",
+  "index_source": "sitemap",
+  "listing_pattern": "^https://www\\.montecarlo-sothebysrealty\\.com/fr/immobilier-luxe-monaco/ref-[a-z0-9-]+/[a-z0-9-]+/$",
+  "render": false,
+  "overrides": {
+   "reference": "span.sous_titre.ref",
+   "description": ".ctn_description p.description"
+  }
+ },
+ {
+  "site_key": "web-montecarlotransactions-com",
+  "agency": "Monte-Carlo Transactions",
+  "website": "https://www.montecarlotransactions.com/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://montecarlotransactions.com/propertysearch/?nsearch%5Btype%5D=sale"
+   ],
+   "rent": [
+    "https://montecarlotransactions.com/propertysearch/?nsearch%5Btype%5D=rental"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?montecarlotransactions\\.com/property/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "overrides": {
+   "title": "h3.titl-bien"
+  },
+  "note": "audit: index was one rental search filed under 'sale' (the 4 rentals tagged sale, the 15 sales missing); now sale + rental searches (19 = all the site shows; no pagination). Title was None (no h1): override h3.titl-bien. Checked all 19 samples: transaction/price/size/quarter/building correct."
+ },
+ {
+  "site_key": "web-mycrownestates-mc",
+  "agency": "MyCrown Estates",
+  "website": "https://mycrownestates.mc/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://mycrownestates.mc/proprietes"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?mycrownestates\\.mc/proprietes/[^/?#]+$",
+  "render": true,
+  "overrides": {
+   "title": "[data-framer-name='Fil Ariane'] div:last-child p",
+   "price": "[data-framer-name='Price']",
+   "living": "div[data-border]:has(p:-soup-contains-own('Superf. hab')) > div:not(:has(p:-soup-contains-own('Superf. hab'))) p, div[data-border]:has(p:-soup-contains-own('Superf. totale')) > div:not(:has(p:-soup-contains-own('Superf. totale'))) p",
+   "rooms": "div[data-border]:has(p:-soup-contains-own('Nombre de pièces')) > div:not(:has(p:-soup-contains-own('Nombre de pièces'))) p, [data-framer-name='Email']",
+   "bedrooms": "div[data-border]:has(p:-soup-contains-own('Chambres')) > div:not(:has(p:-soup-contains-own('Chambres'))) p, [data-framer-name='Email']",
+   "reference": "div[data-border]:has(p:-soup-contains-own('Réf')) > div:not(:has(p:-soup-contains-own('Réf'))) p",
+   "floor": "div[data-border]:has(p:-soup-contains-own('Etages')) > div:not(:has(p:-soup-contains-own('Etages'))) p",
+   "building": "div[data-border]:has(p:-soup-contains-own('Immeuble')) > div:not(:has(p:-soup-contains-own('Immeuble'))) p",
+   "transaction": "div[data-border]:has(p:-soup-contains-own('Type de transaction')) > div:not(:has(p:-soup-contains-own('Type de transaction'))) p"
+  }
+ },
+ {
+  "site_key": "web-oneproperties-mc",
+  "agency": "One Properties",
+  "website": "https://www.oneproperties.mc/",
+  "status": "no_listings",
+  "note": "Site is a single splash image linking to mailto:contact@oneproperties.mc; no listings online."
+ },
+ {
+  "site_key": "web-pacificagency-mc",
+  "agency": "Pacific Agency",
+  "website": "https://www.pacificagency.mc/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://pacificagency.mc/vente/"
+   ],
+   "rent": [
+    "https://pacificagency.mc/location/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?pacificagency\\.mc/property\\-details/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "overrides": {
+   "title": "main h3"
+  },
+  "note": "audit: title was the site title 'Détail du bien - PacificAgency' (page has no h1); now the 'Monaco / Appartement / N pièces' h3 (also gives rooms; studio -> 1). The blockquote teaser was rejected as title: it can say 'loué jusqu'au…' and trip the sold/rented filter. Still needs code: Immeuble/Quartier/Chambres are '<br>'-separated lines inside one <p>, which label_pairs cannot split, so quarter/building/bedrooms stay empty."
+ },
+ {
+  "site_key": "web-palmero-mc",
+  "agency": "Cabinet P. Palmero",
+  "website": "https://www.palmero.mc/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://palmero.mc/categorie-produit/ventes/"
+   ],
+   "rent": [
+    "https://palmero.mc/categorie-produit/locations/",
+    "https://palmero.mc/categorie-produit/meubles/"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?palmero\\.mc/produit/[a-z0-9-]+/?$",
+  "render": false,
+  "note": "Small WooCommerce inventory (2 sale, 2 rent, 4 furnished Fairmont rentals). Caveat: product wrapper div has class 'no-share share-simple' which generic NOISE regex ('share') decomposes, so h1/summary overrides can't apply; Fairmont titles fall back to JSON-LD name ('... - Cabinet P.Palmero') and photo list includes thumbnail sizes/logos. Fairmont-2/-3 dropped (no size on page)."
+ },
+ {
+  "site_key": "web-panorama-mc",
+  "agency": "Panorama Properties",
+  "website": "https://www.panorama.mc/",
+  "status": "no_listings",
+  "note": "Domain redirects to panorama.mc/website-not-found (Apimo 'Website not found' 404 page); site is dead."
+ },
+ {
+  "site_key": "web-pastor-reiss-com",
+  "agency": "Pastor & Reiss",
+  "website": "https://www.pastor-reiss.com/",
+  "status": "no_listings",
+  "note": "Every URL (homepage, sitemap.xml, old /properties/... detail URLs) 302-redirects to https://www.pastor-reiss.com/comingsoon/ : 'Our website is under construction ... contact us using the form below'. No listings online on the agency site (checked 2026-10-01)."
+ },
+ {
+  "site_key": "web-petrini-mc",
+  "agency": "Petrini Exclusive Real Estate Monaco",
+  "website": "https://www.petrini.mc/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.petrini.mc/fr/ventes/monaco/"
+   ],
+   "rent": [
+    "https://www.petrini.mc/fr/locations/monaco/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?petrini\\.mc/fr/produit\\-vente/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?petrini\\.mc/fr/produit\\-location/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "remove": [
+   "#similaires"
+  ],
+  "overrides": {
+   "price": ".property-price-elegant"
+  },
+  "note": "audit: 'Prix sur demande' rentals took the Charges amount as price (Cimabue studio rent=680 = charges); price now read from .property-price-elegant. Off-market pages have almost no own content, so the 'Produits similaires' block (>40% of text, skipped by NOISE) leaked another listing's price/size/bedrooms (Jardins d'Eau got 75 000 000 EUR / 528 m2): remove #similaires. Code nit: when price_text is 'sur demande' but a stray amount was found, output has price=None and price_on_request=False."
+ },
+ {
+  "site_key": "web-phoenix-mc",
+  "agency": "Phoenix Properties",
+  "website": "https://www.phoenix.mc/",
+  "status": "no_listings",
+  "note": "Wrong website: phoenix.mc is 'Phoenix Consulting Monaco' (compliance/risk consulting, trainings), no real-estate listings. Real site for Phoenix Properties unknown."
+ },
+ {
+  "site_key": "web-pirasimmobilier-com",
+  "agency": "Piras Immobilier",
+  "website": "https://www.pirasimmobilier.com/",
+  "runner": "server",
+  "status": "verified",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.pirasimmobilier.com/fr/ventes"
+   ],
+   "rent": [
+    "https://www.pirasimmobilier.com/fr/locations"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?pirasimmobilier\\.com/fr/propriete/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)",
+  "remove": [
+   ".module-similar",
+   ".module-selection"
+  ],
+  "overrides": {
+   "title": "h1",
+   "price": ".module-property-info .price"
+  },
+  "note": "audit: title was the SEO <title> with site suffix ('Annonce Vente Trocadero - Monaco | PIRAS IMMOBILIER'), now h1 ('<building> - <district>'); 'Prix sur demande' listings took a price from the 'Découvrez également'/selection sliders (Jardins d'Eau rent = 63 000 000) and building_name leaked from them: remove .module-similar/.module-selection, price from .module-property-info .price."
+ },
+ {
+  "site_key": "web-pp-mc-com",
+  "agency": "PREMIUM PROPERTIES MC",
+  "website": "https://premiumpropertiesmc.com/fr/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://premiumpropertiesmc.com/fr/ventes"
+   ],
+   "rent": [
+    "https://premiumpropertiesmc.com/fr/locations"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?premiumpropertiesmc\\.com/fr/propriete/(?:vente|location)\\+[^+/?#]+\\+monaco\\+[^/?#]+\\+\\d+$",
+  "render": false,
+  "overrides": {
+   "title": ".variation-long_info_property h2.title",
+   "price": ".variation-mira_slider_property_info li.price",
+   "living": ".variation-mira_slider_property_info li.area",
+   "rooms": ".variation-mira_slider_property_info li.bedrooms:has(i.mdi-selection)",
+   "bedrooms": ".variation-mira_slider_property_info li.bedrooms:has(i.mdi-seat-individual-suite)",
+   "quarter": ".variation-property_info_top h3.title"
+  }
+ },
+ {
+  "site_key": "web-prime-estate-mc",
+  "agency": "PRIME Estate",
+  "website": "https://prime-estate.mc/",
+  "status": "no_listings",
+  "note": "duplicate of web-prime-mc (prime-estate.mc redirects to https://prime.mc/prime-estate/; listings at prime.mc/sales/ and /rentals/)"
+ },
+ {
+  "site_key": "web-properties-lefigaro-com",
+  "agency": "Le Figaro Properties",
+  "website": "https://properties.lefigaro.com/",
+  "status": "no_listings",
+  "note": "National/international portal (Le Figaro Properties), not a Monaco agency; no agency-specific Monaco listing page. Monaco listings there are other agencies' ads already covered by their own sites/CIM/MCRE."
+ },
+ {
+  "site_key": "web-quantum-mc",
+  "agency": "Quantum Properties",
+  "website": "https://www.quantum.mc/",
+  "status": "no_listings",
+  "note": "Domain quantum.mc is now a spam e-commerce shop (toys/diecast/Pokemon products). No real-estate content; agency site is gone."
+ },
+ {
+  "site_key": "web-realestatemontecarlo-mc",
+  "agency": "Real Estate Monte Carlo",
+  "website": "https://www.realestatemontecarlo.mc/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.realestatemontecarlo.mc/fr/offers?sell=true"
+   ],
+   "rent": [
+    "https://www.realestatemontecarlo.mc/fr/offers?rent=true"
+   ]
+  },
+  "listing_pattern": "^https?://www\\.realestatemontecarlo\\.mc/fr/offers/[a-z0-9-]+-remc-\\d+$",
+  "remove": [
+   "section.homepage-selection"
+  ],
+  "overrides": {
+   "price": "div.h1.opensans",
+   "transaction": "div.cardoffer-sellorrent"
+  }
+ },
+ {
+  "site_key": "web-regalestates-mc",
+  "agency": "Regal Estates Monaco",
+  "website": "https://regalestates.mc/",
+  "status": "no_listings",
+  "note": "Off-market agency (Framer site). /properties shows only 3 teaser pages: 'Off-Market Property on Mareterra' and 'Off-Market Property - La Petite Afrique' (building descriptions, no price, no size, no rooms, 'Request the Brochure') and 'Exclusive Villa Eze-sur-Mer' (France). /26carreor is passcode-protected. Nothing that passes the listing gate."
+ },
+ {
+  "site_key": "web-rocagency-com",
+  "agency": "Roc Agency",
+  "website": "https://www.rocagency.com/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.rocagency.com/fr/ventes-proprietes-a-vendre",
+    "https://www.rocagency.com/fr/commerces-fonds-locaux-commerciaux"
+   ],
+   "rent": [
+    "https://www.rocagency.com/fr/locations-appartements-a-louer"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?rocagency\\.com/fr/(?!(?:ventes-proprietes-a-vendre|locations-appartements-a-louer|commerces-fonds-locaux-commerciaux|agents-immobiliers|vivre-a-monaco|contact|mentions-legales|politique-de-confidentialite)$)[a-z0-9]+(?:-[a-z0-9]+)+$",
+  "render": false,
+  "overrides": {
+   "quarter": "h1"
+  }
+ },
+ {
+  "site_key": "web-savills-mc",
+  "agency": "Savills Monaco Real Estate",
+  "website": "https://www.savills.mc/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://search.savills.com/mc/fr/liste/bien-immobilier-a-vendre/monaco/"
+   ],
+   "rent": [
+    "https://search.savills.com/mc/fr/liste/bien-immobilier-a-louer/monaco/"
+   ]
+  },
+  "listing_pattern": "^https?://search\\.savills\\.com/mc/fr/bien-immobilier-details/gbrvmomno\\d{5,}[a-z]?/?$",
+  "render": false,
+  "note": "Listings live on Savills group portal search.savills.com (server-rendered, all on one page: 13 sale + 1 rent). Pattern limited to gbrvmomno* (Savills Monaco office) because the Monaco search also shows Savills Beaulieu's Beausoleil (France) listings (gbbesmbsm*). Bedrooms/bathrooms sit in .sv-property-intro-footer which generic NOISE ('footer') strips, and h1 is inside <header>: bedrooms mostly missing (they are in page JSON 'Bedrooms':N). Title = street address (that is Savills' listing title). Listings on 'Boulevard D'Italie' get dropped by OUTSIDE regex ('Italie')."
+ },
+ {
+  "site_key": "web-soma-monaco-com",
+  "agency": "Soma International Realty",
+  "website": "https://soma-monaco.com/",
+  "status": "no_listings",
+  "note": "Domain is parked: homepage only JS-redirects to /lander (domain-parking page); no agency site."
+ },
+ {
+  "site_key": "web-universalmonaco-com",
+  "agency": "Universal Office",
+  "website": "http://www.universalmonaco.com/",
+  "status": "no_listings",
+  "note": "Plesk 'Web Server's Default Page' ('no Web site at this address'); no site online."
+ },
+ {
+  "site_key": "web-wentz-mc",
+  "agency": "J&K Wentz Real Estate Monaco",
+  "website": "http://www.wentz.mc/",
+  "status": "no_listings",
+  "note": "Broken WordPress site: only the homepage loads (shows a single stale rental teaser '2 pieces 86 m2 6.000 EUR/mois' + 2020 COVID post). Every other URL incl. menu links /vente/, /location/, /nos-produits/*, the teaser's detail /properties/443/ and sitemap.xml return Apache 404; WP REST exposes no property post type."
+ },
+ {
+  "site_key": "web-westrope-monaco-com",
+  "agency": "Westrope Real Estate",
+  "website": "https://www.westrope-monaco.com/",
+  "status": "verified",
+  "runner": "server",
+  "index_urls": {
+   "sale": [
+    "https://www.westrope-monaco.com/index.php?page=liste&type=vente"
+   ],
+   "rent": [
+    "https://www.westrope-monaco.com/index.php?page=liste&type=location"
+   ]
+  },
+  "listing_pattern": "^https?://(?:www\\.)?westrope-monaco\\.com/index\\.php\\?page=liste&step2=detail&produit=[0-9A-Fa-f-]{36}$"
  }
 ]

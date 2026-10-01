@@ -1075,6 +1075,26 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
   }
 
   // POST /sync/buildings {buildings:[{name, aliases?, quarter?, address?, lat?, lng?}]} — gazetteer upsert.
+  // POST /sync/sites/:key/retire {reason} — a site found to be the wrong
+  // website or to carry no Monaco listings: its live listings are removed
+  // now (it will never run again to remove them the normal way).
+  const retireMatch = path.match(/^\/sync\/sites\/([a-z0-9_-]+)\/retire$/)
+  if (retireMatch && req.method === 'POST') {
+    const { reason } = await req.json<{ reason?: string }>()
+    const { results } = await ctx.db.prepare(
+      'SELECT id, property_id FROM property_sources WHERE site_key = ? AND removed_at IS NULL'
+    ).bind(retireMatch[1]).all<{ id: string; property_id: string }>()
+    const touched = new Set<string>()
+    for (const s of results || []) {
+      await ctx.db.prepare('UPDATE property_sources SET removed_at = ?, is_off_market = 1 WHERE id = ?').bind(ctx.now, s.id).run()
+      await ctx.db.prepare(`UPDATE review_queue SET status = 'rejected', decided_at = ? WHERE source_id = ? AND status = 'pending'`).bind(ctx.now, s.id).run()
+      await ctx.event('removed', s.id, s.property_id, retireMatch[1], null, { retired: str(reason) ?? 'site retired' })
+      touched.add(s.property_id)
+    }
+    for (const pid of touched) await refreshParent(ctx, pid, null)
+    return respond({ site_key: retireMatch[1], removed: results?.length ?? 0 })
+  }
+
   // POST /sync/phashes {items: [{source_id, phashes: [hex, ...]}]} — gallery
   // fingerprints computed outside a listing push (sync/photo_review.py).
   if (path === '/sync/phashes' && req.method === 'POST') {

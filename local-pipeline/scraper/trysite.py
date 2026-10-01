@@ -46,7 +46,7 @@ def main() -> None:
         from scraper.browser import BrowserFetcher
         f = BrowserFetcher(delay=(1, 2))
     else:
-        f = PoliteFetcher(delay=(1, 2), block_wait=5, retries=1)
+        f = PoliteFetcher(delay=(1, 2), block_wait=5, retries=1, accept_404=bool(cfg.get("accept_404")))
     try:
         cards = generic.crawl_index(f, cfg)
         from scraper.autoconfig import OUTSIDE

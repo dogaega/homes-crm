@@ -97,7 +97,7 @@ def web_site(client, mode: str, cfg: dict, agency: dict) -> dict:
         from scraper.browser import BrowserFetcher
         f = BrowserFetcher()
     else:
-        f = PoliteFetcher()
+        f = PoliteFetcher(accept_404=bool(cfg.get("accept_404")))
     hints: dict[str, str] = {}
 
     def index() -> list[dict]:

@@ -14,7 +14,8 @@ Config per site:
    "runner": "server" | "local", "max_pages": 60,
    "overrides": {"<field>": "<css selector>"},     # optional bespoke fixes
    "remove": ["<css selector>", ...],              # optional: blocks that are not the listing
-   "transaction": "sale" | "rent"}                 # optional: single-type sites
+   "transaction": "sale" | "rent",                 # optional: single-type sites
+   "accept_404": true}                             # optional: site serves real pages with status 404
 """
 
 from __future__ import annotations
