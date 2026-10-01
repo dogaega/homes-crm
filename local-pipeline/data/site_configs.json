@@ -1093,10 +1093,16 @@
   "agency": "La Costa Properties Monaco",
   "website": "https://www.25lcp.com/",
   "runner": "local",
-  "status": "unreachable",
+  "status": "no_listing_links",
   "immotoolbox": false,
-  "error": "https://www.25lcp.com/: HTTP 202",
-  "render": true
+  "index_urls": {
+   "sale": [
+    "https://www.25lcp.com/en/sales/"
+   ],
+   "rent": [
+    "https://www.25lcp.com/en/rentals/"
+   ]
+  }
  },
  {
   "site_key": "web-marsanimmobiliermonaco-mc",
@@ -2298,10 +2304,70 @@
   "agency": "AGEPRIM",
   "website": "https://www.ageprim.com/",
   "runner": "local",
-  "status": "unreachable",
+  "status": "weak",
   "immotoolbox": false,
-  "error": "https://www.ageprim.com/: HTTP 202",
-  "render": true
+  "index_urls": {
+   "sale": [
+    "https://www.ageprim.com/sale"
+   ],
+   "rent": [
+    "https://www.ageprim.com/rental"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?ageprim\\.com/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}/{id-slug}",
+  "links_seen": 40,
+  "index_source": "sitemap",
+  "samples": [
+   {
+    "url": "https://ageprim.com/monaco-property-for-sale/office-for-sale-in-monaco-agv-1758/",
+    "hint": null,
+    "score": 5,
+    "missing": [
+     "rooms",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1758,
+     "living_area_sqm": 119.4,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": "AGV-1758",
+     "quarter": "Office for sale in Monaco",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 5
+    }
+   },
+   {
+    "url": "https://ageprim.com/monaco-property-for-sale/rare-exceptional-sea-view-apartment-for-sale-monaco-ages-1988/",
+    "hint": null,
+    "score": 6,
+    "missing": [
+     "rooms",
+     "desc"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1988,
+     "living_area_sqm": 302,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": "AGES-1988",
+     "quarter": "Rare – Exceptional Sea view apartment for sale Monaco",
+     "agent_name": "Exceptional Sea",
+     "agent_phone": null,
+     "agent_email": "",
+     "photos": 3
+    }
+   }
+  ],
+  "quality": 5
  },
  {
   "site_key": "web-monacolegendproperties-com",
@@ -2899,8 +2965,7 @@
   "runner": "local",
   "status": "unreachable",
   "immotoolbox": false,
-  "error": "https://www.revimmo.mc/: Error",
-  "render": true
+  "error": "https://www.revimmo.mc/: ConnectionError"
  },
  {
   "site_key": "web-capitalrealestate-mc",
@@ -3361,8 +3426,7 @@
   "runner": "local",
   "status": "unreachable",
   "immotoolbox": false,
-  "error": "https://elliman.mc/: HTTP 403",
-  "render": true
+  "error": "https://elliman.mc/: HTTP 403"
  },
  {
   "site_key": "web-astralproperties-mc",
@@ -3926,9 +3990,66 @@
   "agency": "PREMIUM PROPERTIES MC",
   "website": "https://www.pp-mc.com/",
   "runner": "local",
-  "status": "unreachable",
+  "status": "ok",
   "immotoolbox": false,
-  "error": "https://www.pp-mc.com/: SSLError"
+  "index_urls": {
+   "sale": [
+    "https://www.pp-mc.com/fr/ventes"
+   ],
+   "rent": [
+    "https://www.pp-mc.com/fr/locations"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?pp\\-mc\\.com/fr/propriete/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/propriete/{id-slug}",
+  "links_seen": 14,
+  "samples": [
+   {
+    "url": "https://www.pp-mc.com/fr/propriete/vente+appartement+monaco+superbe-4-5p-renove-quartier-la-rousse+85526741",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 14900000,
+     "living_area_sqm": 196,
+     "rooms": 5,
+     "bedrooms": 3,
+     "floor": null,
+     "external_ref": "PPV0115",
+     "quarter": "SUPERBE 4/5P RENOVE QUARTIER LA ROUSSE",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 33
+    }
+   },
+   {
+    "url": "https://www.pp-mc.com/fr/propriete/vente+bureau+monaco+bureaux-haut-de-gamme-a-fontvieille+83149781",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 13250000,
+     "living_area_sqm": 398,
+     "rooms": 18,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": "PPV0033",
+     "quarter": "BUREAUX HAUT DE GAMME A FONTVIEILLE",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 6
+    }
+   }
+  ],
+  "quality": 7
  },
  {
   "site_key": "web-prestigeproperties-mc",
@@ -5702,10 +5823,12 @@
   "agency": "Sogestmar SARL",
   "website": "https://www.sogestmar.mc/",
   "runner": "local",
-  "status": "unreachable",
+  "status": "no_listing_links",
   "immotoolbox": false,
-  "error": "https://www.sogestmar.mc/: HTTP 202",
-  "render": true
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
  },
  {
   "site_key": "web-lofrealestate-com",
@@ -5812,10 +5935,68 @@
   "agency": "IRIS Real Estate",
   "website": "https://www.iris.mc/",
   "runner": "local",
-  "status": "unreachable",
+  "status": "weak",
   "immotoolbox": false,
-  "error": "https://www.iris.mc/: HTTP 202",
-  "render": true
+  "index_urls": {
+   "sale": [
+    "https://iris.mc/action/sales/",
+    "https://iris.mc/fr/action/ventes/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?iris\\.mc/fr/properties/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/properties/{slug}",
+  "links_seen": 6,
+  "samples": [
+   {
+    "url": "https://iris.mc/fr/properties/parking-le-montaigne-2/",
+    "hint": "sale",
+    "score": 4,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "desc"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Carré d'or",
+     "agent_name": "Le Montaigne",
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 6
+    }
+   },
+   {
+    "url": "https://iris.mc/fr/properties/studio-les-princes/",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "area",
+     "ref"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 2290000,
+     "living_area_sqm": null,
+     "rooms": 1,
+     "bedrooms": 0,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Port",
+     "agent_name": "Les Princes",
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 21
+    }
+   }
+  ],
+  "quality": 4
  },
  {
   "site_key": "web-bertola-mc",
@@ -6343,8 +6524,7 @@
   "runner": "local",
   "status": "unreachable",
   "immotoolbox": false,
-  "error": "https://www.goldensquaremonaco.com/: HTTP 503",
-  "render": true
+  "error": "https://www.goldensquaremonaco.com/: HTTP 503"
  },
  {
   "site_key": "web-waldhof-fr",
@@ -7124,9 +7304,12 @@
   "agency": "Meridian Real Estate",
   "website": "https://www.meridian.mc/",
   "runner": "local",
-  "status": "unreachable",
+  "status": "no_listing_links",
   "immotoolbox": false,
-  "error": "https://www.meridian.mc/: HTTP 403"
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  }
  },
  {
   "site_key": "web-monaco-villas-com",
@@ -7135,7 +7318,7 @@
   "runner": "local",
   "status": "unreachable",
   "immotoolbox": false,
-  "error": "https://www.monaco-villas.com/: ConnectionError"
+  "error": "https://www.monaco-villas.com/: ConnectTimeout"
  },
  {
   "site_key": "web-phoenix-mc",

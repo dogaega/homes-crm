@@ -167,6 +167,13 @@
   "note": "index: JS pagination (/grid/2) not followed + pattern rejected accented slugs (carré, méridien) -> 24 of 43 found; explicit page URLs + looser slug; Valberg/Mougins listings excluded by slug (require_monaco useless: host contains 'monaco'); quarter from p.lieu (was title), reference from p.ref"
  },
  {
+  "site_key": "web-ageprim-com",
+  "overrides": {
+   "price": ".property-do > div:not(.ref)"
+  },
+  "note": "Mac runner (refuses server IPs). Without the price override the parser took the reference number (AGV-1325 -> 1325) as the price."
+ },
+ {
   "site_key": "web-aibb-mc",
   "agency": "A.I.B.B. Real Estate",
   "website": "https://www.aibb.mc/",

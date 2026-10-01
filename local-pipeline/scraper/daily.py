@@ -83,8 +83,9 @@ def accept(d: dict, html: str, url: str, cfg: dict) -> dict | None:
     d.setdefault("extra", {})["city"] = city or "Monaco"
     # A listing has a price (or "on request") and some size: articles,
     # category and agency pages never pass this.
+    page_text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html[:200000]))  # "PRICE <span>On Request"
     has_price = d.get("price") is not None or bool(re.search(
-        r"prix sur demande|price on request|sur demande|on application", html[:200000], re.I))
+        r"prix sur demande|price[\w :]{0,16}on request|sur demande|on application", page_text, re.I))
     # Parking spaces and cellars are real listings here, sold without a size.
     has_size = any(d.get(k) is not None for k in ("living_area_sqm", "rooms", "bedrooms")) or bool(
         PARKING.search(f"{d.get('title') or ''} {d.get('property_type') or ''} {url}"))
@@ -156,7 +157,7 @@ RIVIERA = [(re.compile(rf"\b(?:{pat})\b", re.I), city) for pat, city in [
     (r"grimaud|port[- ]grimaud", "Grimaud"), (r"cavalaire", "Cavalaire-sur-Mer"),
 ]]
 # Places outside Monaco and the Côte d'Azur: never ingested.
-ABROAD = re.compile(r"\b(?:italie|italy|italia|sanremo|bordighera|ventimiglia|vintimille|london|londres|dubai|miami|"
+ABROAD = re.compile(r"\b(?<!d')(?<!d’)(?<!de )(?<!d-)(?<!de-)(?:italie|italy|italia|sanremo|bordighera|ventimiglia|vintimille|london|londres|dubai|miami|"
                     r"suisse|switzerland|gen[eè]ve|geneva|courchevel|meg[eè]ve|gstaad|marbella|spain|espagne|paris|"
                     r"normandie|deauville|new york)\b", re.I)
 
