@@ -51,3 +51,21 @@ def keyword_flags(text: str) -> dict[str, bool]:
                 out[key] = True
                 break
     return out
+
+
+# Listing status from a title. "Sold furnished" / "vendu meublé" describe the
+# sale, they do not mean it is gone.
+_GONE = re.compile(r"\b(?:rented|sold|vendu|vendue|lou[ée]e?|let agreed)\b"
+                   r"(?!\s+(?:furnished|unfurnished|fully|with|as|meubl|non[- ]meubl|enti[eè]rement|avec|en\b|tel))", re.I)
+_UNDER_OFFER = re.compile(r"\b(?:under offer|sous offre|sous compromis|offer accepted|offre accept[ée]e)\b", re.I)
+
+
+def title_status(title: str | None) -> str | None:
+    """'gone' (already sold/rented), 'under_offer', or None."""
+    if not title:
+        return None
+    if _UNDER_OFFER.search(title):
+        return "under_offer"
+    if _GONE.search(title):
+        return "gone"
+    return None

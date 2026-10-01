@@ -33,7 +33,7 @@ from bs4 import BeautifulSoup
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from scraper.fetch import Blocked, NotFound, PoliteFetcher  # noqa: E402
 from scraper.runner import run_site  # noqa: E402
-from scraper.text_rules import keyword_flags, parse_number  # noqa: E402
+from scraper.text_rules import keyword_flags, parse_number, title_status  # noqa: E402
 
 log = logging.getLogger("cim")
 
@@ -146,7 +146,7 @@ def crawl_index(f: PoliteFetcher, slug: str) -> list[dict]:
 
 # ── detail ──────────────────────────────────────────────────────────────
 
-def parse_detail(html: str, url: str) -> dict:
+def parse_detail(html: str, url: str) -> dict | None:
     b = soup(html)
     carac = {}
     box = b.select_one("div.caracs")
@@ -255,6 +255,11 @@ def parse_detail(html: str, url: str) -> dict:
     # Studio = 1 room, 0 bedrooms when the site leaves bedrooms blank.
     if listing["bedrooms"] is None and listing["rooms"] == 1:
         listing["bedrooms"] = 0
+    status = title_status(title)
+    if status == "gone":
+        return None  # already sold/rented: the runner skips it
+    if status == "under_offer":
+        listing["extra"]["under_offer"] = True
     return listing
 
 

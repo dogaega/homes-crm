@@ -25,6 +25,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from scraper import cim, generic, mcre  # noqa: E402
 from scraper.fetch import PoliteFetcher  # noqa: E402
 from scraper.runner import run_site  # noqa: E402
+from scraper.text_rules import title_status  # noqa: E402
 from sync.worker_client import WorkerClient  # noqa: E402
 
 log = logging.getLogger("daily")
@@ -81,6 +82,15 @@ def web_site(client, mode: str, cfg: dict, agency: dict) -> dict:
         d = generic.parse_detail(html, url, cfg, agency, hint=hints.get(url))
         if OUTSIDE.search(" ".join(str(d.get(k) or "") for k in ("title", "quarter"))) or not d.get("transaction_type"):
             return None
+        # Already sold / rented: not available. Under offer: kept, flagged.
+        status = title_status(d.get("title"))
+        if status == "gone":
+            return None
+        if status == "under_offer":
+            d.setdefault("extra", {})["under_offer"] = True
+        # Mixed Monaco + Riviera agencies: keep only what says it is in Monaco.
+        if cfg.get("require_monaco") and not MONACO.search(" ".join(str(d.get(k) or "") for k in ("title", "quarter", "description")) + url):
+            return None
         # A listing has a price (or "on request") and some size: articles,
         # category and agency pages never pass this.
         has_price = d.get("price") is not None or bool(re.search(
@@ -100,6 +110,8 @@ def web_site(client, mode: str, cfg: dict, agency: dict) -> dict:
 
 
 RUNNER = "server"
+MONACO = re.compile(r"monaco|monte[- ]?carlo|fontvieille|condamine|larvotto|moneghetti|carr[ée] d.or|la rousse|saint[- ]roman|"
+                    r"jardin exotique|mareterra|portier|r[ée]voires|98000", re.I)
 
 
 def load_site_configs() -> list[dict]:
