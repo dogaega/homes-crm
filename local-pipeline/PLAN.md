@@ -296,6 +296,16 @@ can do all of it.
   Propriétés, Lux-Residence, Belles Demeures answer 403.
 - Runner: Mark's Mac (decision 2026-10-02). launchd: `deploy/mac/` — full run
   06:00, light 10/13/16/19, Mac-local time; skips while another run is going.
+- CRM pages (2026-10-02): /listings (filters, detail with every agency's
+  listing, contact marks), /requests (WORK FRANCE sheet "Покупка" tab via the
+  worker secret REQUESTS_SHEET_CSV_URL, re-read at most every 10 min, plus
+  manual requests in saved_searches; live matching in worker/src/crm.ts).
+- Deploying: worker — `cd worker && npx wrangler deploy --config wrangler.toml`
+  (without --config, wrangler 3 picks the root wrangler.jsonc = the front-end!).
+  Front-end — Node 24: `WORKER_URL=https://monaco-riviera-crm-worker.markmirimsky-705.workers.dev
+  npx opennextjs-cloudflare build && node_modules/.bin/wrangler deploy --config wrangler.jsonc`
+  (root wrangler 4; wrangler 3 deploys a bundle that 500s on Sentry's
+  process.versions check; `opennextjs-cloudflare deploy` needs R2 scope).
 - Balkin (20 listings) and Lux Home (4 Monaco listings) configured and verified.
   New option `overrides.photos` (gallery container, read before page chrome is
   stripped); a configured price element without digits means price on request.
