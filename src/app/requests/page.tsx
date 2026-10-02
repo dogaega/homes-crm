@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { RefreshCw, Plus, Trash2, Phone } from 'lucide-react'
+import { RefreshCw, Plus, Trash2, Phone, ArrowLeft } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import AuthedPage from '@/components/listings/AuthedPage'
 import ListingCardView from '@/components/listings/ListingCardView'
@@ -29,6 +29,7 @@ export default function RequestsPage() {
   useEffect(() => { load() }, [load])
 
   useEffect(() => {
+    window.scrollTo({ top: 0 })
     if (!selected) return
     setMatches(null)
     pipelineApi.matches(selected).then(r => setMatches(r.items)).catch(e => setError(e.message))
@@ -59,8 +60,8 @@ export default function RequestsPage() {
 
   return (
     <AuthedPage title={t('requests.title')}>
-      <div className="flex flex-wrap items-center gap-2 mb-4">
-        <p className="text-sm text-muted-foreground mr-auto">{t('requests.subtitle')}</p>
+      <div className={`${sel ? 'hidden lg:flex' : 'flex'} flex-wrap items-center gap-2 mb-4`}>
+        <p className="hidden sm:block text-sm text-muted-foreground mr-auto">{t('requests.subtitle')}</p>
         <button onClick={() => load(true)} disabled={syncing} className="inline-flex items-center gap-1 rounded-md border border-border px-3 py-1.5 text-sm disabled:opacity-50">
           <RefreshCw className={`w-4 h-4 ${syncing ? 'animate-spin' : ''}`} /> {t('requests.refresh')}
         </button>
@@ -95,7 +96,7 @@ export default function RequestsPage() {
       )}
 
       <div className="grid gap-6 lg:grid-cols-3">
-        <div className="space-y-2 lg:max-h-[calc(100vh-200px)] lg:overflow-y-auto pr-1">
+        <div className={`${sel ? 'hidden lg:block' : ''} space-y-2 lg:max-h-[calc(100vh-200px)] lg:overflow-y-auto pr-1`}>
           {!items && <p className="text-muted-foreground">{t('requests.loading')}</p>}
           {items?.map(r => (
             <button key={r.id} onClick={() => setSelected(r.id)}
@@ -114,10 +115,13 @@ export default function RequestsPage() {
           ))}
         </div>
 
-        <div className="lg:col-span-2">
+        <div className={`${sel ? '' : 'hidden lg:block'} lg:col-span-2`}>
           {!sel && <p className="text-muted-foreground">{t('requests.select')}</p>}
           {sel && (
             <>
+              <button onClick={() => setSelected(null)} className="lg:hidden inline-flex items-center gap-1 text-sm text-muted-foreground mb-2">
+                <ArrowLeft className="w-4 h-4" /> {t('requests.title')}
+              </button>
               <div className="flex flex-wrap items-start gap-3 mb-3">
                 <div>
                   <h2 className="text-lg font-semibold text-foreground">{sel.name}</h2>
@@ -137,7 +141,7 @@ export default function RequestsPage() {
               </div>
               {!matches && <p className="text-muted-foreground">{t('listings.loading')}</p>}
               {matches && matches.length === 0 && <p className="text-muted-foreground">{t('requests.noMatches')}</p>}
-              <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
+              <div className="grid gap-2 sm:gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
                 {matches?.map(p => <ListingCardView key={p.id} p={p} />)}
               </div>
             </>

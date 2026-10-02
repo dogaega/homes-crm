@@ -109,7 +109,7 @@ export interface MatchSide {
   price: number | null
 }
 
-export type MatchTier = 'ref' | 'coords' | 'building' | 'photos' | 'review'
+export type MatchTier = 'ref' | 'coords' | 'building' | 'photos' | 'town' | 'review'
 export interface MatchResult { tier: MatchTier; score: number; reasons: string[] }
 
 // PLAN.md "Merging duplicates" tiers 1, 2 and 4 (tier 3, hero phash, runs
@@ -359,6 +359,10 @@ function sideFromParent(p: any): MatchSide {
 
 interface MatchDecision { autoTo: { id: string; tier: MatchTier } | null; review: { id: string; m: MatchResult }[] }
 
+function townSide(s: MatchSide, city: string): MatchSide {
+  return { ...s, quarter: `town:${city}`, building_id: null, building_norm: '' }
+}
+
 async function findMatches(ctx: Ctx, side: MatchSide, transaction: string, siteKey: string, coordsSharedOnSite: boolean,
                            exclude: string | null = null, city = 'Monaco'): Promise<MatchDecision> {
   // Candidate pull is index-backed (idx_properties_origin) and bounded.
@@ -378,13 +382,22 @@ async function findMatches(ctx: Ctx, side: MatchSide, transaction: string, siteK
   const decision: MatchDecision = { autoTo: null, review: [] }
   const scored: { id: string; m: MatchResult; sameSite: boolean }[] = []
   for (const p of results || []) {
-    const cand = sideFromParent(p)
+    // Outside Monaco there are no quarters or gazetteer buildings, and "building
+    // names" are mostly listing titles: the town stands in for the quarter.
+    const cand = city === 'Monaco' ? sideFromParent(p) : townSide(sideFromParent(p), city)
     // A coordinate the site puts on many listings (its office, a street
     // centroid) is not evidence of identity.
-    const mine = coordsSharedOnSite ? { ...side, coord_source: 'building' } : side
-    const m = scoreMatch(mine, cand)
+    const base = city === 'Monaco' ? side : townSide(side, city)
+    const mine = coordsSharedOnSite ? { ...base, coord_source: 'building' } : base
+    let m = scoreMatch(mine, cand)
     if (!m) continue
     const sameSite = String(p.site_keys || '').split(',').includes(siteKey)
+    // Outside Monaco: another agency's listing with the same bedrooms, area
+    // within 1% and price within 2% is the same property.
+    if (city !== 'Monaco' && m.tier === 'review' && !sameSite && mine.bedrooms != null && mine.bedrooms === cand.bedrooms &&
+        within(mine.area, cand.area, 0.01) && within(mine.price, cand.price, 0.02)) {
+      m = { tier: 'town', score: 0.9, reasons: [...m.reasons, 'area_1pct', 'price_2pct'] }
+    }
     scored.push({ id: p.id, m, sameSite })
   }
   scored.sort((x, y) => y.m.score - x.m.score)
@@ -1027,6 +1040,40 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
     for (const pid of touched) await refreshParent(ctx, pid, null)
     const rows = results || []
     return respond({ processed: rows.length, located: touched.size, next: rows.length === limit ? rows[rows.length - 1].id : null })
+  }
+
+  // POST /sync/rematch-town {after?, limit?} — re-run matching for listings
+  // outside Monaco (town-level rule + gallery photos), for those ingested
+  // before it existed. Paged by source id.
+  if (path === '/sync/rematch-town' && req.method === 'POST') {
+    const body = await req.json<any>().catch(() => ({}))
+    const limit = Math.min(Number(body?.limit) || 100, 200)
+    const { results } = await ctx.db.prepare(
+      `SELECT s.*, p.city AS p_city FROM property_sources s JOIN properties p ON p.id = s.property_id
+       WHERE s.removed_at IS NULL AND p.merged_into IS NULL AND p.origin = 'pipeline' AND COALESCE(p.city, 'Monaco') != 'Monaco'
+         AND s.id > ? ORDER BY s.id LIMIT ?`
+    ).bind(String(body?.after || ''), limit).all<any>()
+    let merged = 0, reviews = 0
+    for (const src of results || []) {
+      const cur = await ctx.db.prepare('SELECT * FROM property_sources WHERE id = ?').bind(src.id).first<any>()
+      if (!cur || cur.removed_at) continue
+      const side: MatchSide = {
+        lat: cur.lat, lng: cur.lng, coord_source: cur.coord_source, area: cur.living_area_sqm, bedrooms: cur.bedrooms,
+        floor: cur.floor, building_id: cur.building_id, building_norm: normalizeBuildingName(cur.building_name),
+        quarter: cur.quarter, price: cur.price_on_request ? null : cur.price_at_source,
+      }
+      const d = await findMatches(ctx, side, cur.transaction_type, cur.site_key, false, cur.property_id, src.p_city)
+      if (!d.autoTo && d.review.length) await galleryDecide(ctx, d, cur.agency_id, cur.photo_phashes, side)
+      if (d.autoTo && compatible(await profileOf(ctx, cur.property_id), await profileOf(ctx, d.autoTo.id))) {
+        await moveSource(ctx, cur.id, cur.property_id, d.autoTo.id, d.autoTo.tier, null)
+        await refreshParent(ctx, d.autoTo.id, null)
+        merged++
+      } else {
+        for (const r of d.review) { await queueReview(ctx, cur.id, r.id, r.m); reviews++ }
+      }
+    }
+    const rows = results || []
+    return respond({ processed: rows.length, merged, reviews, next: rows.length === limit ? rows[rows.length - 1].id : null })
   }
 
   // POST /sync/split {property_id} — take an over-merged group apart and

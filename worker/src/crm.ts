@@ -8,7 +8,20 @@ import type { Env } from './index'
 type Respond = (data: unknown, status?: number) => Response
 type CrmEnv = Env & { REQUESTS_SHEET_CSV_URL?: string }
 
-const LIVE = `p.origin = 'pipeline' AND p.merged_into IS NULL AND p.listing_status = 'active'`
+// Towns in scope (local-pipeline/scraper/daily.py SCOPE_MIN_SALE); a few
+// properties elsewhere came in before the scope existed and stay hidden.
+const SCOPE_CITIES = ['Monaco', 'Beausoleil', 'Roquebrune-Cap-Martin', 'Menton', "Cap-d'Ail", 'La Turbie', 'Èze',
+  'Beaulieu-sur-Mer', 'Villefranche-sur-Mer', 'Saint-Jean-Cap-Ferrat', 'Nice', 'Cannes', 'Antibes', 'Saint-Tropez',
+  'Ramatuelle', 'Gassin']
+const LIVE = `p.origin = 'pipeline' AND p.merged_into IS NULL AND p.listing_status = 'active'
+  AND p.city IN (${SCOPE_CITIES.map(c => `'${c.replace(/'/g, "''")}'`).join(',')})`
+
+// Everything first seen before daily runs started is the initial import, not "new".
+const NEW_BASELINE = '2026-10-03T00:00:00Z'
+export const newSince = () => {
+  const week = new Date(Date.now() - 7 * 86400_000).toISOString()
+  return week > NEW_BASELINE ? week : NEW_BASELINE
+}
 const VILLA = `(LOWER(COALESCE(p.property_type, '') || ' ' || COALESCE(p.property_name, '')) GLOB '*villa*'
   OR LOWER(COALESCE(p.property_type, '') || ' ' || COALESCE(p.property_name, '')) GLOB '*maison*'
   OR LOWER(COALESCE(p.property_type, '') || ' ' || COALESCE(p.property_name, '')) GLOB '*house*'
@@ -191,7 +204,7 @@ async function syncSheet(env: CrmEnv, force = false): Promise<{ synced: boolean;
 
 // ── matching ─────────────────────────────────────────────────────────────
 
-async function matches(env: Env, c: Criteria, limit = 60): Promise<any[]> {
+function matchWhere(c: Criteria): { where: string[]; binds: unknown[] } {
   const where = [LIVE, 'p.transaction_type = ?']
   const binds: unknown[] = [c.transaction_type]
   if (c.cities.length) { where.push(`p.city IN (${c.cities.map(() => '?').join(',')})`); binds.push(...c.cities) }
@@ -209,11 +222,34 @@ async function matches(env: Env, c: Criteria, limit = 60): Promise<any[]> {
   where.push(c.commercial ? COMMERCIAL : `NOT ${COMMERCIAL}`)
   if (c.kind === 'villa') where.push(VILLA)
   if (c.kind === 'apartment') where.push(`NOT ${VILLA}`)
+  return { where, binds }
+}
+
+// Match counts for the request list — one D1 round trip for all requests.
+async function matchCounts(env: Env, list: Criteria[]): Promise<{ total: number; fresh: number }[]> {
+  if (!list.length) return []
+  const since = newSince()
+  const res = await env.DB.batch(list.map(c => {
+    const { where, binds } = matchWhere(c)
+    return env.DB.prepare(
+      `SELECT COUNT(*) AS total, SUM(p.first_seen_at >= ?) AS fresh FROM properties p WHERE ${where.join(' AND ')}`
+    ).bind(since, ...binds)
+  }))
+  return res.map(r => {
+    const row = (r.results?.[0] || {}) as { total?: number; fresh?: number | null }
+    return { total: row.total ?? 0, fresh: row.fresh ?? 0 }
+  })
+}
+
+async function matches(env: Env, c: Criteria, limit = 60): Promise<any[]> {
+  const { where, binds } = matchWhere(c)
+  // Score on a light pull, then load the full card columns for the winners only.
   const { results } = await env.DB.prepare(
-    `SELECT ${LIST_COLS} FROM properties p WHERE ${where.join(' AND ')} ORDER BY p.first_seen_at DESC LIMIT 400`
+    `SELECT p.id, p.price, p.bedrooms, p.living_area_sqm, p.hero_image_key, p.source_count, p.first_seen_at
+     FROM properties p WHERE ${where.join(' AND ')} ORDER BY p.first_seen_at DESC LIMIT 1000`
   ).bind(...binds).all<any>()
-  const weekAgo = new Date(Date.now() - 7 * 86400_000).toISOString()
-  return (results || []).map(p => {
+  const since = newSince()
+  const top = (results || []).map(p => {
     let score = 50
     if (c.price_max && p.price) score += 25 - Math.min(25, Math.abs(1 - p.price / c.price_max) * 50)
     if (c.price_max && p.price == null) score -= 10
@@ -221,8 +257,14 @@ async function matches(env: Env, c: Criteria, limit = 60): Promise<any[]> {
     if (c.area_min) score += p.living_area_sqm == null ? -5 : 5
     if (p.hero_image_key) score += 5
     if (p.source_count > 1) score += 2
-    return { ...p, score: Math.round(score), is_new: p.first_seen_at > weekAgo }
+    return { id: p.id as string, score: Math.round(score), first_seen_at: p.first_seen_at as string }
   }).sort((a, b) => b.score - a.score || (b.first_seen_at > a.first_seen_at ? 1 : -1)).slice(0, limit)
+  if (!top.length) return []
+  const { results: cards } = await env.DB.prepare(
+    `SELECT ${LIST_COLS} FROM properties p WHERE p.id IN (${top.map(() => '?').join(',')})`
+  ).bind(...top.map(t => t.id)).all<any>()
+  const byId = new Map((cards || []).map(x => [x.id, x]))
+  return top.flatMap(t => (byId.has(t.id) ? [{ ...byId.get(t.id), score: t.score, is_new: t.first_seen_at >= since }] : []))
 }
 
 // ── routes ───────────────────────────────────────────────────────────────
@@ -259,12 +301,14 @@ export async function handleCrm(req: Request, env: CrmEnv, url: URL, path: strin
       binds.push(...Array(4).fill(`%${q.get('q')}%`))
     }
     const order = ({ price_asc: 'p.price IS NULL, p.price', price_desc: 'p.price DESC', area: 'p.living_area_sqm DESC' } as Record<string, string>)[q.get('sort') || ''] || 'p.first_seen_at DESC'
-    const page = Math.max(0, +(q.get('page') || 0)); const size = 48
+    const page = Math.max(0, +(q.get('page') || 0)); const size = 30
     const total = await env.DB.prepare(`SELECT COUNT(*) AS n FROM properties p WHERE ${where.join(' AND ')}`).bind(...binds).first<{ n: number }>()
     const { results } = await env.DB.prepare(
       `SELECT ${LIST_COLS} FROM properties p WHERE ${where.join(' AND ')} ORDER BY ${order} LIMIT ? OFFSET ?`
     ).bind(...binds, size, page * size).all<any>()
-    return respond({ total: total?.n ?? 0, page, page_size: size, items: results || [] })
+    const since = newSince()
+    return respond({ total: total?.n ?? 0, page, page_size: size,
+                     items: (results || []).map(x => ({ ...x, is_new: x.first_seen_at >= since })) })
   }
 
   // GET /pipeline/cities — towns with live listings, for the filter.
@@ -319,13 +363,10 @@ export async function handleCrm(req: Request, env: CrmEnv, url: URL, path: strin
     const { results } = await env.DB.prepare(
       `SELECT * FROM saved_searches WHERE active = 1 ORDER BY json_extract(criteria, '$.source') DESC, created_at`
     ).all<any>()
-    const out = []
-    for (const r of results || []) {
-      const criteria = JSON.parse(r.criteria)
-      const m = await matches(env, criteria, 200)
-      out.push({ id: r.id, name: r.name, criteria, created_at: r.created_at, match_count: m.length,
-                 new_count: m.filter(x => x.is_new).length })
-    }
+    const rows = (results || []).map(r => ({ ...r, criteria: JSON.parse(r.criteria) }))
+    const counts = await matchCounts(env, rows.map(r => r.criteria))
+    const out = rows.map((r, i) => ({ id: r.id, name: r.name, criteria: r.criteria, created_at: r.created_at,
+                                      match_count: counts[i].total, new_count: counts[i].fresh }))
     return respond({ sync, items: out })
   }
 

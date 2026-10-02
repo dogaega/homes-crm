@@ -29,7 +29,18 @@ export default function ListingDetailPage() {
 
   const p = data?.property
   const live = (data?.sources || []).filter((s: any) => !s.removed_at)
-  const photos: string[] = live.find((s: any) => s.photo_urls?.length)?.photo_urls?.slice(0, 12) || []
+  // Agency galleries list each photo in several sizes; keep one per file name (the first, usually largest).
+  const photos: string[] = []
+  const seenNames = new Set<string>()
+  for (const u of (live.find((s: any) => s.photo_urls?.length)?.photo_urls || []) as string[]) {
+    const name = (u.split('?')[0].split('/').pop() || u).replace(/[-_](?:\d{2,4}x\d{2,4}|thumb|small|medium|large|med|full)(?=\.)/gi, '')
+    if (!seenNames.has(name)) { seenNames.add(name); photos.push(u) }
+    if (photos.length >= 16) break
+  }
+  // Longest real description across agencies (some sites leak their cookie banner into the page text).
+  const description = live.map((s: any) => (s.listing_description || '') as string)
+    .filter((d: string) => d.length > 80 && !/cookie/i.test(d.slice(0, 200)))
+    .sort((a: string, b: string) => b.length - a.length)[0]
   const markedSources = new Set((data?.contact_marks || []).map((m: any) => m.source_id))
   const place = p ? [p.city === 'Monaco' && p.quarter ? QUARTER_NAMES[p.quarter] || p.quarter : null, p.city].filter(Boolean).join(', ') : ''
 
@@ -42,8 +53,8 @@ export default function ListingDetailPage() {
       {!data && !error && <p className="text-muted-foreground">{t('listings.loading')}</p>}
 
       {p && (
-        <div className="space-y-6">
-          <div className="grid gap-6 lg:grid-cols-5">
+        <div className="space-y-4 sm:space-y-6">
+          <div className="grid gap-3 sm:gap-6 lg:grid-cols-5">
             <div className="lg:col-span-3 rounded-xl overflow-hidden bg-muted aspect-[4/3]">
               {(!heroFailed && heroUrl(p.hero_image_key)) || photos[0] ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -58,7 +69,7 @@ export default function ListingDetailPage() {
                 </span>
                 <span className="text-xs text-muted-foreground">{p.property_id}</span>
               </div>
-              <h2 className="text-2xl font-semibold text-foreground">{formatPrice(p.price, p.transaction_type, t('listings.onRequest'), t('listings.perMonth'))}</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-foreground">{formatPrice(p.price, p.transaction_type, t('listings.onRequest'), t('listings.perMonth'))}</h2>
               <p className="text-foreground">{p.building_name || p.property_name}</p>
               <p className="text-sm text-muted-foreground">{place}</p>
               <dl className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
@@ -78,9 +89,9 @@ export default function ListingDetailPage() {
 
           <section>
             <h3 className="font-semibold text-foreground mb-2">{t('listings.agencyListings')} ({live.length})</h3>
-            <div className="overflow-x-auto rounded-xl border border-border">
-              <table className="w-full text-sm">
-                <thead className="bg-muted/50 text-muted-foreground">
+            <div className="rounded-xl border border-border overflow-hidden">
+              <table className="w-full text-sm block sm:table">
+                <thead className="hidden sm:table-header-group bg-muted/50 text-muted-foreground">
                   <tr>
                     <th className="text-left p-2">{t('listings.agency')}</th>
                     <th className="text-left p-2">{t('listings.price')}</th>
@@ -88,18 +99,18 @@ export default function ListingDetailPage() {
                     <th className="text-left p-2" />
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="block sm:table-row-group">
                   {data.sources.map((s: any) => {
                     const phone = s.agent_phone || s.agency_phone || s.agency_main_phone
                     const email = s.agent_email || s.agency_email || s.agency_main_email
                     return (
-                      <tr key={s.id} className={`border-t border-border ${s.removed_at ? 'opacity-50' : ''}`}>
-                        <td className="p-2">
+                      <tr key={s.id} className={`block sm:table-row border-t border-border first:border-t-0 sm:first:border-t p-2 sm:p-0 ${s.removed_at ? 'opacity-50' : ''}`}>
+                        <td className="block sm:table-cell sm:p-2">
                           <div className="font-medium text-foreground">{s.agency_name || s.site_key}</div>
                           <div className="text-xs text-muted-foreground">{s.external_ref || ''} {s.removed_at ? `· ${t('listings.removed')} ${fmtDate(s.removed_at)}` : ''}</div>
                         </td>
-                        <td className="p-2 whitespace-nowrap">{formatPrice(s.price_on_request ? null : s.price_at_source, s.transaction_type, t('listings.onRequest'), t('listings.perMonth'))}</td>
-                        <td className="p-2">
+                        <td className="block sm:table-cell sm:p-2 whitespace-nowrap font-semibold sm:font-normal">{formatPrice(s.price_on_request ? null : s.price_at_source, s.transaction_type, t('listings.onRequest'), t('listings.perMonth'))}</td>
+                        <td className="block sm:table-cell sm:p-2">
                           {s.agent_name && <div className="text-foreground">{s.agent_name}</div>}
                           <div className="flex flex-wrap gap-2 text-xs">
                             {phone && <a href={`tel:${tel(phone)}`} className="inline-flex items-center gap-1 text-primary"><Phone className="w-3 h-3" />{phone}</a>}
@@ -107,7 +118,7 @@ export default function ListingDetailPage() {
                             {email && <a href={`mailto:${email}`} className="inline-flex items-center gap-1 text-primary"><Mail className="w-3 h-3" />{email}</a>}
                           </div>
                         </td>
-                        <td className="p-2 whitespace-nowrap text-right space-x-2">
+                        <td className="block sm:table-cell sm:p-2 whitespace-nowrap sm:text-right space-x-3 pt-1">
                           <a href={s.source_url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-primary text-xs"><ExternalLink className="w-3 h-3" />{t('listings.open')}</a>
                           {!s.removed_at && (markedSources.has(s.id)
                             ? <span className="text-xs text-violet-600">{t('listings.marked')}</span>
@@ -121,8 +132,8 @@ export default function ListingDetailPage() {
             </div>
           </section>
 
-          {live[0]?.listing_description && (
-            <section className="text-sm text-foreground whitespace-pre-line leading-relaxed max-w-3xl">{live[0].listing_description}</section>
+          {description && (
+            <section className="text-sm text-foreground whitespace-pre-line leading-relaxed max-w-3xl">{description}</section>
           )}
 
           {photos.length > 1 && (

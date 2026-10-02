@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
+import { SlidersHorizontal } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import AuthedPage from '@/components/listings/AuthedPage'
 import ListingCardView from '@/components/listings/ListingCardView'
@@ -22,6 +23,7 @@ export default function ListingsPage() {
   const [data, setData] = useState<{ total: number; page_size: number; items: ListingCard[] } | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+  const [showFilters, setShowFilters] = useState(false)
 
   useEffect(() => { pipelineApi.cities().then(setCities).catch(() => {}) }, [])
 
@@ -41,29 +43,40 @@ export default function ListingsPage() {
   }, [load, filters])
 
   const set = (patch: Partial<Filters>) => { setFilters(f => ({ ...f, ...patch })); setPage(0) }
+  useEffect(() => { window.scrollTo({ top: 0 }) }, [page])
   const toggleCity = (c: string) => set({ cities: filters.cities.includes(c) ? filters.cities.filter(x => x !== c) : [...filters.cities, c] })
   const pages = data ? Math.ceil(data.total / data.page_size) : 0
   const input = 'h-9 rounded-md border border-border bg-background px-2 text-sm text-foreground'
 
   return (
     <AuthedPage title={t('listings.title')}>
-      <p className="text-sm text-muted-foreground mb-4">{t('listings.subtitle')}</p>
-
-      <div className="flex flex-wrap gap-1.5 mb-3">
+      <div className="flex gap-1.5 mb-3 overflow-x-auto pb-1 -mx-1 px-1 [scrollbar-width:thin]">
         <button onClick={() => set({ cities: [] })}
-          className={`px-3 py-1 rounded-full text-sm border ${filters.cities.length === 0 ? 'bg-primary text-primary-foreground border-primary' : 'border-border text-foreground'}`}>
+          className={`shrink-0 px-3 py-1 rounded-full text-sm border whitespace-nowrap ${filters.cities.length === 0 ? 'bg-primary text-primary-foreground border-primary' : 'border-border text-foreground'}`}>
           {t('listings.allTowns')}
         </button>
         {cities.map(c => (
           <button key={c.city} onClick={() => toggleCity(c.city)}
-            className={`px-3 py-1 rounded-full text-sm border ${filters.cities.includes(c.city) ? 'bg-primary text-primary-foreground border-primary' : 'border-border text-foreground'}`}>
+            className={`shrink-0 px-3 py-1 rounded-full text-sm border whitespace-nowrap ${filters.cities.includes(c.city) ? 'bg-primary text-primary-foreground border-primary' : 'border-border text-foreground'}`}>
             {c.city} <span className="opacity-60">{c.n}</span>
           </button>
         ))}
       </div>
 
-      <div className="flex flex-wrap gap-2 items-center mb-4">
+      <div className="flex items-center gap-2 mb-3 sm:hidden">
         <select className={input} value={filters.tx} onChange={e => set({ tx: e.target.value })}>
+          <option value="">{t('listings.sale')} + {t('listings.rent')}</option>
+          <option value="sale">{t('listings.sale')}</option>
+          <option value="rent">{t('listings.rent')}</option>
+        </select>
+        <button onClick={() => setShowFilters(v => !v)} className="inline-flex items-center gap-1 h-9 px-3 rounded-md border border-border text-sm">
+          <SlidersHorizontal className="w-4 h-4" /> {t('common.filters')}
+        </button>
+        {data && <span className="text-sm text-muted-foreground ml-auto">{data.total.toLocaleString('fr-FR')}</span>}
+      </div>
+
+      <div className={`${showFilters ? 'flex' : 'hidden'} sm:flex flex-wrap gap-2 items-center mb-4`}>
+        <select className={`${input} hidden sm:block`} value={filters.tx} onChange={e => set({ tx: e.target.value })}>
           <option value="">{t('listings.sale')} + {t('listings.rent')}</option>
           <option value="sale">{t('listings.sale')}</option>
           <option value="rent">{t('listings.rent')}</option>
@@ -85,21 +98,21 @@ export default function ListingsPage() {
           <option value="1">{t('listings.newOnly')}: {t('listings.days1')}</option>
           <option value="7">{t('listings.newOnly')}: {t('listings.days7')}</option>
         </select>
-        <input className={`${input} w-56`} placeholder={t('listings.search')} value={filters.q} onChange={e => set({ q: e.target.value })} />
+        <input className={`${input} w-full sm:w-56`} placeholder={t('listings.search')} value={filters.q} onChange={e => set({ q: e.target.value })} />
         <select className={input} value={filters.sort} onChange={e => set({ sort: e.target.value })}>
           <option value="">{t('listings.sortNew')}</option>
           <option value="price_asc">{t('listings.sortPriceAsc')}</option>
           <option value="price_desc">{t('listings.sortPriceDesc')}</option>
           <option value="area">{t('listings.sortArea')}</option>
         </select>
-        {data && <span className="text-sm text-muted-foreground ml-auto">{data.total.toLocaleString('fr-FR')} {t('listings.results')}</span>}
+        {data && <span className="hidden sm:inline text-sm text-muted-foreground ml-auto">{data.total.toLocaleString('fr-FR')} {t('listings.results')}</span>}
       </div>
 
       {error && <div className="rounded-md border border-destructive/40 bg-destructive/10 text-destructive text-sm p-3 mb-4">{error}</div>}
       {loading && !data && <p className="text-muted-foreground">{t('listings.loading')}</p>}
       {data && data.items.length === 0 && !loading && <p className="text-muted-foreground">{t('listings.none')}</p>}
 
-      <div className={`grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ${loading ? 'opacity-60' : ''}`}>
+      <div className={`grid gap-2 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ${loading ? 'opacity-60' : ''}`}>
         {data?.items.map(p => <ListingCardView key={p.id} p={p} />)}
       </div>
 
