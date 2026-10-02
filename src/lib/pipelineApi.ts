@@ -42,6 +42,7 @@ export interface RequestCriteria {
   area_max: number | null
   price_max: number | null
   location_text: string
+  location_unrecognized?: boolean
   notes: string
   source: 'sheet' | 'manual'
   client_name: string

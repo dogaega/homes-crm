@@ -106,6 +106,7 @@ export default function RequestsPage() {
               </div>
               <div className="text-xs text-muted-foreground mt-1">{summary(r)}</div>
               {r.criteria.location_text && <div className="text-xs text-muted-foreground mt-0.5 line-clamp-1 italic">{r.criteria.location_text}</div>}
+              {r.criteria.location_unrecognized && <div className="text-xs text-amber-600 mt-0.5">{t('requests.unrecognized')}</div>}
               <div className="text-xs mt-1.5">
                 <span className="font-semibold text-foreground">{r.match_count}</span> <span className="text-muted-foreground">{t('requests.matches')}</span>
                 {r.new_count > 0 && <span className="ml-2 text-amber-600 font-semibold">+{r.new_count} {t('requests.newMatches')}</span>}

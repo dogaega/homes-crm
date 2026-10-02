@@ -52,6 +52,7 @@ export interface Criteria {
   area_min: number | null
   area_max: number | null
   price_max: number | null      // sale budget or monthly rent budget
+  location_unrecognized?: boolean
   sea_view?: boolean            // "вид на море" / sea view / vue mer: ranks higher, never excludes
   location_text: string
   notes: string
@@ -79,6 +80,41 @@ const QUARTER_ALIASES: [RegExp, string][] = [
   [/condamine|кондамин/i, 'la-condamine'], [/moneghetti|монегетти/i, 'moneghetti'], [/mareterra|маретерра|jardins d.eau/i, 'mareterra'],
 ]
 
+// Single-word place names for typo tolerance ("lavroto", "босолеи", "ментонн").
+const FUZZY: [string, string, string | null][] = [
+  ['monaco', 'Monaco', null], ['montecarlo', 'Monaco', 'monte-carlo'], ['larvotto', 'Monaco', 'larvotto'],
+  ['fontvieille', 'Monaco', 'fontvieille'], ['condamine', 'Monaco', 'la-condamine'], ['moneghetti', 'Monaco', 'moneghetti'],
+  ['mareterra', 'Monaco', 'mareterra'], ['beausoleil', 'Beausoleil', null], ['roquebrune', 'Roquebrune-Cap-Martin', null],
+  ['menton', 'Menton', null], ['villefranche', 'Villefranche-sur-Mer', null], ['beaulieu', 'Beaulieu-sur-Mer', null],
+  ['antibes', 'Antibes', null], ['cannes', 'Cannes', null], ['tropez', 'Saint-Tropez', null], ['ferrat', 'Saint-Jean-Cap-Ferrat', null],
+  ['монако', 'Monaco', null], ['монтекарло', 'Monaco', 'monte-carlo'], ['ларвотто', 'Monaco', 'larvotto'],
+  ['фонвьей', 'Monaco', 'fontvieille'], ['кондамин', 'Monaco', 'la-condamine'], ['монегетти', 'Monaco', 'moneghetti'],
+  ['маретерра', 'Monaco', 'mareterra'], ['босолей', 'Beausoleil', null], ['рокебрюн', 'Roquebrune-Cap-Martin', null],
+  ['ментон', 'Menton', null], ['вильфранш', 'Villefranche-sur-Mer', null], ['антибы', 'Antibes', null],
+  ['канны', 'Cannes', null], ['ницца', 'Nice', null], ['тропез', 'Saint-Tropez', null],
+]
+function editDistance(a: string, b: string): number {
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)])
+  for (let j = 1; j <= b.length; j++) d[0][j] = j
+  for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++)
+  {
+    d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1))
+    if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1)  // swapped letters
+  }
+  return d[a.length][b.length]
+}
+function fuzzyPlaces(loc: string): { cities: string[]; quarters: string[] } {
+  const cities = new Set<string>(), quarters = new Set<string>()
+  for (const w of loc.toLowerCase().replace(/[-'’]/g, '').split(/[^\p{L}]+/u).filter(x => x.length >= 5)) {
+    for (const [name, city, quarter] of FUZZY) {
+      if (Math.abs(name.length - w.length) <= 2 && editDistance(w, name) <= (name.length >= 8 ? 2 : 1)) {
+        cities.add(city); if (quarter) quarters.add(quarter)
+      }
+    }
+  }
+  return { cities: [...cities], quarters: [...quarters] }
+}
+
 const num = (s: string): number | null => {
   const v = parseFloat(s.replace(/[\s  ]/g, '').replace(',', '.'))
   return Number.isFinite(v) ? v : null
@@ -93,6 +129,11 @@ export function parseCriteria(r: { type1?: string; type2?: string; location?: st
   // "Граница Франция Монако" = the French towns on the border, not Monaco itself.
   if (/границ|border|frontière/i.test(loc)) cities = cities.filter(c => c !== 'Monaco')
   // A Monaco quarter named next to another town ("Moneghetti is too far") doesn't add Monaco.
+  if (loc.trim()) {
+    const f = fuzzyPlaces(loc)
+    if (!cities.length) cities = f.cities
+    if (cities.includes('Monaco') || !cities.length) quarters = [...new Set([...quarters, ...f.quarters])]
+  }
   if (quarters.length && !cities.length) cities = ['Monaco']
   else if (quarters.length && !cities.includes('Monaco')) quarters = []
   const beds = `${r.bedrooms || ''} ${loc}`.match(/(\d+)(?:\s*[-–\s]\s*(\d+))?\s*(?:спал|bed|chamb)/i)
@@ -113,6 +154,9 @@ export function parseCriteria(r: { type1?: string; type2?: string; location?: st
     price_max: isRent ? rent : sale,
     sea_view: /вид на море|видом на море|sea ?view|vue (?:sur la )?mer|vista mare/i.test(text),
     location_text: loc,
+    // A location was written but no town could be read from it: match nothing
+    // rather than everything, and show it on the request.
+    location_unrecognized: !!loc.trim() && !/https?:/.test(loc) && !cities.length,
     notes: [r.bedrooms && !beds ? r.bedrooms : '', r.notes || ''].filter(Boolean).join(' · '),
   }
 }
@@ -210,6 +254,7 @@ async function syncSheet(env: CrmEnv, force = false): Promise<{ synced: boolean;
 
 function matchWhere(c: Criteria): { where: string[]; binds: unknown[] } {
   const where = [LIVE, 'p.transaction_type = ?']
+  if (c.location_unrecognized) where.push('0')
   const binds: unknown[] = [c.transaction_type]
   if (c.cities.length) { where.push(`p.city IN (${c.cities.map(() => '?').join(',')})`); binds.push(...c.cities) }
   if (c.quarters.length && c.cities.length === 1 && c.cities[0] === 'Monaco') {
@@ -409,7 +454,9 @@ export async function handleCrm(req: Request, env: CrmEnv, url: URL, path: strin
     const { results } = await env.DB.prepare(
       `SELECT * FROM saved_searches WHERE active = 1 ORDER BY json_extract(criteria, '$.source') DESC, created_at`
     ).all<any>()
-    const rows = (results || []).map(r => ({ ...r, criteria: JSON.parse(r.criteria) }))
+    // Criteria are re-read from the request's own text so parser fixes apply to every request.
+    const reparse = (c: any) => (c.raw ? { ...c, ...parseCriteria(c.raw) } : c)
+    const rows = (results || []).map(r => ({ ...r, criteria: reparse(JSON.parse(r.criteria)) }))
     const counts = await matchCounts(env, rows.map(r => r.criteria))
     const out = rows.map((r, i) => ({ id: r.id, name: r.name, criteria: r.criteria, created_at: r.created_at,
                                       match_count: counts[i].total, new_count: counts[i].fresh }))
@@ -421,7 +468,9 @@ export async function handleCrm(req: Request, env: CrmEnv, url: URL, path: strin
   if (rm && req.method === 'GET') {
     const r = await env.DB.prepare('SELECT * FROM saved_searches WHERE id = ?').bind(rm[1]).first<any>()
     if (!r) return respond({ error: 'Not found' }, 404)
-    return respond({ id: r.id, name: r.name, criteria: JSON.parse(r.criteria), items: await matches(env, JSON.parse(r.criteria)) })
+    const stored = JSON.parse(r.criteria)
+    const criteria = stored.raw ? { ...stored, ...parseCriteria(stored.raw) } : stored
+    return respond({ id: r.id, name: r.name, criteria, items: await matches(env, criteria) })
   }
 
   // POST /pipeline/requests — manual request {client_name, type?, location, bedrooms?, area?, price?, rent?, notes?}
