@@ -1,7 +1,8 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { RefreshCw, Plus, Trash2, ArrowLeft } from 'lucide-react'
+import { RefreshCw, Plus, Trash2, ArrowLeft, Pencil, User } from 'lucide-react'
+import Link from 'next/link'
 import { useLanguage } from '@/contexts/LanguageContext'
 import AuthedPage from '@/components/listings/AuthedPage'
 import ListingCardView from '@/components/listings/ListingCardView'
@@ -17,6 +18,7 @@ export default function RequestsPage() {
   const [error, setError] = useState<string | null>(null)
   const [syncing, setSyncing] = useState(false)
   const [form, setForm] = useState<typeof EMPTY_FORM | null>(null)
+  const [editing, setEditing] = useState<string | null>(null)
 
   const load = useCallback(async (sync = false) => {
     setSyncing(sync); setError(null)
@@ -38,11 +40,19 @@ export default function RequestsPage() {
   const save = async () => {
     if (!form) return
     try {
-      const { id } = await pipelineApi.addRequest(form)
-      setForm(null); await load(); setSelected(id)
+      const { id } = editing ? await pipelineApi.updateRequest(editing, form) : await pipelineApi.addRequest(form)
+      setForm(null); setEditing(null); await load(); setSelected(null); setSelected(id)
     } catch (e) { setError((e as Error).message) }
   }
+  const startEdit = (r: ClientRequest) => {
+    const raw = (r.criteria as any).raw || {}
+    setEditing(r.id)
+    setForm({ client_name: r.name, type: raw.type2 || '', location: raw.location || '', bedrooms: raw.bedrooms || '',
+              area: raw.area || '', price: raw.price || '', rent: raw.rent || '', notes: raw.notes || '' })
+    window.scrollTo({ top: 0 })
+  }
   const remove = async (id: string) => {
+    if (!window.confirm(t('requests.confirmDelete'))) return
     try { await pipelineApi.deleteRequest(id); if (selected === id) setSelected(null); await load() } catch (e) { setError((e as Error).message) }
   }
 
@@ -65,7 +75,7 @@ export default function RequestsPage() {
         <button onClick={() => load(true)} disabled={syncing} className="inline-flex items-center gap-1 rounded-md border border-border px-3 py-1.5 text-sm disabled:opacity-50">
           <RefreshCw className={`w-4 h-4 ${syncing ? 'animate-spin' : ''}`} /> {t('requests.refresh')}
         </button>
-        <button onClick={() => setForm(EMPTY_FORM)} className="inline-flex items-center gap-1 rounded-md bg-primary text-primary-foreground px-3 py-1.5 text-sm">
+        <button onClick={() => { setEditing(null); setForm(EMPTY_FORM) }} className="inline-flex items-center gap-1 rounded-md bg-primary text-primary-foreground px-3 py-1.5 text-sm">
           <Plus className="w-4 h-4" /> {t('requests.add')}
         </button>
       </div>
@@ -89,7 +99,7 @@ export default function RequestsPage() {
           <label className="text-xs text-muted-foreground sm:col-span-2 lg:col-span-3">{t('requests.notes')}<input className={input} value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} /></label>
           <div className="flex items-end gap-2">
             <button onClick={save} disabled={!form.client_name.trim()} className="rounded-md bg-primary text-primary-foreground px-3 py-2 text-sm disabled:opacity-50">{t('requests.save')}</button>
-            <button onClick={() => setForm(null)} className="rounded-md border border-border px-3 py-2 text-sm">{t('requests.cancel')}</button>
+            <button onClick={() => { setForm(null); setEditing(null) }} className="rounded-md border border-border px-3 py-2 text-sm">{t('requests.cancel')}</button>
           </div>
         </div>
       )}
@@ -102,7 +112,7 @@ export default function RequestsPage() {
               className={`w-full text-left rounded-lg border p-3 transition-colors ${selected === r.id ? 'border-primary bg-primary/5' : 'border-border bg-card hover:bg-accent'}`}>
               <div className="flex items-center gap-2">
                 <span className="font-medium text-foreground truncate">{r.name}</span>
-                <span className="ml-auto text-xs rounded px-1.5 py-0.5 bg-muted text-muted-foreground">{r.criteria.source === 'sheet' ? t('requests.sheet') : t('requests.manual')}</span>
+                <span className="ml-auto text-xs rounded px-1.5 py-0.5 bg-muted text-muted-foreground">{r.criteria.source === 'sheet' ? t('requests.sheet') : t('requests.manual')}{(r.criteria as any).edited_in_crm ? ' · ' + t('requests.edited') : ''}{(r.criteria as any).in_sheet === false ? ' · ' + t('requests.notInSheet') : ''}</span>
               </div>
               <div className="text-xs text-muted-foreground mt-1">{summary(r)}</div>
               {r.criteria.location_text && <div className="text-xs text-muted-foreground mt-0.5 line-clamp-1 italic">{r.criteria.location_text}</div>}
@@ -132,10 +142,12 @@ export default function RequestsPage() {
                   </p>
                   {sel.criteria.notes && <p className="text-xs text-muted-foreground mt-1">{sel.criteria.notes}</p>}
                 </div>
-                <div className="ml-auto">
-                  {sel.criteria.source === 'manual'
-                    ? <button onClick={() => remove(sel.id)} className="inline-flex items-center gap-1 text-sm text-destructive"><Trash2 className="w-4 h-4" />{t('requests.remove')}</button>
-                    : <span className="text-xs text-muted-foreground">{t('requests.editInSheet')}</span>}
+                <div className="ml-auto flex items-center gap-3">
+                  {(sel.criteria as any).client_id && (
+                    <Link href={`/clients/${(sel.criteria as any).client_id}`} className="inline-flex items-center gap-1 text-sm text-primary"><User className="w-4 h-4" />{t('requests.clientCard')}</Link>
+                  )}
+                  <button onClick={() => startEdit(sel)} className="inline-flex items-center gap-1 text-sm"><Pencil className="w-4 h-4" />{t('common.edit')}</button>
+                  <button onClick={() => remove(sel.id)} className="inline-flex items-center gap-1 text-sm text-destructive"><Trash2 className="w-4 h-4" />{t('requests.remove')}</button>
                 </div>
               </div>
               {!matches && <p className="text-muted-foreground">{t('listings.loading')}</p>}

@@ -8,13 +8,9 @@ import type { Env } from './index'
 type Respond = (data: unknown, status?: number) => Response
 type CrmEnv = Env & { REQUESTS_SHEET_CSV_URL?: string }
 
-// Towns in scope (local-pipeline/scraper/daily.py SCOPE_MIN_SALE); a few
-// properties elsewhere came in before the scope existed and stay hidden.
-const SCOPE_CITIES = ['Monaco', 'Beausoleil', 'Roquebrune-Cap-Martin', 'Menton', "Cap-d'Ail", 'La Turbie', 'Èze',
-  'Beaulieu-sur-Mer', 'Villefranche-sur-Mer', 'Saint-Jean-Cap-Ferrat', 'Nice', 'Cannes', 'Antibes', 'Saint-Tropez',
-  'Ramatuelle', 'Gassin']
-const LIVE = `p.origin = 'pipeline' AND p.merged_into IS NULL AND p.listing_status = 'active'
-  AND p.city IN (${SCOPE_CITIES.map(c => `'${c.replace(/'/g, "''")}'`).join(',')})`
+// The runners only send Monaco / Côte d'Azur listings (daily.in_scope), so
+// every town is shown.
+const LIVE = `p.origin = 'pipeline' AND p.merged_into IS NULL AND p.listing_status = 'active'`
 
 // Everything first seen before daily runs started is the initial import, not "new".
 const NEW_BASELINE = '2026-10-03T00:00:00Z'
@@ -186,13 +182,15 @@ async function sha(s: string): Promise<string> {
   return [...new Uint8Array(d)].map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 16)
 }
 
-// Re-reads the sheet when the last sync is older than 10 minutes. Rows are
-// keyed by their content (client + phone + criteria), so editing a row
-// replaces that request and deleting it removes it here too.
-async function syncSheet(env: CrmEnv, force = false): Promise<{ synced: boolean; error?: string }> {
+// Imports from the sheet when the last sync is older than 10 minutes. The CRM
+// is where requests live: a new sheet row creates a request and a client
+// card; a row not yet touched in the CRM follows later sheet edits; once
+// edited (or deleted) in the CRM the sheet never overrides it, and rows that
+// disappear from the sheet stay. Identity = client name + location + type.
+async function syncSheet(env: CrmEnv, force = false): Promise<{ synced: boolean; created?: number; error?: string }> {
   if (!env.REQUESTS_SHEET_CSV_URL) return { synced: false, error: 'REQUESTS_SHEET_CSV_URL not set' }
   const last = await env.DB.prepare(
-    `SELECT MAX(updated_at) AS t FROM saved_searches WHERE json_extract(criteria, '$.source') = 'sheet'`
+    `SELECT MAX(json_extract(criteria, '$.synced_at')) AS t FROM saved_searches WHERE json_extract(criteria, '$.source') = 'sheet'`
   ).first<{ t: string | null }>()
   if (!force && last?.t && Date.now() - Date.parse(last.t) < 10 * 60_000) return { synced: false }
   const res = await fetch(env.REQUESTS_SHEET_CSV_URL, { redirect: 'follow' })
@@ -203,14 +201,22 @@ async function syncSheet(env: CrmEnv, force = false): Promise<{ synced: boolean;
   const col = (name: RegExp) => rows[hdr].findIndex(c => name.test(c.trim()))
   const C = {
     comment: col(/^Комментарий$/), brokerNote: col(/^Комментарий брокера/), broker: col(/^Брокер/), client: col(/^Клиент/),
-    middleman: col(/^Посредник/), phone: col(/^Номер клиента/), middlemanPhone: col(/^Номер посредника/),
-    location: col(/^Локация/), bedrooms: col(/спален/), area: col(/^Площадь/), price: col(/^Цена/), rent: col(/^Аренда/),
-    deadline: col(/^Дедлайн/), status: col(/^Статус/),
+    middleman: col(/^Посредник/), location: col(/^Локация/), bedrooms: col(/спален/), area: col(/^Площадь/),
+    price: col(/^Цена/), rent: col(/^Аренда/), deadline: col(/^Дедлайн/), status: col(/^Статус/),
   }
   const typeCols = rows[hdr].map((c, i) => (/^Тип объекта/.test(c.trim()) ? i : -1)).filter(i => i >= 0)
   const now = new Date().toISOString()
   const at = (r: string[], i: number) => (i >= 0 ? (r[i] || '').trim() : '')
-  const seen: string[] = []
+  const { results: existing } = await env.DB.prepare(
+    `SELECT id, active, criteria FROM saved_searches WHERE json_extract(criteria, '$.source') = 'sheet'`).all<any>()
+  const byKey = new Map<string, any>()
+  for (const e of existing || []) {
+    const c = JSON.parse(e.criteria)
+    // Rows imported before keys were name+location+type get theirs on first sight.
+    const k = c.key2 || await sha(JSON.stringify([c.client_name, c.raw?.location || '', c.raw?.type2 || '']))
+    byKey.set(k, { ...e, c })
+  }
+  let created = 0
   for (const r of rows.slice(hdr + 1)) {
     const fields = {
       type1: at(r, typeCols[0] ?? -1), type2: at(r, typeCols[1] ?? -1), location: at(r, C.location),
@@ -219,35 +225,52 @@ async function syncSheet(env: CrmEnv, force = false): Promise<{ synced: boolean;
     }
     if (!fields.location && !fields.price && !fields.rent && !fields.bedrooms) continue
     const client = at(r, C.client) || at(r, C.middleman) || 'Client'
-    const key = await sha(JSON.stringify([client, at(r, C.phone), fields]))
-    seen.push(key)
-    const criteria = {
-      ...parseCriteria(fields), source: 'sheet', sheet_key: key,
-      // Client and middleman phone numbers stay in the sheet: the CRM never stores them.
-      client_name: client, middleman: at(r, C.middleman) || null, broker: at(r, C.broker) || null,
-      deadline: at(r, C.deadline) || null, status: at(r, C.status) || null, raw: fields,
+    const key2 = await sha(JSON.stringify([client, fields.location, fields.type2]))
+    // Client and middleman phone numbers stay in the sheet: the CRM never stores them.
+    const sheetPart = {
+      ...parseCriteria(fields), source: 'sheet', key2, client_name: client, middleman: at(r, C.middleman) || null,
+      broker: at(r, C.broker) || null, deadline: at(r, C.deadline) || null, status: at(r, C.status) || null, raw: fields,
     }
-    const exists = await env.DB.prepare(
-      `SELECT id FROM saved_searches WHERE json_extract(criteria, '$.sheet_key') = ?`
-    ).bind(key).first<{ id: string }>()
-    if (exists) {
-      // Re-parse on every sync so improvements to parseCriteria reach old rows.
-      await env.DB.prepare(`UPDATE saved_searches SET criteria = ?, name = ?, updated_at = ?, active = 1 WHERE id = ?`)
-        .bind(JSON.stringify(criteria), client, now, exists.id).run()
-    } else {
-      await env.DB.prepare(
-        `INSERT INTO saved_searches (id, name, criteria, active, created_at, updated_at) VALUES (?, ?, ?, 1, ?, ?)`
-      ).bind(crypto.randomUUID(), client, JSON.stringify(criteria), now, now).run()
+    const e = byKey.get(key2)
+    if (e) {
+      byKey.delete(key2)
+      if (!e.active || e.c.edited_in_crm) {
+        await env.DB.prepare('UPDATE saved_searches SET criteria = ? WHERE id = ?')
+          .bind(JSON.stringify({ ...e.c, key2, synced_at: now }), e.id).run()
+      } else {
+        const clientId = e.c.client_id ?? await clientFor(env, client, sheetPart, now)
+        await env.DB.prepare('UPDATE saved_searches SET criteria = ?, name = ?, client_id = ?, updated_at = ? WHERE id = ?')
+          .bind(JSON.stringify({ ...sheetPart, client_id: clientId, synced_at: now }), client, clientId, now, e.id).run()
+      }
+      continue
     }
+    const clientId = await clientFor(env, client, sheetPart, now)
+    await env.DB.prepare(
+      `INSERT INTO saved_searches (id, client_id, name, criteria, active, created_at, updated_at) VALUES (?, ?, ?, ?, 1, ?, ?)`
+    ).bind(crypto.randomUUID(), clientId, client, JSON.stringify({ ...sheetPart, client_id: clientId, synced_at: now }), now, now).run()
+    created++
   }
-  // Rows gone from the sheet (deleted or edited) go here too.
-  const { results } = await env.DB.prepare(
-    `SELECT id, json_extract(criteria, '$.sheet_key') AS k FROM saved_searches WHERE json_extract(criteria, '$.source') = 'sheet'`
-  ).all<{ id: string; k: string }>()
-  for (const r of results || []) {
-    if (!seen.includes(r.k)) await env.DB.prepare('DELETE FROM saved_searches WHERE id = ?').bind(r.id).run()
+  // Keep the sync clock moving for rows that left the sheet (they stay in the CRM).
+  for (const e of byKey.values()) {
+    await env.DB.prepare('UPDATE saved_searches SET criteria = ? WHERE id = ?')
+      .bind(JSON.stringify({ ...e.c, synced_at: now, in_sheet: false }), e.id).run()
   }
-  return { synced: true }
+  return { synced: true, created }
+}
+
+// A client card for an imported request (no phone: it stays in the sheet).
+async function clientFor(env: Env, name: string, c: any, now: string): Promise<string> {
+  const found = await env.DB.prepare(
+    `SELECT id FROM clients WHERE first_name = ? AND last_name = '' AND source = 'WORK FRANCE' LIMIT 1`).bind(name).first<{ id: string }>()
+  if (found) return found.id
+  const id = crypto.randomUUID()
+  await env.DB.prepare(
+    `INSERT INTO clients (id, first_name, last_name, email, client_type, budget_range, preferences, source, status, created_at, updated_at)
+     VALUES (?, ?, '', '', ?, ?, ?, 'WORK FRANCE', 'active', ?, ?)`
+  ).bind(id, name, c.transaction_type === 'rent' ? 'renter' : 'buyer',
+    c.price_max ? JSON.stringify({ max: c.price_max }) : null,
+    JSON.stringify({ location: c.location_text, cities: c.cities, bedrooms_min: c.bedrooms_min }), now, now).run()
+  return id
 }
 
 // ── matching ─────────────────────────────────────────────────────────────
@@ -339,11 +362,24 @@ function listingFilters(q: URLSearchParams): { where: string[]; binds: unknown[]
 
 // Town centres for listings without coordinates (approximate markers).
 const TOWN_CENTRES: Record<string, [number, number]> = {
-  'Beausoleil': [43.7425, 7.4245], 'Roquebrune-Cap-Martin': [43.7600, 7.4760], 'Menton': [43.7760, 7.5040],
-  "Cap-d'Ail": [43.7210, 7.4040], 'La Turbie': [43.7450, 7.4000], 'Èze': [43.7280, 7.3610],
+  'Monaco': [43.7384, 7.4246], 'Beausoleil': [43.7425, 7.4245], 'Roquebrune-Cap-Martin': [43.7600, 7.4760], 'Menton': [43.7760, 7.5040],
+  "Cap-d'Ail": [43.7210, 7.4040], 'La Turbie': [43.7450, 7.4000], 'Èze': [43.7280, 7.3610], 'Peille': [43.8030, 7.4040],
+  'Gorbio': [43.7870, 7.4460], 'Sainte-Agnès': [43.8000, 7.4630], 'Castellar': [43.8090, 7.5100],
   'Beaulieu-sur-Mer': [43.7070, 7.3330], 'Villefranche-sur-Mer': [43.7040, 7.3110], 'Saint-Jean-Cap-Ferrat': [43.6880, 7.3320],
-  'Nice': [43.7030, 7.2660], 'Cannes': [43.5520, 7.0170], 'Antibes': [43.5800, 7.1230],
-  'Saint-Tropez': [43.2700, 6.6400], 'Ramatuelle': [43.2160, 6.6110], 'Gassin': [43.2290, 6.5850], 'Monaco': [43.7384, 7.4246],
+  'Nice': [43.7030, 7.2660], 'Falicon': [43.7500, 7.2780], 'Aspremont': [43.7840, 7.2440], 'Tourrette-Levens': [43.7860, 7.2760],
+  'Colomars': [43.7630, 7.2210], 'Saint-Laurent-du-Var': [43.6730, 7.1900], 'Cagnes-sur-Mer': [43.6640, 7.1490],
+  'Villeneuve-Loubet': [43.6580, 7.1220], 'Saint-Paul-de-Vence': [43.6970, 7.1220], 'Vence': [43.7230, 7.1120],
+  'La Colle-sur-Loup': [43.6860, 7.1030], 'Tourrettes-sur-Loup': [43.7160, 7.0590], 'La Gaude': [43.7220, 7.1530],
+  'Saint-Jeannet': [43.7480, 7.1430], 'Antibes': [43.5800, 7.1230], 'Biot': [43.6290, 7.0960], 'Valbonne': [43.6420, 7.0090],
+  'Vallauris': [43.5780, 7.0540], 'Le Cannet': [43.5770, 7.0190], 'Cannes': [43.5520, 7.0170], 'Mougins': [43.6000, 6.9950],
+  'Mouans-Sartoux': [43.6200, 6.9710], 'Châteauneuf-Grasse': [43.6670, 6.9800], 'Opio': [43.6670, 6.9820],
+  'Le Rouret': [43.6790, 7.0070], 'Roquefort-les-Pins': [43.6740, 7.0510], 'Grasse': [43.6580, 6.9230], 'Pégomas': [43.5960, 6.9330],
+  'La Roquette-sur-Siagne': [43.5900, 6.9560], 'Mandelieu-la-Napoule': [43.5460, 6.9380], 'Théoule-sur-Mer': [43.5080, 6.9400],
+  'Saint-Raphaël': [43.4250, 6.7680], 'Fréjus': [43.4330, 6.7370], 'Roquebrune-sur-Argens': [43.4440, 6.6370],
+  'Sainte-Maxime': [43.3090, 6.6350], 'Saint-Tropez': [43.2700, 6.6400], 'Ramatuelle': [43.2160, 6.6110], 'Gassin': [43.2290, 6.5850],
+  'Grimaud': [43.2740, 6.5220], 'Cogolin': [43.2520, 6.5300], 'La Croix-Valmer': [43.2060, 6.5690], 'Cavalaire-sur-Mer': [43.1730, 6.5330],
+  'Rayol-Canadel-sur-Mer': [43.1600, 6.4670], 'Le Lavandou': [43.1370, 6.3680], 'Bormes-les-Mimosas': [43.1510, 6.3420],
+  'La Londe-les-Maures': [43.1380, 6.2340], 'Hyères': [43.1200, 6.1300],
 }
 
 // ── routes ───────────────────────────────────────────────────────────────
@@ -481,20 +517,36 @@ export async function handleCrm(req: Request, env: CrmEnv, url: URL, path: strin
                      area: b.area || '', price: b.price || '', rent: b.rent || '', notes: b.notes || '' }
     const criteria = { ...parseCriteria(fields), source: 'manual', client_name: b.client_name.trim(), raw: fields }
     const id = crypto.randomUUID(); const now = new Date().toISOString()
+    const clientId = b.client_id || null
     await env.DB.prepare(
-      `INSERT INTO saved_searches (id, agent_id, name, criteria, active, created_at, updated_at) VALUES (?, ?, ?, ?, 1, ?, ?)`
-    ).bind(id, agentId, criteria.client_name, JSON.stringify(criteria), now, now).run()
+      `INSERT INTO saved_searches (id, client_id, agent_id, name, criteria, active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, 1, ?, ?)`
+    ).bind(id, clientId, agentId, criteria.client_name, JSON.stringify({ ...criteria, client_id: clientId }), now, now).run()
     return respond({ id, criteria }, 201)
   }
 
-  // DELETE /pipeline/requests/:id — manual requests only (sheet rows are edited in the sheet).
+  // PATCH /pipeline/requests/:id {client_name?, type?, location?, bedrooms?, area?, price?, rent?, notes?}
+  // — edit in the CRM; from then on the sheet no longer overrides this request.
+  // DELETE /pipeline/requests/:id — hidden (kept as a tombstone so the sheet doesn't bring it back).
   const rd = path.match(/^\/pipeline\/requests\/([^/]+)$/)
-  if (rd && req.method === 'DELETE') {
-    const r = await env.DB.prepare('SELECT criteria FROM saved_searches WHERE id = ?').bind(rd[1]).first<{ criteria: string }>()
+  if (rd && (req.method === 'PATCH' || req.method === 'DELETE')) {
+    const r = await env.DB.prepare('SELECT criteria, name FROM saved_searches WHERE id = ?').bind(rd[1]).first<{ criteria: string; name: string }>()
     if (!r) return respond({ error: 'Not found' }, 404)
-    if (JSON.parse(r.criteria).source === 'sheet') return respond({ error: 'Edit or remove this request in the sheet' }, 409)
-    await env.DB.prepare('DELETE FROM saved_searches WHERE id = ?').bind(rd[1]).run()
-    return respond({ deleted: true })
+    const now = new Date().toISOString()
+    if (req.method === 'DELETE') {
+      await env.DB.prepare('UPDATE saved_searches SET active = 0, updated_at = ? WHERE id = ?').bind(now, rd[1]).run()
+      return respond({ deleted: true })
+    }
+    const b = await req.json<Record<string, string>>()
+    const old = JSON.parse(r.criteria)
+    const raw = { ...(old.raw || {}) }
+    for (const k of ['type', 'location', 'bedrooms', 'area', 'price', 'rent', 'notes'] as const) {
+      if (b[k] !== undefined) raw[k === 'type' ? 'type2' : k] = String(b[k])
+    }
+    const name = (b.client_name || r.name).trim()
+    const criteria = { ...old, ...parseCriteria(raw), raw, client_name: name, edited_in_crm: true }
+    await env.DB.prepare('UPDATE saved_searches SET name = ?, criteria = ?, updated_at = ? WHERE id = ?')
+      .bind(name, JSON.stringify(criteria), now, rd[1]).run()
+    return respond({ id: rd[1], criteria })
   }
 
   return null

@@ -663,12 +663,12 @@
   "status": "verified",
   "runner": "server",
   "require_riviera": true,
-  "listing_pattern": "^https?://www\\.cotedazur-sothebysrealty\\.com/fr/immobilier-prestige/ref-[a-z0-9-]+/(?:vente|location)-[a-z0-9-]+-(?:98000|06190|06240|06500|06320|06360|06310|06230|06000|06100|06200|06300|06400|06150|06600|06160|83990|83350|83580)/?$",
+  "listing_pattern": "^https?://www\\.cotedazur-sothebysrealty\\.com/fr/immobilier-prestige/ref-[a-z0-9-]+/(?:vente|location)-[a-z0-9-]+-(?:06|83|98)\\d{3}/?$",
   "index_source": "sitemap",
   "overrides": {
    "photos": ".container_grid_1200_photos"
   },
-  "note": "Riviera network. Result grids load by JS, so the index is the sitemap (~550 listings); the URL pattern keeps only the postcodes of the towns in scope (URL ends with the postcode). Gallery under .container_grid_1200_photos."
+  "note": "Riviera network. Result grids load by JS, so the index is the sitemap (~550 listings); URL pattern keeps postcodes 06xxx / 83xxx / 98000 (URL ends with the postcode). Gallery under .container_grid_1200_photos."
  },
  {
   "site_key": "web-dotta-mc",
@@ -1173,25 +1173,17 @@
   "require_riviera": true,
   "index_urls": {
    "sale": [
-    "https://www.michaelzingraf.com/fr/vente/monaco-et-environs",
-    "https://www.michaelzingraf.com/fr/vente/nice-et-environs",
-    "https://www.michaelzingraf.com/fr/vente/pays-cannois",
-    "https://www.michaelzingraf.com/fr/vente/antibes-et-environs",
-    "https://www.michaelzingraf.com/fr/vente/golfe-de-saint-tropez"
+    "https://www.michaelzingraf.com/fr/vente"
    ],
    "rent": [
-    "https://www.michaelzingraf.com/fr/location/monaco-et-environs",
-    "https://www.michaelzingraf.com/fr/location/nice-et-environs",
-    "https://www.michaelzingraf.com/fr/location/pays-cannois",
-    "https://www.michaelzingraf.com/fr/location/antibes-et-environs",
-    "https://www.michaelzingraf.com/fr/location/golfe-de-saint-tropez"
+    "https://www.michaelzingraf.com/fr/location"
    ]
   },
   "listing_pattern": "^https?://www\\.michaelzingraf\\.com/fr/(?:vente|location)/MZI[A-Z]*\\d+-[a-z0-9-]+/?$",
   "overrides": {
    "price": "p.font-serif.text-mz"
   },
-  "note": "Riviera network. Region pages (Monaco, Nice, Cannes, Antibes, Saint-Tropez) for sale and rent; the crawl also reaches other regions, which the town/price scope drops (skip list keeps them from being re-fetched). Price from p.font-serif.text-mz (page also shows other listings' prices)."
+  "note": "Riviera network. Whole sale / rent catalogue (also Alps, Provence, Mauritius); the Côte d'Azur scope keeps 06/83 towns, the skip list stops re-fetching the rest. Price from p.font-serif.text-mz (page also shows other listings' prices)."
  },
  {
   "site_key": "web-miells-com",

@@ -89,6 +89,8 @@ export const pipelineApi = {
     call<{ id: string; name: string; criteria: RequestCriteria; items: ListingCard[] }>(`/requests/${encodeURIComponent(id)}/matches`),
   addRequest: (body: Record<string, string | boolean>) =>
     call<{ id: string }>('/requests', { method: 'POST', body: JSON.stringify(body) }),
+  updateRequest: (id: string, body: Record<string, string | boolean>) =>
+    call<{ id: string }>(`/requests/${encodeURIComponent(id)}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteRequest: (id: string) => call<{ deleted: boolean }>(`/requests/${encodeURIComponent(id)}`, { method: 'DELETE' }),
 }
 

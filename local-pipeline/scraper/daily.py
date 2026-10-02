@@ -131,8 +131,9 @@ MONACO = re.compile(r"monaco|monte[- ]?carlo|fontvieille|condamine|larvotto|mone
                     r"jardin exotique|mareterra|portier|r[ée]voires|98000", re.I)
 # Côte d'Azur communes (Menton → Saint-Tropez) → canonical city name.
 RIVIERA = [(re.compile(rf"\b(?:{pat})\b", re.I), city) for pat, city in [
+    # Alpes-Maritimes: coast from the Italian border to Théoule, and the hinterland buyers ask for
     (r"menton|garavan", "Menton"),
-    (r"roquebrune|cap[- ]martin", "Roquebrune-Cap-Martin"),
+    (r"roquebrune(?![- ]sur[- ]argens)|cap[- ]martin", "Roquebrune-Cap-Martin"),
     (r"beausoleil", "Beausoleil"),
     (r"cap[- ]d.?ail", "Cap-d'Ail"),
     (r"la[- ]turbie", "La Turbie"),
@@ -143,45 +144,49 @@ RIVIERA = [(re.compile(rf"\b(?:{pat})\b", re.I), city) for pat, city in [
     (r"villefranche(?:[- ]sur[- ]mer)?", "Villefranche-sur-Mer"),
     # "Nice" only as a name: not "nice apartment", "Nice 3 rooms".
     (r"(?-i:Nice)(?!\s+(?:[a-z]|\d))|mont[- ]boron|cimiez", "Nice"),
+    (r"falicon", "Falicon"), (r"aspremont", "Aspremont"), (r"tourrette[- ]levens", "Tourrette-Levens"), (r"colomars", "Colomars"),
     (r"(?:saint|st)[- ]laurent[- ]du[- ]var", "Saint-Laurent-du-Var"),
     (r"cagnes(?:[- ]sur[- ]mer)?", "Cagnes-sur-Mer"),
     (r"villeneuve[- ]loubet", "Villeneuve-Loubet"),
     (r"(?:saint|st)[- ]paul[- ]de[- ]vence", "Saint-Paul-de-Vence"),
-    (r"vence", "Vence"),
+    (r"vence", "Vence"), (r"la[- ]colle[- ]sur[- ]loup", "La Colle-sur-Loup"), (r"tourrettes[- ]sur[- ]loup", "Tourrettes-sur-Loup"),
+    (r"la[- ]gaude", "La Gaude"), (r"(?:saint|st)[- ]jeannet", "Saint-Jeannet"),
     (r"antibes|juan[- ]les[- ]pins", "Antibes"),
     (r"biot", "Biot"), (r"valbonne|sophia[- ]antipolis", "Valbonne"),
     (r"vallauris|golfe[- ]juan", "Vallauris"),
     (r"le[- ]cannet", "Le Cannet"),
     (r"cannes", "Cannes"),
-    (r"mougins", "Mougins"),
-    (r"grasse", "Grasse"),
+    (r"mougins", "Mougins"), (r"mouans[- ]sartoux", "Mouans-Sartoux"),
+    (r"ch[âa]teauneuf[- ]grasse|ch[âa]teauneuf[- ]de[- ]grasse", "Châteauneuf-Grasse"), (r"opio", "Opio"),
+    (r"le[- ]rouret", "Le Rouret"), (r"roquefort[- ]les[- ]pins", "Roquefort-les-Pins"),
+    (r"grasse", "Grasse"), (r"p[ée]gomas", "Pégomas"), (r"la[- ]roquette[- ]sur[- ]siagne", "La Roquette-sur-Siagne"),
     (r"mandelieu", "Mandelieu-la-Napoule"), (r"th[ée]oule", "Théoule-sur-Mer"),
-    (r"(?:saint|st)[- ]rapha[eë]l", "Saint-Raphaël"),
-    (r"fr[ée]jus", "Fréjus"),
+    # Var coast: Estérel to Hyères
+    (r"(?:saint|st)[- ]rapha[eë]l|agay", "Saint-Raphaël"),
+    (r"fr[ée]jus", "Fréjus"), (r"roquebrune[- ]sur[- ]argens|les[- ]issambres", "Roquebrune-sur-Argens"),
     (r"sainte?[- ]maxime", "Sainte-Maxime"),
     (r"(?:saint|st)[- ]tropez", "Saint-Tropez"), (r"ramatuelle", "Ramatuelle"), (r"gassin", "Gassin"),
-    (r"grimaud|port[- ]grimaud", "Grimaud"), (r"cavalaire", "Cavalaire-sur-Mer"),
+    (r"grimaud|port[- ]grimaud", "Grimaud"), (r"cogolin", "Cogolin"),
+    (r"la[- ]croix[- ]valmer", "La Croix-Valmer"), (r"cavalaire", "Cavalaire-sur-Mer"), (r"rayol", "Rayol-Canadel-sur-Mer"),
+    (r"le[- ]lavandou", "Le Lavandou"), (r"bormes", "Bormes-les-Mimosas"), (r"la[- ]londe", "La Londe-les-Maures"),
+    (r"hy[eè]res|porquerolles", "Hyères"),
 ]]
-# Towns Mark's clients buy in (2026-10-02) → minimum sale price; rentals from
-# €3,000/month outside Monaco. Listings in other towns are not ingested.
-SCOPE_MIN_SALE = {
-    "Monaco": 0, "Beausoleil": 500_000, "Roquebrune-Cap-Martin": 500_000,
-    **dict.fromkeys(["Menton", "Cap-d'Ail", "La Turbie", "Èze", "Beaulieu-sur-Mer", "Villefranche-sur-Mer",
-                     "Saint-Jean-Cap-Ferrat", "Nice", "Cannes", "Antibes", "Saint-Tropez", "Ramatuelle", "Gassin"],
-                    1_000_000),
-}
+# A French postcode of the two Côte d'Azur departments when no commune is named.
+POSTCODE = re.compile(r"\b(06|83)\d{3}\b")
+
+# Mark (2026-10-02): the whole Côte d'Azur, as many listings as possible —
+# sales from €100k, rentals from €1,500/month; Monaco keeps everything.
+MIN_SALE = 100_000
+MIN_RENT = 1_500
 
 
-MIN_RENT = 3_000
-
-
-def in_scope(d: dict, city: str) -> bool:
-    if city not in SCOPE_MIN_SALE:
+def in_scope(d: dict, city: str | None) -> bool:
+    if not city:
         return False
     price = d.get("price")
     if price is None or city == "Monaco":
         return True
-    return price >= (SCOPE_MIN_SALE[city] if d.get("transaction_type") == "sale" else MIN_RENT)
+    return price >= (MIN_SALE if d.get("transaction_type") == "sale" else MIN_RENT)
 
 
 # Places outside Monaco and the Côte d'Azur: never ingested.
@@ -210,6 +215,10 @@ def city_of(d: dict, url: str) -> str | None:
         hits += [(m.start(), city) for rx, city in RIVIERA for m in [rx.search(text)] if m]
         if hits:
             return min(hits)[1]
+    # No commune named: a 06xxx / 83xxx postcode still places it on the Côte d'Azur.
+    m = POSTCODE.search(" ".join(str(d.get(k) or "") for k in ("address", "quarter", "title")) + " " + path)
+    if m and m.group(0) != "98000":
+        return "Alpes-Maritimes" if m.group(1) == "06" else "Var"
     return None
 
 

@@ -34,7 +34,7 @@ export const translations = {
       client: 'Client', phone: 'Phone', type: 'Type', location: 'Location', bedrooms: 'Bedrooms', area: 'Area m²', budget: 'Purchase budget €',
       rentBudget: 'Rent budget €/month', notes: 'Notes', save: 'Save request', cancel: 'Cancel', select: 'Select a request to see its matches.',
       noMatches: 'No listings match this request yet.', anyTown: 'any town', remove: 'Delete', editInSheet: 'Edit this request in the sheet',
-      loading: 'Loading requests…', broker: 'Broker', deadline: 'Deadline', unrecognized: 'Town not recognised — no matches until the location is fixed',
+      loading: 'Loading requests…', broker: 'Broker', deadline: 'Deadline', unrecognized: 'Town not recognised — no matches until the location is fixed', confirmDelete: 'Delete this request? It will not come back from the sheet.', clientCard: 'Client card', edited: 'edited in CRM', notInSheet: 'no longer in sheet',
     },
     common: {
       save: 'Save',
@@ -509,7 +509,7 @@ export const translations = {
       client: 'Клиент', phone: 'Телефон', type: 'Тип', location: 'Локация', bedrooms: 'Спальни', area: 'Площадь м²', budget: 'Бюджет покупки €',
       rentBudget: 'Бюджет аренды €/мес', notes: 'Комментарий', save: 'Сохранить запрос', cancel: 'Отмена', select: 'Выберите запрос, чтобы увидеть подбор.',
       noMatches: 'Пока нет подходящих объектов.', anyTown: 'любой город', remove: 'Удалить', editInSheet: 'Редактируйте этот запрос в таблице',
-      loading: 'Загрузка запросов…', broker: 'Брокер', deadline: 'Дедлайн', unrecognized: 'Город не распознан — подбор появится после исправления локации',
+      loading: 'Загрузка запросов…', broker: 'Брокер', deadline: 'Дедлайн', unrecognized: 'Город не распознан — подбор появится после исправления локации', confirmDelete: 'Удалить запрос? Из таблицы он не вернётся.', clientCard: 'Карточка клиента', edited: 'изменён в CRM', notInSheet: 'нет в таблице',
     },
     common: {
       save: 'Сохранить',
