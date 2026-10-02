@@ -1,13 +1,13 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { RefreshCw, Plus, Trash2, Phone, ArrowLeft } from 'lucide-react'
+import { RefreshCw, Plus, Trash2, ArrowLeft } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import AuthedPage from '@/components/listings/AuthedPage'
 import ListingCardView from '@/components/listings/ListingCardView'
 import { formatPrice, pipelineApi, QUARTER_NAMES, type ClientRequest, type ListingCard } from '@/lib/pipelineApi'
 
-const EMPTY_FORM = { client_name: '', client_phone: '', type: 'Квартира', location: '', bedrooms: '', area: '', price: '', rent: '', notes: '' }
+const EMPTY_FORM = { client_name: '', type: 'Квартира', location: '', bedrooms: '', area: '', price: '', rent: '', notes: '' }
 
 export default function RequestsPage() {
   const { t } = useLanguage()
@@ -74,7 +74,6 @@ export default function RequestsPage() {
       {form && (
         <div className="rounded-xl border border-border bg-card p-4 mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <label className="text-xs text-muted-foreground">{t('requests.client')}<input className={input} value={form.client_name} onChange={e => setForm({ ...form, client_name: e.target.value })} /></label>
-          <label className="text-xs text-muted-foreground">{t('requests.phone')}<input className={input} value={form.client_phone} onChange={e => setForm({ ...form, client_phone: e.target.value })} /></label>
           <label className="text-xs text-muted-foreground">{t('requests.type')}
             <select className={input} value={form.type} onChange={e => setForm({ ...form, type: e.target.value })}>
               <option value="Квартира">{t('listings.apartment')}</option>
@@ -127,7 +126,6 @@ export default function RequestsPage() {
                   <h2 className="text-lg font-semibold text-foreground">{sel.name}</h2>
                   <p className="text-sm text-muted-foreground">{summary(sel)}</p>
                   <p className="text-xs text-muted-foreground">
-                    {sel.criteria.client_phone && <a href={`tel:${sel.criteria.client_phone.replace(/[^\d+]/g, '')}`} className="inline-flex items-center gap-1 text-primary mr-3"><Phone className="w-3 h-3" />{sel.criteria.client_phone}</a>}
                     {sel.criteria.broker && <span className="mr-3">{t('requests.broker')}: {sel.criteria.broker}</span>}
                     {sel.criteria.deadline && <span>{t('requests.deadline')}: {sel.criteria.deadline}</span>}
                   </p>

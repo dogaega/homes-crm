@@ -52,6 +52,7 @@ export interface Criteria {
   area_min: number | null
   area_max: number | null
   price_max: number | null      // sale budget or monthly rent budget
+  sea_view?: boolean            // "вид на море" / sea view / vue mer: ranks higher, never excludes
   location_text: string
   notes: string
 }
@@ -110,6 +111,7 @@ export function parseCriteria(r: { type1?: string; type2?: string; location?: st
     area_min: area ? (area[2] ? +area[1] : Math.round(+area[1] * 0.85)) : null,
     area_max: area?.[2] ? +area[2] : null,
     price_max: isRent ? rent : sale,
+    sea_view: /вид на море|видом на море|sea ?view|vue (?:sur la )?mer|vista mare/i.test(text),
     location_text: loc,
     notes: [r.bedrooms && !beds ? r.bedrooms : '', r.notes || ''].filter(Boolean).join(' · '),
   }
@@ -177,15 +179,17 @@ async function syncSheet(env: CrmEnv, force = false): Promise<{ synced: boolean;
     seen.push(key)
     const criteria = {
       ...parseCriteria(fields), source: 'sheet', sheet_key: key,
-      client_name: client, client_phone: at(r, C.phone) || null, middleman: at(r, C.middleman) || null,
-      middleman_phone: at(r, C.middlemanPhone) || null, broker: at(r, C.broker) || null,
+      // Client and middleman phone numbers stay in the sheet: the CRM never stores them.
+      client_name: client, middleman: at(r, C.middleman) || null, broker: at(r, C.broker) || null,
       deadline: at(r, C.deadline) || null, status: at(r, C.status) || null, raw: fields,
     }
     const exists = await env.DB.prepare(
       `SELECT id FROM saved_searches WHERE json_extract(criteria, '$.sheet_key') = ?`
     ).bind(key).first<{ id: string }>()
     if (exists) {
-      await env.DB.prepare(`UPDATE saved_searches SET updated_at = ?, active = 1 WHERE id = ?`).bind(now, exists.id).run()
+      // Re-parse on every sync so improvements to parseCriteria reach old rows.
+      await env.DB.prepare(`UPDATE saved_searches SET criteria = ?, name = ?, updated_at = ?, active = 1 WHERE id = ?`)
+        .bind(JSON.stringify(criteria), client, now, exists.id).run()
     } else {
       await env.DB.prepare(
         `INSERT INTO saved_searches (id, name, criteria, active, created_at, updated_at) VALUES (?, ?, ?, 1, ?, ?)`
@@ -245,7 +249,7 @@ async function matches(env: Env, c: Criteria, limit = 60): Promise<any[]> {
   const { where, binds } = matchWhere(c)
   // Score on a light pull, then load the full card columns for the winners only.
   const { results } = await env.DB.prepare(
-    `SELECT p.id, p.price, p.bedrooms, p.living_area_sqm, p.hero_image_key, p.source_count, p.first_seen_at
+    `SELECT p.id, p.price, p.bedrooms, p.living_area_sqm, p.hero_image_key, p.source_count, p.first_seen_at, p.sea_view
      FROM properties p WHERE ${where.join(' AND ')} ORDER BY p.first_seen_at DESC LIMIT 1000`
   ).bind(...binds).all<any>()
   const since = newSince()
@@ -256,6 +260,7 @@ async function matches(env: Env, c: Criteria, limit = 60): Promise<any[]> {
     if (c.bedrooms_min != null) score += p.bedrooms == null ? -5 : p.bedrooms <= (c.bedrooms_max ?? p.bedrooms) ? 10 : 3
     if (c.area_min) score += p.living_area_sqm == null ? -5 : 5
     if (p.hero_image_key) score += 5
+    if (c.sea_view) score += p.sea_view ? 10 : -3
     if (p.source_count > 1) score += 2
     return { id: p.id as string, score: Math.round(score), first_seen_at: p.first_seen_at as string }
   }).sort((a, b) => b.score - a.score || (b.first_seen_at > a.first_seen_at ? 1 : -1)).slice(0, limit)
@@ -265,6 +270,35 @@ async function matches(env: Env, c: Criteria, limit = 60): Promise<any[]> {
   ).bind(...top.map(t => t.id)).all<any>()
   const byId = new Map((cards || []).map(x => [x.id, x]))
   return top.flatMap(t => (byId.has(t.id) ? [{ ...byId.get(t.id), score: t.score, is_new: t.first_seen_at >= since }] : []))
+}
+
+// Filters shared by the list and the map (query string of /pipeline/listings).
+function listingFilters(q: URLSearchParams): { where: string[]; binds: unknown[] } {
+  const where = [LIVE]; const binds: unknown[] = []
+  const cities = q.getAll('city').filter(Boolean)
+  if (cities.length) { where.push(`p.city IN (${cities.map(() => '?').join(',')})`); binds.push(...cities) }
+  if (q.get('tx')) { where.push('p.transaction_type = ?'); binds.push(q.get('tx')) }
+  if (q.get('min')) { where.push('p.price >= ?'); binds.push(+q.get('min')!) }
+  if (q.get('max')) { where.push('p.price <= ?'); binds.push(+q.get('max')!) }
+  if (q.get('beds')) { where.push('p.bedrooms >= ?'); binds.push(+q.get('beds')!) }
+  if (q.get('area')) { where.push('p.living_area_sqm >= ?'); binds.push(+q.get('area')!) }
+  if (q.get('days')) { where.push('p.first_seen_at >= ?'); binds.push(new Date(Date.now() - +q.get('days')! * 86400_000).toISOString()) }
+  if (q.get('type') === 'villa') where.push(VILLA)
+  if (q.get('type') === 'apartment') where.push(`NOT ${VILLA}`)
+  if (q.get('q')) {
+    where.push(`(p.property_name LIKE ? OR p.building_name LIKE ? OR p.quarter LIKE ? OR p.property_id LIKE ?)`)
+    binds.push(...Array(4).fill(`%${q.get('q')}%`))
+  }
+  return { where, binds }
+}
+
+// Town centres for listings without coordinates (approximate markers).
+const TOWN_CENTRES: Record<string, [number, number]> = {
+  'Beausoleil': [43.7425, 7.4245], 'Roquebrune-Cap-Martin': [43.7600, 7.4760], 'Menton': [43.7760, 7.5040],
+  "Cap-d'Ail": [43.7210, 7.4040], 'La Turbie': [43.7450, 7.4000], 'Èze': [43.7280, 7.3610],
+  'Beaulieu-sur-Mer': [43.7070, 7.3330], 'Villefranche-sur-Mer': [43.7040, 7.3110], 'Saint-Jean-Cap-Ferrat': [43.6880, 7.3320],
+  'Nice': [43.7030, 7.2660], 'Cannes': [43.5520, 7.0170], 'Antibes': [43.5800, 7.1230],
+  'Saint-Tropez': [43.2700, 6.6400], 'Ramatuelle': [43.2160, 6.6110], 'Gassin': [43.2290, 6.5850], 'Monaco': [43.7384, 7.4246],
 }
 
 // ── routes ───────────────────────────────────────────────────────────────
@@ -285,21 +319,7 @@ export async function handleCrm(req: Request, env: CrmEnv, url: URL, path: strin
 
   // GET /pipeline/listings?city=&tx=&min=&max=&beds=&area=&q=&days=&sort=&page=
   if (path === '/pipeline/listings' && req.method === 'GET') {
-    const where = [LIVE]; const binds: unknown[] = []
-    const cities = q.getAll('city').filter(Boolean)
-    if (cities.length) { where.push(`p.city IN (${cities.map(() => '?').join(',')})`); binds.push(...cities) }
-    if (q.get('tx')) { where.push('p.transaction_type = ?'); binds.push(q.get('tx')) }
-    if (q.get('min')) { where.push('p.price >= ?'); binds.push(+q.get('min')!) }
-    if (q.get('max')) { where.push('p.price <= ?'); binds.push(+q.get('max')!) }
-    if (q.get('beds')) { where.push('p.bedrooms >= ?'); binds.push(+q.get('beds')!) }
-    if (q.get('area')) { where.push('p.living_area_sqm >= ?'); binds.push(+q.get('area')!) }
-    if (q.get('days')) { where.push('p.first_seen_at >= ?'); binds.push(new Date(Date.now() - +q.get('days')! * 86400_000).toISOString()) }
-    if (q.get('type') === 'villa') where.push(VILLA)
-    if (q.get('type') === 'apartment') where.push(`NOT ${VILLA}`)
-    if (q.get('q')) {
-      where.push(`(p.property_name LIKE ? OR p.building_name LIKE ? OR p.quarter LIKE ? OR p.property_id LIKE ?)`)
-      binds.push(...Array(4).fill(`%${q.get('q')}%`))
-    }
+    const { where, binds } = listingFilters(q)
     const order = ({ price_asc: 'p.price IS NULL, p.price', price_desc: 'p.price DESC', area: 'p.living_area_sqm DESC' } as Record<string, string>)[q.get('sort') || ''] || 'p.first_seen_at DESC'
     const page = Math.max(0, +(q.get('page') || 0)); const size = 30
     const total = await env.DB.prepare(`SELECT COUNT(*) AS n FROM properties p WHERE ${where.join(' AND ')}`).bind(...binds).first<{ n: number }>()
@@ -309,6 +329,32 @@ export async function handleCrm(req: Request, env: CrmEnv, url: URL, path: strin
     const since = newSince()
     return respond({ total: total?.n ?? 0, page, page_size: size,
                      items: (results || []).map(x => ({ ...x, is_new: x.first_seen_at >= since })) })
+  }
+
+  // GET /pipeline/map?<listing filters>&s=&w=&n=&e= — points for the map view.
+  // Exact = listing coordinates or a gazetteer building; approximate = quarter
+  // or town centre (Riviera listings carry no coordinates yet).
+  if (path === '/pipeline/map' && req.method === 'GET') {
+    const { where, binds } = listingFilters(q)
+    const { results } = await env.DB.prepare(
+      `SELECT p.id, p.price, p.transaction_type, p.city, p.quarter, p.bedrooms, p.living_area_sqm, p.building_name, p.property_name,
+              p.map_lat, p.map_lng, p.coord_source, p.hero_image_key, p.first_seen_at
+       FROM properties p WHERE ${where.join(' AND ')} LIMIT 6000`
+    ).bind(...binds).all<any>()
+    const box = ['s', 'w', 'n', 'e'].map(k => q.get(k)).every(v => v != null && v !== '')
+      ? { s: +q.get('s')!, w: +q.get('w')!, n: +q.get('n')!, e: +q.get('e')! } : null
+    const since = newSince()
+    const points = []
+    for (const p of results || []) {
+      let lat = p.map_lat, lng = p.map_lng, exact = p.coord_source === 'listing' || p.coord_source === 'building'
+      if (lat == null && TOWN_CENTRES[p.city]) { [lat, lng] = TOWN_CENTRES[p.city]; exact = false }
+      if (lat == null) continue
+      if (box && (lat < box.s || lat > box.n || lng < box.w || lng > box.e)) continue
+      points.push({ id: p.id, lat, lng, exact, price: p.price, tx: p.transaction_type, city: p.city, quarter: p.quarter,
+                    beds: p.bedrooms, area: p.living_area_sqm, title: p.building_name || p.property_name,
+                    hero: p.hero_image_key, is_new: p.first_seen_at >= since })
+    }
+    return respond({ total: points.length, points: points.slice(0, 3000) })
   }
 
   // GET /pipeline/cities — towns with live listings, for the filter.
@@ -378,14 +424,13 @@ export async function handleCrm(req: Request, env: CrmEnv, url: URL, path: strin
     return respond({ id: r.id, name: r.name, criteria: JSON.parse(r.criteria), items: await matches(env, JSON.parse(r.criteria)) })
   }
 
-  // POST /pipeline/requests — manual request {client_name, client_phone?, type?, location, bedrooms?, area?, price?, rent?, notes?}
+  // POST /pipeline/requests — manual request {client_name, type?, location, bedrooms?, area?, price?, rent?, notes?}
   if (path === '/pipeline/requests' && req.method === 'POST') {
     const b = await req.json<Record<string, string>>()
     if (!b.client_name?.trim()) return respond({ error: 'client_name is required' }, 400)
     const fields = { type1: b.commercial ? 'н/ф' : 'ж/ф', type2: b.type || '', location: b.location || '', bedrooms: b.bedrooms || '',
                      area: b.area || '', price: b.price || '', rent: b.rent || '', notes: b.notes || '' }
-    const criteria = { ...parseCriteria(fields), source: 'manual', client_name: b.client_name.trim(),
-                       client_phone: b.client_phone || null, raw: fields }
+    const criteria = { ...parseCriteria(fields), source: 'manual', client_name: b.client_name.trim(), raw: fields }
     const id = crypto.randomUUID(); const now = new Date().toISOString()
     await env.DB.prepare(
       `INSERT INTO saved_searches (id, agent_id, name, criteria, active, created_at, updated_at) VALUES (?, ?, ?, ?, 1, ?, ?)`

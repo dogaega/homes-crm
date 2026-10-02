@@ -13,10 +13,18 @@ export default function ListingCardView({ p }: { p: ListingCard }) {
   const [heroFailed, setHeroFailed] = useState(false)
   const img = (!heroFailed && heroUrl(p.hero_image_key)) || p.photo_url
   const place = [p.city === 'Monaco' && p.quarter ? QUARTER_NAMES[p.quarter] || p.quarter : null, p.city].filter(Boolean).join(', ')
+  // Some sites give no usable title ("Sale - Apartment - Monte-Carlo", "Detail d'une annonce").
+  const junk = (x: string | null) => !x || x.length < 6 || /^(?:monaco|—|-)$|d[ée]tail d.une annonce|^(?:sale|vente|rent|location)\s*[-–]\s*(?:apartment|appartement)/i.test(x.trim())
+  const kind = p.bedrooms === 0 ? t('listings.studio') : p.bedrooms != null ? `${p.bedrooms} ${t('listings.beds')}` : ''
+  const title = !junk(p.building_name) ? p.building_name : !junk(p.property_name) ? p.property_name
+    : [kind, p.living_area_sqm ? `${Math.round(p.living_area_sqm)} m²` : ''].filter(Boolean).join(' · ') || '—'
+  const perM2 = p.price && p.living_area_sqm && p.living_area_sqm >= 10 && p.transaction_type === 'sale'
+    ? `${Math.round(p.price / p.living_area_sqm / 1000)}k €/m²` : null
   const facts = [
     p.bedrooms === 0 ? t('listings.studio') : p.bedrooms != null ? `${p.bedrooms} ${t('listings.beds')}` : null,
     p.living_area_sqm != null ? `${Math.round(p.living_area_sqm)} m²` : null,
     p.floor != null ? `${t('listings.floor')} ${p.floor}` : null,
+    perM2,
   ].filter(Boolean).join(' · ')
 
   return (
@@ -45,7 +53,7 @@ export default function ListingCardView({ p }: { p: ListingCard }) {
           {p.is_new && <span className="text-[10px] font-semibold px-1.5 rounded bg-amber-500 text-white">{t('listings.isNew')}</span>}
           {p.contact_count > 0 && <span className="text-[10px] font-semibold px-1.5 rounded bg-violet-600 text-white">{t('listings.contacted')}</span>}
         </div>
-        <div className="text-sm text-foreground truncate">{p.building_name || p.property_name || '—'}</div>
+        <div className="text-sm text-foreground truncate">{title}</div>
         <div className="text-xs text-muted-foreground truncate">{place}</div>
         {facts && <div className="text-xs text-muted-foreground">{facts}</div>}
       </div>

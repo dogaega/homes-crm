@@ -45,7 +45,6 @@ export interface RequestCriteria {
   notes: string
   source: 'sheet' | 'manual'
   client_name: string
-  client_phone: string | null
   broker?: string | null
   deadline?: string | null
 }
@@ -74,6 +73,10 @@ export const pipelineApi = {
   listings: (params: URLSearchParams) =>
     call<{ total: number; page: number; page_size: number; items: ListingCard[] }>(`/listings?${params}`),
   cities: () => call<{ city: string; n: number }[]>('/cities'),
+  map: (params: URLSearchParams) => call<{ total: number; points: any[] }>(`/map?${params}`),
+  reviews: () => call<{ total: number; items: any[] }>('/review'),
+  decideReview: (id: string, decision: 'merge' | 'reject') =>
+    call<unknown>(`/review/${encodeURIComponent(id)}`, { method: 'POST', body: JSON.stringify({ decision }) }),
   listing: (id: string) => call<any>(`/listings/${encodeURIComponent(id)}`),
   markContacted: (id: string, sourceId?: string, note?: string) =>
     call<{ id: string }>(`/listings/${encodeURIComponent(id)}/contact`, {

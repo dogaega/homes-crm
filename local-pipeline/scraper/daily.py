@@ -291,6 +291,10 @@ def main() -> None:
         t.join()
     log.info("sites: %s", dict(Counter(r.get("status") for r in results)))
     if args.mode == "full":
+        try:  # logos / stock photos seen on many properties: never covers or duplicate evidence
+            log.info("generic photos: %s", client.request("POST", "/sync/generic-photos", {}))
+        except Exception as e:
+            log.warning("generic photo rebuild failed: %s", e)
         log.info("changelog: %s", client.changelog()["summary"])
 
 

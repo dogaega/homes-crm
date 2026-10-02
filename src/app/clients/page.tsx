@@ -118,8 +118,7 @@ function ClientsPageContent() {
       filtered = filtered.filter(client =>
         client.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         client.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        client.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        client.phone?.includes(searchTerm)
+        client.email?.toLowerCase().includes(searchTerm.toLowerCase())
       )
     }
 
@@ -324,12 +323,6 @@ function ClientsPageContent() {
                       <Mail className="w-4 h-4 mr-2" />
                       {client.email}
                     </div>
-                    {client.phone && (
-                      <div className="flex items-center text-sm text-gray-600">
-                        <Phone className="w-4 h-4 mr-2" />
-                        {client.phone}
-                      </div>
-                    )}
                     <div className="flex items-center text-sm text-gray-600">
                       <User className="w-4 h-4 mr-2" />
                       {client.client_type || 'buyer'}
@@ -347,7 +340,6 @@ function ClientsPageContent() {
                       agentId={agentId}
                       clientName={`${client.first_name} ${client.last_name}`}
                       clientEmail={client.email || undefined}
-                      clientPhone={client.phone || undefined}
                       variant="compact"
                     />
                     <div className="flex space-x-2">

@@ -1,5 +1,5 @@
 """
-Hero image: first listing photo → WebP (max 1600 px) + 64-bit difference
+Hero image: first real listing photo → WebP (max 1024 px) + 64-bit difference
 hash for the Worker's photo-match dedup tier. Everything stays in memory
 (the Mac runner must not write to disk).
 """
@@ -15,8 +15,8 @@ from scraper.fetch import PoliteFetcher
 
 log = logging.getLogger("hero")
 
-MAX_SIDE = 1600
-QUALITY = 82
+MAX_SIDE = 1024   # cards and the detail view never show it larger; ~4× lighter than 1600
+QUALITY = 78
 
 
 def dhash64(img: Image.Image) -> str:
@@ -64,8 +64,9 @@ def gallery_hashes(f: PoliteFetcher, photo_urls: list[str], n: int = GALLERY) ->
 
 
 def upload_hero(f: PoliteFetcher, run, source_id: str, photo_urls: list[str]) -> bool:
-    """Best effort: a missing hero never fails the listing."""
-    for url in photo_urls[:2]:
+    """Best effort: a missing hero never fails the listing. The Worker refuses
+    logos / stock photos (422 generic); the next photo is tried."""
+    for url in photo_urls[:6]:
         try:
             webp, phash = make_hero(f.get_bytes(url))
             res = run.upload_hero(source_id, webp, phash)
@@ -73,5 +74,8 @@ def upload_hero(f: PoliteFetcher, run, source_id: str, photo_urls: list[str]) ->
                 log.info("hero %s: %s", source_id, res["phash_match"])
             return True
         except Exception as e:
+            if getattr(e, "status", None) == 422:
+                log.debug("hero %s: %s is a generic image, trying the next photo", source_id, url)
+                continue
             log.warning("hero %s from %s failed: %s", source_id, url, e)
     return False

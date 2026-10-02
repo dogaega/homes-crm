@@ -1056,12 +1056,6 @@ export default function ClientTasks({ clientId, agentId, clientName }: ClientTas
                             <Mail className="w-4 h-4 text-gray-600" />
                             <span className="text-gray-800">{selectedTaskDetail.client.email}</span>
                           </div>
-                          {selectedTaskDetail.client.phone && (
-                            <div className="flex items-center space-x-2">
-                              <Phone className="w-4 h-4 text-gray-600" />
-                              <span className="text-gray-800">{selectedTaskDetail.client.phone}</span>
-                            </div>
-                          )}
                           {selectedTaskDetail.client.client_type && (
                             <div className="flex items-center space-x-2">
                               <span className="text-gray-600">Type:</span>

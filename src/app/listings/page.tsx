@@ -1,7 +1,8 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { SlidersHorizontal } from 'lucide-react'
+import { SlidersHorizontal, Map as MapIcon, GitMerge } from 'lucide-react'
+import Link from 'next/link'
 import { useLanguage } from '@/contexts/LanguageContext'
 import AuthedPage from '@/components/listings/AuthedPage'
 import ListingCardView from '@/components/listings/ListingCardView'
@@ -50,6 +51,10 @@ export default function ListingsPage() {
 
   return (
     <AuthedPage title={t('listings.title')}>
+      <div className="flex gap-2 mb-3">
+        <Link href="/listings/map" className="inline-flex items-center gap-1 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm"><MapIcon className="w-4 h-4" />{t('map.map')}</Link>
+        <Link href="/listings/review" className="inline-flex items-center gap-1 h-9 px-3 rounded-md border border-border text-sm"><GitMerge className="w-4 h-4" />{t('review.title')}</Link>
+      </div>
       <div className="flex gap-1.5 mb-3 overflow-x-auto pb-1 -mx-1 px-1 [scrollbar-width:thin]">
         <button onClick={() => set({ cities: [] })}
           className={`shrink-0 px-3 py-1 rounded-full text-sm border whitespace-nowrap ${filters.cities.length === 0 ? 'bg-primary text-primary-foreground border-primary' : 'border-border text-foreground'}`}>

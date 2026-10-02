@@ -208,7 +208,6 @@ export default function ClientDetailPage({ params }: ClientDetailPageProps) {
               agentId={agentId}
               clientName={`${client.first_name} ${client.last_name}`}
               clientEmail={client.email || undefined}
-              clientPhone={client.phone || undefined}
               onCommunicationLogged={handleCommunicationLogged}
             />
             <Button variant="outline" size="sm">
@@ -232,12 +231,6 @@ export default function ClientDetailPage({ params }: ClientDetailPageProps) {
                   <Mail className="w-4 h-4 text-gray-600" />
                   <span className="text-sm font-medium text-gray-900">{client.email}</span>
                 </div>
-                {client.phone && (
-                  <div className="flex items-center space-x-3">
-                    <Phone className="w-4 h-4 text-gray-600" />
-                    <span className="text-sm font-medium text-gray-900">{client.phone}</span>
-                  </div>
-                )}
                 {client.address && (
                   <div className="flex items-center space-x-3">
                     <MapPin className="w-4 h-4 text-gray-600" />

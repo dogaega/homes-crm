@@ -24,6 +24,10 @@ export const translations = {
       markContacted: 'Mark contacted', marked: 'Marked', priceHistory: 'Price history', contactLog: 'Contact log', floor: 'Floor',
       terrace: 'Terrace', firstSeen: 'First seen', lastSeen: 'Last seen', photos: 'Photos (from the agency site)', removed: 'Removed',
     },
+    map: { map: 'Map', list: 'List', inView: 'in view', approx: 'Approximate position (quarter or town centre)',
+      legend: 'Dark pins: exact position · grey: quarter / town centre · orange border: new' },
+    review: { title: 'Duplicates', question: 'Is this the same property?', left: 'left', same: 'Same property', different: 'Different',
+      none: 'No possible duplicates to check.' },
     requests: {
       title: 'Client requests', subtitle: 'From the WORK FRANCE sheet and added here — matched to listings automatically',
       refresh: 'Refresh from sheet', add: 'Add request', matches: 'matches', newMatches: 'new this week', sheet: 'Sheet', manual: 'Manual',
@@ -495,6 +499,10 @@ export const translations = {
       markContacted: 'Отметить связь', marked: 'Отмечено', priceHistory: 'История цен', contactLog: 'Журнал контактов', floor: 'Этаж',
       terrace: 'Терраса', firstSeen: 'Впервые', lastSeen: 'Последний раз', photos: 'Фото (с сайта агентства)', removed: 'Снято',
     },
+    map: { map: 'Карта', list: 'Список', inView: 'в области', approx: 'Примерное место (центр квартала или города)',
+      legend: 'Тёмные — точное место · серые — центр квартала / города · оранжевая рамка — новый' },
+    review: { title: 'Дубли', question: 'Это один и тот же объект?', left: 'осталось', same: 'Один объект', different: 'Разные',
+      none: 'Нет пар для проверки.' },
     requests: {
       title: 'Запросы клиентов', subtitle: 'Из таблицы WORK FRANCE и добавленные здесь — подбор объектов автоматически',
       refresh: 'Обновить из таблицы', add: 'Добавить запрос', matches: 'подходящих', newMatches: 'новых за неделю', sheet: 'Таблица', manual: 'Вручную',

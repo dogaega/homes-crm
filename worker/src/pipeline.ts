@@ -72,6 +72,35 @@ export function listingCity(l: { extra?: Json }): string {
   return typeof c === 'string' && c.trim() ? c.trim() : 'Monaco'
 }
 
+// Town named in a listing's own text, for rows stored before runners sent
+// extra.city. Monaco words win only when they come first.
+const TOWN_WORDS: [RegExp, string][] = [
+  [/\b(?:monaco|monte[- ]?carlo|fontvieille|condamine|larvotto|moneghetti|carr[ée] d.or|mareterra|98000)\b/i, 'Monaco'],
+  [/\bbeausoleil\b/i, 'Beausoleil'], [/\broquebrune|cap[- ]martin\b/i, 'Roquebrune-Cap-Martin'], [/\bmenton\b/i, 'Menton'],
+  [/\bcap[- ]d.?ail\b/i, "Cap-d'Ail"], [/\bla[- ]turbie\b/i, 'La Turbie'], [/\b[eè]ze\b/i, 'Èze'],
+  [/\bbeaulieu\b/i, 'Beaulieu-sur-Mer'], [/\bvillefranche\b/i, 'Villefranche-sur-Mer'], [/cap[- ]ferrat/i, 'Saint-Jean-Cap-Ferrat'],
+  [/\b(?-i:Nice)\b(?!\s+[a-z0-9])/, 'Nice'], [/\bcannes\b/i, 'Cannes'], [/\bantibes|juan[- ]les[- ]pins\b/i, 'Antibes'],
+  [/(?:saint|st)[- ]tropez/i, 'Saint-Tropez'], [/\bramatuelle\b/i, 'Ramatuelle'], [/\bgassin\b/i, 'Gassin'],
+  [/\bbiot\b/i, 'Biot'], [/\bmougins\b/i, 'Mougins'], [/\bvalbonne\b/i, 'Valbonne'], [/\bgrasse\b/i, 'Grasse'],
+  [/\bvence\b/i, 'Vence'], [/\bcagnes\b/i, 'Cagnes-sur-Mer'], [/\bmandelieu\b/i, 'Mandelieu-la-Napoule'],
+  [/\bth[ée]oule\b/i, 'Théoule-sur-Mer'], [/\bgrimaud\b/i, 'Grimaud'], [/\bvallauris|golfe[- ]juan\b/i, 'Vallauris'],
+  [/\ble cannet\b/i, 'Le Cannet'], [/\bsainte?[- ]maxime\b/i, 'Sainte-Maxime'], [/\bfr[ée]jus\b/i, 'Fréjus'],
+  [/\bsaint[- ]rapha[eë]l\b/i, 'Saint-Raphaël'], [/\bpeille\b/i, 'Peille'], [/\bgorbio\b/i, 'Gorbio'],
+]
+export function townInText(title: string | null, description: string | null): string | null {
+  for (const text of [title || '', (description || '').slice(0, 600)]) {
+    const t = text.replace(/\b(?:rue|avenue|boulevard|bd|route|chemin|promenade)\s+(?:de |du |des |d'|d’)?[A-ZÀ-Ý][\w'’-]*/gi, ' ')
+      .replace(/\b(?:vues?|views?|close to|near|proche d[eu']?|minutes? (?:from|de))\s+(?:on |over |of |sur |de |du |the |la |le )*[\w'’-]+/gi, ' ')
+    let best: { i: number; town: string } | null = null
+    for (const [rx, town] of TOWN_WORDS) {
+      const m = t.match(rx)
+      if (m && m.index != null && (!best || m.index < best.i)) best = { i: m.index, town }
+    }
+    if (best) return best.town
+  }
+  return null
+}
+
 // Same for a stored property_sources row (extra is a JSON string).
 function sourceCity(extra: string | null): string {
   try { return listingCity({ extra: JSON.parse(extra || '{}') }) } catch { return 'Monaco' }
@@ -142,6 +171,13 @@ export function scoreMatch(a: MatchSide, b: MatchSide): MatchResult | null {
     const reasons = ['same_building', 'area_3pct', 'bedrooms', ...(floorsKnown ? ['floor'] : [])]
     return pricesDiffer ? { tier: 'review', score: 0.6, reasons: [...reasons, 'price_differs'] } : { tier: 'building', score: 0.95, reasons }
   }
+  // Many agencies don't state bedrooms: same building with area ±3% and
+  // price ±3% is the same flat; with a wider price gap a person decides.
+  if (sameBuilding && !bedsKnown && within(a.area, b.area, 0.03)) {
+    const reasons = ['same_building', 'area_3pct', 'bedrooms_unknown', ...(floorsKnown ? ['floor'] : [])]
+    return within(a.price, b.price, 0.03) ? { tier: 'building', score: 0.9, reasons: [...reasons, 'price_3pct'] }
+      : { tier: 'review', score: 0.55, reasons }
+  }
 
   // Tier 4: partial match → review queue.
   const sameQuarter = a.quarter != null && a.quarter === b.quarter
@@ -202,12 +238,33 @@ export interface ListingPayload {
 
 interface BuildingRow { id: string; normalized_name: string; aliases: string; quarter: string | null; lat: number | null; lng: number | null }
 
+const GENERIC_KEY = 'config/generic_phashes.json'
+
 class Ctx {
+  private generic?: string[]
   private quarters?: QuarterRow[]
   private buildings?: Map<string, BuildingRow>
   constructor(readonly env: Env, readonly now: string) {}
   get today() { return this.now.slice(0, 10) }
   get db() { return this.env.DB }
+
+  // Logos, agent portraits, stock views, "confidential" stamps: images seen
+  // on many different properties (rebuilt by POST /sync/generic-photos).
+  async genericPhashes(): Promise<string[]> {
+    if (!this.generic) {
+      const obj = await this.env.DOCS.get(GENERIC_KEY)
+      this.generic = obj ? (await obj.json<string[]>()) : []
+    }
+    return this.generic
+  }
+  async isGeneric(h: string | null | undefined): Promise<boolean> {
+    if (!h) return false
+    return (await this.genericPhashes()).some(g => hamming64(g, h) <= PHASH_NEAR)
+  }
+  async realPhotos(hashes: string[]): Promise<string[]> {
+    const g = await this.genericPhashes()
+    return hashes.filter(h => !g.some(x => hamming64(x, h) <= PHASH_NEAR))
+  }
 
   async getQuarters(): Promise<QuarterRow[]> {
     if (!this.quarters) {
@@ -359,6 +416,16 @@ function sideFromParent(p: any): MatchSide {
 
 interface MatchDecision { autoTo: { id: string; tier: MatchTier } | null; review: { id: string; m: MatchResult }[] }
 
+function isTwin(a: MatchSide, b: MatchSide, city: string): boolean {
+  if (!within(a.area, b.area, 0.01) || !within(a.price, b.price, 0.01)) return false
+  if (a.bedrooms != null && b.bedrooms != null && a.bedrooms !== b.bedrooms) return false
+  if (a.floor != null && b.floor != null && a.floor !== b.floor) return false
+  if (a.building_norm && b.building_norm && a.building_norm !== b.building_norm) return false
+  const sameBuilding = !!a.building_norm && a.building_norm === b.building_norm
+  if (city === 'Monaco') return sameBuilding || (a.quarter != null && a.quarter === b.quarter)
+  return true  // outside Monaco both sides already carry the same town
+}
+
 function townSide(s: MatchSide, city: string): MatchSide {
   return { ...s, quarter: `town:${city}`, building_id: null, building_norm: '' }
 }
@@ -390,8 +457,16 @@ async function findMatches(ctx: Ctx, side: MatchSide, transaction: string, siteK
     const base = city === 'Monaco' ? side : townSide(side, city)
     const mine = coordsSharedOnSite ? { ...base, coord_source: 'building' } : base
     let m = scoreMatch(mine, cand)
-    if (!m) continue
     const sameSite = String(p.site_keys || '').split(',').includes(siteKey)
+    // Near-identical twin: same place, size and price within 1%, nothing
+    // contradicting → one property, whoever lists it (agencies also post the
+    // same flat twice; identical studios in one residence read as one offer).
+    if (isTwin(base, cand, city)) {
+      m = { tier: city === 'Monaco' ? 'building' : 'town', score: 0.92, reasons: ['twin_area_1pct_price_1pct'] }
+      scored.push({ id: p.id, m, sameSite: false })
+      continue
+    }
+    if (!m) continue
     // Outside Monaco: another agency's listing with the same bedrooms, area
     // within 1% and price within 2% is the same property.
     if (city !== 'Monaco' && m.tier === 'review' && !sameSite && mine.bedrooms != null && mine.bedrooms === cand.bedrooms &&
@@ -494,13 +569,13 @@ export function galleriesMatch(shared: number, mine: number, theirs: number): bo
 // none of the same photos is a different unit → no review. One agency's
 // shared photos (new-development renders) still go to a person.
 async function galleryDecide(ctx: Ctx, decision: MatchDecision, agencyId: string, phashesJson: string | null, side: MatchSide) {
-  const mine: string[] = phashesJson ? JSON.parse(phashesJson) : []
+  const mine: string[] = await ctx.realPhotos(phashesJson ? JSON.parse(phashesJson) : [])
   if (mine.length < 2) return
   const cand = decision.review[0]
   const { results } = await ctx.db.prepare(
     `SELECT agency_id, photo_phashes FROM property_sources WHERE property_id = ? AND removed_at IS NULL AND photo_phashes IS NOT NULL`
   ).bind(cand.id).all<{ agency_id: string; photo_phashes: string }>()
-  const theirs = (results || []).flatMap(r => JSON.parse(r.photo_phashes) as string[])
+  const theirs = await ctx.realPhotos((results || []).flatMap(r => JSON.parse(r.photo_phashes) as string[]))
   if (theirs.length < 2) return
   const sameAgency = (results || []).some(r => r.agency_id === agencyId)
   const shared = sharedPhotos(mine, theirs)
@@ -529,11 +604,25 @@ const b01 = (v: unknown) => (v == null ? null : v ? 1 : 0)
 const num = (v: unknown) => (typeof v === 'number' && Number.isFinite(v) ? v : null)
 const str = (v: unknown) => (typeof v === 'string' && v.trim() ? v.trim() : null)
 
+// Price sanity: what a site's layout makes the parser read is sometimes not
+// the asking price. No Monaco/Riviera rent reaches €250k a month; nothing is
+// for sale under €20k (cellars start ~€50k) — that is a monthly rent; under
+// €1k it is not a price at all.
+export function saneTransaction(tx: string | undefined, price: number | null): { tx: string | undefined; price: number | null } {
+  if (price == null) return { tx, price }
+  if (tx === 'rent' && price >= 250_000) return { tx: 'sale', price }
+  if (tx === 'sale' && price < 1_000) return { tx, price: null }
+  if (tx === 'sale' && price < 20_000) return { tx: 'rent', price }
+  return { tx, price }
+}
+
 async function ingestListing(ctx: Ctx, run: any, agencyId: string, agentId: string, l: ListingPayload): Promise<ListingResult> {
   const url = str(l.source_url)
   if (!url) return { source_url: String(l.source_url), outcome: 'error', error: 'source_url required' }
   const events: string[] = []
-  const price = l.price_on_request ? null : num(l.price)
+  const sane = saneTransaction(l.transaction_type, l.price_on_request ? null : num(l.price))
+  if (sane.tx !== l.transaction_type) l = { ...l, transaction_type: sane.tx as ListingPayload['transaction_type'], rent_period: sane.tx === 'rent' ? 'month' : undefined }
+  const price = sane.price
 
   const existing = await ctx.db.prepare('SELECT * FROM property_sources WHERE source_url = ?').bind(url).first<any>()
 
@@ -898,6 +987,7 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
     const bytes = await req.arrayBuffer()
     if (bytes.byteLength === 0 || bytes.byteLength > 5_000_000) return respond({ error: 'Hero must be 1 B – 5 MB' }, 400)
     const phash = (req.headers.get('X-Phash') || '').toLowerCase()
+    if (await ctx.isGeneric(phash)) return respond({ error: 'generic image (logo / stock photo)', generic: true }, 422)
     const key = `heroes/${source.id}.webp`
     await env.DOCS.put(key, bytes, { httpMetadata: { contentType: 'image/webp' } })
     await ctx.db.prepare('UPDATE property_sources SET hero_image_key = ?, hero_phash = ?, hero_saved_at = ? WHERE id = ?')
@@ -1042,6 +1132,155 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
     return respond({ processed: rows.length, located: touched.size, next: rows.length === limit ? rows[rows.length - 1].id : null })
   }
 
+  // POST /sync/fix-data {after?, limit?} — apply saneTransaction to stored
+  // listings and give properties from the first export (no extra.city then)
+  // the town their listings name. Paged by property id.
+  if (path === '/sync/fix-data' && req.method === 'POST') {
+    const body = await req.json<any>().catch(() => ({}))
+    const limit = Math.min(Number(body?.limit) || 200, 400)
+    const { results } = await ctx.db.prepare(
+      `SELECT id, city, transaction_type FROM properties WHERE origin = 'pipeline' AND merged_into IS NULL AND id > ? ORDER BY id LIMIT ?`
+    ).bind(String(body?.after || ''), limit).all<any>()
+    let fixedSources = 0, fixedTx = 0, fixedCity = 0
+    for (const p of results || []) {
+      const { results: srcs } = await ctx.db.prepare(
+        `SELECT id, transaction_type, price_at_source, price_on_request, extra, listing_title, listing_description
+         FROM property_sources WHERE property_id = ? AND removed_at IS NULL`
+      ).bind(p.id).all<any>()
+      if (!srcs?.length) continue
+      const txs: string[] = []
+      for (const s of srcs) {
+        const sane = saneTransaction(s.transaction_type, s.price_on_request ? null : s.price_at_source)
+        if (sane.tx !== s.transaction_type || (sane.price == null && s.price_at_source != null && !s.price_on_request)) {
+          await ctx.db.prepare(
+            `UPDATE property_sources SET transaction_type = ?, price_at_source = ?, price_on_request = ?, rent_period = ? WHERE id = ?`
+          ).bind(sane.tx, sane.price, sane.price == null ? 1 : 0, sane.tx === 'rent' ? 'month' : null, s.id).run()
+          fixedSources++
+        }
+        txs.push(sane.tx as string)
+      }
+      const tx = txs.sort((a, b) => txs.filter(x => x === b).length - txs.filter(x => x === a).length)[0]
+      const stated = (s: any): string | null => {
+        try { const c = JSON.parse(s.extra || '{}').city; if (typeof c === 'string' && c) return c } catch { /* no extra */ }
+        return townInText(s.listing_title, null)  // titles only: descriptions mention neighbouring towns
+      }
+      const cities = srcs.map(stated)
+      // Every listing must name the same town, outside Monaco, to move the property.
+      const city = cities.every(c => c && c === cities[0]) && cities[0] !== 'Monaco' ? cities[0] as string : p.city
+      if (tx !== p.transaction_type || city !== p.city) {
+        await ctx.db.prepare(
+          `UPDATE properties SET transaction_type = ?, city = ?, address = CASE WHEN ? != city THEN ? ELSE address END,
+             zip_code = CASE WHEN ? = 'Monaco' THEN zip_code ELSE '' END, quarter = CASE WHEN ? = 'Monaco' THEN quarter ELSE NULL END
+           WHERE id = ?`).bind(tx, city, city, city, city, city, p.id).run()
+        if (tx !== p.transaction_type) fixedTx++
+        if (city !== p.city) fixedCity++
+      }
+      if (fixedSources) await refreshParent(ctx, p.id, null)
+    }
+    const rows = results || []
+    return respond({ processed: rows.length, fixedSources, fixedTx, fixedCity, next: rows.length === limit ? rows[rows.length - 1].id : null })
+  }
+
+  // POST /sync/generic-photos — rebuild the set of generic images (logos,
+  // portraits, stock views): seen on ≥3 properties whose sizes differ by >15%,
+  // or on ≥5 with no sizes known. One flat listed by many agencies has one size.
+  if (path === '/sync/generic-photos' && req.method === 'POST') {
+    const stats = `COUNT(DISTINCT s.property_id) AS n, COUNT(s.living_area_sqm) AS known,
+                   MIN(s.living_area_sqm) AS amin, MAX(s.living_area_sqm) AS amax`
+    const { results: heroes } = await ctx.db.prepare(
+      `SELECT s.hero_phash AS h, ${stats} FROM property_sources s
+       WHERE s.hero_phash IS NOT NULL AND s.removed_at IS NULL GROUP BY s.hero_phash HAVING n >= 3`).all<any>()
+    const { results: gallery } = await ctx.db.prepare(
+      `SELECT j.value AS h, ${stats} FROM property_sources s, json_each(s.photo_phashes) j
+       WHERE s.photo_phashes IS NOT NULL AND s.removed_at IS NULL GROUP BY j.value HAVING n >= 3`).all<any>()
+    const generic = new Set<string>(['0000000000000000', 'ffffffffffffffff'])
+    for (const r of [...(heroes || []), ...(gallery || [])]) {
+      // One flat advertised by many agencies keeps its size; a logo or a stock
+      // view sits on flats of every size (or on listings without one).
+      const spread = r.amin > 0 && r.amax / r.amin > 1.15
+      if (spread || (r.n >= 5 && r.known < 2)) generic.add(r.h)
+    }
+    await env.DOCS.put(GENERIC_KEY, JSON.stringify([...generic]), { httpMetadata: { contentType: 'application/json' } })
+    return respond({ generic: generic.size })
+  }
+
+  // POST /sync/clean-generic-heroes {after?, limit?} — drop logo/stock covers;
+  // the listing's detail is marked stale so the next run uploads a real photo.
+  if (path === '/sync/clean-generic-heroes' && req.method === 'POST') {
+    const body = await req.json<any>().catch(() => ({}))
+    const limit = Math.min(Number(body?.limit) || 300, 500)
+    const { results } = await ctx.db.prepare(
+      `SELECT id, property_id, hero_image_key, hero_phash FROM property_sources
+       WHERE hero_phash IS NOT NULL AND id > ? ORDER BY id LIMIT ?`).bind(String(body?.after || ''), limit).all<any>()
+    let cleared = 0
+    for (const r of results || []) {
+      if (!(await ctx.isGeneric(r.hero_phash))) continue
+      await ctx.db.prepare(
+        `UPDATE property_sources SET hero_image_key = NULL, hero_phash = NULL, hero_saved_at = NULL,
+           detail_scraped_at = '2000-01-01T00:00:00Z' WHERE id = ?`).bind(r.id).run()
+      const other = await ctx.db.prepare(
+        `SELECT hero_image_key FROM property_sources WHERE property_id = ? AND hero_image_key IS NOT NULL AND removed_at IS NULL LIMIT 1`
+      ).bind(r.property_id).first<{ hero_image_key: string }>()
+      await ctx.db.prepare(`UPDATE properties SET hero_image_key = ? WHERE id = ? AND hero_image_key = ?`)
+        .bind(other?.hero_image_key ?? null, r.property_id, r.hero_image_key).run()
+      cleared++
+    }
+    const rows = results || []
+    return respond({ processed: rows.length, cleared, next: rows.length === limit ? rows[rows.length - 1].id : null })
+  }
+
+  // POST /sync/detach-generic {limit?} — listings that joined their property
+  // only through a generic image (logo, stock view) get their own parent and
+  // are re-matched under the current rules; every other merge stays.
+  if (path === '/sync/detach-generic' && req.method === 'POST') {
+    const body = await req.json<any>().catch(() => ({}))
+    const limit = Math.min(Number(body?.limit) || 15, 30)
+    const { results } = await ctx.db.prepare(
+      `SELECT s.* FROM property_sources s JOIN properties p ON p.id = s.property_id
+       WHERE s.match_tier = 'phash' AND s.removed_at IS NULL AND p.merged_into IS NULL AND s.hero_phash IS NOT NULL
+         AND p.source_count > 1 AND s.id > ? ORDER BY s.id LIMIT 400`).bind(String(body?.after || '')).all<any>()
+    const agentId = await pipelineAgentId(env)
+    let detached = 0, rejoined = 0, reviews = 0, last: string | null = null
+    for (const cur of results || []) {
+      last = cur.id
+      if (!(await ctx.isGeneric(cur.hero_phash))) continue
+      const np = await createParent(ctx, agentId, cur.transaction_type, cur.quarter, sourceCity(cur.extra))
+      await moveSource(ctx, cur.id, cur.property_id, np, 'new', null)
+      await refreshParent(ctx, np, null)
+      detached++
+      const side: MatchSide = {
+        lat: cur.lat, lng: cur.lng, coord_source: cur.coord_source, area: cur.living_area_sqm, bedrooms: cur.bedrooms,
+        floor: cur.floor, building_id: cur.building_id, building_norm: normalizeBuildingName(cur.building_name),
+        quarter: cur.quarter, price: cur.price_on_request ? null : cur.price_at_source,
+      }
+      const d = await findMatches(ctx, side, cur.transaction_type, cur.site_key, false, np, sourceCity(cur.extra))
+      if (!d.autoTo && d.review.length) await galleryDecide(ctx, d, cur.agency_id, cur.photo_phashes, side)
+      if (d.autoTo && compatible(await profileOf(ctx, np), await profileOf(ctx, d.autoTo.id))) {
+        await moveSource(ctx, cur.id, np, d.autoTo.id, d.autoTo.tier, null)
+        await refreshParent(ctx, d.autoTo.id, null)
+        rejoined++
+      } else {
+        for (const r of d.review) { await queueReview(ctx, cur.id, r.id, r.m); reviews++ }
+      }
+      if (detached >= limit) break
+    }
+    const done = !results?.length || (results.length < 400 && last === results[results.length - 1].id && detached < limit)
+    return respond({ detached, rejoined, reviews, next: done ? null : last })
+  }
+
+  // POST /sync/generic-merges — properties holding a listing that joined by a
+  // photo match on what is now known to be a generic image (to /sync/split).
+  if (path === '/sync/generic-merges' && req.method === 'POST') {
+    const { results } = await ctx.db.prepare(
+      `SELECT s.property_id, s.hero_phash, s.photo_phashes FROM property_sources s JOIN properties p ON p.id = s.property_id
+       WHERE s.match_tier IN ('phash', 'photos') AND s.removed_at IS NULL AND p.merged_into IS NULL`).all<any>()
+    const ids = new Set<string>()
+    for (const r of results || []) {
+      if (await ctx.isGeneric(r.hero_phash)) ids.add(r.property_id)
+    }
+    return respond({ property_ids: [...ids] })
+  }
+
   // POST /sync/rematch-town {after?, limit?} — re-run matching for listings
   // outside Monaco (town-level rule + gallery photos), for those ingested
   // before it existed. Paged by source id.
@@ -1050,9 +1289,10 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
     const limit = Math.min(Number(body?.limit) || 100, 200)
     const { results } = await ctx.db.prepare(
       `SELECT s.*, p.city AS p_city FROM property_sources s JOIN properties p ON p.id = s.property_id
-       WHERE s.removed_at IS NULL AND p.merged_into IS NULL AND p.origin = 'pipeline' AND COALESCE(p.city, 'Monaco') != 'Monaco'
+       WHERE s.removed_at IS NULL AND p.merged_into IS NULL AND p.origin = 'pipeline'
+         AND (CASE WHEN ? = 'Monaco' THEN COALESCE(p.city, 'Monaco') = 'Monaco' ELSE COALESCE(p.city, 'Monaco') != 'Monaco' END)
          AND s.id > ? ORDER BY s.id LIMIT ?`
-    ).bind(String(body?.after || ''), limit).all<any>()
+    ).bind(body?.city === 'Monaco' ? 'Monaco' : '', String(body?.after || ''), limit).all<any>()
     let merged = 0, reviews = 0
     for (const src of results || []) {
       const cur = await ctx.db.prepare('SELECT * FROM property_sources WHERE id = ?').bind(src.id).first<any>()
@@ -1258,6 +1498,7 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
 // it also needs area ±5% and equal bedrooms, a different agency, and the
 // source must be alone under its parent. Anything weaker → review.
 async function phashMatch(ctx: Ctx, source: any): Promise<Json | null> {
+  if (await ctx.isGeneric(source.hero_phash)) return null
   const { results } = await ctx.db.prepare(
     `SELECT s.id, s.property_id, s.site_key, s.hero_phash, s.living_area_sqm, s.bedrooms, s.price_at_source, s.floor
      FROM property_sources s JOIN properties p ON p.id = s.property_id
@@ -1320,16 +1561,27 @@ export async function handlePipelineUi(req: Request, env: Env, url: URL, path: s
   // GET /pipeline/review?status=pending — both sides for a side-by-side view.
   if (path === '/pipeline/review' && req.method === 'GET') {
     const status = url.searchParams.get('status') || 'pending'
+    const live = `r.status = ? AND s.removed_at IS NULL AND p.merged_into IS NULL AND s.property_id != r.candidate_property_id`
+    const total = await ctx.db.prepare(
+      `SELECT COUNT(*) AS n FROM review_queue r JOIN property_sources s ON s.id = r.source_id
+       JOIN properties p ON p.id = r.candidate_property_id WHERE ${live}`).bind(status).first<{ n: number }>()
     const { results } = await ctx.db.prepare(
-      `SELECT r.*, s.source_url, s.listing_title, s.price_at_source, s.currency, s.bedrooms, s.living_area_sqm, s.floor,
-              s.building_name, s.quarter, s.hero_image_key, s.site_key, s.property_id AS source_property_id,
+      `SELECT r.*, s.source_url, s.listing_title, s.price_at_source, s.price_on_request, s.currency, s.bedrooms, s.living_area_sqm,
+              s.floor, s.building_name, s.quarter, s.hero_image_key, s.site_key, s.transaction_type, s.property_id AS source_property_id,
+              json_extract(s.photo_urls, '$[0]') AS photo_url, (SELECT a.name FROM agencies a WHERE a.id = s.agency_id) AS agency_name,
               p.property_name AS candidate_title, p.price AS candidate_price, p.bedrooms AS candidate_bedrooms,
               p.living_area_sqm AS candidate_area, p.floor AS candidate_floor, p.building_name AS candidate_building,
-              p.quarter AS candidate_quarter, p.hero_image_key AS candidate_hero, p.source_count AS candidate_sources
+              p.quarter AS candidate_quarter, p.city AS candidate_city, p.hero_image_key AS candidate_hero,
+              p.source_count AS candidate_sources,
+              (SELECT json_extract(c.photo_urls, '$[0]') FROM property_sources c WHERE c.property_id = p.id AND c.removed_at IS NULL
+                 AND c.photo_urls LIKE '["http%' LIMIT 1) AS candidate_photo_url,
+              (SELECT GROUP_CONCAT(DISTINCT a.name) FROM property_sources c JOIN agencies a ON a.id = c.agency_id
+                 WHERE c.property_id = p.id AND c.removed_at IS NULL) AS candidate_agencies,
+              (SELECT c.source_url FROM property_sources c WHERE c.property_id = p.id AND c.removed_at IS NULL LIMIT 1) AS candidate_url
        FROM review_queue r JOIN property_sources s ON s.id = r.source_id JOIN properties p ON p.id = r.candidate_property_id
-       WHERE r.status = ? ORDER BY r.score DESC, r.created_at LIMIT 200`
+       WHERE ${live} ORDER BY r.score DESC, r.created_at LIMIT 50`
     ).bind(status).all<any>()
-    return respond((results || []).map(r => ({ ...r, reasons: JSON.parse(r.reasons) })))
+    return respond({ total: total?.n ?? 0, items: (results || []).map(r => ({ ...r, reasons: JSON.parse(r.reasons) })) })
   }
 
   // POST /pipeline/review/:id {decision: 'merge' | 'reject'}
