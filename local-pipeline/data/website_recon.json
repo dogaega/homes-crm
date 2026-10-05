@@ -3344,5 +3344,824 @@
    "WebPage"
   ],
   "sitemap": true
+ },
+ {
+  "name": "SELECTA CARS",
+  "website": "https://selectacars.com/",
+  "ok": true,
+  "platforms": [
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "AGENCE PINCI",
+  "website": "https://www.agence-pinci.com/",
+  "ok": true,
+  "platforms": [
+   "apimo"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.agence-pinci.com/fr/ventes"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "AGENCE IMMO CENTER",
+  "website": "https://immocenter-france.com/",
+  "ok": true,
+  "platforms": [
+   "apimo"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://immocenter-france.com/fr/ventes",
+   "https://immocenter-france.com/fr/locations",
+   "https://immocenter-france.com/fr/propriete/vente+appartement+sospel+3-pieces+86492017",
+   "https://immocenter-france.com/fr/propriete/vente+maison+castellar+maison-atypique-avec-vue-panoramique-castellar+85075237",
+   "https://immocenter-france.com/fr/propriete/vente+appartement+sospel+2-pieces-a-sospel+86502049",
+   "https://immocenter-france.com/fr/propriete/vente+maison+sospel+87222332",
+   "https://immocenter-france.com/fr/propriete/vente+appartement+menton+3-pieces-front-de-mer-victoria-palace-menton+86840334",
+   "https://immocenter-france.com/fr/propriete/vente+maison+sospel+grande-propriete-en-bordure-de-riviere+87442902"
+  ],
+  "listing_samples": [
+   "https://immocenter-france.com/en/property/sale+apartment+sospel+3-pieces+86492017"
+  ],
+  "listing_links_seen": 1,
+  "agent_hint": false,
+  "detail_tel_links": 3,
+  "detail_mailto": 1,
+  "jsonld_types": [
+   "Apartment",
+   "GeoCoordinates",
+   "Offer",
+   "PostalAddress",
+   "QuantitativeValue",
+   "RealEstateAgent",
+   "RealEstateListing"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "AZUR CONCEPT SERVICES IMMOBILIERS",
+  "website": "https://www.azur-concept-services-immobiliers.com/",
+  "ok": false,
+  "error": "https://www.azur-concept-services-immobiliers.com/: ConnectionError"
+ },
+ {
+  "name": "SUD ESPACE IMMOBILIER",
+  "website": "https://www.sudespaceimmobilier.com/",
+  "ok": true,
+  "platforms": [
+   "wordpress",
+   "wp-wpresidence"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.sudespaceimmobilier.com/wp-content/uploads/2019/09/cropped-logo-sudespaceimmobilier-favicon-512px-32x32.png",
+   "https://www.sudespaceimmobilier.com/wp-content/uploads/2019/09/cropped-logo-sudespaceimmobilier-favicon-512px-192x192.png",
+   "https://www.sudespaceimmobilier.com/wp-content/uploads/2019/09/cropped-logo-sudespaceimmobilier-favicon-512px-180x180.png",
+   "https://www.sudespaceimmobilier.com/property_category/1/",
+   "https://www.sudespaceimmobilier.com/property_category/2/",
+   "https://www.sudespaceimmobilier.com/property_category/23/",
+   "https://www.sudespaceimmobilier.com/property_category/terrain/",
+   "https://www.sudespaceimmobilier.com/property_city/toulouse/",
+   "https://www.sudespaceimmobilier.com/estate_property/maison-toulouse-247m%c2%b2-8pieces/",
+   "https://www.sudespaceimmobilier.com/estate_property/appartement-toulouse-29m%c2%b2-1pieces/",
+   "https://www.sudespaceimmobilier.com/estate_property/maison-toulouse-123m%c2%b2-5pieces/",
+   "https://www.sudespaceimmobilier.com/property_city/vieille-toulouse/",
+   "https://www.sudespaceimmobilier.com/estate_property/maison-vieille-toulouse-247m%c2%b2-8pieces/",
+   "https://www.sudespaceimmobilier.com/property_city/ramonville-saint-agne/",
+   "https://www.sudespaceimmobilier.com/estate_property/maison-ramonville-saint-agne-138m%c2%b2-4pieces/"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "AGENCE MARTINI",
+  "website": "https://www.agencemartini.com/",
+  "ok": true,
+  "platforms": [
+   "wordpress",
+   "wp-houzez"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.agencemartini.com/agence-immobiliere/",
+   "https://www.agencemartini.com/categorie/vente/",
+   "https://www.agencemartini.com/categorie/location/",
+   "https://www.agencemartini.com/categorie/vente-optimal/",
+   "https://www.agencemartini.com/annonce/garage-a-louer-centre-menton/",
+   "https://www.agencemartini.com/annonce/menton-secteur-gare-sncf-a-louer-local-commercial-en-rdc/",
+   "https://www.agencemartini.com/annonce/a-louer-appartement-meuble-esprit-loft/",
+   "https://www.agencemartini.com/annonce/castellar-a-louer-3p-meuble-avec-jardin/",
+   "https://www.agencemartini.com/annonce/a-louer-local-commercial-75-m%c2%b2-bord-de-mer-de-menton/",
+   "https://www.agencemartini.com/annonce/a-louer-appt-secteur-cabrolles-sainte-agnes/",
+   "https://www.agencemartini.com/partenaires-immobiliers-de-lagence-immobiliere-martini/"
+  ],
+  "listing_samples": [
+   "https://www.agencemartini.com/annonce/a-louer-local-commercial-75-m%c2%b2-bord-de-mer-de-menton/"
+  ],
+  "listing_links_seen": 1,
+  "agent_hint": true,
+  "detail_tel_links": 4,
+  "detail_mailto": 2,
+  "jsonld_types": [
+   "BreadcrumbList",
+   "GeoCoordinates",
+   "ImageObject",
+   "ListItem",
+   "Offer",
+   "Organization",
+   "Person",
+   "PostalAddress"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "AMIRAL AGENCE",
+  "website": "https://www.amiralagence.com/",
+  "ok": false,
+  "error": "https://www.amiralagence.com/: ConnectionError"
+ },
+ {
+  "name": "AGENCE AMARANTE ST ROCH",
+  "website": "https://www.immobilieramarante.com/",
+  "ok": true,
+  "platforms": [
+   "hektor"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.immobilieramarante.com/vente/1",
+   "https://www.immobilieramarante.com/location/1",
+   "https://www.immobilieramarante.com/vente/1-menton/1",
+   "https://www.immobilieramarante.com/vente/1-menton/maison/1",
+   "https://www.immobilieramarante.com/vente/1-menton/appartement/1",
+   "https://www.immobilieramarante.com/vente/15-roquebrune-cap-martin/1",
+   "https://www.immobilieramarante.com/vente/15-roquebrune-cap-martin/maison/1",
+   "https://www.immobilieramarante.com/vente/15-roquebrune-cap-martin/villa/1",
+   "https://www.immobilieramarante.com/vente/15-roquebrune-cap-martin/studio/1",
+   "https://www.immobilieramarante.com/vente/15-roquebrune-cap-martin/appartement/1",
+   "https://www.immobilieramarante.com/location/1-menton/1",
+   "https://www.immobilieramarante.com/location/1-menton/maison/1",
+   "https://www.immobilieramarante.com/location/1-menton/appartement/1",
+   "https://www.immobilieramarante.com/vente/15-roquebrune-cap-martin/appartement/3611-exclusivite-beau-2-pieces-avec-terrasse-et-parking-en-supplement-rcm-ideal-aussi-profession-liberale",
+   "https://www.immobilieramarante.com/vente/1-menton/garage/3630-garage-centre-ville-de-menton"
+  ],
+  "listing_samples": [
+   "https://www.immobilieramarante.com/vente/15-roquebrune-cap-martin/1",
+   "https://www.immobilieramarante.com/vente/15-roquebrune-cap-martin/maison/1",
+   "https://www.immobilieramarante.com/vente/15-roquebrune-cap-martin/villa/1",
+   "https://www.immobilieramarante.com/vente/15-roquebrune-cap-martin/studio/1",
+   "https://www.immobilieramarante.com/vente/15-roquebrune-cap-martin/appartement/1"
+  ],
+  "listing_links_seen": 13,
+  "agent_hint": false,
+  "detail_tel_links": 0,
+  "detail_mailto": 0,
+  "jsonld_types": [
+   "AdministrativeArea",
+   "AggregateOffer",
+   "BreadcrumbList",
+   "City",
+   "Country",
+   "GeoCoordinates",
+   "ListItem",
+   "OpeningHoursSpecification"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "AGENCE EUROPEENNE",
+  "website": "https://agence-europeenne.com/",
+  "ok": true,
+  "platforms": [
+   "apimo"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://agence-europeenne.com/fr/ventes",
+   "https://agence-europeenne.com/fr/locations",
+   "https://agence-europeenne.com/fr/propriete/vente+appartement+roquebrune-cap-martin+roquebrune-cap-martin-proche-monaco-residence-luxe-avec-piscine-dernier-etage-vue-mer-+5877250",
+   "https://agence-europeenne.com/fr/propriete/vente+appartement+la-brigue+maison-de-village-et-terrain-a-la-brigue+86905745",
+   "https://agence-europeenne.com/fr/propriete/vente+appartement+roquebrune-cap-martin+garage-roquebrune-centre-ville+87267013",
+   "https://agence-europeenne.com/fr/propriete/vente+maison+gorbio+maison-de-village-90m2-4p-terrasse-gorbio+86505742",
+   "https://agence-europeenne.com/fr/propriete/vente+appartement+menton+menton-garavan-appartement-3-pieces-bord-de-mer-vue-mer+87014750",
+   "https://agence-europeenne.com/fr/propriete/vente+maison+saint-florent+superbe-et-prestigieuse-villa-a-saint-florent+86230177"
+  ],
+  "listing_samples": [
+   "https://agence-europeenne.com/en/property/sale+apartment+roquebrune-cap-martin+roquebrune-cap-martin-luxury-residence-swimming-pool-and-walking-distance-to-beach-near-monaco-+5877250"
+  ],
+  "listing_links_seen": 1,
+  "agent_hint": false,
+  "detail_tel_links": 0,
+  "detail_mailto": 0,
+  "jsonld_types": [
+   "Apartment",
+   "GeoCoordinates",
+   "Offer",
+   "PostalAddress",
+   "QuantitativeValue",
+   "RealEstateAgent",
+   "RealEstateListing"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "IMMOBILIER MENTON",
+  "website": "https://www.immobilier-menton.net/",
+  "ok": true,
+  "platforms": [
+   "hektor"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.immobilier-menton.net/acheter-dans-le-neuf/1",
+   "https://www.immobilier-menton.net/achat-immobilier-menton/1",
+   "https://www.immobilier-menton.net/achat-immobilier-menton/type-2-appartement/1",
+   "https://www.immobilier-menton.net/achat-immobilier-menton/type-1-maison/1",
+   "https://www.immobilier-menton.net/achat-immobilier-menton/quartier-1-borrigo/1",
+   "https://www.immobilier-menton.net/achat-immobilier-menton/quartier-20-route-de-gorbio/1",
+   "https://www.immobilier-menton.net/achat-immobilier-menton/quartier-28-bord-de-mer/1",
+   "https://www.immobilier-menton.net/achat-immobilier-roquebrune-cap-martin/1",
+   "https://www.immobilier-menton.net/achat-immobilier-roquebrune-cap-martin/type-2-appartement/1",
+   "https://www.immobilier-menton.net/achat-immobilier-roquebrune-cap-martin/type-1-maison/1",
+   "https://www.immobilier-menton.net/toutes-nos-annonces.html"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "ALEXANDRA CICCIONI REAL ESTATE",
+  "website": "https://www.alexandraciccioni.com/",
+  "ok": true,
+  "platforms": [
+   "squarespace"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.alexandraciccioni.com/ventes",
+   "https://www.alexandraciccioni.com/sous-compromis-de-vente-2-pieces-menton"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "BIOVES IMMOBILIER",
+  "website": "https://www.biovesimmo.fr/",
+  "ok": true,
+  "platforms": [
+   "hektor"
+  ],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "NEXT IMMO",
+  "website": "https://www.next-immo.fr/",
+  "ok": true,
+  "platforms": [
+   "hektor"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.next-immo.fr/vente/1",
+   "https://www.next-immo.fr/location/1",
+   "https://www.next-immo.fr/location-vacances/1",
+   "https://www.next-immo.fr/vente/06-alpes-maritimes/1-menton/2-appartement/t4/402-spacieux-4p-dans-ancien-palace/",
+   "https://www.next-immo.fr/vente/06-alpes-maritimes/11-beausoleil/2-appartement/t3/1394-beausoleil-3-pieces-avenue-de-la-republique-prestige/",
+   "https://www.next-immo.fr/vente/06-alpes-maritimes/1-menton/2-appartement/t3/1401-2-appartements-dernier-etage-prestige/",
+   "https://www.next-immo.fr/vente/06-alpes-maritimes/122-roquebrune-cap-martin/2-appartement/t2/1409-appartement-terrasse-a-vendre-a-roquebrune-cap-martin/"
+  ],
+  "listing_samples": [
+   "https://www.next-immo.fr/vente/06-alpes-maritimes/1-menton/2-appartement/t4/402-spacieux-4p-dans-ancien-palace/",
+   "https://www.next-immo.fr/vente/06-alpes-maritimes/11-beausoleil/2-appartement/t3/1394-beausoleil-3-pieces-avenue-de-la-republique-prestige/",
+   "https://www.next-immo.fr/vente/06-alpes-maritimes/1-menton/2-appartement/t3/1401-2-appartements-dernier-etage-prestige/",
+   "https://www.next-immo.fr/vente/06-alpes-maritimes/122-roquebrune-cap-martin/2-appartement/t2/1409-appartement-terrasse-a-vendre-a-roquebrune-cap-martin/",
+   "https://www.next-immo.fr/vente/06-alpes-maritimes/25-sospel/39-maison-de-village/1406-charmante-maison-de-village/"
+  ],
+  "listing_links_seen": 10,
+  "agent_hint": false,
+  "detail_tel_links": 1,
+  "detail_mailto": 1,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "AGENCE CARNOT",
+  "website": "https://www.immobilier-carnot.fr/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.immobilier-carnot.fr/ventes",
+   "https://www.immobilier-carnot.fr/locations",
+   "https://www.immobilier-carnot.fr/detail-vente?id=255",
+   "https://www.immobilier-carnot.fr/detail-vente?id=239"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "IMMOBILIA-RE",
+  "website": "https://immobilia-re.net/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://immobilia-re.net/properties.html",
+   "https://immobilia-re.net/properties-left-sidebar.html",
+   "https://immobilia-re.net/properties-right-sidebar.html",
+   "https://immobilia-re.net/properties-list-left-sidebar.html",
+   "https://immobilia-re.net/properties-list-right-sidebar.html",
+   "https://immobilia-re.net/properties-carousel.html",
+   "https://immobilia-re.net/properties-carousel2.html",
+   "https://immobilia-re.net/single-properties.html",
+   "https://immobilia-re.net/single-properties-right-sidebar.html",
+   "https://immobilia-re.net/single-properties-gallery.html",
+   "https://immobilia-re.net/add-properties.html",
+   "https://immobilia-re.net/single-properties.php?immobile=92",
+   "https://immobilia-re.net/single-properties.php?immobile=90",
+   "https://immobilia-re.net/single-properties.php?immobile=87",
+   "https://immobilia-re.net/single-properties.php?immobile=86"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": false
+ },
+ {
+  "name": "AGENCE DU COMMERCE",
+  "website": "https://agencecommerce.fr/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://agencecommerce.fr/annonces/1779889396872-toutes-activites-hors-restauration-ref-menton25",
+   "https://agencecommerce.fr/annonces/1779887888894-salon-de-coiffure-coeur-de-carnoles-ref-rcm46",
+   "https://agencecommerce.fr/annonces/1777976038057-toutes-activites-hors-restauration-ref-menton45",
+   "https://agencecommerce.fr/annonces/1776961155138-pizzeria-restaurant-ref-menton37",
+   "https://agencecommerce.fr/annonces/1776959985003-restaurant-ref-menton36",
+   "https://agencecommerce.fr/annonces/1775657927718-bureaux-ideal-profession-liberale-ref-menton44",
+   "https://agencecommerce.fr/annonces/1775657377536-bureaux-coeur-de-ville-ref-menton43",
+   "https://agencecommerce.fr/annonces/1769157255359-restaurant-brasserie-ref-menton35",
+   "https://agencecommerce.fr/annonces/1764169234288-local-ideal-artisan-ref-menton21",
+   "https://agencecommerce.fr/annonces/1759698324602-licence-3-ref-loc-04-2024-001",
+   "https://agencecommerce.fr/annonces/1759697651836-murs-commerciaux-libres-ref-ven-03-2025-001",
+   "https://agencecommerce.fr/annonces/1759697290098-pret-a-porter-ref-ven-09-2025-001"
+  ],
+  "listing_samples": [
+   "https://agencecommerce.fr/annonces/1779889396872-toutes-activites-hors-restauration-ref-menton25",
+   "https://agencecommerce.fr/annonces/1779887888894-salon-de-coiffure-coeur-de-carnoles-ref-rcm46",
+   "https://agencecommerce.fr/annonces/1777976038057-toutes-activites-hors-restauration-ref-menton45",
+   "https://agencecommerce.fr/annonces/1776961155138-pizzeria-restaurant-ref-menton37",
+   "https://agencecommerce.fr/annonces/1776959985003-restaurant-ref-menton36"
+  ],
+  "listing_links_seen": 12,
+  "agent_hint": false,
+  "detail_tel_links": 1,
+  "detail_mailto": 0,
+  "jsonld_types": [
+   "BreadcrumbList",
+   "ListItem",
+   "Offer",
+   "Place",
+   "PostalAddress",
+   "RealEstateAgent"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "TESTA IMMOBILIER",
+  "website": "https://www.testa-immobilier.com/",
+  "ok": true,
+  "platforms": [
+   "hektor"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.testa-immobilier.com/vente/1",
+   "https://www.testa-immobilier.com/vente-pro/1",
+   "https://www.testa-immobilier.com/location/1",
+   "https://www.testa-immobilier.com/vente/1-menton/appartement/t5/60-menton-4-5-pieces-87-m-parking/",
+   "https://www.testa-immobilier.com/vente/1-menton/appartement/t3/97-menton-garavan-appartement-villa-93-m-piscine-jardin-parking/",
+   "https://www.testa-immobilier.com/vente/2-roquebrune-cap-martin/appartement/t2/124-rcm-carnoles-2-pieces-59-m-garage-terrasse-residence-standing/",
+   "https://www.testa-immobilier.com/vente/1-menton/appartement/t2/16-menton-fossan-2-pieces-34-m/",
+   "https://www.testa-immobilier.com/vente/1-menton/appartement/t8/91-menton-centre-palace-appartement-8-pieces-201-m-bourgeois/"
+  ],
+  "listing_samples": [
+   "https://www.testa-immobilier.com/vente/1-menton/appartement/t5/60-menton-4-5-pieces-87-m-parking/",
+   "https://www.testa-immobilier.com/vente/1-menton/appartement/t3/97-menton-garavan-appartement-villa-93-m-piscine-jardin-parking/",
+   "https://www.testa-immobilier.com/vente/2-roquebrune-cap-martin/appartement/t2/124-rcm-carnoles-2-pieces-59-m-garage-terrasse-residence-standing/",
+   "https://www.testa-immobilier.com/vente/1-menton/appartement/t2/16-menton-fossan-2-pieces-34-m/",
+   "https://www.testa-immobilier.com/vente/1-menton/appartement/t8/91-menton-centre-palace-appartement-8-pieces-201-m-bourgeois/"
+  ],
+  "listing_links_seen": 5,
+  "agent_hint": false,
+  "detail_tel_links": 1,
+  "detail_mailto": 1,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "INTER AZUR IMMOBILIER",
+  "website": "https://interazur.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://interazur.com/fr/ventes",
+   "https://interazur.com/fr/locations",
+   "https://interazur.com/fr/locations-saisonnieres",
+   "https://interazur.com/fr/propriete/vente/appartement/menton/menton-garavan-calme-apercue-mer/4118235",
+   "https://interazur.com/fr/propriete/vente/appartement/menton/menton-t1-avec-jardin-au-calme-proche-centre-de-carnoles/6958418",
+   "https://interazur.com/fr/propriete/vente/appartement/menton/garavan-studio-avec-vue-mer-et-garage-en-option/87338616",
+   "https://interazur.com/fr/propriete/vente/appartement/menton/3p-60-43m2-traversant-avec-cave-et-parking/87304122"
+  ],
+  "listing_samples": [
+   "https://interazur.com/fr/propriete/vente/appartement/menton/menton-garavan-calme-apercue-mer/4118235",
+   "https://interazur.com/fr/propriete/vente/appartement/menton/menton-t1-avec-jardin-au-calme-proche-centre-de-carnoles/6958418",
+   "https://interazur.com/fr/propriete/vente/appartement/menton/garavan-studio-avec-vue-mer-et-garage-en-option/87338616",
+   "https://interazur.com/fr/propriete/vente/appartement/menton/3p-60-43m2-traversant-avec-cave-et-parking/87304122",
+   "https://interazur.com/fr/propriete/vente/garage-parking/menton/parking/86072911"
+  ],
+  "listing_links_seen": 16,
+  "agent_hint": false,
+  "detail_tel_links": 0,
+  "detail_mailto": 1,
+  "jsonld_types": [
+   "Apartment",
+   "GeoCoordinates",
+   "Offer",
+   "PostalAddress",
+   "QuantitativeValue",
+   "RealEstateAgent",
+   "RealEstateListing"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "IMMOBILTREND",
+  "website": "https://immobiltrend.com/",
+  "ok": true,
+  "platforms": [
+   "apimo"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://immobiltrend.com/fr/ventes",
+   "https://immobiltrend.com/fr/locations",
+   "https://immobiltrend.com/fr/biens-vendus",
+   "https://immobiltrend.com/fr/propriete/vente+appartement+menton+exclusif-3-pieces-menton-centre-avec-terrasse+87176901",
+   "https://immobiltrend.com/fr/propriete/vente+appartement+menton+appartement-menton-vue-mer-panoramique+87408146",
+   "https://immobiltrend.com/fr/propriete/vente+appartement+menton+87266033",
+   "https://immobiltrend.com/fr/propriete/vente+appartement+cap-d-ail+exclusif-cap-d-ail-2-pieces-vue-mer-proche-monaco+85798268",
+   "https://immobiltrend.com/fr/propriete/vente+appartement+roquebrune-cap-martin+86270793",
+   "https://immobiltrend.com/fr/propriete/vente+appartement+menton+menton-bord-de-mer-2-pieces-avec-balcon+1226565"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "TIPHAINE IMMOBILIER",
+  "website": "https://www.tiphaineimmo.fr/",
+  "ok": true,
+  "platforms": [
+   "hektor"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.tiphaineimmo.fr/vente/1",
+   "https://www.tiphaineimmo.fr/location-vacances/appartement/1",
+   "https://www.tiphaineimmo.fr/location-vacances/studio/1",
+   "https://www.tiphaineimmo.fr/location-vacances/studio/p2/1",
+   "https://www.tiphaineimmo.fr/location-vacances/studio/p3/1",
+   "https://www.tiphaineimmo.fr/location-vacances/autre/1",
+   "https://www.tiphaineimmo.fr/location/1",
+   "https://www.tiphaineimmo.fr/vente/1-menton/appartement/957-exclusivite-front-de-mer-menton",
+   "https://www.tiphaineimmo.fr/vente/1-menton/appartement/972-appartement-4-pieces-menton",
+   "https://www.tiphaineimmo.fr/vente/1-menton/appartement/976-appartement-3-pieces-avec-terrasse",
+   "https://www.tiphaineimmo.fr/vente/1-menton/appartement/986-studio-centre-ville",
+   "https://www.tiphaineimmo.fr/vente/1-menton/appartement/987-3-pieces-jardin-bioves"
+  ],
+  "listing_samples": [
+   "https://www.tiphaineimmo.fr/vente/1-menton/appartement/957-exclusivite-front-de-mer-menton",
+   "https://www.tiphaineimmo.fr/vente/1-menton/appartement/972-appartement-4-pieces-menton",
+   "https://www.tiphaineimmo.fr/vente/1-menton/appartement/976-appartement-3-pieces-avec-terrasse",
+   "https://www.tiphaineimmo.fr/vente/1-menton/appartement/986-studio-centre-ville",
+   "https://www.tiphaineimmo.fr/vente/1-menton/appartement/987-3-pieces-jardin-bioves"
+  ],
+  "listing_links_seen": 5,
+  "agent_hint": false,
+  "detail_tel_links": 2,
+  "detail_mailto": 1,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "ITALGEST REAL ESTATE FRANCE",
+  "website": "https://italgestgroup.com/",
+  "ok": true,
+  "platforms": [
+   "apimo"
+  ],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "MT AGENCY",
+  "website": "https://www.mtagency.fr/",
+  "ok": true,
+  "platforms": [
+   "hektor",
+   "wordpress",
+   "wp-wpresidence"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.mtagency.fr/categorie/vente/",
+   "https://www.mtagency.fr/categorie/vente-immobiliere-pro/",
+   "https://www.mtagency.fr/annonces/commerce/",
+   "https://www.mtagency.fr/tous-les-biens/"
+  ],
+  "listing_samples": [
+   "https://www.mtagency.fr/annonce/grand-3-pieces-94-m%c2%b2-centre-ville/",
+   "https://www.mtagency.fr/annonce/58-m%c2%b2-fonds-de-commerce-quartier-mairie/"
+  ],
+  "listing_links_seen": 2,
+  "agent_hint": false,
+  "detail_tel_links": 3,
+  "detail_mailto": 5,
+  "jsonld_types": [
+   "BreadcrumbList",
+   "ImageObject",
+   "ListItem",
+   "Organization",
+   "WebPage",
+   "WebSite"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "RIVIERA PRIME IMMOBILIER",
+  "website": "https://www.rivieraprimeimmo.fr/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.rivieraprimeimmo.fr/vente-appartement.html",
+   "https://www.rivieraprimeimmo.fr/vente-maison.html",
+   "https://www.rivieraprimeimmo.fr/immobilier-professionnel.html",
+   "https://www.rivieraprimeimmo.fr/vente-terrain.html",
+   "https://www.rivieraprimeimmo.fr/vente,location-garage,parking.html",
+   "https://www.rivieraprimeimmo.fr/toutes-locations.html",
+   "https://www.rivieraprimeimmo.fr/estimation+immobilier+menton.html",
+   "https://www.rivieraprimeimmo.fr/agence-immobiliere-menton.html",
+   "https://www.rivieraprimeimmo.fr/vente+appartement+3+pieces+menton+gare+routiere-1-1072v5a.html",
+   "https://www.rivieraprimeimmo.fr/vente+appartement+2+pieces+menton+garavan-1-1072v4a.html",
+   "https://www.rivieraprimeimmo.fr/vente+appartement+2+pieces+menton+gare+routiere-1-1072v2a.html",
+   "https://www.rivieraprimeimmo.fr/tout+nos+biens.html",
+   "https://www.rivieraprimeimmo.fr/vente-appartement-a-menton.html",
+   "https://www.rivieraprimeimmo.fr/vente-maison-a-menton.html",
+   "https://www.rivieraprimeimmo.fr/vente,location-studio-menton.html"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "NICEVISTA ESTATE",
+  "website": "https://nicevista.estate/",
+  "ok": true,
+  "platforms": [
+   "apimo"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://nicevista.estate/fr/ventes",
+   "https://nicevista.estate/fr/ventes/cote-d-azur",
+   "https://nicevista.estate/fr/ventes/usa",
+   "https://nicevista.estate/fr/ventes/lac",
+   "https://nicevista.estate/fr/ventes/montagne",
+   "https://nicevista.estate/fr/locations/france",
+   "https://nicevista.estate/fr/location/monaco",
+   "https://nicevista.estate/fr/location/italie",
+   "https://nicevista.estate/fr/locations-a-l-annee",
+   "https://nicevista.estate/fr/locations-saisonniere",
+   "https://nicevista.estate/fr/estimation-vente",
+   "https://nicevista.estate/fr/estimation-locations",
+   "https://nicevista.estate/fr/propriete/vente+maison+roquebrune-cap-martin+86795109",
+   "https://nicevista.estate/fr/propriete/vente+maison+roquebrune-cap-martin+86788288",
+   "https://nicevista.estate/fr/propriete/vente+appartement+roquebrune-cap-martin+86746199"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "LA RIVIERA PROPERTIES",
+  "website": "https://larivieraproperties.com/",
+  "ok": false,
+  "error": "https://larivieraproperties.com/: ConnectionError"
+ },
+ {
+  "name": "EDOUARD VII PROPERTY MANAGEMENT",
+  "website": "https://edouard7.com/",
+  "ok": true,
+  "platforms": [
+   "apimo"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://edouard7.com/fr/vente",
+   "https://edouard7.com/fr/locations",
+   "https://edouard7.com/fr/propriete/vente+appartement+menton+en-exclusivite-quatre-pieces-avec-terrasse-et-parking-sur-l-entier-avant-dernier-etage-d-un-immeuble-recent+87034935",
+   "https://edouard7.com/fr/propriete/vente+maison+roquebrune-cap-martin+superbe-villa-contemporaine-avec-piscine-une-oasis-de-lumiere-au-coeur-de-roquebrune-cap-martin+86202152",
+   "https://edouard7.com/fr/propriete/vente+appartement+menton+en-exclusivite-deux-pieces-a-vendre-avec-terrasse-et-splendide-vue-mer-dans-immeuble-face-aux-plages+86093125",
+   "https://edouard7.com/fr/propriete/vente+maison+roquebrune-cap-martin+somptueuse-villa-completement-renovee-avec-piscine-chauffee-et-splendide-vue-mer-panoramique+87183824",
+   "https://edouard7.com/fr/propriete/vente+appartement+menton+quatre-pieces-en-duplex-avec-spectaculaire-terrasse-sur-le-toit-et-epoustouflante-vue-mer-panoramique+85296690",
+   "https://edouard7.com/fr/propriete/viager+appartement+menton+en-exclusivite-viager-occupe-sur-une-tete-nee-en-1947-avec-600-000-de-bouquet-plus-470-de-rente-mensuelle+85625471",
+   "https://edouard7.com/fr/propriete/vente+appartement+roquebrune-cap-martin+superbe-quatre-pieces-soigneusement-renove-avec-vastes-terrasses-jardin-vue-mer-panoramique-et-parking+86001866",
+   "https://edouard7.com/fr/propriete/vente+appartement+menton+trois-pieces-avec-terrasse-magnifique-vue-mer-panoramique-et-double-garage+86184700",
+   "https://edouard7.com/fr/propriete/vente+maison+roquebrune-cap-martin+en-exclusivite-jolie-villa-renovee-avec-deux-terrasses-jardin-magnifique-vue-mer-et-deux-parkings+86491158",
+   "https://edouard7.com/fr/acheter-vendre",
+   "https://edouard7.com/fr/propriete/vente+appartement+roquebrune-cap-martin+vendu-en-exclusivite-splendide-studio-avec-terrasse-magnifique-vue-mer-cave-et-parking+86249735",
+   "https://edouard7.com/fr/propriete/vente+appartement+menton+vendu-trois-pieces-avec-balcon-et-vue-mer-au-dernier-etage-d-un-magnifique-immeuble-bourgeois-avec-conciergerie+83011792",
+   "https://edouard7.com/fr/propriete/vente+appartement+menton+vendu-en-exclusivite-studio-avec-spacieuse-terrasse-au-quatrieme-etage-d-un-immeuble-de-standing+84187598"
+  ],
+  "listing_samples": [
+   "https://edouard7.com/en/property/sale+apartment+menton+three-bedroom-apartment-with-large-terrace-on-the-entire-sixth-floor-of-a-recent-building-sole-agency+87034935"
+  ],
+  "listing_links_seen": 1,
+  "agent_hint": false,
+  "detail_tel_links": 2,
+  "detail_mailto": 2,
+  "jsonld_types": [
+   "Apartment",
+   "GeoCoordinates",
+   "Offer",
+   "PostalAddress",
+   "QuantitativeValue",
+   "RealEstateAgent",
+   "RealEstateListing"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "INTER IMMOBILIER",
+  "website": "https://inter-immobilier.com/",
+  "ok": true,
+  "platforms": [
+   "apimo"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://inter-immobilier.com/fr/acheter-2",
+   "https://inter-immobilier.com/fr/location-2",
+   "https://inter-immobilier.com/fr/propriete/vente+appartement+roquebrune-cap-martin+garage-roquebrune-centre-ville+87267013",
+   "https://inter-immobilier.com/fr/propriete/vente+appartement+menton+menton-casino-coquet-studio-immeuble-recent-100-mt-des-plages+87334553",
+   "https://inter-immobilier.com/fr/propriete/vente+appartement+menton+menton-garavan-calme-apercue-mer+4118235",
+   "https://inter-immobilier.com/fr/propriete/vente+commerce+menton+menton-exclusivite-locaux-professionnels-212-m2+86131141",
+   "https://inter-immobilier.com/fr/propriete/vente+appartement+menton+studio-menton-centre-proche-mer+86674362"
+  ],
+  "listing_samples": [
+   "https://inter-immobilier.com/en/property/sale+apartment+roquebrune-cap-martin+87267013"
+  ],
+  "listing_links_seen": 1,
+  "agent_hint": false,
+  "detail_tel_links": 0,
+  "detail_mailto": 0,
+  "jsonld_types": [
+   "Apartment",
+   "GeoCoordinates",
+   "Offer",
+   "PostalAddress",
+   "RealEstateAgent",
+   "RealEstateListing"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "MIRAGE ESTATE",
+  "website": "https://www.mirageestate.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.mirageestate.com/estimation+immobilier+roquebrune+cap+martin.html",
+   "https://www.mirageestate.com/vente-appartement.html",
+   "https://www.mirageestate.com/vente-maison.html",
+   "https://www.mirageestate.com/vente-terrain.html",
+   "https://www.mirageestate.com/location-appartement,maison.html",
+   "https://www.mirageestate.com/agence-immobiliere-roquebrune+cap+martin.html",
+   "https://www.mirageestate.com/vente-parking,garage.html",
+   "https://www.mirageestate.com/immobilier-professionnel.html",
+   "https://www.mirageestate.com/immobilier-a-cannes.html",
+   "https://www.mirageestate.com/immobilier-a-roquebrune+cap+martin.html",
+   "https://www.mirageestate.com/immobilier-toutes+nos+villes.html",
+   "https://www.mirageestate.com/immobilier-cannes-croisette.html",
+   "https://www.mirageestate.com/immobilier-roquebrune+cap+martin-proche+plages.html",
+   "https://www.mirageestate.com/immobilier-tous+secteurs.html",
+   "https://www.mirageestate.com/vente-maison-a-cagnes+sur+mer.html"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "LIMANDAT REAL ESTATE",
+  "website": "https://limandat.fr/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://limandat.fr/fr/ventes",
+   "https://limandat.fr/fr/ventes/cote-d-azur",
+   "https://limandat.fr/fr/ventes/cannes-et-alentours",
+   "https://limandat.fr/fr/ventes/mougins-et-alentours",
+   "https://limandat.fr/fr/ventes/roquebrune-cap-martin-et-alentours",
+   "https://limandat.fr/fr/ventes/saint-jean-cap-ferrat-et-alentours",
+   "https://limandat.fr/fr/ventes/neighboring-monaco",
+   "https://limandat.fr/fr/ventes/saint-tropez-et-alentours",
+   "https://limandat.fr/fr/ventes/arri%C3%A8re-pays-varois",
+   "https://limandat.fr/fr/ventes/proprietes-equestres",
+   "https://limandat.fr/fr/ventes/villas",
+   "https://limandat.fr/fr/ventes/appartements",
+   "https://limandat.fr/fr/ventes/monaco",
+   "https://limandat.fr/fr/ventes/haute-montagne",
+   "https://limandat.fr/fr/biens-vendus"
+  ],
+  "listing_samples": [
+   "https://limandat.fr/fr/propriete/vente/maison/tourtour/propriete-equestre-d-exception-de-15-ha/87443317",
+   "https://limandat.fr/fr/propriete/location/appartement/cannes/cannes-croisette-3-suites-vue-mer/87434483",
+   "https://limandat.fr/fr/propriete/vente/appartement/beausoleil/3-4-pieces-beausoleil/87366744",
+   "https://limandat.fr/fr/propriete/location/maison/mougins/mougins-luxueux-domaine-hammam-tennis-sauna-cinema/84842368",
+   "https://limandat.fr/fr/propriete/vente/maison/roquebrune-cap-martin/roquebrune-cap-martin-villa-contemporaine-570-m2-terrain-3-780-m2-piscine-chauffee-garage-parkings/83221333"
+  ],
+  "listing_links_seen": 25,
+  "agent_hint": false,
+  "detail_tel_links": 2,
+  "detail_mailto": 2,
+  "jsonld_types": [
+   "GeoCoordinates",
+   "House",
+   "Offer",
+   "PostalAddress",
+   "QuantitativeValue",
+   "RealEstateAgent",
+   "RealEstateListing"
+  ],
+  "sitemap": true
+ },
+ {
+  "name": "DYNAMIC-IMMO",
+  "website": "https://dynamic-immo.fr/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://dynamic-immo.fr/fr/ventes",
+   "https://dynamic-immo.fr/fr/location-2",
+   "https://dynamic-immo.fr/fr/propriete/location+appartement+menton+menton-gare-routiere+87403211",
+   "https://dynamic-immo.fr/fr/propriete/vente+terrain+sospel+sospel-terrain-constructible+83689087",
+   "https://dynamic-immo.fr/fr/propriete/location+appartement+menton+menton-bas-borrigo+87405572",
+   "https://dynamic-immo.fr/fr/propriete/vente+appartement+roquebrune-cap-martin+spacieux-t2-dans-residence-front-de-mer+85837203",
+   "https://dynamic-immo.fr/fr/propriete/vente+appartement+menton+menton-3-pieces-front-de-mer+86837658"
+  ],
+  "listing_samples": [
+   "https://dynamic-immo.fr/en/property/rental+apartment+menton+87403211"
+  ],
+  "listing_links_seen": 1,
+  "agent_hint": false,
+  "detail_tel_links": 3,
+  "detail_mailto": 2,
+  "jsonld_types": [
+   "Apartment",
+   "GeoCoordinates",
+   "Offer",
+   "PostalAddress",
+   "QuantitativeValue",
+   "RealEstateAgent",
+   "RealEstateListing"
+  ],
+  "sitemap": true
  }
 ]

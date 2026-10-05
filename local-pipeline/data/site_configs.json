@@ -8167,5 +8167,1494 @@
   "quality": 3,
   "require_riviera": true,
   "note": "autoconfig picked region/guide pages, not listings (2026-10-05); needs a hand config"
+ },
+ {
+  "site_key": "web-selectacars-com",
+  "agency": "SELECTA CARS",
+  "website": "https://selectacars.com/",
+  "runner": "server",
+  "status": "needs_review",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://selectacars.com/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?selectacars\\.com/divisions/selecta\\-cars/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+/?(?:[?#].*)?$)",
+  "listing_shape": "/divisions/selecta-cars/{slug}",
+  "links_seen": 30,
+  "index_source": "sitemap",
+  "samples": [
+   {
+    "url": "https://selectacars.com/divisions/selecta-cars/selecta-cars-1-3/",
+    "score": 0,
+    "error": "NotFound('https://selectacars.com/divisions/selecta-cars/selecta-cars-1-3/')"
+   },
+   {
+    "url": "https://selectacars.com/divisions/selecta-cars/selecta-cars-1-3/",
+    "score": 0,
+    "error": "NotFound('https://selectacars.com/divisions/selecta-cars/selecta-cars-1-3/')"
+   }
+  ],
+  "quality": 0,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 0/0 samples are real Côte d'Azur listings (index 20); platforms ['wordpress']"
+ },
+ {
+  "site_key": "web-agence-pinci-com",
+  "agency": "AGENCE PINCI",
+  "website": "https://www.agence-pinci.com/",
+  "runner": "server",
+  "status": "verified_auto",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.agence-pinci.com/fr/ventes"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?agence\\-pinci\\.com/fr/propri%C3%A9t%C3%A9/\\d{3,}/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/propri%C3%A9t%C3%A9/{id}",
+  "links_seen": 10,
+  "samples": [
+   {
+    "url": "https://www.agence-pinci.com/fr/propri%C3%A9t%C3%A9/87443356",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 169000,
+     "living_area_sqm": 20.2,
+     "rooms": 1,
+     "bedrooms": 0,
+     "floor": 0,
+     "external_ref": "N15712",
+     "quarter": "MENTON - STUDIO FRONT DE MER - TERRASSE",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 9
+    }
+   },
+   {
+    "url": "https://www.agence-pinci.com/fr/propri%C3%A9t%C3%A9/87442904",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 138000,
+     "living_area_sqm": 26.56,
+     "rooms": 1,
+     "bedrooms": 0,
+     "floor": 5,
+     "external_ref": "L17237",
+     "quarter": "STUDIO AVEC TERRASSE MENTON CAREÏ",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 8
+    }
+   }
+  ],
+  "quality": 7,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 3/4 samples are real Côte d'Azur listings (index 30); platforms ['apimo']"
+ },
+ {
+  "site_key": "web-immocenter-france-com",
+  "agency": "AGENCE IMMO CENTER",
+  "website": "https://immocenter-france.com/",
+  "runner": "server",
+  "status": "needs_review",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://immocenter-france.com/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?immocenter\\-france\\.com/fr/propriete/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/propriete/{id-slug}",
+  "links_seen": 6,
+  "samples": [
+   {
+    "url": "https://immocenter-france.com/fr/propriete/vente+appartement+sospel+3-pieces+86492017",
+    "hint": null,
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 199000,
+     "living_area_sqm": 54.8,
+     "rooms": 3,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "3 pièces",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 9
+    }
+   },
+   {
+    "url": "https://immocenter-france.com/fr/propriete/vente+maison+castellar+maison-atypique-avec-vue-panoramique-castellar+85075237",
+    "hint": null,
+    "score": 7,
+    "missing": [
+     "ref"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 750000,
+     "living_area_sqm": 180,
+     "rooms": 6,
+     "bedrooms": 4,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Maison atypique avec vue panoramique - Castellar",
+     "agent_name": "Tristan\n\t\t\t\t\t\t\t\t\tVICKERS Responsable",
+     "agent_phone": "+33671874431",
+     "agent_email": "t.vickers@immocenter-france.com",
+     "photos": 24
+    }
+   }
+  ],
+  "quality": 6,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 0/4 samples are real Côte d'Azur listings (index 6); platforms ['apimo']"
+ },
+ {
+  "site_key": "web-azur-concept-services-immobiliers-com",
+  "agency": "AZUR CONCEPT SERVICES IMMOBILIERS",
+  "website": "https://www.azur-concept-services-immobiliers.com/",
+  "status": "unreachable",
+  "runner": "local",
+  "note": "onboard: https://www.azur-concept-services-immobiliers.com/: ConnectionError"
+ },
+ {
+  "site_key": "web-sudespaceimmobilier-com",
+  "agency": "SUD ESPACE IMMOBILIER",
+  "website": "https://www.sudespaceimmobilier.com/",
+  "runner": "server",
+  "status": "needs_review",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.sudespaceimmobilier.com/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?sudespaceimmobilier\\.com/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}",
+  "links_seen": 3,
+  "index_source": "sitemap",
+  "samples": [
+   {
+    "url": "https://www.sudespaceimmobilier.com/prop-list-half-map/",
+    "hint": null,
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1150000,
+     "living_area_sqm": 247,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Prop List – Half Map",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 16
+    }
+   },
+   {
+    "url": "https://www.sudespaceimmobilier.com/properties-list-just-featured-2/",
+    "hint": null,
+    "score": 5,
+    "missing": [
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1290000,
+     "living_area_sqm": 229,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Properties List – Just Featured",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 16
+    }
+   }
+  ],
+  "quality": 5,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 0/4 samples are real Côte d'Azur listings (index 37); platforms ['wordpress', 'wp-wpresidence']"
+ },
+ {
+  "site_key": "web-agencemartini-com",
+  "agency": "AGENCE MARTINI",
+  "website": "https://www.agencemartini.com/",
+  "runner": "server",
+  "status": "verified_auto",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.agencemartini.com/search-results/?keyword=&amp;type%5B%5D=1-piece&amp;status%5B%5D=location&amp;min-area=&amp;max-area=&amp;min-price=&amp;max-price=",
+    "https://www.agencemartini.com/categorie/vente/"
+   ],
+   "rent": [
+    "https://www.agencemartini.com/categorie/location/",
+    "https://www.agencemartini.com/annonce/a-louer-local-commercial-75-m%c2%b2-bord-de-mer-de-menton/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?agencemartini\\.com/annonce/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+/?(?:[?#].*)?$)",
+  "listing_shape": "/annonce/{slug}",
+  "links_seen": 32,
+  "samples": [
+   {
+    "url": "https://www.agencemartini.com/annonce/a-louer-appt-secteur-cabrolles-sainte-agnes/",
+    "hint": "rent",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 1119,
+     "living_area_sqm": 18.31,
+     "rooms": null,
+     "bedrooms": 1,
+     "floor": 2,
+     "external_ref": null,
+     "quarter": "martini",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 21
+    }
+   },
+   {
+    "url": "https://www.agencemartini.com/annonce/castellar-a-louer-3p-meuble-avec-jardin/",
+    "hint": "rent",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 1332,
+     "living_area_sqm": 69.06,
+     "rooms": null,
+     "bedrooms": 2,
+     "floor": 2,
+     "external_ref": null,
+     "quarter": "martini",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 41
+    }
+   }
+  ],
+  "quality": 6,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 4/4 samples are real Côte d'Azur listings (index 30); platforms ['wordpress', 'wp-houzez']"
+ },
+ {
+  "site_key": "web-amiralagence-com",
+  "agency": "AMIRAL AGENCE",
+  "website": "https://www.amiralagence.com/",
+  "status": "unreachable",
+  "runner": "local",
+  "note": "onboard: https://www.amiralagence.com/: ConnectionError"
+ },
+ {
+  "site_key": "web-immobilieramarante-com",
+  "agency": "AGENCE AMARANTE ST ROCH",
+  "website": "https://www.immobilieramarante.com/",
+  "runner": "server",
+  "status": "verified_auto",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.immobilieramarante.com/vente/1"
+   ],
+   "rent": [
+    "https://www.immobilieramarante.com/location/1"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?immobilieramarante\\.com/vente/1\\-menton/appartement/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/vente/1-menton/appartement/{id-slug}",
+  "links_seen": 8,
+  "samples": [
+   {
+    "url": "https://www.immobilieramarante.com/vente/1-menton/appartement/3682-exclusivite-dernier-etage-2p-avec-terrasse-parking-et-cave-menton-borrigo",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 265000,
+     "living_area_sqm": 44.85,
+     "rooms": null,
+     "bedrooms": 10,
+     "floor": null,
+     "external_ref": "2737",
+     "quarter": "Appartement 2pièce(s) 1chambre(s) 44,85 m² Menton (06500)",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 7
+    }
+   },
+   {
+    "url": "https://www.immobilieramarante.com/vente/1-menton/appartement/3677-3-pieces-dernier-etage-centre-ville-de-menton",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 530000,
+     "living_area_sqm": 60.11,
+     "rooms": 3,
+     "bedrooms": 11,
+     "floor": null,
+     "external_ref": "2739",
+     "quarter": "Appartement 3pièce(s) 2chambre(s) 60,11 m² Menton (06500)",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 9
+    }
+   }
+  ],
+  "quality": 6,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 4/4 samples are real Côte d'Azur listings (index 7); platforms ['hektor']"
+ },
+ {
+  "site_key": "web-agence-europeenne-com",
+  "agency": "AGENCE EUROPEENNE",
+  "website": "https://agence-europeenne.com/",
+  "runner": "server",
+  "status": "verified_auto",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://agence-europeenne.com/fr/ventes"
+   ],
+   "rent": [
+    "https://agence-europeenne.com/fr/locations"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?agence\\-europeenne\\.com/fr/propriete/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/propriete/{id-slug}",
+  "links_seen": 24,
+  "samples": [
+   {
+    "url": "https://agence-europeenne.com/fr/propriete/vente+terrain+castillon+campagne-col-de-castillon+86999796",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 38600,
+     "living_area_sqm": 320,
+     "rooms": 1,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": "L17210",
+     "quarter": "CAMPAGNE COL DE CASTILLON",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 10
+    }
+   },
+   {
+    "url": "https://agence-europeenne.com/fr/propriete/vente+terrain+gorbio+vente-terrain-inconstructible-gorbio+86404600",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "rooms",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 45000,
+     "living_area_sqm": 3550,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": "D15872",
+     "quarter": "VENTE TERRAIN INCONSTRUCTIBLE GORBIO",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 8
+    }
+   }
+  ],
+  "quality": 6,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 2/4 samples are real Côte d'Azur listings (index 48); platforms ['apimo']"
+ },
+ {
+  "site_key": "web-immobilier-menton-net",
+  "agency": "IMMOBILIER MENTON",
+  "website": "https://www.immobilier-menton.net/",
+  "runner": "server",
+  "status": "verified_auto",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.immobilier-menton.net/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?immobilier\\-menton\\.net/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})\\.html/?(?:[?#].*)?$)",
+  "listing_shape": "/{id-slug}.html",
+  "links_seen": 5,
+  "samples": [
+   {
+    "url": "https://www.immobilier-menton.net/1550-roquebrune-cap-martin-2-pieces-terrasse-vue-mer.html",
+    "hint": null,
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 450000,
+     "living_area_sqm": 55,
+     "rooms": 2,
+     "bedrooms": 1,
+     "floor": 5,
+     "external_ref": null,
+     "quarter": "pied hameau",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 32
+    }
+   },
+   {
+    "url": "https://www.immobilier-menton.net/1620-menton-annonciade-appartement-villa-de-148-m-187-m-de-terrasse-piscine-terrain.html",
+    "hint": null,
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1050000,
+     "living_area_sqm": 148,
+     "rooms": 3,
+     "bedrooms": 3,
+     "floor": 3,
+     "external_ref": null,
+     "quarter": "ANNONCIADE",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 12
+    }
+   }
+  ],
+  "quality": 6,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 4/4 samples are real Côte d'Azur listings (index 5); platforms ['hektor']"
+ },
+ {
+  "site_key": "web-alexandraciccioni-com",
+  "agency": "ALEXANDRA CICCIONI REAL ESTATE",
+  "website": "https://www.alexandraciccioni.com/",
+  "runner": "server",
+  "status": "needs_review",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.alexandraciccioni.com/ventes"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?alexandraciccioni\\.com/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}",
+  "links_seen": 19,
+  "samples": [
+   {
+    "url": "https://www.alexandraciccioni.com/ils-disent-de-moi",
+    "hint": "sale",
+    "score": 4,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Ils disent de moi...",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   }
+  ],
+  "quality": 4,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 1/4 samples are real Côte d'Azur listings (index 20); platforms ['squarespace']"
+ },
+ {
+  "site_key": "web-biovesimmo-fr",
+  "agency": "BIOVES IMMOBILIER",
+  "website": "https://www.biovesimmo.fr/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  },
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard: no_listing_links; platforms ['hektor']"
+ },
+ {
+  "site_key": "web-next-immo-fr",
+  "agency": "NEXT IMMO",
+  "website": "https://www.next-immo.fr/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.next-immo.fr/vente/1"
+   ],
+   "rent": [
+    "https://www.next-immo.fr/location/1",
+    "https://www.next-immo.fr/location-vacances/1"
+   ]
+  },
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard: no_listing_links; platforms ['hektor']"
+ },
+ {
+  "site_key": "web-immobilier-carnot-fr",
+  "agency": "AGENCE CARNOT",
+  "website": "https://www.immobilier-carnot.fr/",
+  "runner": "server",
+  "status": "needs_review",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.immobilier-carnot.fr/ventes"
+   ],
+   "rent": [
+    "https://www.immobilier-carnot.fr/locations"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?immobilier\\-carnot\\.fr/detail\\-vente\\?(?:[^#]*&)?id=\\d{2,}(?:[&#].*)?$)",
+  "listing_shape": "/detail-vente?{id=}",
+  "links_seen": 6,
+  "samples": [
+   {
+    "url": "https://www.immobilier-carnot.fr/detail-vente?id=126766",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "rooms",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 169000,
+     "living_area_sqm": 20,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": "N15712",
+     "quarter": "Vente Appartement 169000 €",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 9
+    }
+   },
+   {
+    "url": "https://www.immobilier-carnot.fr/detail-vente?id=126831",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "rooms",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 138000,
+     "living_area_sqm": 27,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": "L17237",
+     "quarter": "Vente Appartement 138000 €",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 8
+    }
+   }
+  ],
+  "quality": 6,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 1/4 samples are real Côte d'Azur listings (index 18); platforms []"
+ },
+ {
+  "site_key": "web-immobilia-re-net",
+  "agency": "IMMOBILIA-RE",
+  "website": "https://immobilia-re.net/",
+  "runner": "server",
+  "status": "needs_review",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://immobilia-re.net/index2.php?mode=SeasonalRental",
+    "https://immobilia-re.net/index2.php?mode=buy"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?immobilia\\-re\\.net/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+\\.html/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}.html",
+  "links_seen": 6,
+  "samples": [
+   {
+    "url": "https://immobilia-re.net/properties-list-left-sidebar.html",
+    "score": 0,
+    "error": "NotFound('https://immobilia-re.net/properties-list-left-sidebar.html')"
+   },
+   {
+    "url": "https://immobilia-re.net/properties-list-right-sidebar.html",
+    "score": 0,
+    "error": "NotFound('https://immobilia-re.net/properties-list-right-sidebar.html')"
+   }
+  ],
+  "quality": 0,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: index: no listing links; platforms []"
+ },
+ {
+  "site_key": "web-agencecommerce-fr",
+  "agency": "AGENCE DU COMMERCE",
+  "website": "https://agencecommerce.fr/",
+  "runner": "server",
+  "status": "verified_auto",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://agencecommerce.fr/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?agencecommerce\\.fr/annonces/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/annonces/{id-slug}",
+  "links_seen": 12,
+  "samples": [
+   {
+    "url": "https://agencecommerce.fr/annonces/1779889396872-toutes-activites-hors-restauration-ref-menton25",
+    "hint": null,
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 9400,
+     "living_area_sqm": 60,
+     "rooms": 5,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": "MENTON25",
+     "quarter": "Careï",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 2
+    }
+   },
+   {
+    "url": "https://agencecommerce.fr/annonces/1779887888894-salon-de-coiffure-coeur-de-carnoles-ref-rcm46",
+    "hint": null,
+    "score": 5,
+    "missing": [
+     "rooms",
+     "photos",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 9780,
+     "living_area_sqm": 45,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": "RCM46",
+     "quarter": "Centre-ville",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 1
+    }
+   }
+  ],
+  "quality": 5,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 3/4 samples are real Côte d'Azur listings (index 12); platforms []"
+ },
+ {
+  "site_key": "web-testa-immobilier-com",
+  "agency": "TESTA IMMOBILIER",
+  "website": "https://www.testa-immobilier.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.testa-immobilier.com/vente/1",
+    "https://www.testa-immobilier.com/vente-pro/1"
+   ],
+   "rent": [
+    "https://www.testa-immobilier.com/location/1"
+   ]
+  },
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard: no_listing_links; platforms ['hektor']"
+ },
+ {
+  "site_key": "web-interazur-com",
+  "agency": "INTER AZUR IMMOBILIER",
+  "website": "https://interazur.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://interazur.com/fr/ventes"
+   ],
+   "rent": [
+    "https://interazur.com/fr/locations"
+   ]
+  },
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard: no_listing_links; platforms []"
+ },
+ {
+  "site_key": "web-immobiltrend-com",
+  "agency": "IMMOBILTREND",
+  "website": "https://immobiltrend.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://immobiltrend.com/fr/ventes"
+   ],
+   "rent": [
+    "https://immobiltrend.com/fr/locations"
+   ]
+  },
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard: no_listing_links; platforms ['apimo']"
+ },
+ {
+  "site_key": "web-tiphaineimmo-fr",
+  "agency": "TIPHAINE IMMOBILIER",
+  "website": "https://www.tiphaineimmo.fr/",
+  "runner": "server",
+  "status": "verified_auto",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.tiphaineimmo.fr/vente/1"
+   ],
+   "rent": [
+    "https://www.tiphaineimmo.fr/location/1",
+    "https://www.tiphaineimmo.fr/location-vacances/autre/1"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?tiphaineimmo\\.fr/vente/1\\-menton/appartement/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?tiphaineimmo\\.fr/location/1\\-menton/appartement/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/vente/1-menton/appartement/{id-slug} | /location/1-menton/appartement/{id-slug}",
+  "links_seen": 5,
+  "samples": [
+   {
+    "url": "https://www.tiphaineimmo.fr/vente/1-menton/appartement/987-3-pieces-jardin-bioves",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 252000,
+     "living_area_sqm": 56.08,
+     "rooms": 3,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": "0594",
+     "quarter": "Appartement 3 pièce(s) 2 chambre(s) 56.08 m²",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 58
+    }
+   },
+   {
+    "url": "https://www.tiphaineimmo.fr/vente/1-menton/appartement/986-studio-centre-ville",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 168000,
+     "living_area_sqm": 37.76,
+     "rooms": 1,
+     "bedrooms": 0,
+     "floor": null,
+     "external_ref": "594",
+     "quarter": "Appartement 1 pièce(s) 37.76 m²",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 58
+    }
+   }
+  ],
+  "quality": 7,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 3/4 samples are real Côte d'Azur listings (index 7); platforms ['hektor']"
+ },
+ {
+  "site_key": "web-italgestgroup-com",
+  "agency": "ITALGEST REAL ESTATE FRANCE",
+  "website": "https://italgestgroup.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  },
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard: no_listing_links; platforms ['apimo']"
+ },
+ {
+  "site_key": "web-mtagency-fr",
+  "agency": "MT AGENCY",
+  "website": "https://www.mtagency.fr/",
+  "runner": "server",
+  "status": "verified_auto",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.mtagency.fr/categorie/vente/",
+    "https://www.mtagency.fr/categorie/vente-immobiliere-pro/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?mtagency\\.fr/annonce/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+/?(?:[?#].*)?$)",
+  "listing_shape": "/annonce/{slug}",
+  "links_seen": 18,
+  "samples": [
+   {
+    "url": "https://www.mtagency.fr/annonce/villa-jumelee-a-garavan/",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 950000,
+     "living_area_sqm": 80,
+     "rooms": null,
+     "bedrooms": 3,
+     "floor": null,
+     "external_ref": "20885",
+     "quarter": "Garavan",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   },
+   {
+    "url": "https://www.mtagency.fr/annonce/2-pieces-rue-pietonne/",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 394000,
+     "living_area_sqm": 49,
+     "rooms": 2,
+     "bedrooms": 1,
+     "floor": 1,
+     "external_ref": "20027",
+     "quarter": "Centre ville",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 43
+    }
+   }
+  ],
+  "quality": 7,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 2/4 samples are real Côte d'Azur listings (index 27); platforms ['hektor', 'wordpress', 'wp-wpresidence']"
+ },
+ {
+  "site_key": "web-rivieraprimeimmo-fr",
+  "agency": "RIVIERA PRIME IMMOBILIER",
+  "website": "https://www.rivieraprimeimmo.fr/",
+  "runner": "server",
+  "status": "verified_auto",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.rivieraprimeimmo.fr/vente-maison.html",
+    "https://www.rivieraprimeimmo.fr/vente-terrain.html"
+   ],
+   "rent": [
+    "https://www.rivieraprimeimmo.fr/toutes-locations.html"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?rivieraprimeimmo\\.fr/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+\\.html/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}.html",
+  "links_seen": 18,
+  "samples": [
+   {
+    "url": "https://www.rivieraprimeimmo.fr/vente,location-garage,parking.html",
+    "hint": "rent",
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Vente et location",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 1
+    }
+   },
+   {
+    "url": "https://www.rivieraprimeimmo.fr/vente,location-garage,parking.html",
+    "hint": "rent",
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Vente et location",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 1
+    }
+   }
+  ],
+  "quality": 3,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 3/4 samples are real Côte d'Azur listings (index 16); platforms []"
+ },
+ {
+  "site_key": "web-nicevista-estate",
+  "agency": "NICEVISTA ESTATE",
+  "website": "https://nicevista.estate/",
+  "runner": "server",
+  "status": "verified_auto",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://nicevista.estate/fr/ventes"
+   ],
+   "rent": [
+    "https://nicevista.estate/fr/location/monaco"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?nicevista\\.estate/fr/propriete/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/propriete/{id-slug}",
+  "links_seen": 12,
+  "samples": [
+   {
+    "url": "https://nicevista.estate/fr/propriete/vente+appartement+menton+menton-vieux-port-grand-3-pieces-avec-terrasse-et-vue-mer+87438777",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 530000,
+     "living_area_sqm": 89,
+     "rooms": 3,
+     "bedrooms": 2,
+     "floor": 3,
+     "external_ref": "Menton 1000",
+     "quarter": "Menton - Vieux-Port - Grand 3 pièces avec terrasse et vue mer",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 14
+    }
+   },
+   {
+    "url": "https://nicevista.estate/fr/propriete/vente+appartement+la-turbie+la-turbie-appartement-avec-terrasse-vue-mer-panoramique-et-piscine+87438599",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 355000,
+     "living_area_sqm": 45,
+     "rooms": 2,
+     "bedrooms": 1,
+     "floor": 2,
+     "external_ref": "La Turbie 26",
+     "quarter": "La Turbie - Appartement avec terrasse, vue mer panoramique et piscine",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 21
+    }
+   }
+  ],
+  "quality": 7,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 4/4 samples are real Côte d'Azur listings (index 36); platforms ['apimo']"
+ },
+ {
+  "site_key": "web-larivieraproperties-com",
+  "agency": "LA RIVIERA PROPERTIES",
+  "website": "https://larivieraproperties.com/",
+  "status": "unreachable",
+  "runner": "local",
+  "note": "onboard: https://larivieraproperties.com/: ConnectionError"
+ },
+ {
+  "site_key": "web-edouard7-com",
+  "agency": "EDOUARD VII PROPERTY MANAGEMENT",
+  "website": "https://edouard7.com/",
+  "runner": "server",
+  "status": "verified_auto",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://edouard7.com/fr/vente",
+    "https://edouard7.com/fr/acheter-vendre"
+   ],
+   "rent": [
+    "https://edouard7.com/fr/locations"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?edouard7\\.com/fr/propriete/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/propriete/{id-slug}",
+  "links_seen": 26,
+  "samples": [
+   {
+    "url": "https://edouard7.com/fr/propriete/vente+garage-parking+menton+parking-a-vendre-debut-de-la-route-de-gorbio-dans-petit-immeuble-recent-et-bien-entretenu-au-tout-debut-de-la-route-de-gorbio+87298963",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "rooms"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 40000,
+     "living_area_sqm": 17,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": 3,
+     "external_ref": "87298963",
+     "quarter": "Parking à vendre début de la route de Gorbio dans petit immeuble récent et bien entretenu, au tout début de la Route de Gorbio",
+     "agent_name": "Déborah ISAIA",
+     "agent_phone": "+33617313482",
+     "agent_email": "deborah@edouard7.com",
+     "photos": 14
+    }
+   },
+   {
+    "url": "https://edouard7.com/fr/propriete/vente+garage-parking+beausoleil+sur-la-commune-de-beausoleil-a-vendre-parking-dans-immeuble-contemporain-avec-ascenseur+87405450",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "area",
+     "rooms"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 55000,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": 1,
+     "external_ref": "87405450",
+     "quarter": "Sur la commune de Beausoleil, à vendre parking dans immeuble contemporain avec ascenseur",
+     "agent_name": "Alexandra POUZET",
+     "agent_phone": "+33663080915",
+     "agent_email": "alexandra@edouard7.com",
+     "photos": 14
+    }
+   }
+  ],
+  "quality": 6,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 3/4 samples are real Côte d'Azur listings (index 50); platforms ['apimo']"
+ },
+ {
+  "site_key": "web-inter-immobilier-com",
+  "agency": "INTER IMMOBILIER",
+  "website": "https://inter-immobilier.com/",
+  "runner": "server",
+  "status": "verified_auto",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://inter-immobilier.com/fr/acheter-2"
+   ],
+   "rent": [
+    "https://inter-immobilier.com/fr/location-2"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?inter\\-immobilier\\.com/fr/propriete/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/propriete/{id-slug}",
+  "links_seen": 16,
+  "samples": [
+   {
+    "url": "https://inter-immobilier.com/fr/propriete/vente+appartement+menton+menton-studio-front-de-mer-terrasse+87443356",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 169000,
+     "living_area_sqm": 20.2,
+     "rooms": 1,
+     "bedrooms": 0,
+     "floor": 0,
+     "external_ref": "N15712",
+     "quarter": "MENTON - STUDIO FRONT DE MER - TERRASSE",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 9
+    }
+   },
+   {
+    "url": "https://inter-immobilier.com/fr/propriete/vente+appartement+menton+studio-avec-terrasse-menton-carei+87442904",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 138000,
+     "living_area_sqm": 26.56,
+     "rooms": 1,
+     "bedrooms": 0,
+     "floor": 5,
+     "external_ref": "L17237",
+     "quarter": "STUDIO AVEC TERRASSE MENTON CAREÏ",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 8
+    }
+   }
+  ],
+  "quality": 7,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 3/4 samples are real Côte d'Azur listings (index 40); platforms ['apimo']"
+ },
+ {
+  "site_key": "web-mirageestate-com",
+  "agency": "MIRAGE ESTATE",
+  "website": "https://www.mirageestate.com/",
+  "runner": "server",
+  "status": "needs_review",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.mirageestate.com/vente-maison.html",
+    "https://www.mirageestate.com/vente-terrain.html"
+   ],
+   "rent": [
+    "https://www.mirageestate.com/location-appartement,maison.html"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?mirageestate\\.com/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+\\.html/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}.html",
+  "links_seen": 12,
+  "samples": [
+   {
+    "url": "https://www.mirageestate.com/agence-immobiliere-roquebrune+cap+martin.html",
+    "hint": "rent",
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Agence immobilière à Roquebrune-Cap-Martin, 06190. Mirage Estate",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 1
+    }
+   },
+   {
+    "url": "https://www.mirageestate.com/immobilier-a-roquebrune+cap+martin.html",
+    "hint": "rent",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": 1190000,
+     "living_area_sqm": 99,
+     "rooms": 3,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Immobilier Roquebrune-Cap-Martin, 1 annonce",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 2
+    }
+   }
+  ],
+  "quality": 3,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 0/4 samples are real Côte d'Azur listings (index 30); platforms []"
+ },
+ {
+  "site_key": "web-limandat-fr",
+  "agency": "LIMANDAT REAL ESTATE",
+  "website": "https://limandat.fr/",
+  "runner": "server",
+  "status": "verified_auto",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://limandat.fr/ventes",
+    "https://limandat.fr/fr/ventes"
+   ],
+   "rent": [
+    "https://limandat.fr/locations",
+    "https://limandat.fr/fr/locations"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?limandat\\.fr/fr/ventes/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/ventes/{slug}",
+  "links_seen": 36,
+  "samples": [
+   {
+    "url": "https://limandat.fr/fr/ventes/cote-d-azur",
+    "hint": "rent",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 11900000,
+     "living_area_sqm": 570,
+     "rooms": null,
+     "bedrooms": 7,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Côte d’Azur",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   },
+   {
+    "url": "https://limandat.fr/fr/ventes/mougins-et-alentours",
+    "hint": "rent",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 7900000,
+     "living_area_sqm": 450,
+     "rooms": null,
+     "bedrooms": 6,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Mougins et alentours",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   }
+  ],
+  "quality": 6,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 2/4 samples are real Côte d'Azur listings (index 9); platforms []"
+ },
+ {
+  "site_key": "web-dynamic-immo-fr",
+  "agency": "DYNAMIC-IMMO",
+  "website": "https://dynamic-immo.fr/",
+  "runner": "server",
+  "status": "verified_auto",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://dynamic-immo.fr/fr/ventes"
+   ],
+   "rent": [
+    "https://dynamic-immo.fr/fr/location-2"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?dynamic\\-immo\\.fr/fr/propriete/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/propriete/{id-slug}",
+  "links_seen": 14,
+  "samples": [
+   {
+    "url": "https://dynamic-immo.fr/fr/propriete/vente+maison+colomars+superbe-villa-contemporaine-de-400-m-a-colomars+87410108",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1800000,
+     "living_area_sqm": 400,
+     "rooms": 9,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": "S20099",
+     "quarter": "Superbe villa contemporaine de 400 m² à Colomars",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 6
+    }
+   }
+  ],
+  "quality": 7,
+  "require_riviera": true,
+  "light": false,
+  "note": "onboard gate: 3/4 samples are real Côte d'Azur listings (index 38); platforms []"
  }
 ]
