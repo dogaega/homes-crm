@@ -31,6 +31,7 @@ from scraper import generic  # noqa: E402
 from scraper.autoconfig import build  # noqa: E402
 from scraper.daily import ABROAD, accept  # noqa: E402
 from scraper.fetch import Blocked, NotFound, PoliteFetcher  # noqa: E402
+from sync.netwait import online, wait_for_network  # noqa: E402
 
 DATA = Path(__file__).resolve().parents[1] / "data"
 
@@ -82,6 +83,12 @@ def platform_config(platforms: list[str], site: str) -> dict | None:
 
 def onboard_one(agency: dict) -> dict:
     r = recon(agency)
+    # The Mac's own connection (hotspot) dropping is not the site being down.
+    for _ in range(3):
+        if r.get("ok") or online():
+            break
+        wait_for_network()
+        r = recon(agency)
     if not r.get("ok"):
         return {"recon": r, "cfg": {"site_key": "web-" + host(agency["website"]).replace(".", "-"), "agency": agency["name"],
                                     "website": agency["website"], "status": "unreachable", "runner": "local",
@@ -107,11 +114,32 @@ def onboard_one(agency: dict) -> dict:
     return {"recon": r, "cfg": cfg}
 
 
+def retry_unreachable(workers: int) -> None:
+    agencies = {a["name"]: a for a in json.loads((DATA / "agencies.json").read_text())}
+    cfg_path = DATA / "site_configs.json"
+    todo = [c for c in json.loads(cfg_path.read_text()) if c.get("status") == "unreachable" and c["agency"] in agencies
+            and re.search(r"ConnectionError|Timeout", c.get("note") or "")]
+    print(f"retrying {len(todo)} unreachable sites")
+    wait_for_network()
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        results = list(ex.map(lambda c: onboard_one(agencies[c["agency"]]), todo))
+    by_key = {c["site_key"]: c for c in json.loads(cfg_path.read_text())}
+    for x in results:
+        by_key[x["cfg"]["site_key"]] = x["cfg"]
+    cfg_path.write_text(json.dumps(list(by_key.values()), ensure_ascii=False, indent=1))
+    print(Counter(x["cfg"]["status"] for x in results))
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--batch", type=int, default=40)
     ap.add_argument("--workers", type=int, default=6)
+    ap.add_argument("--retry-unreachable", action="store_true",
+                    help="re-onboard sites recorded as unreachable (connection errors / timeouts)")
     args = ap.parse_args()
+    if args.retry_unreachable:
+        retry_unreachable(args.workers)
+        return
     # Every finder writes its own discovered_*.json (search, guesses, OSM, FNAIM …).
     found = {}
     for f in sorted(DATA.glob("discovered_*.json")):
