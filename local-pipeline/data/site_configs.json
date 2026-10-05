@@ -5158,10 +5158,10 @@
  },
  {
   "site_key": "web-theagency-mc",
-  "agency": "The Agency",
-  "website": "https://theagency.mc/",
+  "agency": "The Agency Monaco",
+  "website": "https://www.theagency.mc/",
   "runner": "server",
-  "status": "weak",
+  "status": "bad_config",
   "immotoolbox": true,
   "index_urls": {
    "sale": [
@@ -5171,18 +5171,17 @@
     "https://theagency.mc/properties-for-rent/"
    ]
   },
-  "listing_pattern": "(?:^https?://(?:www\\.)?theagency\\.mc/property/(?:\\d{3,}[-_+][^/?#]+|[^/?#]+[-_+]\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?theagency\\.mc/[a-z0-9]+(?:-[a-z0-9]+){3,}/?(?:[?#].*)?$)",
+  "listing_pattern": "(?:^https?://(?:www\\.)?theagency\\.mc/property/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?theagency\\.mc/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+/?(?:[?#].*)?$)",
   "listing_shape": "/property/{id-slug} | /{slug}",
   "links_seen": 10,
   "samples": [
    {
     "url": "https://theagency.mc/property/126979-house-monaco-ville-monaco/",
     "hint": "sale",
-    "score": 4,
+    "score": 5,
     "missing": [
      "rooms",
      "ref",
-     "desc",
      "agent"
     ],
     "sample": {
@@ -5203,12 +5202,11 @@
    {
     "url": "https://theagency.mc/property/127089-parking-la-rousse-saint-roman-monaco/",
     "hint": "sale",
-    "score": 3,
+    "score": 4,
     "missing": [
      "area",
      "rooms",
      "ref",
-     "desc",
      "agent"
     ],
     "sample": {
@@ -5227,7 +5225,8 @@
     }
    }
   ],
-  "quality": 3
+  "quality": 4,
+  "note": "autoconfig picked region/guide pages, not listings (2026-10-05); needs a hand config"
  },
  {
   "site_key": "web-as-estate-mc",
@@ -7610,5 +7609,563 @@
    ],
    "rent": []
   }
+ },
+ {
+  "site_key": "web-realestateambassadeurs-com",
+  "agency": "Agence des Ambassadeurs",
+  "website": "https://www.realestateambassadeurs.com/",
+  "runner": "server",
+  "status": "bad_config",
+  "immotoolbox": true,
+  "index_urls": {
+   "sale": [
+    "https://www.realestateambassadeurs.com/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?realestateambassadeurs\\.com/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+/?(?:[?#].*)?$)",
+  "listing_shape": "/{slug}",
+  "links_seen": 5,
+  "samples": [
+   {
+    "url": "https://www.realestateambassadeurs.com/fiscalite-succession-et-taxes-a-monaco-copy/",
+    "hint": null,
+    "score": 3,
+    "missing": [
+     "transaction",
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": null,
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Fiscalité, Succession et Taxes à Monaco Exemplaire",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 4
+    }
+   },
+   {
+    "url": "https://www.realestateambassadeurs.com/les-lois-des-differents-secteurs-immobilier-en-principaute/",
+    "hint": null,
+    "score": 4,
+    "missing": [
+     "area",
+     "rooms",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "rent",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Lois et secteurs immobiliers",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 6
+    }
+   }
+  ],
+  "quality": 3,
+  "note": "autoconfig picked region/guide pages, not listings (2026-10-05); needs a hand config"
+ },
+ {
+  "site_key": "web-agencedesetrangers-mc",
+  "agency": "Agence des Etrangers",
+  "website": "https://www.agencedesetrangers.mc/",
+  "runner": "local",
+  "status": "unreachable",
+  "immotoolbox": false,
+  "error": "https://www.agencedesetrangers.mc/: SSLError"
+ },
+ {
+  "site_key": "web-savills-co-uk",
+  "agency": "Savills French Riviera",
+  "website": "https://www.savills.co.uk/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": [
+    "https://www.savills.co.uk/resources-and-tools/rental-yield-calculator.aspx"
+   ]
+  },
+  "require_riviera": true
+ },
+ {
+  "site_key": "web-john-taylor-com",
+  "agency": "John Taylor Real Estate",
+  "website": "https://www.john-taylor.com/",
+  "runner": "server",
+  "status": "bad_config",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.john-taylor.com/uae/sale/",
+    "https://www.john-taylor.com/last-sales/"
+   ],
+   "rent": [
+    "https://www.john-taylor.com/rental/",
+    "https://www.john-taylor.com/uae/rental/"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?john\\-taylor\\.com/france/sale/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+/?(?:[?#].*)?$)",
+  "listing_shape": "/france/sale/{slug}",
+  "links_seen": 24,
+  "samples": [
+   {
+    "url": "https://www.john-taylor.com/france/sale/french-alps/",
+    "hint": "rent",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1615000,
+     "living_area_sqm": 102,
+     "rooms": 3,
+     "bedrooms": 3,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Real estate for sale French Alps, France",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 16
+    }
+   },
+   {
+    "url": "https://www.john-taylor.com/france/sale/french-riviera-cote-d-azur/",
+    "hint": "rent",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 3350000,
+     "living_area_sqm": 1500,
+     "rooms": 6,
+     "bedrooms": 5,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Real estate for sale French Riviera, France",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 54
+    }
+   }
+  ],
+  "quality": 6,
+  "require_riviera": true,
+  "note": "autoconfig picked region/guide pages, not listings (2026-10-05); needs a hand config"
+ },
+ {
+  "site_key": "web-magrey-com",
+  "agency": "Magrey & Sons",
+  "website": "https://www.magrey.com/",
+  "runner": "server",
+  "status": "ok",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.magrey.com/sale",
+    "https://www.magrey.com/search.php?buy=1&region=1&secteur=6&location=&type=&price=Price&ref=&search=go"
+   ],
+   "rent": [
+    "https://www.magrey.com/rent",
+    "https://www.magrey.com/water-edge-rent.html"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?magrey\\.com/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})\\.html/?(?:[?#].*)?$)",
+  "listing_shape": "/{id-slug}.html",
+  "links_seen": 32,
+  "samples": [
+   {
+    "url": "https://www.magrey.com/sale-apartment-paris-7n-me-a-1825.html",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 6900000,
+     "living_area_sqm": 192,
+     "rooms": null,
+     "bedrooms": 4,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Rive Gauche",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 24
+    }
+   },
+   {
+    "url": "https://www.magrey.com/sale-apartment-paris-6n-me-a-1818.html",
+    "hint": "sale",
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 2070000,
+     "living_area_sqm": 73,
+     "rooms": null,
+     "bedrooms": 2,
+     "floor": null,
+     "external_ref": "PRG117 Antiques Quarter - Pied-à-terre with 2 bedrooms",
+     "quarter": "Rive Gauche",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 17
+    }
+   }
+  ],
+  "quality": 6,
+  "require_riviera": true
+ },
+ {
+  "site_key": "web-barnes-international-com",
+  "agency": "BARNES Luxury Real Estate",
+  "website": "https://www.barnes-international.com/",
+  "runner": "server",
+  "status": "bad_config",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.barnes-international.com/fr/vente.html",
+    "https://www.barnes-international.com/fr/vente.html?search"
+   ],
+   "rent": [
+    "https://www.barnes-international.com/fr/location.html",
+    "https://www.barnes-international.com/fr/louer/charter-yacht.html"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?barnes\\-international\\.com/fr/vente/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+\\.html/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/vente/{slug}.html",
+  "links_seen": 38,
+  "samples": [
+   {
+    "url": "https://www.barnes-international.com/fr/vente/type-chateau.html",
+    "hint": "rent",
+    "score": 5,
+    "missing": [
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1950000,
+     "living_area_sqm": 500,
+     "rooms": null,
+     "bedrooms": 8,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "BARNES vous présente une sélection de Châteaux en vente",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 60
+    }
+   },
+   {
+    "url": "https://www.barnes-international.com/fr/vente/type-propriete-viticole.html",
+    "hint": "rent",
+    "score": 5,
+    "missing": [
+     "ref",
+     "desc",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 12500000,
+     "living_area_sqm": 500,
+     "rooms": null,
+     "bedrooms": 16,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "BARNES vous présente une sélection de Propriétés viticoles en vente",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 25
+    }
+   }
+  ],
+  "quality": 5,
+  "require_riviera": true,
+  "note": "autoconfig picked region/guide pages, not listings (2026-10-05); needs a hand config"
+ },
+ {
+  "site_key": "web-engelvoelkers-com",
+  "agency": "Engel & Völkers French Riviera",
+  "website": "https://www.engelvoelkers.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  },
+  "require_riviera": true
+ },
+ {
+  "site_key": "web-french-riviera-property-com",
+  "agency": "Lafage Transactions",
+  "website": "https://www.french-riviera-property.com/",
+  "runner": "server",
+  "status": "bad_config",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.french-riviera-property.com/fr/acheter-sur-la-cote-d-azur.cfm"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?french\\-riviera\\-property\\.com/fr/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/fr/{slug}/{id-slug}",
+  "links_seen": 450,
+  "index_source": "sitemap",
+  "samples": [
+   {
+    "url": "http://www.french-riviera-property.com/fr/detail-villas-a-vendre/9942-programme-neuf-lmnp-residence-etudiante-du-studio-au-2-pieces-intendance-24h24h-proche-commodites-terrasses-parking-salle-de-sport.cfm",
+    "hint": null,
+    "score": 6,
+    "missing": [
+     "area",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 140700,
+     "living_area_sqm": null,
+     "rooms": 2,
+     "bedrooms": 0,
+     "floor": null,
+     "external_ref": "PN-LMNP",
+     "quarter": "PROGRAMME NEUF LMNP - RESIDENCE ETUDIANTE - DU STUDIO AU 2 PIECES - INTENDANCE 24H/24H - PROCHE COMMODITES - TERRASSES - PARKING - SALLE DE SPORT",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 13
+    }
+   },
+   {
+    "url": "http://www.french-riviera-property.com/fr/detail-villas-a-vendre/10299-gattieres-villa-6-pieces-de-148-m-a-vendre-terrain-arbore-de-3000-m-plein-sud-3-chambres-piscine-vue-panoramique.cfm",
+    "hint": null,
+    "score": 7,
+    "missing": [
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 849000,
+     "living_area_sqm": 170,
+     "rooms": 6,
+     "bedrooms": 3,
+     "floor": null,
+     "external_ref": "P-9987",
+     "quarter": "GATTIERES - VILLA 6 PIECES DE 148 M² A VENDRE - TERRAIN ARBORE DE 3000 M² - PLEIN SUD - 3 CHAMBRES - PISCINE - VUE PANORAMIQUE",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 29
+    }
+   }
+  ],
+  "quality": 6,
+  "require_riviera": true,
+  "note": "autoconfig picked region/guide pages, not listings (2026-10-05); needs a hand config"
+ },
+ {
+  "site_key": "web-palaisimmobilier-com",
+  "agency": "Palais Immobilier",
+  "website": "https://www.palaisimmobilier.com/",
+  "runner": "local",
+  "status": "unreachable",
+  "immotoolbox": false,
+  "error": "https://www.palaisimmobilier.com/: SSLError",
+  "require_riviera": true
+ },
+ {
+  "site_key": "web-agence-winter-com",
+  "agency": "Agence Winter",
+  "website": "https://www.agence-winter.com/",
+  "runner": "server",
+  "status": "weak",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.agence-winter.com/acheter"
+   ],
+   "rent": [
+    "https://www.agence-winter.com/louer"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?agence\\-winter\\.com/biens/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})/?(?:[?#].*)?$)",
+  "listing_shape": "/biens/{id-slug}",
+  "links_seen": 27,
+  "samples": [
+   {
+    "url": "https://www.agence-winter.com/biens/a-vendre-maison-golfe-juan-375-m-10-pieces-2-690-000-2855",
+    "hint": "sale",
+    "score": 6,
+    "missing": [
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 2690000,
+     "living_area_sqm": 375,
+     "rooms": 10,
+     "bedrooms": 7,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Maison Golfe-Juan 375 m²",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 2
+    }
+   },
+   {
+    "url": "https://www.agence-winter.com/biens/a-vendre-maison-cuneo-1-000-m-28-pieces-1-980-000-2857",
+    "hint": "sale",
+    "score": 5,
+    "missing": [
+     "area",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": 1980000,
+     "living_area_sqm": 0,
+     "rooms": 28,
+     "bedrooms": 0,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Maison Cuneo 1 000 m²",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 2
+    }
+   }
+  ],
+  "quality": 5,
+  "require_riviera": true
+ },
+ {
+  "site_key": "web-abkrealestate-com",
+  "agency": "ABK Real Estate (abkrealestate.com)",
+  "website": "https://www.abkrealestate.com/",
+  "runner": "server",
+  "status": "no_listing_links",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [],
+   "rent": []
+  },
+  "require_riviera": true
+ },
+ {
+  "site_key": "web-arthurimmo-com",
+  "agency": "Arthurimmo",
+  "website": "https://www.arthurimmo.com/",
+  "runner": "server",
+  "status": "bad_config",
+  "immotoolbox": false,
+  "index_urls": {
+   "sale": [
+    "https://www.arthurimmo.com/recherche,basic.htm?transactions=acheter",
+    "https://www.arthurimmo.com/recherche,basic.htm?transactions=louer"
+   ]
+  },
+  "listing_pattern": "(?:^https?://(?:www\\.)?arthurimmo\\.com/immobilier/tout/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+/?(?:[?#].*)?$)",
+  "listing_shape": "/immobilier/tout/{slug}",
+  "links_seen": 14,
+  "samples": [
+   {
+    "url": "https://www.arthurimmo.com/immobilier/tout/immo-auvergne-rhone-alpes",
+    "hint": "sale",
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Arthurimmo.com à Auvergne-Rhône-Alpes",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 0
+    }
+   },
+   {
+    "url": "https://www.arthurimmo.com/immobilier/tout/immo-bourgogne-franche-comte",
+    "hint": "sale",
+    "score": 3,
+    "missing": [
+     "area",
+     "rooms",
+     "photos",
+     "ref",
+     "agent"
+    ],
+    "sample": {
+     "transaction_type": "sale",
+     "price": null,
+     "living_area_sqm": null,
+     "rooms": null,
+     "bedrooms": null,
+     "floor": null,
+     "external_ref": null,
+     "quarter": "Arthurimmo.com à Bourgogne-Franche-Comté",
+     "agent_name": null,
+     "agent_phone": null,
+     "agent_email": null,
+     "photos": 0
+    }
+   }
+  ],
+  "quality": 3,
+  "require_riviera": true,
+  "note": "autoconfig picked region/guide pages, not listings (2026-10-05); needs a hand config"
  }
 ]

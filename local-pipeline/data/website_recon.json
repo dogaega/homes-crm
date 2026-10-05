@@ -3039,5 +3039,310 @@
    "SearchAction"
   ],
   "sitemap": false
+ },
+ {
+  "name": "Agence des Ambassadeurs",
+  "website": "https://www.realestateambassadeurs.com/",
+  "ok": true,
+  "platforms": [
+   "immotoolbox",
+   "wordpress"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.realestateambassadeurs.com/les-lois-des-differents-secteurs-immobilier-en-principaute/",
+   "https://www.realestateambassadeurs.com/property/119025-appartement-la-rousse-saint-roman-monaco/",
+   "https://www.realestateambassadeurs.com/property/127275-parking-jardin-exotique-monaco/",
+   "https://www.realestateambassadeurs.com/property/51233-appartement-carre-dor-monaco/",
+   "https://www.realestateambassadeurs.com/property/120323-appartement-fontvieille-monaco/"
+  ],
+  "listing_samples": [
+   "https://www.realestateambassadeurs.com/property/119025-appartement-la-rousse-saint-roman-monaco/",
+   "https://www.realestateambassadeurs.com/property/127275-parking-jardin-exotique-monaco/",
+   "https://www.realestateambassadeurs.com/property/51233-appartement-carre-dor-monaco/",
+   "https://www.realestateambassadeurs.com/property/120323-appartement-fontvieille-monaco/"
+  ],
+  "listing_links_seen": 4,
+  "agent_hint": false,
+  "detail_tel_links": 2,
+  "detail_mailto": 1,
+  "jsonld_types": [
+   "BreadcrumbList",
+   "EntryPoint",
+   "ImageObject",
+   "ListItem",
+   "Organization",
+   "PropertyValueSpecification",
+   "ReadAction",
+   "SearchAction"
+  ],
+  "sitemap": false
+ },
+ {
+  "name": "Agence des Etrangers",
+  "website": "https://www.agencedesetrangers.mc/",
+  "ok": false,
+  "error": "https://www.agencedesetrangers.mc/: SSLError"
+ },
+ {
+  "name": "Savills French Riviera",
+  "website": "https://www.savills.co.uk/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.savills.co.uk/find-a-property/",
+   "https://www.savills.co.uk/find-residential-property/",
+   "https://www.savills.co.uk/services/buying-or-selling/using-a-buying-agent.aspx",
+   "https://www.savills.co.uk/find-rural-property/",
+   "https://www.savills.co.uk/find-commercial-property/",
+   "https://www.savills.co.uk/landing-pages/the-house-buying-process-explained.aspx",
+   "https://www.savills.co.uk/market-your-property/",
+   "https://www.savills.co.uk/services/buying-or-selling/selling-a-residential-property.aspx",
+   "https://www.savills.co.uk/services/letting-or-renting/letting-a-residential-property.aspx",
+   "https://www.savills.co.uk/services/buying-or-selling/auctioning-a-property.aspx",
+   "https://www.savills.co.uk/services/buying-or-selling/selling-a-mews-property.aspx",
+   "https://www.savills.co.uk/services/buying-or-selling/selling-new-build-property.aspx",
+   "https://www.savills.co.uk/services/buying-or-selling/buying-and-selling-international-property.aspx",
+   "https://www.savills.co.uk/services/buying-or-selling/buying-or-selling-a-farm.aspx",
+   "https://www.savills.co.uk/services/buying-or-selling/buying-or-selling-a-fishing-beat.aspx"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "John Taylor Real Estate",
+  "website": "https://www.john-taylor.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.john-taylor.com/caribbean/sale/",
+   "https://www.john-taylor.com/cyprus/sale/",
+   "https://www.john-taylor.com/cyprus/sale/famagusta/",
+   "https://www.john-taylor.com/cyprus/sale/larnaca/",
+   "https://www.john-taylor.com/cyprus/sale/limassol/",
+   "https://www.john-taylor.com/cyprus/sale/nicosia/",
+   "https://www.john-taylor.com/cyprus/sale/paphos/",
+   "https://www.john-taylor.com/france/sale/",
+   "https://www.john-taylor.com/france/sale/french-alps/",
+   "https://www.john-taylor.com/france/sale/french-riviera-cote-d-azur/",
+   "https://www.john-taylor.com/france/sale/loire-valley/",
+   "https://www.john-taylor.com/france/sale/normandy/",
+   "https://www.john-taylor.com/france/sale/nouvelle-aquitaine/",
+   "https://www.john-taylor.com/france/sale/paris/",
+   "https://www.john-taylor.com/france/sale/provence/"
+  ],
+  "listing_samples": [
+   "https://www.john-taylor.com/spain/sale/flat-apartement/madrid/retiro/jeronimos/V2345MA/",
+   "https://www.john-taylor.com/switzerland/sale/flat-apartement/swiss-alps/crans-montana/V0299CR/",
+   "https://www.john-taylor.com/principality-of-monaco/sale/townhouse/V1832MC/",
+   "https://www.john-taylor.com/france/sale/villa-property/french-riviera-cote-d-azur/cap-d-antibes-and-surrounding-areas/antibes/V0417AN/",
+   "https://www.john-taylor.com/switzerland/sale/villa-property/vaud/swiss-riviera/montreux/V0451MX/"
+  ],
+  "listing_links_seen": 22,
+  "agent_hint": false,
+  "detail_tel_links": 1,
+  "detail_mailto": 1,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "Magrey & Sons",
+  "website": "https://www.magrey.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.magrey.com/sale",
+   "https://www.magrey.com/rent",
+   "https://www.magrey.com/cannes-and-surroudings-sale.html",
+   "https://www.magrey.com/cannes-and-surroudings-rental.html",
+   "https://www.magrey.com/mougins-and-surroudings-sale.html",
+   "https://www.magrey.com/mougins-and-surroudings-rental.html",
+   "https://www.magrey.com/peninsula-saint-tropez-sale.html",
+   "https://www.magrey.com/peninsula-saint-tropez-rental.html",
+   "https://www.magrey.com/gulf-saint-tropez-sale.html",
+   "https://www.magrey.com/gulf-saint-tropez-rental.html",
+   "https://www.magrey.com/cap-antibes-and-surroundings-sale.html",
+   "https://www.magrey.com/cap-antibes-and-surroundings-rental.html",
+   "https://www.magrey.com/valbonne-and-surroundings-sale.html",
+   "https://www.magrey.com/valbonne-and-surroundings-rental.html",
+   "https://www.magrey.com/cap-ferrat-and-surroundinds-sale.html"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "BARNES Luxury Real Estate",
+  "website": "https://www.barnes-international.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.barnes-international.com/fr/vente.html",
+   "https://www.barnes-international.com/fr/acheter/proprietes-fractionnees.html",
+   "https://www.barnes-international.com/fr/vente/type-chateau.html",
+   "https://www.barnes-international.com/fr/vente/type-propriete-viticole.html",
+   "https://www.barnes-international.com/fr/vente/type-domaine-de-chasse.html",
+   "https://www.barnes-international.com/fr/vente/type-domaine-equestre.html",
+   "https://www.barnes-international.com/fr/acheter/yachts.html",
+   "https://www.barnes-international.com/fr/acheter/classic-sports-cars.html",
+   "https://www.barnes-international.com/fr/acheter/vins-dexception-grands-crus.html",
+   "https://www.barnes-international.com/fr/vente/type-bureau.html",
+   "https://www.barnes-international.com/fr/vente/type-commerce.html",
+   "https://www.barnes-international.com/fr/vente/type-hotel.html",
+   "https://www.barnes-international.com/fr/location.html",
+   "https://www.barnes-international.com/fr/location-saisonniere.html",
+   "https://www.barnes-international.com/fr/louer/hotels-residences-barnes.html"
+  ],
+  "listing_samples": [
+   "https://www.barnes-international.com/fr/vente/france/paris-1er/ref-APM-87244668.html",
+   "https://www.barnes-international.com/fr/vente/espagne/marbella/ref-APM-87280955.html",
+   "https://www.barnes-international.com/fr/vente/france/cannes/ref-APM-86900937.html",
+   "https://www.barnes-international.com/fr/vente/italie/cortina-dampezzo/ref-APM-87139688.html",
+   "https://www.barnes-international.com/fr/vente/france/paris-16eme/appartement.html"
+  ],
+  "listing_links_seen": 7,
+  "agent_hint": true,
+  "detail_tel_links": 1,
+  "detail_mailto": 0,
+  "jsonld_types": [
+   "BreadcrumbList",
+   "ListItem"
+  ],
+  "sitemap": false
+ },
+ {
+  "name": "Engel & Völkers French Riviera",
+  "website": "https://www.engelvoelkers.com/",
+  "ok": true,
+  "platforms": [
+   "nextjs"
+  ],
+  "js_rendered": false,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Lafage Transactions",
+  "website": "https://www.french-riviera-property.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.french-riviera-property.com/fr/gestion-immobiliere.cfm",
+   "https://www.french-riviera-property.com/fr/acheter-sur-la-cote-d-azur.cfm",
+   "https://www.french-riviera-property.com/fr/engagements-agent-immobilier.cfm",
+   "https://www.french-riviera-property.com/fr/immobilier-nice.cfm",
+   "https://www.french-riviera-property.com/fr/location-saisonniere-cote-dazur.cfm",
+   "https://www.french-riviera-property.com/pages//location-saisonniere-cote-dazur.cfm",
+   "https://www.french-riviera-property.com/fr/actualite-detail/13125-french-riviera-property-lance-la-recherche-immobiliere-par-ia.cfm",
+   "https://www.french-riviera-property.com/fr/agence-immobiliere-beaulieu-sur-mer.cfm",
+   "https://www.french-riviera-property.com/fr/agence-immobiliere-villefranche-sur-mer.cfm",
+   "https://www.french-riviera-property.com/fr/agence-immobiliere-saint-jean-cap-ferrat.cfm"
+  ],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Palais Immobilier",
+  "website": "https://www.palaisimmobilier.com/",
+  "ok": false,
+  "error": "https://www.palaisimmobilier.com/: SSLError"
+ },
+ {
+  "name": "Agence Winter",
+  "website": "https://www.agence-winter.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.agence-winter.com/acheter",
+   "https://www.agence-winter.com/louer",
+   "https://www.agence-winter.com/biens-vendus",
+   "https://www.agence-winter.com/biens/a-vendre-appartement-nice-101-15-m-3-pieces-545-000-691",
+   "https://www.agence-winter.com/biens/a-vendre-appartement-nice-50-m-195-000-598",
+   "https://www.agence-winter.com/biens/a-vendre-appartement-nice-64-m-2-pieces-545-000-655",
+   "https://www.agence-winter.com/biens/a-vendre-appartement-nice-58-20-m-2-pieces-vendu-374",
+   "https://www.agence-winter.com/biens/a-vendre-appartement-nice-59-30-m-2-pieces-vendu-55",
+   "https://www.agence-winter.com/biens/a-vendre-appartement-nice-23-m-1-piece-vendu-365",
+   "https://www.agence-winter.com/biens/a-vendre-maison-nice-113-13-m-5-pieces-475-000-2554",
+   "https://www.agence-winter.com/biens/a-vendre-appartement-nice-41-82-m-2-pieces-240-000-2841",
+   "https://www.agence-winter.com/biens/a-vendre-appartement-nice-66-77-m-3-pieces-1705",
+   "https://www.agence-winter.com/biens/a-vendre-maison-nice-211-80-m-7-pieces-2187",
+   "https://www.agence-winter.com/actualites/conseil-immobilier-1/location-nue-ou-meublee-quelles-differences-niveau-fiscalite-39",
+   "https://www.agence-winter.com/actualites/conseil-immobilier-1/6-conseils-pour-louer-rapidement-votre-bien-a-nice-40"
+  ],
+  "listing_samples": [
+   "https://www.agence-winter.com/biens/a-vendre-appartement-nice-101-15-m-3-pieces-545-000-691",
+   "https://www.agence-winter.com/biens/a-vendre-appartement-nice-50-m-195-000-598",
+   "https://www.agence-winter.com/biens/a-vendre-appartement-nice-64-m-2-pieces-545-000-655",
+   "https://www.agence-winter.com/biens/a-vendre-appartement-nice-58-20-m-2-pieces-vendu-374",
+   "https://www.agence-winter.com/biens/a-vendre-appartement-nice-59-30-m-2-pieces-vendu-55"
+  ],
+  "listing_links_seen": 10,
+  "agent_hint": true,
+  "detail_tel_links": 3,
+  "detail_mailto": 0,
+  "jsonld_types": [],
+  "sitemap": true
+ },
+ {
+  "name": "ABK Real Estate (abkrealestate.com)",
+  "website": "https://www.abkrealestate.com/",
+  "ok": true,
+  "platforms": [],
+  "js_rendered": true,
+  "index_candidates": [],
+  "listing_samples": [],
+  "listing_links_seen": 0,
+  "sitemap": true
+ },
+ {
+  "name": "Arthurimmo",
+  "website": "https://www.arthurimmo.com/",
+  "ok": true,
+  "platforms": [
+   "apimo"
+  ],
+  "js_rendered": false,
+  "index_candidates": [
+   "https://www.arthurimmo.com/offres-emploi",
+   "https://www.arthurimmo.com/immobilier/pays/achat/bien-maison/france.htm",
+   "https://www.arthurimmo.com/immobilier/pays/achat/bien-appartement/france.htm",
+   "https://www.arthurimmo.com/immobilier/pays/achat/bien-terrain/france.htm",
+   "https://www.arthurimmo.com/immobilier/pays/achat/bien-immeuble/france.htm",
+   "https://www.arthurimmo.com/immobilier/pays/achat/bien-local-commercial/france.htm",
+   "https://www.arthurimmo.com/immobilier/pays/achat/bien-commerce/france.htm",
+   "https://www.arthurimmo.com/immobilier/pays/vente-fonds-de-commerce/france.htm",
+   "https://www.arthurimmo.com/immobilier/pays/achat/bien-parking/france.htm",
+   "https://www.arthurimmo.com/immobilier/pays/achat/bien-bureaux/france.htm",
+   "https://www.arthurimmo.com/immobilier/pays/neuf/france.htm",
+   "https://www.arthurimmo.com/immobilier/pays/achat-de-prestige/france.htm",
+   "https://www.arthurimmo.com/immobilier/pays/investissement/france.htm",
+   "https://www.arthurimmo.com/immobilier/pays/locations/bien-maison/france.htm",
+   "https://www.arthurimmo.com/immobilier/pays/locations/bien-appartement/france.htm"
+  ],
+  "listing_samples": [
+   "https://www.arthurimmo.com/annonces/location/appartement/asnieres-sur-seine-92600/34012018.htm",
+   "https://www.arthurimmo.com/annonces/achat/appartement/paris-5-75005/34012000.htm",
+   "https://www.arthurimmo.com/annonces/achat/maison/sondernach-68380/34007088.htm",
+   "https://www.arthurimmo.com/annonces/achat/maison/villebon-sur-yvette-91140/34007557.htm",
+   "https://www.arthurimmo.com/annonces/achat/maison/sainte-fereole-19270/34006567.htm"
+  ],
+  "listing_links_seen": 17,
+  "agent_hint": false,
+  "detail_tel_links": 0,
+  "detail_mailto": 1,
+  "jsonld_types": [
+   "WebPage"
+  ],
+  "sitemap": true
  }
 ]

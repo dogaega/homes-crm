@@ -321,6 +321,27 @@
   "note": "Webflow. Index /fr/proprietes (sale+rent mixed; transaction from the Vente/Location badge). Gallery sits in <header> (overrides.photos); similar-listings carousel removed; price element reads 'Prix sur demande' when on request."
  },
  {
+  "site_key": "web-barnes-international-com",
+  "agency": "BARNES Luxury Real Estate",
+  "website": "https://www.barnes-international.com/",
+  "status": "verified",
+  "runner": "server",
+  "require_riviera": true,
+  "index_urls": {
+   "sale": [
+    "https://www.barnes-international.com/fr/vente/france/alpes-maritimes.html",
+    "https://www.barnes-international.com/fr/vente/france/var.html"
+   ],
+   "rent": [
+    "https://www.barnes-international.com/fr/location/france/alpes-maritimes.html",
+    "https://www.barnes-international.com/fr/location/france/var.html"
+   ]
+  },
+  "listing_pattern": "^https?://www\\.barnes-international\\.com/fr/(?:vente|location)/france/[a-z0-9-]+/ref-[A-Za-z0-9-]+\\.html$",
+  "max_pages": 60,
+  "note": "Alpes-Maritimes and Var department pages (sale + rent); they also feature other regions, which the Côte d'Azur scope drops."
+ },
+ {
   "site_key": "web-bc-properties-com",
   "agency": "BC PROPERTIES MONACO",
   "website": "https://bc-properties.com/",
@@ -932,6 +953,61 @@
   "website": "https://www.izadora-group.com/",
   "status": "no_listings",
   "note": "Off-market advisory: /realty page is a brochure (services + contacts), only a login-gated 'Private Area'; no public listings."
+ },
+ {
+  "site_key": "web-john-taylor-com",
+  "agency": "John Taylor Real Estate",
+  "website": "https://www.john-taylor.com/",
+  "status": "verified",
+  "runner": "server",
+  "require_riviera": true,
+  "index_urls": {
+   "sale": [
+    "https://www.john-taylor.com/france/sale/",
+    "https://www.john-taylor.com/france/sale/p2/",
+    "https://www.john-taylor.com/france/sale/p3/",
+    "https://www.john-taylor.com/france/sale/p4/",
+    "https://www.john-taylor.com/france/sale/p5/",
+    "https://www.john-taylor.com/france/sale/p6/",
+    "https://www.john-taylor.com/france/sale/p7/",
+    "https://www.john-taylor.com/france/sale/p8/",
+    "https://www.john-taylor.com/france/sale/p9/",
+    "https://www.john-taylor.com/france/sale/p10/",
+    "https://www.john-taylor.com/france/sale/p11/",
+    "https://www.john-taylor.com/france/sale/p12/",
+    "https://www.john-taylor.com/france/sale/p13/",
+    "https://www.john-taylor.com/france/sale/p14/",
+    "https://www.john-taylor.com/france/sale/p15/",
+    "https://www.john-taylor.com/france/sale/p16/",
+    "https://www.john-taylor.com/france/sale/p17/",
+    "https://www.john-taylor.com/france/sale/p18/",
+    "https://www.john-taylor.com/france/sale/p19/",
+    "https://www.john-taylor.com/france/sale/p20/",
+    "https://www.john-taylor.com/france/sale/p21/",
+    "https://www.john-taylor.com/france/sale/p22/",
+    "https://www.john-taylor.com/france/sale/p23/",
+    "https://www.john-taylor.com/france/sale/p24/",
+    "https://www.john-taylor.com/france/sale/p25/",
+    "https://www.john-taylor.com/france/sale/p26/",
+    "https://www.john-taylor.com/france/sale/p27/",
+    "https://www.john-taylor.com/france/sale/p28/",
+    "https://www.john-taylor.com/france/sale/p29/",
+    "https://www.john-taylor.com/france/sale/p30/"
+   ],
+   "rent": [
+    "https://www.john-taylor.com/france/rental/",
+    "https://www.john-taylor.com/france/rental/p2/",
+    "https://www.john-taylor.com/france/rental/p3/",
+    "https://www.john-taylor.com/france/rental/p4/",
+    "https://www.john-taylor.com/france/rental/p5/",
+    "https://www.john-taylor.com/france/rental/p6/",
+    "https://www.john-taylor.com/france/rental/p7/",
+    "https://www.john-taylor.com/france/rental/p8/"
+   ]
+  },
+  "listing_pattern": "^https?://www\\.john-taylor\\.com/france/(?:sale|rental)/[a-z0-9-]+/french-riviera-cote-d-azur/[a-z0-9-]+/[a-z0-9-]+/[A-Z0-9]+/?$",
+  "max_pages": 40,
+  "note": "Côte d'Azur listings of the France catalogue: URL pattern keeps /french-riviera-cote-d-azur/ (rest of France never fetched). Pagination /pN/ is not followed by crawl_index -> explicit pages."
  },
  {
   "site_key": "web-jvpastor-realestate-com",

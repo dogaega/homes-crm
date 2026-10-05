@@ -2939,5 +2939,75 @@
    "The Agency Monaco"
   ],
   "covered_by": []
+ },
+ {
+  "name": "Savills French Riviera",
+  "website": "https://www.savills.co.uk/",
+  "region": "cote_azur",
+  "source": "cote_d_azur_ultimate_property_and_investment_registry.csv",
+  "list_category": "Luxury Property Gallery"
+ },
+ {
+  "name": "John Taylor Real Estate",
+  "website": "https://www.john-taylor.com/",
+  "region": "cote_azur",
+  "source": "cote_d_azur_ultimate_property_and_investment_registry.csv",
+  "list_category": "Luxury Property Gallery"
+ },
+ {
+  "name": "Magrey & Sons",
+  "website": "https://www.magrey.com/",
+  "region": "cote_azur",
+  "source": "cote_d_azur_ultimate_property_and_investment_registry.csv",
+  "list_category": "Luxury Property Gallery"
+ },
+ {
+  "name": "BARNES Luxury Real Estate",
+  "website": "https://www.barnes-international.com/",
+  "region": "cote_azur",
+  "source": "cote_d_azur_ultimate_property_and_investment_registry.csv",
+  "list_category": "Luxury Property Gallery"
+ },
+ {
+  "name": "Engel & Völkers French Riviera",
+  "website": "https://www.engelvoelkers.com/",
+  "region": "cote_azur",
+  "source": "cote_d_azur_ultimate_property_and_investment_registry.csv",
+  "list_category": "Luxury Property Gallery"
+ },
+ {
+  "name": "Lafage Transactions",
+  "website": "https://www.french-riviera-property.com/",
+  "region": "cote_azur",
+  "source": "cote_d_azur_ultimate_property_and_investment_registry.csv",
+  "list_category": "Independent Boutique Agency"
+ },
+ {
+  "name": "Palais Immobilier",
+  "website": "https://www.palaisimmobilier.com/",
+  "region": "cote_azur",
+  "source": "cote_d_azur_ultimate_property_and_investment_registry.csv",
+  "list_category": "Independent Boutique Agency"
+ },
+ {
+  "name": "Agence Winter",
+  "website": "https://www.agence-winter.com/",
+  "region": "cote_azur",
+  "source": "cote_d_azur_ultimate_property_and_investment_registry.csv",
+  "list_category": "Independent Boutique Agency"
+ },
+ {
+  "name": "ABK Real Estate (abkrealestate.com)",
+  "website": "https://www.abkrealestate.com/",
+  "region": "cote_azur",
+  "source": "cote_d_azur lists",
+  "list_category": "agency"
+ },
+ {
+  "name": "Arthurimmo",
+  "website": "https://www.arthurimmo.com/",
+  "region": "cote_azur",
+  "source": "cote_d_azur lists",
+  "list_category": "agency"
  }
 ]

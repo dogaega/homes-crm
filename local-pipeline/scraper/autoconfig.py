@@ -276,6 +276,7 @@ def main() -> None:
     ap.add_argument("--redo", help="comma-separated statuses to rebuild, e.g. weak,no_listing_links")
     ap.add_argument("--rescore", action="store_true", help="re-parse stored samples only")
     ap.add_argument("--render", action="store_true", help="use headless Chromium (JS-rendered sites)")
+    ap.add_argument("--new", action="store_true", help="only recon entries without a config yet (merged into site_configs.json)")
     args = ap.parse_args()
     if args.rescore:
         agencies = {a["name"]: a for a in json.loads((DATA / "agencies.json").read_text())}
@@ -286,6 +287,9 @@ def main() -> None:
         path.write_text(json.dumps(cfgs, ensure_ascii=False, indent=1))
         print(Counter(c["status"] for c in cfgs))
         return
+    if args.new:
+        have = {c["agency"] for c in json.loads((DATA / "site_configs.json").read_text())}
+        args.name = [r["name"] for r in json.loads((DATA / "website_recon.json").read_text()) if r["name"] not in have] or ["\0none"]
     if args.redo:
         redo = set(args.redo.split(","))
         args.name = [c["agency"] for c in json.loads((DATA / "site_configs.json").read_text()) if c["status"] in redo]

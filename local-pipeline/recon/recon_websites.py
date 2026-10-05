@@ -126,14 +126,19 @@ def recon(agency: dict) -> dict:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int)
+    ap.add_argument("--new", action="store_true", help="only agencies not in website_recon.json yet; merge results")
     args = ap.parse_args()
     agencies = [a for a in json.loads((DATA / "agencies.json").read_text()) if a.get("website")]
+    previous = json.loads((DATA / "website_recon.json").read_text()) if args.new else []
+    if args.new:
+        done = {r["name"] for r in previous}
+        agencies = [a for a in agencies if a["name"] not in done]
     if args.limit:
         agencies = agencies[: args.limit]
     # Different hosts, so a few in parallel is still polite per site.
     with ThreadPoolExecutor(max_workers=6) as ex:
         results = list(ex.map(recon, agencies))
-    (DATA / "website_recon.json").write_text(json.dumps(results, ensure_ascii=False, indent=1))
+    (DATA / "website_recon.json").write_text(json.dumps(previous + results, ensure_ascii=False, indent=1))
     ok = [r for r in results if r["ok"]]
     print(f"{len(results)} sites, {len(ok)} reachable")
     print("platforms:", Counter(p for r in ok for p in (r.get("platforms") or ["unknown"])).most_common())

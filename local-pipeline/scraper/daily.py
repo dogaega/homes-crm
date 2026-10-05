@@ -143,7 +143,8 @@ RIVIERA = [(re.compile(rf"\b(?:{pat})\b", re.I), city) for pat, city in [
     (r"(?:saint|st)[- ]jean[- ]cap[- ]ferrat|cap[- ]ferrat", "Saint-Jean-Cap-Ferrat"),
     (r"villefranche(?:[- ]sur[- ]mer)?", "Villefranche-sur-Mer"),
     # "Nice" only as a name: not "nice apartment", "Nice 3 rooms".
-    (r"(?-i:Nice)(?!\s+(?:[a-z]|\d))|mont[- ]boron|cimiez", "Nice"),
+    # ...but after another word it is the town ("Appartement Nice 71 m²", "à Nice").
+    (r"(?-i:Nice)(?!\s+(?:[a-z]|\d))|(?<=[A-Za-zÀ-ÿ,] )(?-i:Nice)|mont[- ]boron|cimiez", "Nice"),
     (r"falicon", "Falicon"), (r"aspremont", "Aspremont"), (r"tourrette[- ]levens", "Tourrette-Levens"), (r"colomars", "Colomars"),
     (r"(?:saint|st)[- ]laurent[- ]du[- ]var", "Saint-Laurent-du-Var"),
     (r"cagnes(?:[- ]sur[- ]mer)?", "Cagnes-sur-Mer"),
@@ -169,7 +170,9 @@ RIVIERA = [(re.compile(rf"\b(?:{pat})\b", re.I), city) for pat, city in [
     (r"grimaud|port[- ]grimaud", "Grimaud"), (r"cogolin", "Cogolin"),
     (r"la[- ]croix[- ]valmer", "La Croix-Valmer"), (r"cavalaire", "Cavalaire-sur-Mer"), (r"rayol", "Rayol-Canadel-sur-Mer"),
     (r"le[- ]lavandou", "Le Lavandou"), (r"bormes", "Bormes-les-Mimosas"), (r"la[- ]londe", "La Londe-les-Maures"),
-    (r"hy[eè]res|porquerolles", "Hyères"),
+    (r"hy[eè]res|porquerolles", "Hyères"), (r"carqueiranne", "Carqueiranne"), (r"le[- ]pradet", "Le Pradet"),
+    (r"toulon", "Toulon"), (r"la[- ]seyne", "La Seyne-sur-Mer"), (r"six[- ]fours", "Six-Fours-les-Plages"),
+    (r"sanary", "Sanary-sur-Mer"), (r"bandol", "Bandol"),
 ]]
 # A French postcode of the two Côte d'Azur departments when no commune is named.
 POSTCODE = re.compile(r"\b(06|83)\d{3}\b")
