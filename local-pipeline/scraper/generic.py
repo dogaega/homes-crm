@@ -299,6 +299,8 @@ def raw_images(html: str, base: str) -> list[str]:
 
 
 def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None = None) -> dict:
+    # "180 m<sup>2</sup>" reads as "180 m 2" in page text, and the 2 then passes for the size.
+    html = re.sub(r"m\s*<sup>\s*2\s*</sup>", "m²", html, flags=re.I)
     b = soup(html)
     ld = jsonld(b)
     js_photos = raw_images(html, url)
@@ -474,7 +476,7 @@ def card_links(b: BeautifulSoup) -> list[str]:
 def page_url(start: str, u: str) -> str | None:
     from urllib.parse import parse_qsl, urlencode
     pu, ps = urlparse(u), urlparse(start)
-    m = re.search(r"/page/(\d+)", pu.path)
+    m = re.search(r"/page[/-](\d+)", pu.path)
     if m:
         return f"{pu.scheme}://{pu.netloc}{pu.path}" + (f"?{ps.query}" if ps.query else "")
     q = dict(parse_qsl(pu.query))
@@ -528,7 +530,7 @@ def crawl_index(f: PoliteFetcher, cfg: dict) -> list[dict]:
                 base_path = urlparse(start).path.rstrip("/")
                 for a in b.find_all("a", href=True):
                     u = urljoin(page, a["href"])
-                    if urlparse(u).path.startswith(base_path) and re.search(r"(?:[?&](?:page|p|pg|paged)=\d+|/page/\d+)", u):
+                    if urlparse(u).path.startswith(base_path) and re.search(r"(?:[?&](?:page|p|pg|paged)=\d+|/page/\d+|/page-\d+/?$)", u):
                         raw.append(u)
                 # Sort options and #anchors multiply one page into dozens of
                 # URLs: keep the start page's own query + the page number only.

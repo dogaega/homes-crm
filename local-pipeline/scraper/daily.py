@@ -138,13 +138,13 @@ RIVIERA = [(re.compile(rf"\b(?:{pat})\b", re.I), city) for pat, city in [
     (r"cap[- ]d.?ail", "Cap-d'Ail"),
     (r"la[- ]turbie", "La Turbie"),
     (r"[eè]ze(?:[- ]sur[- ]mer|[- ]village|[- ]bord[- ]de[- ]mer)?", "Èze"),
-    (r"peille", "Peille"), (r"gorbio", "Gorbio"), (r"sainte?[- ]agn[eè]s", "Sainte-Agnès"), (r"castellar", "Castellar"),
+    (r"peille", "Peille"), (r"gorbio", "Gorbio"), (r"(?:sainte?|ste)[- ]agn[eè]s", "Sainte-Agnès"), (r"castellar", "Castellar"),
     (r"beaulieu(?:[- ]sur[- ]mer)?", "Beaulieu-sur-Mer"),
     (r"(?:saint|st)[- ]jean[- ]cap[- ]ferrat|cap[- ]ferrat", "Saint-Jean-Cap-Ferrat"),
     (r"villefranche(?:[- ]sur[- ]mer)?", "Villefranche-sur-Mer"),
     # "Nice" only as a name: not "nice apartment", "Nice 3 rooms".
     # ...but after another word it is the town ("Appartement Nice 71 m²", "à Nice").
-    (r"(?-i:Nice)(?!\s+(?:[a-z]|\d))|(?<=[A-Za-zÀ-ÿ,] )(?-i:Nice)|mont[- ]boron|cimiez", "Nice"),
+    (r"(?-i:Nice)(?!\s+(?:[a-z]|\d))|(?<=[A-Za-zÀ-ÿ,] )(?-i:Nice)|(?-i:NICE)|mont[- ]boron|cimiez", "Nice"),
     (r"falicon", "Falicon"), (r"aspremont", "Aspremont"), (r"tourrette[- ]levens", "Tourrette-Levens"), (r"colomars", "Colomars"),
     (r"(?:saint|st)[- ]laurent[- ]du[- ]var", "Saint-Laurent-du-Var"),
     (r"cagnes(?:[- ]sur[- ]mer)?", "Cagnes-sur-Mer"),
@@ -165,7 +165,7 @@ RIVIERA = [(re.compile(rf"\b(?:{pat})\b", re.I), city) for pat, city in [
     # Var coast: Estérel to Hyères
     (r"(?:saint|st)[- ]rapha[eë]l|agay", "Saint-Raphaël"),
     (r"fr[ée]jus", "Fréjus"), (r"roquebrune[- ]sur[- ]argens|les[- ]issambres", "Roquebrune-sur-Argens"),
-    (r"sainte?[- ]maxime", "Sainte-Maxime"),
+    (r"(?:sainte?|ste)[- ]maxime", "Sainte-Maxime"),
     (r"(?:saint|st)[- ]tropez", "Saint-Tropez"), (r"ramatuelle", "Ramatuelle"), (r"gassin", "Gassin"),
     (r"grimaud|port[- ]grimaud", "Grimaud"), (r"cogolin", "Cogolin"),
     (r"la[- ]croix[- ]valmer", "La Croix-Valmer"), (r"cavalaire", "Cavalaire-sur-Mer"), (r"rayol", "Rayol-Canadel-sur-Mer"),

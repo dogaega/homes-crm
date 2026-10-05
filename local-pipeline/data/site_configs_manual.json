@@ -595,6 +595,28 @@
   "note": "Site returns HTTP 200 with an empty body (also rendered in Chromium: blank page); sitemap empty. Dead site."
  },
  {
+  "site_key": "web-century21-fr",
+  "agency": "CENTURY 21",
+  "website": "https://www.century21.fr/",
+  "status": "verified",
+  "runner": "server",
+  "require_riviera": true,
+  "light": false,
+  "index_urls": {
+   "sale": [
+    "https://www.century21.fr/annonces/f/achat/d-06_alpes_maritimes/",
+    "https://www.century21.fr/annonces/f/achat/d-83_var/"
+   ],
+   "rent": [
+    "https://www.century21.fr/annonces/f/location/d-06_alpes_maritimes/",
+    "https://www.century21.fr/annonces/f/location/d-83_var/"
+   ]
+  },
+  "listing_pattern": "^https?://www\\.century21\\.fr/trouver_logement/detail/\\d+/?$",
+  "max_pages": 120,
+  "note": "CENTURY 21 network: department pages 06 / 83 (sale + rent), /page-N/ pagination. Full run only."
+ },
+ {
   "site_key": "web-colettirealestate-com",
   "agency": "Coletti Real Estate",
   "website": "https://colettirealestate.com/",
@@ -2145,6 +2167,32 @@
   "overrides": {
    "quarter": "h1"
   }
+ },
+ {
+  "site_key": "web-safti-fr",
+  "agency": "SAFTI",
+  "website": "https://www.safti.fr/",
+  "status": "verified",
+  "runner": "server",
+  "require_riviera": true,
+  "light": false,
+  "index_urls": {
+   "sale": [
+    "https://www.safti.fr/annonces/achat/appartement/alpes-maritimes-06",
+    "https://www.safti.fr/annonces/achat/appartement/var-83",
+    "https://www.safti.fr/annonces/achat/maison/alpes-maritimes-06",
+    "https://www.safti.fr/annonces/achat/maison/var-83"
+   ],
+   "rent": [
+    "https://www.safti.fr/annonces/location/appartement/alpes-maritimes-06",
+    "https://www.safti.fr/annonces/location/appartement/var-83",
+    "https://www.safti.fr/annonces/location/maison/alpes-maritimes-06",
+    "https://www.safti.fr/annonces/location/maison/var-83"
+   ]
+  },
+  "listing_pattern": "^https?://www\\.safti\\.fr/annonces/(?:achat|location)/[a-z-]+/[a-z0-9-]+-\\d{5}/\\d+/?$",
+  "max_pages": 250,
+  "note": "SAFTI network: department pages per type (apartment, house) for 06 and 83, ?page=N. Full run only."
  },
  {
   "site_key": "web-savills-mc",
