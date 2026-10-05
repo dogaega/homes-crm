@@ -22,6 +22,9 @@ import requests
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from find_websites import DATA, OUT, candidates, norm, tokens  # noqa: E402
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from sync.netwait import online, wait_for_network  # noqa: E402
+
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36"
 TLDS = ("fr", "com")
 REAL_ESTATE = re.compile(r"immobili|vente|location|appartement|maison|villa|biens?|properties|real estate|estimation", re.I)
@@ -68,6 +71,7 @@ def verify(host: str, name: str) -> bool:
 
 
 def guess(c: dict) -> tuple[str, dict]:
+    wait_for_network()  # offline, every lookup "fails": that is not an answer
     name = c.get("sign") or c["company"]
     for s in slugs(name):
         for tld in TLDS:
@@ -75,17 +79,23 @@ def guess(c: dict) -> tuple[str, dict]:
             if exists(host) and verify(host, name):
                 return c["siren"], {"name": name, "company": c["company"], "commune": c["commune"],
                                     "website": f"https://{host}/", "why": "guessed domain (verified)", "query": None}
+    if not online():  # the connection dropped during this agency: try it again later
+        return c["siren"], None
     return c["siren"], {"name": name, "company": c["company"], "commune": c["commune"], "website": None,
                         "why": "no guessed domain verified", "query": None, "guessed": True}
 
 
 def main() -> None:
     done = json.loads(OUT.read_text()) if OUT.exists() else {}
-    todo = [c for c in candidates() if c["siren"] not in done]
+    # Also redo agencies whose guesses ran while the internet was down.
+    todo = [c for c in candidates() if c["siren"] not in done
+            or (done[c["siren"]].get("guessed") and not done[c["siren"]]["website"])]
     print(f"{len(todo)} agencies to guess", flush=True)
     found = 0
     with ThreadPoolExecutor(max_workers=24) as ex:
         for i, (siren, res) in enumerate(ex.map(guess, todo), 1):
+            if res is None:
+                continue
             done[siren] = res
             found += bool(res["website"])
             if i % 25 == 0:
