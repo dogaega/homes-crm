@@ -47,8 +47,12 @@ def main() -> None:
         f = BrowserFetcher(delay=(1, 2))
     else:
         f = PoliteFetcher(delay=(1, 2), block_wait=5, retries=1, accept_404=bool(cfg.get("accept_404")))
+    fi = f
+    if cfg.get("render_index") and not cfg.get("render"):
+        from scraper.browser import BrowserFetcher
+        fi = BrowserFetcher(delay=(1, 2))
     try:
-        cards = generic.crawl_index(f, cfg)
+        cards = generic.crawl_index(fi, cfg)
         from scraper.daily import ABROAD
         cards = [c for c in cards if not ABROAD.search(c["source_url"])]
         print(f"index: {len(cards)} listing URLs  "

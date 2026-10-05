@@ -107,10 +107,16 @@ def web_site(client, mode: str, cfg: dict, agency: dict) -> dict:
         f = BrowserFetcher()
     else:
         f = PoliteFetcher(accept_404=bool(cfg.get("accept_404")))
+    # render_index: result grids built by JavaScript, listing pages plain HTML —
+    # the browser only for the index, plain (fast) fetching for the details.
+    fi = f
+    if cfg.get("render_index") and not cfg.get("render"):
+        from scraper.browser import BrowserFetcher
+        fi = BrowserFetcher()
     hints: dict[str, str] = {}
 
     def index() -> list[dict]:
-        cards = [c for c in generic.crawl_index(f, cfg) if not ABROAD.search(c["source_url"])]
+        cards = [c for c in generic.crawl_index(fi, cfg) if not ABROAD.search(c["source_url"])]
         hints.update({c["source_url"]: c["transaction_hint"] for c in cards})
         return cards
 
@@ -121,8 +127,9 @@ def web_site(client, mode: str, cfg: dict, agency: dict) -> dict:
     try:
         return run_site(f, client, cfg["site_key"], info, index, detail, mode=mode, runner=cfg.get("runner", "server"))
     finally:
-        if hasattr(f, "close"):
-            f.close()
+        for x in {id(f): f, id(fi): fi}.values():
+            if hasattr(x, "close"):
+                x.close()
 
 
 RUNNER = "server"
