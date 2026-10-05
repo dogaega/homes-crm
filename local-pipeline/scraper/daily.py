@@ -247,6 +247,8 @@ def family_web(client, mode: str, results: list, match=None) -> None:
     cfgs = [c for c in load_site_configs()
             if c.get("listing_pattern") and c.get("status") in ("ok", "weak", "verified")
             and c.get("runner", "server") == RUNNER
+            # Big networks (hundreds of town pages) are crawled once a day, not in the quick checks.
+            and (mode != "light" or c.get("light", True))
             and (not match or any(m.lower() in c["agency"].lower() for m in match))]
     # Many agency sites share one hosting server (e.g. ~40 Immotoolbox sites on
     # one IP): sites on the same server run one after another, servers in parallel.
