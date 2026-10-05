@@ -786,6 +786,31 @@
   }
  },
  {
+  "site_key": "web-foncia-com",
+  "agency": "FONCIA",
+  "website": "https://fr.foncia.com/",
+  "status": "verified",
+  "runner": "server",
+  "require_riviera": true,
+  "light": false,
+  "index_urls": {
+   "sale": [
+    "https://fr.foncia.com/achat/alpes-maritimes-06",
+    "https://fr.foncia.com/achat/var-83"
+   ],
+   "rent": [
+    "https://fr.foncia.com/location/alpes-maritimes-06",
+    "https://fr.foncia.com/location/var-83"
+   ]
+  },
+  "listing_pattern": "^https?://fr\\.foncia\\.com/(?:achat|location)/[a-z0-9-]+/[a-z-]+/\\d+\\.htm$",
+  "max_pages": 150,
+  "note": "FONCIA network: department pages 06 / 83 (sale + rent), /page-N pagination. Full run only.",
+  "overrides": {
+   "title": "h1"
+  }
+ },
+ {
   "site_key": "web-fpmc-agency-com",
   "agency": "Fine Properties Monte Carlo",
   "website": "https://www.fpmc-agency.com/",
