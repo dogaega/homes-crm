@@ -1,0 +1,112 @@
+Find the official websites of these real-estate agencies on the French Riviera (Alpes-Maritimes 06 / Var 83). Search Google for each one.
+
+Rules:
+- Give the agency's OWN website (its home page), e.g. https://www.agence-martini.com
+- If it has no website, or you are not sure it is the right agency, write: none
+- Never give a directory, portal or social page (pagesjaunes, societe.com, pappers, seloger, leboncoin, bienici, facebook, linkedin…), and never a franchise network page (orpi.com/…, century21.fr/…, laforet.com/…).
+- Do not invent URLs.
+
+Answer ONLY with one line per agency, in exactly this format, nothing else:
+ID | website
+
+Agencies (ID | name | town):
+919184432 | ARTEMIS | Sainte-Maxime
+989983697 | JEANNETTE GROUPE | Sainte-Maxime
+399435122 | SEASIDE & PROVENCE | Sainte-Maxime
+411124597 | GUNY-CARANTA | Sainte-Maxime
+500768080 | LUCY | Sainte-Maxime
+804336402 | BAPTHEL | Sainte-Maxime
+752147306 | LP CONSULTING | Sainte-Maxime
+900709551 | JANSSENS SAINTE MAXIME | Sainte-Maxime
+943131409 | BREUZARD-PROPRIETES | Sainte-Maxime
+922169412 | MAYA FAMILY | Sainte-Maxime
+979949609 | CABINET DES LYS | Sainte-Maxime
+504629221 | 3%. COM | Saint-Raphael
+789064722 | REVOLIM | Saint-Raphael
+538779935 | ANDELIM SELECTION | Saint-Raphael
+437833551 | SA LA COTIERE GRAND LARGE | Saint-Raphael
+812171056 | PHILIPPE ESCOFFIER | Saint-Raphael
+437832868 | SARL HUINGA PONT PENSIOEN B.V | Saint-Raphael
+478101371 | JSTREET | Saint-Raphael
+105680672 | IMMELIO CONSULTING | Saint-Raphael
+350232872 | SODEFIM | Saint-Raphael
+394850267 | DIDIER DAURAT | Saint-Raphael
+379332943 | HA INTERNATIONAL | Saint-Raphael
+383714052 | MER ET AMENAGEMENT | Saint-Raphael
+521111013 | SARL 2B CONCEPT | Saint-Raphael
+789909702 | ERIK'S | Saint-Raphael
+533107447 | RIPLEC | Saint-Raphael
+810104315 | ASPERULE | Saint-Raphael
+824821375 | LEREBOURS | Saint-Raphael
+832901466 | AC CONSULTING | Saint-Raphael
+882626757 | SEVENTY 7 | Saint-Raphael
+909082109 | COMIN | Saint-Raphael
+388900243 | CARNEVAL INVEST | Saint-Raphael
+379069669 | STE D'AMENAGEMENT DES PARCS DU GOLF DE SAINTE-MAXIME | Saint-Raphael
+329768873 | MEDIFOS | Saint-Raphael
+432422418 | LES SABLES D'OR | Saint-Raphael
+431627801 | LES TROIS FRERES | Saint-Raphael
+405257916 | SOC CIVILE PARTICULIERE FAMILY | Saint-Raphael
+448598904 | OLYMPIKOS | Saint-Raphael
+478206774 | TERRES TURQUOISES | Saint-Raphael
+493919310 | CANAT ET WARTON | Saint-Raphael
+510781099 | BRUNO DUPARC DEVELOPPEMENT | Saint-Raphael
+491056362 | MJC | Saint-Raphael
+491721767 | A.B.C. COMMERCIALISATION | Saint-Raphael
+811593839 | S.A.J. | Saint-Raphael
+812269983 | EXPERTAE | Saint-Raphael
+830494670 | ALTAEOO | Saint-Raphael
+733750400 | SIERRA ET CIE | Saint-Raphael
+522747187 | CAP SUR L'ESTEREL | Saint-Raphael
+498163765 | EURL T.B.H. | Saint-Raphael
+750660359 | MAPONOS | Saint-Raphael
+889409777 | 3B ARE | Saint-Raphael
+949359111 | CHRISTOPHE CUYPERS TEAM | Saint-Raphael
+952510543 | IS&A REALTY | Saint-Raphael
+991497769 | DEVIMO | Saint-Raphael
+349610253 | PARC DU CAMPING DE ST AYGULF | Frejus
+891129447 | SAS BERSAN | Frejus
+339407389 | ORFIM | Frejus
+433709284 | BEARTED INVESTMENTI LIMITED | Frejus
+789158862 | FJ DEVELOPPEMENT | Frejus
+503971327 | P@TRIMONI@L | Frejus
+333112118 | BOYER BADAUT | Frejus
+328863154 | C R M | Frejus
+101629210 | MONTOYA SOLUTIONS | Frejus
+394991335 | ALAIN TREVE DEVELOPPEMENT | Frejus
+751213216 | SECRET DE PROVENCE | Frejus
+539327783 | GRECH | Frejus
+801232877 | SCHEGGY | Frejus
+794263319 | MACADERM | Frejus
+900626243 | KW AMBITION | Frejus
+890402985 | SILVER KEYS | Frejus
+942457540 | DEVA | Frejus
+983609413 | QUORNER | Frejus
+103825402 | SAN TERRA | Frejus
+350928198 | GROUPE ATHOS (ATHOS) | Frejus
+430218800 | L'AIGLON | Frejus
+441997566 | F F | Frejus
+523412567 | T.C. INVEST | Frejus
+801524786 | CC MEDIAS | Frejus
+837670579 | CABINET T.N.C.T | Frejus
+832100341 | JST FREJUS | Frejus
+948518543 | ASI | Frejus
+944963438 | CLES & SERENITE | Frejus
+905345443 | ALHIOT | Frejus
+949223358 | MAITRE CARRE | Frejus
+992640995 | LA CLE D HERMES | Frejus
+990975450 | MARVAL EXPERTISE | Frejus
+498311729 | M.C.M. SRL | Grasse
+337960488 | ATRIA | Grasse
+932230394 | KLOCKA | Grasse
+333169993 | LES CYPRES | Grasse
+104469804 | VLG GROUP | Grasse
+106294929 | NRJU | Grasse
+107322976 | CASAWAY | Grasse
+351272299 | AGEFIM CONSULTANTS SAS | Grasse
+348478330 | KCST | Grasse
+528115900 | FORSMAN & HEY | Grasse
+533555033 | TOURSOL | Grasse
+811286657 | POUSSIN | Grasse
+792771958 | SC EVAL INVEST | Grasse
+882060106 | CHRISTOPHE FARINOTTI | Grasse

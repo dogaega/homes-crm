@@ -1,0 +1,112 @@
+Find the official websites of these real-estate agencies on the French Riviera (Alpes-Maritimes 06 / Var 83). Search Google for each one.
+
+Rules:
+- Give the agency's OWN website (its home page), e.g. https://www.agence-martini.com
+- If it has no website, or you are not sure it is the right agency, write: none
+- Never give a directory, portal or social page (pagesjaunes, societe.com, pappers, seloger, leboncoin, bienici, facebook, linkedin…), and never a franchise network page (orpi.com/…, century21.fr/…, laforet.com/…).
+- Do not invent URLs.
+
+Answer ONLY with one line per agency, in exactly this format, nothing else:
+ID | website
+
+Agencies (ID | name | town):
+917530453 | COTE PIERRE | Six-Fours-Les-Plages
+910623982 | DEFIM | Six-Fours-Les-Plages
+982189904 | NAVI | Six-Fours-Les-Plages
+431383397 | AU LARGE | Sollies-Pont
+878882869 | SUN INVEST | Sollies-Pont
+933130015 | 2 A DENTISTE | Sollies-Pont
+339707911 | SARL BLUE JATUICA (BLUE JATIUCA) | Sollies-Toucas
+839436045 | NICOLSON CAPITAL | Sollies-Toucas
+404187221 | ASMODEE | Sospel
+918847781 | PSIMM | Sospel
+391428299 | MB CONSULTANTS | Speracedes
+933988008 | GIOSA | Speracedes
+397632423 | FAYENCE CONSTR PROMOTIONS | Speracedes
+540026564 | JRF REALTY | Speracedes
+792045445 | HARMONIE INVEST | Tanneron
+909764268 | LES CLEFS DE PROVENCE | Taradeau
+404424574 | MAZOTS | Tende
+834500241 | VALORISSIMO | Toulon
+481995801 | CONSULT MERIDIONAL | Toulon
+814623815 | TERRASSE EN VILLE | Toulon
+438430571 | GEFIM | Toulon
+488272014 | SARL DES QUATRE CHEMINS (G ! O) | Toulon
+499942407 | MAXENCE BRETTE EURL | Toulon
+321292633 | DUFOREST ET COMPAGNIE | Toulon
+329572481 | FRANCE DEVELOPPEMENT INGENIERIE (FDI) | Toulon
+898632260 | SEGESTAL | Toulon
+420722951 | MANON ET AUDREY | Toulon
+479694911 | P.B.I | Toulon
+498398015 | SARL AMI | Toulon
+513605204 | CABINET RATINAUD | Toulon
+478843543 | CABINET 3000 | Toulon
+495142150 | NEMO | Toulon
+334326139 | SOCIETE LAUCAT | Toulon
+107453516 | BEAUJARDIN EXPERTISE (BE) | Toulon
+397679762 | COPRO LE BARBES | Toulon
+385284328 | TRUSTY | Toulon
+379091929 | CONCEPT | Toulon
+415157627 | CAPVAL | Toulon
+524644093 | LA VICTIENNE | Toulon
+790118665 | RATANAKIRI | Toulon
+539781476 | CHAR ROND | Toulon
+798859310 | SARL LB DEVELOPPEMENT | Toulon
+812342046 | L'EXPLOREUR . ESPACES POUR COLLECTI | Toulon
+801825399 | JAOB | Toulon
+795342674 | ACTIFS & INVESTISSEMENTS | Toulon
+803338177 | A N T I | Toulon
+834678005 | SPI TOULON CENTRE | Toulon
+852080589 | PLAN CARRE | Toulon
+841177827 | GECOVAR | Toulon
+853759694 | MER.INN | Toulon
+929912319 | TORI | Toulon
+939415683 | FAMILLE BARTOLI | Toulon
+910101856 | CVMB | Toulon
+902729383 | O.R.P.N | Toulon
+919973222 | ESPACE PROVENCE | Toulon
+913669941 | ENVIE D'ESPACE | Toulon
+947750576 | KEEPT | Toulon
+947809315 | OFF MARKET CLUB | Toulon
+952218931 | SUR-MESURE | Toulon
+984065862 | IG PRESTIGE | Toulon
+994585651 | GESTONE | Toulon
+400173670 | SUCCESS PRODUCTIONS | Toulon
+100387067 | CHARLANDRE INVEST | Toulon
+107092819 | SAS TEAM VAR | Toulon
+399416833 | COPRO LES JARDINS DE MONTFLEURY | Toulon
+378352694 | L'EXOCET | Toulon
+408879195 | COPROP 50 RUE GIMELLI | Toulon
+440465482 | VARLOGI | Toulon
+477862569 | SOLVIMO | Toulon
+492843107 | IMHOTEP | Toulon
+498944834 | CABINET MAYOL - B.S.I. | Toulon
+453663403 | J L B M | Toulon
+501825590 | CAROLINE | Toulon
+813922630 | LA DATCHA | Toulon
+790161657 | CORMORAN CONSULTING | Toulon
+825184872 | PIERRES DE COLLECTION | Toulon
+820399012 | TOOBI | Toulon
+834920530 | SOCIETE EUROPEENNE DE CONSEIL ET DE DEVELOPPEMENT (S.E.C.D.) | Toulon
+517811121 | FLORENCE DE GUERRY | Toulon
+533283586 | IB OM (IB OM) | Toulon
+739501906 | DAVENNE | Toulon
+753756303 | FC2I | Toulon
+841298599 | LES TOULS | Toulon
+844084160 | CABINET CONSEIL CLARET | Toulon
+901380931 | SASU VAR INVESTISSEMENT | Toulon
+940625320 | BEX CONSULTING | Toulon
+900516618 | SCAPE | Toulon
+912616414 | BCO PROJECTS | Toulon
+904041100 | GOPALOU SAS | Toulon
+908650120 | EURL FRANCOIS-PAUL CUBELES | Toulon
+929036275 | CHEZ OCTAVIO | Toulon
+952439040 | MILO | Toulon
+953678778 | SAS ROOM TOUR - JK (RT JK) | Toulon
+979047487 | CLS PRESTIGE | Toulon
+942877705 | ACTISUD | Toulon
+502829765 | T.B.E. | Tourrette-Levens
+308706019 | JDM | Tourrette-Levens
+823882600 | E.C.I.S | Tourrette-Levens
+827779422 | EOS NICE | Tourrettes
+839121126 | RESEAU BONAPARTE | Tourrettes

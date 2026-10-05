@@ -1,0 +1,112 @@
+Find the official websites of these real-estate agencies on the French Riviera (Alpes-Maritimes 06 / Var 83). Search Google for each one.
+
+Rules:
+- Give the agency's OWN website (its home page), e.g. https://www.agence-martini.com
+- If it has no website, or you are not sure it is the right agency, write: none
+- Never give a directory, portal or social page (pagesjaunes, societe.com, pappers, seloger, leboncoin, bienici, facebook, linkedin…), and never a franchise network page (orpi.com/…, century21.fr/…, laforet.com/…).
+- Do not invent URLs.
+
+Answer ONLY with one line per agency, in exactly this format, nothing else:
+ID | website
+
+Agencies (ID | name | town):
+980301436 | PRESTIGE PARTNERS | Le Plan-De-La-Tour
+398208751 | CTR PROVENCAL | Le Pradet
+518946397 | VS.CO. | Le Pradet
+539813253 | LABEL INVEST | Le Pradet
+889295309 | CH VIAGER | Le Pradet
+389748328 | DOMAINE SAN PEYRE | Le Pradet
+107411266 | TRANSITIONS | Le Pradet
+483975728 | LAUREMY | Le Pradet
+911694826 | SEEVARIMM | Le Pradet
+404269151 | AGENCIA | Le Rouret
+429967946 | SOTRAMO NV | Le Rouret
+439407867 | DI FIESOLE | Le Rouret
+827521154 | LIVING 71 | Le Rouret
+812721504 | LES TOITS DE PROVENCE | Le Thoronet
+430163105 | PRESTO AG | Le Tignet
+492899331 | LE TIGNET | Le Tignet
+821460508 | NEMROD DIFFUSION | Le Tignet
+497842922 | PANAFRANCE | Les Arcs
+422854687 | LES AMAZONES | Les Arcs
+480979384 | ABRIS COTIERS | Les Arcs
+497602078 | SC DEUX FONTAINES | Les Arcs
+500666185 | CONFLUENCE BERTIM | Les Arcs
+948888391 | ALCAT | Les Arcs
+412396202 | PIERRES DU SUD | Levens
+477884068 | NICE VALLEES | Levens
+484841713 | BRIEL & PARTNERS | Lorgues
+490071123 | ALONIS | Lorgues
+799559158 | TERRA VINI | Lorgues
+419745138 | KING | Lorgues
+480770650 | YOUR LIFE IN PROVENCE | Lorgues
+413592361 | ART DECO SUD | Mandelieu La Napoule
+343726949 | MEDICO | Mandelieu La Napoule
+322904491 | LE MOULIN | Meounes-Les-Montrieux
+433705647 | LES CERISIERS | Montauroux
+130087844 | ASSESS BY LOPEZ | Montauroux
+351315494 | SARL DE LA PROVIDENCE | Montauroux
+485269872 | SELSEA | Montauroux
+493823751 | SARL BHG | Montauroux
+509037974 | LILIANE | Montauroux
+821250701 | CALIXTE | Montauroux
+797977535 | MANY COM | Montauroux
+788674265 | URBA SELECT | Mouans-Sartoux
+389613605 | LES CHEVALIERS | Mouans-Sartoux
+840798276 | AJZELAY | Mouans-Sartoux
+893115055 | BLUE SUNRISE | Mouans-Sartoux
+944755669 | JMD INVEST | Mouans-Sartoux
+378673206 | SOC FANICE | Mouans-Sartoux
+382014603 | AUGUSTA | Mouans-Sartoux
+341384444 | GRASSE OPHTA | Mouans-Sartoux
+333119493 | ANGELE | Mouans-Sartoux
+438993404 | REDLAND | Mouans-Sartoux
+300461951 | LA NANSEENNE | Nans-Les-Pins
+398658401 | SUD TERRAINS | Ollioules
+538487745 | LA ROUVIERE | Ollioules
+800650293 | PROIKOS | Ollioules
+524280005 | INVENTION | Ollioules
+380638429 | ALLIANCE SUD | Opio
+411775737 | COFIMO | Opio
+953197324 | JAYZEE | Opio
+984978312 | DOMAINE DU PRIEURE | Opio
+913393542 | MV GALLERY | Opio
+384456216 | CABINET DELVAL | Pegomas
+898323894 | IMOBILIA | Pegomas
+384704243 | COFRIM | Pegomas
+852265909 | CJM INVEST | Pegomas
+939465241 | EXECUTIVE PORTFOLIO | Pegomas
+539073478 | BAUMEO | Peymeinade
+840332027 | HUMAN AQUILINO GROUP | Peymeinade
+939553863 | SCJ INVEST | Peymeinade
+391130499 | CABINET GAILLARD | Peymeinade
+388779480 | HARDIMO | Peymeinade
+338655889 | PINEDE INVESTISSEMENT | Peymeinade
+417250214 | CABINET ROCHARD | Peymeinade
+488301029 | MEDIATIM CANNES | Peymeinade
+488654641 | SAINT CLERC EXPERTISES | Peymeinade
+823952494 | OBCI | Peymeinade
+879261196 | HARDY LES 5 COMMUNES | Peymeinade
+503122129 | DUALL | Pierrefeu-Du-Var
+833100340 | AP CONSULTING | Pierrefeu-Du-Var
+833095904 | JP DIFFUSION | Plan-D'Aups-Sainte-Baume
+881856520 | LEM CONSEILS | Plan-D'Aups-Sainte-Baume
+751377532 | DGVIM | Puget-Sur-Argens
+382252930 | CANO PERE ET FILS ET CIE | Puget-Sur-Argens
+412119950 | NEW PARK | Puget-Sur-Argens
+520920398 | SARL MERY BOZON | Puget-Sur-Argens
+850409269 | GEST & LOC | Puget-Sur-Argens
+901049650 | BOUSQUET BRUNO CONSULTING | Puget-Sur-Argens
+752342774 | BJARNE STATSAUTORISET | Puget-Theniers
+309645943 | SEFA | Puget-Theniers
+104999206 | HEBUS | Puget-Ville
+320564974 | SAINT DOMINIQUE | Rayol-Canadel-Sur-Mer
+450627153 | OFFICE GENERAL | Rayol-Canadel-Sur-Mer
+902142777 | MP PROPRIETES | Rayol-Canadel-Sur-Mer
+330503145 | SOC CIVILE DOMAINE LA GREYTE | Rians
+101302792 | LAZULIA | Rocbaron
+912044864 | MON PETIT COIN MERVEILLEUX | Rocbaron
+422497867 | NEW AGE | Roquebrune Cap Martin
+828743468 | MA DEMEURE - SERVICE EXPRESS CONSULTING | Roquebrune-Sur-Argens
+102136470 | ESPRIT DU SUD | Roquebrune-Sur-Argens
+334314382 | SARL 4'IM | Roquebrune-Sur-Argens

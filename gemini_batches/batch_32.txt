@@ -1,0 +1,112 @@
+Find the official websites of these real-estate agencies on the French Riviera (Alpes-Maritimes 06 / Var 83). Search Google for each one.
+
+Rules:
+- Give the agency's OWN website (its home page), e.g. https://www.agence-martini.com
+- If it has no website, or you are not sure it is the right agency, write: none
+- Never give a directory, portal or social page (pagesjaunes, societe.com, pappers, seloger, leboncoin, bienici, facebook, linkedin…), and never a franchise network page (orpi.com/…, century21.fr/…, laforet.com/…).
+- Do not invent URLs.
+
+Answer ONLY with one line per agency, in exactly this format, nothing else:
+ID | website
+
+Agencies (ID | name | town):
+379751118 | MAJUCA | Mandelieu-La-Napoule
+312914609 | VALBERG PLAZA | Mandelieu-La-Napoule
+352561088 | FRANCYVON | Mandelieu-La-Napoule
+490814381 | CARDINAL MEDITERRANEE | Mandelieu-La-Napoule
+507917946 | MONJO TRAITEUR | Mandelieu-La-Napoule
+841151137 | GOODING | Mandelieu-La-Napoule
+898053426 | B AND F CONSULTING | Mandelieu-La-Napoule
+847967627 | ALLADIN | Mandelieu-La-Napoule
+914149356 | VISTABLU | Mandelieu-La-Napoule
+696520634 | RESIDENCES ET DOMAINES | Theoule-Sur-Mer
+420097537 | RADLOFF MANAGEMENT CONSULTING FRANCE (RMC FRANCE) | Theoule-Sur-Mer
+490375664 | BUSINESS AFFAIRS CONSULTING (B@C) | Theoule-Sur-Mer
+344747019 | SEGA | Theoule-Sur-Mer
+339448334 | BRADERIS LOC | Theoule-Sur-Mer
+524114774 | RONE | Theoule-Sur-Mer
+900599879 | CAMATT LUXURY REALTY | Theoule-Sur-Mer
+438300550 | STE VALUAS BV | Saint Tropez
+438300329 | STE SOTENO SA | Saint Tropez
+840333306 | VP & CO | Saint Tropez
+498442839 | DEMEURES TROPEZIENNES | Saint Tropez
+835317421 | LUMA | Saint Tropez
+399864651 | SWIXIM | Saint-Tropez
+483630372 | EMILE GARCIN PROVENCE | Saint-Tropez
+349984146 | SOC LYONNAISE AMENAGEMENT (SLA) | Saint-Tropez
+800692329 | HALSTEAD BELL | Saint-Tropez
+843937137 | REBECCA ZARR | Saint-Tropez
+853439644 | S.E.E.K. | Saint-Tropez
+927903138 | HERACLEE SAS | Saint-Tropez
+424819837 | PAULINE | Saint-Tropez
+439752692 | LE FIGUIER | Saint-Tropez
+513231936 | AMALASAL | Saint-Tropez
+488167065 | MOVAL | Saint-Tropez
+838736676 | PANORAMER | Saint-Tropez
+840498604 | MAGREY AND SONS SAINT TROPEZ | Saint-Tropez
+892211087 | TROPEZIAN AGENT | Saint-Tropez
+914850904 | FOURNIALS & MOUGEL ASSOCIES | Saint-Tropez
+928749704 | WORLD INFLUENCE | Saint-Tropez
+882718125 | SARL LA MOUTTE II | Saint-Tropez
+882917941 | SCHPOUNTZ | Saint-Tropez
+944161801 | SENTINELLE | Saint-Tropez
+987933090 | ARTKHIO | Saint-Tropez
+338334584 | MAHONIA | Saint-Tropez
+381117878 | MBP | Saint-Tropez
+821370590 | HERACLEE STP | Saint-Tropez
+844297804 | SOFA | Saint-Tropez
+849542683 | MAGREY AND SONS VAR | Saint-Tropez
+885261552 | MP WEGELIN | Saint-Tropez
+940314032 | LET ME DO | Saint-Tropez
+909236119 | MPH | Saint-Tropez
+913339305 | RIVKA | Saint-Tropez
+941571606 | ALPHA CONSEIL | Saint-Tropez
+445124670 | TARGUM | Ramatuelle
+381490804 | LES BARRYS | Ramatuelle
+944640416 | VALUXURY | Ramatuelle
+351616875 | SNC TOMASELLI | Ramatuelle
+948336854 | VM CONSULTING | Ramatuelle
+383791431 | TVRT SARL | Gassin
+529319667 | BLUE SIDE PROPRIETES VITICOLES | Gassin
+842800518 | A2BC CONSULTING | Gassin
+921874913 | BOSSY REALTY | Gassin
+977637321 | ELEGANCE | Gassin
+508729332 | GIUCLA | Gassin
+947882932 | CONFIDENTIEL & INVESTISSEMENTS | Gassin
+943544536 | JLB CONSULTING | Gassin
+817635774 | JANSSENS COTE PROVENCALE | Grimaud
+498021021 | MADE IN PROVENCE | Grimaud
+848288429 | LV 39 | Grimaud
+431496389 | SOC LES TROIS RIVES I | Grimaud
+511397168 | NEW PLACE | Grimaud
+505159905 | PATGE | Grimaud
+811345735 | PALM ASSET MANAGEMENT (PALM ASSET MANAGEMENT) | Grimaud
+490548427 | DELBERGUE ASSOCIATES | Grimaud
+502398506 | CO BA TRAV | Grimaud
+821463411 | CABINET VIEUGUE | Grimaud
+853686574 | LKR | Grimaud
+881248116 | SAS JPM | Grimaud
+331445197 | SARL SMASH | Grimaud
+478485667 | PATRIMIUM | Grimaud
+481601813 | MER MEDITERRANEE | Grimaud
+514890177 | ARCE II | Grimaud
+898278437 | FMI | Grimaud
+794024307 | VERTIGES | Grimaud
+791211337 | OENOPLANET | Grimaud
+918271305 | NG CONSULTING | Grimaud
+991123787 | N.V.H. CONSEIL | Grimaud
+493086805 | SARL FLOLO | Sainte-Maxime
+340437540 | EURL BIRD | Sainte-Maxime
+921151155 | AGATHE THE KEYS (ATK) | Sainte-Maxime
+751571019 | CJM | Sainte-Maxime
+434286258 | L'ESPRIT DU SUD | Sainte-Maxime
+479242885 | LES CAPS | Sainte-Maxime
+507736635 | SUD VACANCES | Sainte-Maxime
+340611292 | SARL GIMS | Sainte-Maxime
+520532516 | FRANSAFLO | Sainte-Maxime
+532128642 | HERACLEE | Sainte-Maxime
+532873437 | T2I | Sainte-Maxime
+814467379 | BLU INVEST | Sainte-Maxime
+815289269 | PREMIERE AVENUE | Sainte-Maxime
+928570621 | ORBE | Sainte-Maxime
+893188011 | UNIVERS VIAGER | Sainte-Maxime

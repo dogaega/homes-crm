@@ -1,0 +1,112 @@
+Find the official websites of these real-estate agencies on the French Riviera (Alpes-Maritimes 06 / Var 83). Search Google for each one.
+
+Rules:
+- Give the agency's OWN website (its home page), e.g. https://www.agence-martini.com
+- If it has no website, or you are not sure it is the right agency, write: none
+- Never give a directory, portal or social page (pagesjaunes, societe.com, pappers, seloger, leboncoin, bienici, facebook, linkedin…), and never a franchise network page (orpi.com/…, century21.fr/…, laforet.com/…).
+- Do not invent URLs.
+
+Answer ONLY with one line per agency, in exactly this format, nothing else:
+ID | website
+
+Agencies (ID | name | town):
+410727838 | MNO VERVAT ROTTERDAM | Menton
+410729719 | GIANDUIA ANSTALT | Menton
+410729867 | GIM | Menton
+441651023 | GLADFIN | Menton
+392765111 | LES JARDINS DU SUD | Menton
+392766374 | MIJACA | Menton
+389589870 | RGB | Menton
+404975377 | BRICAGLIA | Menton
+853114221 | API VILLENEUVE-LOUBET | Menton
+384130365 | SARL GIM'SELLER | Menton
+412513038 | EDE-GA | Menton
+410470439 | BIRCHLER FONTEL | Menton
+410730899 | SEA ARCHER | Menton
+410733208 | T I V B | Menton
+404055964 | ALFED | Menton
+431559376 | AREA CASA DI SARZANO | Menton
+428218945 | RCT | Menton
+434379210 | BARBERIS | Menton
+378075592 | OPTIMAL | Menton
+438267809 | PARENTHESE DOREE | Menton
+832565535 | PANIOL | Menton
+450188180 | AMAC | Menton
+495137994 | TOLO | Menton
+509915252 | LUCA | Menton
+402242176 | NATIM | Menton
+529730780 | K&G INVESTMENTS - K&G BUSINESS | Menton
+807951173 | LA COLLINE | Menton
+884469149 | MINERVE | Menton
+854077161 | ATLAS | Menton
+901585265 | IDEA MENTON | Menton
+915345359 | ROSA HOLIDAY SERVICE | Menton
+930081005 | POLPETTE | Menton
+393571211 | LE CHATEAULION | Menton
+392314829 | C I L APPOLINAIRE | Menton
+019832930 | CTIM CYRNOS | Menton
+301865960 | PIERRES ET DEMEURES | Menton
+348133059 | FARGOT | Menton
+338186885 | SUD R.I.V.A.G.E.S. | Menton
+352769269 | THALASSA | Menton
+424243061 | FAMBUS | Menton
+491860078 | TRANSAC FRANCE | Menton
+492735154 | GABRIEL | Menton
+524056835 | ELENA | Menton
+524264736 | MCM FRANCE | Menton
+812375723 | FMV CONSULTING | Menton
+812585735 | CABINET CLARUS | Menton
+883232431 | EDELWEISS | Menton
+900537143 | FAAS PERFORMANCE | Menton
+913510210 | L & SO | Menton
+930591425 | PARO | Menton
+984676320 | LOML | Menton
+979645066 | EXCLUSIF | Menton
+423704147 | FOSTER SOCIETA SEMPLICE | Roquebrune-Cap-Martin
+410711238 | JADE LUXEMBOURG | Roquebrune-Cap-Martin
+410728539 | HALLEY FINANZIARA SPA | Roquebrune-Cap-Martin
+410729966 | WINSTON INVESTMENT CORPORATION | Roquebrune-Cap-Martin
+410734248 | LA SCANPOLO | Roquebrune-Cap-Martin
+430480590 | LUNAIRE | Roquebrune-Cap-Martin
+430489443 | MONDOR ANSTALT | Roquebrune-Cap-Martin
+409006772 | CHILO | Roquebrune-Cap-Martin
+407871912 | ALAMARO | Roquebrune-Cap-Martin
+409006178 | WALCY | Roquebrune-Cap-Martin
+404053654 | MANTRA | Roquebrune-Cap-Martin
+404419681 | SFINGE | Roquebrune-Cap-Martin
+411269228 | LAREDO LIMITED | Roquebrune-Cap-Martin
+415308741 | SPOLWERT ANSTALT | Roquebrune-Cap-Martin
+423458660 | DRIN | Roquebrune-Cap-Martin
+790986921 | B.H. CONSULTING (B.H. CONSULTING) | Roquebrune-Cap-Martin
+910741974 | INFINIOUS INVESTMENTS LIMITED | Roquebrune-Cap-Martin
+384053450 | MEMORY | Roquebrune-Cap-Martin
+381554849 | SAINT PREUX | Roquebrune-Cap-Martin
+353944242 | SARL LES PALMIERS | Roquebrune-Cap-Martin
+413518044 | SEACOST | Roquebrune-Cap-Martin
+423215664 | SIMON FIDUCIARIA S P A | Roquebrune-Cap-Martin
+423703172 | MABE | Roquebrune-Cap-Martin
+423703321 | FERRETTIFIN SPA | Roquebrune-Cap-Martin
+410470314 | BERENICE SOC SEMPLICE | Roquebrune-Cap-Martin
+410730287 | TOPAZ INVESTMENT LTD | Roquebrune-Cap-Martin
+410730758 | FINACIERE DE L'ESTEREL | Roquebrune-Cap-Martin
+432689065 | HEATHFIELD OVERSEAS LTD | Roquebrune-Cap-Martin
+431522382 | DORIGO AG | Roquebrune-Cap-Martin
+407874189 | CESARIO | Roquebrune-Cap-Martin
+407984996 | BLUFIN  SPA | Roquebrune-Cap-Martin
+409402617 | MED REALTIES | Roquebrune-Cap-Martin
+438413577 | LE PIN | Roquebrune-Cap-Martin
+415308634 | SIFE | Roquebrune-Cap-Martin
+451025886 | CAMPANIN | Roquebrune-Cap-Martin
+332943414 | CHARDIAL | Roquebrune-Cap-Martin
+910776467 | JDUBUC | Roquebrune-Cap-Martin
+904956463 | AUREANE | Roquebrune-Cap-Martin
+942174624 | LE CITRON BLEU | Roquebrune-Cap-Martin
+894535236 | MONDILUCA | Roquebrune-Cap-Martin
+403474976 | ROGETAL | Roquebrune-Cap-Martin
+317144954 | VICTORIA TRANSAC | Roquebrune-Cap-Martin
+342219995 | JELOPI | Roquebrune-Cap-Martin
+830437026 | ALDANDCO | Roquebrune-Cap-Martin
+539340844 | CHALLENGE 2011 | Roquebrune-Cap-Martin
+927691055 | JRE RENT-ME FRANCE | Roquebrune-Cap-Martin
+991155839 | VIVA CASA | Roquebrune-Cap-Martin
+410470868 | BREZZO FRERES | Beausoleil
