@@ -133,6 +133,7 @@ def web_site(client, mode: str, cfg: dict, agency: dict) -> dict:
 
 
 RUNNER = "server"
+ONLY_SITES: set[str] = set()
 PARKING = re.compile(r"\b(?:parkings?|garages?|box|caves?|cellars?|posto auto|stationnement)\b", re.I)
 MONACO = re.compile(r"monaco|monte[- ]?carlo|fontvieille|condamine|larvotto|moneghetti|carr[ée] d.or|la rousse|saint[- ]roman|"
                     r"jardin exotique|mareterra|portier|r[ée]voires|98000", re.I)
@@ -256,7 +257,8 @@ def family_web(client, mode: str, results: list, match=None) -> None:
             and c.get("runner", "server") == RUNNER
             # Big networks (hundreds of town pages) are crawled once a day, not in the quick checks.
             and (mode != "light" or c.get("light", True))
-            and (not match or any(m.lower() in c["agency"].lower() for m in match))]
+            and (not match or any(m.lower() in c["agency"].lower() for m in match))
+            and (not ONLY_SITES or c["site_key"] in ONLY_SITES)]
     # Many agency sites share one hosting server (e.g. ~40 Immotoolbox sites on
     # one IP): sites on the same server run one after another, servers in parallel.
     import socket
@@ -286,6 +288,7 @@ def main() -> None:
     ap.add_argument("--mode", choices=["full", "light"], default="full")
     ap.add_argument("--only", choices=list(FAMILIES), action="append")
     ap.add_argument("--agency", action="append", help="substring of agency name (repeatable)")
+    ap.add_argument("--sites", help="file with one site_key per line: run only those agency sites")
     ap.add_argument("--runner", choices=["server", "local"], default="server",
                     help="local = Mac: only sites that block server IPs (implies --only web)")
     ap.add_argument("--refresh-details", action="store_true", help="re-fetch all detail pages (after parser fixes)")
@@ -297,8 +300,11 @@ def main() -> None:
     if args.refresh_before:
         from scraper import runner
         runner.REFRESH_BEFORE = args.refresh_before
-    global RUNNER
+    global RUNNER, ONLY_SITES
     RUNNER = args.runner
+    if args.sites:
+        ONLY_SITES = {l.strip() for l in Path(args.sites).read_text().splitlines() if l.strip()}
+        args.only = ["web"]
     if RUNNER == "local":
         args.only = ["web"]
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
