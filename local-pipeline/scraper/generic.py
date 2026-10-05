@@ -477,6 +477,31 @@ def card_links(b: BeautifulSoup) -> list[str]:
     return out
 
 
+NETTY_BLOB = re.compile(r"[A-Za-z0-9+/=]{400,}")
+
+
+def netty_links(html: str, page: str) -> list[str]:
+    """Netty (modelo) sites render their listing grid by script from a
+    base64 JSON blob; detail pages live at /vente|location/<slug>,<ref>."""
+    import base64
+    out = []
+    for m in NETTY_BLOB.finditer(html):
+        blob = m.group(0)
+        if not blob.startswith("eyJwcm9kSWQi"):  # base64 of '{"prodId"'
+            continue
+        try:
+            data = json.loads(base64.b64decode(blob + "=" * (-len(blob) % 4)).decode("utf8", "ignore"))
+        except ValueError:
+            continue
+        for ref, p in (data.get("prodId") or {}).items():
+            slug = p.get("url")
+            slug = (slug.get("fr") or next(iter(slug.values()), None)) if isinstance(slug, dict) else slug
+            if slug:
+                kind = "location" if p.get("type_offer") == 2 else "vente"
+                out.append(urljoin(page, f"/{kind}/{slug},{ref}"))
+    return out
+
+
 def page_url(start: str, u: str) -> str | None:
     from urllib.parse import parse_qsl, urlencode
     pu, ps = urlparse(u), urlparse(start)
@@ -524,7 +549,7 @@ def crawl_index(f: PoliteFetcher, cfg: dict) -> list[dict]:
                     continue  # a dead "next page" link just ends that pagination
                 b = soup(h)
                 new = 0
-                for href in card_links(b):
+                for href in card_links(b) + (netty_links(h, page) if "netty.immo" in h else []):
                     u = urljoin(page, href).split("#")[0]
                     if pattern.search(u) and u not in found:
                         found[u] = {"source_url": u, "transaction_hint": transaction}

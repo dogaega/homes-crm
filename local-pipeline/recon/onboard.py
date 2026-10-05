@@ -78,6 +78,18 @@ def platform_config(platforms: list[str], site: str) -> dict | None:
                                "rent": [f"{root}/fr/locations"] + [f"{root}/fr/locations?page={n}" for n in range(2, 6)]},
                 "listing_pattern": rf"^https?://(?:www\.)?{h}/(?:fr|en)/propriete/(?:vente|location)\+[^/?#]+\+\d{{6,}}/?$",
                 "max_pages": 1, "platform_adapter": "apimo"}
+    if "netty" in platforms:  # Netty / modelo: grid in a JSON blob, details at /vente|location/<slug>,<ref>
+        return {"index_urls": {"sale": [f"{root}/vente"] + [f"{root}/vente?page={n}" for n in range(2, 12)],
+                               "rent": [f"{root}/location"] + [f"{root}/location?page={n}" for n in range(2, 6)]},
+                "listing_pattern": rf"^https?://(?:www\.)?{h}/(?:vente|location)/[a-z0-9-]+,[A-Z]{{1,3}}\d+$",
+                "max_pages": 1, "platform_adapter": "netty"}
+    if any(p.startswith("wp-") for p in platforms) or "wordpress" in platforms:
+        # WordPress property themes (Houzez, WPResidence, RealHomes, Estatik …): one post type per
+        # listing, every one of them in the theme's sitemap.
+        return {"index_source": "sitemap",
+                "listing_pattern": rf"^https?://(?:www\.)?{h}/(?:[a-z]{{2}}/)?(?:property|properties|propriete|proprietes|"
+                                   rf"bien|biens|annonce|annonces|listing|listings|estate_property|real-estate|immobilier)/[^/?#]+/?$",
+                "platform_adapter": "wordpress"}
     return None
 
 
@@ -114,12 +126,19 @@ def onboard_one(agency: dict) -> dict:
     return {"recon": r, "cfg": cfg}
 
 
-def retry_unreachable(workers: int) -> None:
+def retry(workers: int, regate: bool = False) -> None:
+    """Re-onboard sites recorded as unreachable (connection errors), or with
+    --regate the parked sites on a platform that now has an adapter."""
     agencies = {a["name"]: a for a in json.loads((DATA / "agencies.json").read_text())}
     cfg_path = DATA / "site_configs.json"
-    todo = [c for c in json.loads(cfg_path.read_text()) if c.get("status") == "unreachable" and c["agency"] in agencies
-            and re.search(r"ConnectionError|Timeout", c.get("note") or "")]
-    print(f"retrying {len(todo)} unreachable sites")
+    if regate:
+        todo = [c for c in json.loads(cfg_path.read_text()) if c.get("status") == "needs_review" and c["agency"] in agencies
+                and re.search(r"'(?:netty|wordpress|wp-[a-z]+)'", c.get("note") or "")
+                and not re.search(r"(?:netty|wordpress) adapter:", c.get("note") or "")]
+    else:
+        todo = [c for c in json.loads(cfg_path.read_text()) if c.get("status") == "unreachable" and c["agency"] in agencies
+                and re.search(r"ConnectionError|Timeout", c.get("note") or "")]
+    print(f"retrying {len(todo)} {'parked' if regate else 'unreachable'} sites")
     wait_for_network()
     with ThreadPoolExecutor(max_workers=workers) as ex:
         results = list(ex.map(lambda c: onboard_one(agencies[c["agency"]]), todo))
@@ -136,9 +155,10 @@ def main() -> None:
     ap.add_argument("--workers", type=int, default=6)
     ap.add_argument("--retry-unreachable", action="store_true",
                     help="re-onboard sites recorded as unreachable (connection errors / timeouts)")
+    ap.add_argument("--regate", action="store_true", help="re-onboard parked sites on platforms with an adapter")
     args = ap.parse_args()
-    if args.retry_unreachable:
-        retry_unreachable(args.workers)
+    if args.retry_unreachable or args.regate:
+        retry(args.workers, regate=args.regate)
         return
     # Every finder writes its own discovered_*.json (search, guesses, OSM, FNAIM …).
     found = {}
