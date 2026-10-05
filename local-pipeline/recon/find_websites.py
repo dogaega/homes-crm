@@ -102,7 +102,8 @@ def main() -> None:
     if not key:
         sys.exit("BRAVE_SEARCH_API_KEY missing (local-pipeline/.env)")
     done = json.loads(OUT.read_text()) if OUT.exists() else {}
-    todo = [c for c in candidates() if c["siren"] not in done]
+    # Agencies only tried by recon/guess_domains.py (nothing verified) still get a real search.
+    todo = [c for c in candidates() if c["siren"] not in done or (done[c["siren"]].get("guessed") and not done[c["siren"]]["website"])]
     print(f"{len(done)} already searched, {len(todo)} to go; this run: {min(args.max, len(todo))}")
     used = 0
     for c in todo[: args.max]:

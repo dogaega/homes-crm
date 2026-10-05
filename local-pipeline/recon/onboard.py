@@ -112,7 +112,10 @@ def main() -> None:
     ap.add_argument("--batch", type=int, default=40)
     ap.add_argument("--workers", type=int, default=6)
     args = ap.parse_args()
-    found = json.loads((DATA / "discovered_websites.json").read_text())
+    # Every finder writes its own discovered_*.json (search, guesses, OSM, FNAIM …).
+    found = {}
+    for f in sorted(DATA.glob("discovered_*.json")):
+        found.update(json.loads(f.read_text()))
     agencies = json.loads((DATA / "agencies.json").read_text())
     cfg_path, recon_path = DATA / "site_configs.json", DATA / "website_recon.json"
     configs = json.loads(cfg_path.read_text())
