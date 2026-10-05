@@ -1,0 +1,10 @@
+Attached is a CSV of real-estate agencies on the French Riviera (Alpes-Maritimes / Var), with columns id, agency, town, website.
+Fill in the "website" column for EVERY row: search Google for each agency and put its own official website (home page URL).
+
+Rules:
+- If the agency has no website, or you are not sure it is the same agency in that town, write: none
+- Never use a directory, portal or social page (pagesjaunes, societe.com, pappers, seloger, leboncoin, bienici, facebook, linkedin…) or a franchise network page (orpi.com/…, century21.fr/…, laforet.com/…).
+- Do not invent URLs.
+- Keep the "id" column exactly as given.
+
+Return the complete CSV (all rows) as a downloadable CSV file, with the same columns: id,agency,town,website

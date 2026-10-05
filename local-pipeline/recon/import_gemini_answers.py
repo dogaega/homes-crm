@@ -1,6 +1,6 @@
 """
-Import website answers pasted from the Gemini app (gemini_batches/answers.txt,
-lines "ID | website"). Every URL is verified like a guessed domain (exists, and
+Import website answers from the Gemini app: filled CSVs saved in gemini_batches/
+(columns id, agency, town, website) and/or lines "ID | website" in answers.txt. Every URL is verified like a guessed domain (exists, and
 its homepage shows the agency's name and real-estate content) before it joins
 data/discovered_gemini.json for recon/onboard.py. Safe to re-run.
 
@@ -27,7 +27,15 @@ OUT = DATA / "discovered_gemini.json"
 def main() -> None:
     by_id = {c["siren"]: c for c in candidates()}
     pairs = {}
-    for line in ANSWERS.read_text(encoding="utf-8").splitlines():
+    # Filled CSVs saved from Gemini (any name in gemini_batches/): id, agency, town, website.
+    import csv
+    for f in sorted(ANSWERS.parent.glob("*.csv")):
+        with f.open(encoding="utf-8-sig", newline="") as fh:
+            for row in csv.DictReader(fh):
+                sid, url = (row.get("id") or "").strip(), (row.get("website") or "").strip()
+                if sid in by_id and url:
+                    pairs[sid] = url.strip("<>()[]*`'\".,")
+    for line in (ANSWERS.read_text(encoding="utf-8") if ANSWERS.exists() else "").splitlines():
         m = re.match(r"\s*\**\s*(\d{9})\s*\**\s*[|;,:\t]\s*(\S+)", line)
         if m and m.group(1) in by_id:
             pairs[m.group(1)] = m.group(2).strip("<>()[]*`'\".,")
