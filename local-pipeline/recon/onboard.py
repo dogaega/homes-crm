@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import json
 import random
+import re
 import sys
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
@@ -62,6 +63,23 @@ def gate(cfg: dict, agency: dict) -> tuple[bool, str]:
         return False, f"error: {type(e).__name__}: {str(e)[:80]}"
 
 
+# Listing platforms shared by many small agencies: one template each.
+def platform_config(platforms: list[str], site: str) -> dict | None:
+    h = re.escape(host(site))
+    root = f"https://{urlparse(site).netloc}"
+    if "hektor" in platforms:  # La Boîte Immo / Hektor: /vente/N, /location/N
+        return {"index_urls": {"sale": [f"{root}/vente/{n}" for n in range(1, 16)],
+                               "rent": [f"{root}/location/{n}" for n in range(1, 9)]},
+                "listing_pattern": rf"^https?://(?:www\.)?{h}/(?:vente|location)/(?:[^/?#]+/)+\d+-[a-z0-9-]+/?$",
+                "max_pages": 1, "platform_adapter": "hektor"}
+    if "apimo" in platforms:  # Apimo themes: /fr/ventes, /fr/locations, /fr/propriete/vente+type+town+…+id
+        return {"index_urls": {"sale": [f"{root}/fr/ventes"] + [f"{root}/fr/ventes?page={n}" for n in range(2, 12)],
+                               "rent": [f"{root}/fr/locations"] + [f"{root}/fr/locations?page={n}" for n in range(2, 6)]},
+                "listing_pattern": rf"^https?://(?:www\.)?{h}/(?:fr|en)/propriete/(?:vente|location)\+[^/?#]+\+\d{{6,}}/?$",
+                "max_pages": 1, "platform_adapter": "apimo"}
+    return None
+
+
 def onboard_one(agency: dict) -> dict:
     r = recon(agency)
     if not r.get("ok"):
@@ -70,12 +88,22 @@ def onboard_one(agency: dict) -> dict:
                                     "note": f"onboard: {r.get('error', '')[:120]}"}}
     cfg = build(r, agency)
     cfg.update({"require_riviera": True, "light": False, "runner": cfg.get("runner", "server")})
+    why = cfg.get("status")
     if cfg.get("status") in ("ok", "weak") and cfg.get("listing_pattern"):
         ok, why = gate(cfg, agency)
-        cfg["status"] = "verified_auto" if ok else "needs_review"
-        cfg["note"] = f"onboard gate: {why}; platforms {r.get('platforms')}"
-    else:
-        cfg["note"] = f"onboard: {cfg.get('status')}; platforms {r.get('platforms')}"
+        if ok:
+            cfg.update(status="verified_auto", note=f"onboard gate: {why}; platforms {r.get('platforms')}")
+            return {"recon": r, "cfg": cfg}
+    # The generic draft failed: try the site's platform template.
+    tpl = platform_config(r.get("platforms") or [], agency["website"])
+    if tpl:
+        alt = {**cfg, **tpl}
+        ok, why2 = gate(alt, agency)
+        if ok:
+            alt.update(status="verified_auto", note=f"onboard gate ({tpl['platform_adapter']} adapter): {why2}")
+            return {"recon": r, "cfg": alt}
+        why = f"{why}; {tpl['platform_adapter']} adapter: {why2}"
+    cfg.update(status="needs_review", note=f"onboard: {why}; platforms {r.get('platforms')}")
     return {"recon": r, "cfg": cfg}
 
 
@@ -113,7 +141,8 @@ def main() -> None:
     (DATA / "agencies.json").write_text(json.dumps(original + todo, ensure_ascii=False, indent=1))
     recon_all = json.loads(recon_path.read_text()) + [x["recon"] for x in results]
     recon_path.write_text(json.dumps(recon_all, ensure_ascii=False, indent=1))
-    by_key = {c["site_key"]: c for c in configs}
+    # Re-read just before writing: other tools may have changed the file meanwhile.
+    by_key = {c["site_key"]: c for c in json.loads(cfg_path.read_text())}
     for x in results:
         by_key[x["cfg"]["site_key"]] = x["cfg"]
     cfg_path.write_text(json.dumps(list(by_key.values()), ensure_ascii=False, indent=1))
