@@ -37,6 +37,11 @@ import urllib.error
 import urllib.request
 from typing import Any, Iterable
 
+try:
+    from sync.netwait import online, wait_for_network
+except ImportError:  # run as a script from sync/
+    from netwait import online, wait_for_network
+
 log = logging.getLogger("worker_client")
 
 # The Worker rejects more than 25 per request; small batches also keep each
@@ -75,6 +80,8 @@ class WorkerClient:
                 if e.code < 500 or attempt == retries:
                     raise WorkerError(e.code, text) from None
             except (urllib.error.URLError, TimeoutError) as e:
+                if not online() and wait_for_network():
+                    continue  # our connection was down, not the Worker: retry without counting
                 if attempt == retries:
                     raise
                 log.warning("sync %s %s failed (%s), retrying", method, path, e)

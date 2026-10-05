@@ -14,6 +14,8 @@ import time
 
 import requests
 
+from sync.netwait import online, wait_for_network
+
 log = logging.getLogger("fetch")
 
 USER_AGENTS = [
@@ -82,6 +84,9 @@ class PoliteFetcher:
                     reason = f"HTTP {r.status_code}"
             except (requests.ConnectionError, requests.Timeout) as e:
                 reason = type(e).__name__
+                # Our own connection dropped (hotspot): wait for it, don't count the attempt.
+                if not online() and wait_for_network():
+                    return self._get(url, delay)
             if attempt < self.retries:
                 log.warning("blocked/failed %s (%s), waiting %ss", url, reason, self.block_wait)
                 time.sleep(self.block_wait)

@@ -40,6 +40,9 @@ def fetch(dept: str) -> list[dict]:
                     "siren": c["siren"], "company": c.get("nom_complet"), "sign": (e.get("liste_enseignes") or [None])[0] or e.get("nom_commercial"),
                     "siret": e.get("siret"), "address": e.get("adresse"), "postcode": e.get("code_postal"), "commune": e.get("libelle_commune"),
                     "establishments": c.get("nombre_etablissements"), "dept": dept,
+                    # 1000 = sole trader (mostly network agents: IAD, Safti…); company forms otherwise.
+                    "legal_form": c.get("nature_juridique"), "size": c.get("categorie_entreprise"),
+                    "staff": c.get("tranche_effectif_salarie"),
                 })
         if page >= d.get("total_pages", 0):
             return out
