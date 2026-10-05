@@ -404,6 +404,10 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
     if not agent:
         agent = find_agent(b, agency.get("phone"), agency.get("name"))
     photos = [u for u in (ld.get("images") or []) if isinstance(u, str)] or gallery[:60] or images(b, url)
+    # Protocol-relative ("//cdn…") and relative links from JSON-LD would not download.
+    photos = list(dict.fromkeys(urljoin(url, u.strip()) for u in photos if u and u.strip()))
+    # La Boîte Immo / Hektor CDN: the page JSON says /images/1/…, the real file is /images/biens/1/….
+    photos = [re.sub(r"(staticlbi\.com/[^/]+/images/)(\d+/)", r"\1biens/\2", u) for u in photos]
     if len(photos) < 2:
         # Keep URLs that look like listing media (share a path with the ones we have, or mention the id).
         lid = re.search(r"\d{4,}", urlparse(url).path)
