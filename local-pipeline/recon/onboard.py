@@ -80,10 +80,14 @@ def platform_config(platforms: list[str], site: str) -> dict | None:
                                "rent": [f"{root}/location/{n}" for n in range(1, 9)]},
                 "listing_pattern": rf"^https?://(?:www\.)?{h}/(?:vente|location)/(?:[^/?#]+/)+\d+-[a-z0-9-]+/?$",
                 "max_pages": 1, "platform_adapter": "hektor"}
-    if "apimo" in platforms:  # Apimo themes: /fr/ventes, /fr/locations, /fr/propriete/vente+type+town+…+id
-        return {"index_urls": {"sale": [f"{root}/fr/ventes"] + [f"{root}/fr/ventes?page={n}" for n in range(2, 12)],
-                               "rent": [f"{root}/fr/locations"] + [f"{root}/fr/locations?page={n}" for n in range(2, 6)]},
-                "listing_pattern": rf"^https?://(?:www\.)?{h}/(?:fr|en)/propriete/(?:vente|location)\+[^/?#]+\+\d{{6,}}/?$",
+    if "apimo" in platforms:
+        # Apimo themes: /fr/ventes or /fr/nos-biens; details /fr/propriete/vente+type+town+…+id
+        # or /fr/propriete/vente/type/town/slug/id.
+        return {"index_urls": {"sale": [f"{root}/fr/ventes", f"{root}/fr/nos-biens", f"{root}/fr/acheter"]
+                                       + [f"{root}/fr/ventes?page={n}" for n in range(2, 12)]
+                                       + [f"{root}/fr/nos-biens?page={n}" for n in range(2, 12)],
+                               "rent": [f"{root}/fr/locations", f"{root}/fr/louer"] + [f"{root}/fr/locations?page={n}" for n in range(2, 6)]},
+                "listing_pattern": rf"^https?://(?:www\.)?{h}/(?:fr|en)/propriete/(?:vente|location)(?:\+[^/?#]+\+|/(?:[^/?#]+/)+)\d{{6,}}/?$",
                 "max_pages": 1, "platform_adapter": "apimo"}
     if "netty" in platforms:  # Netty / modelo: grid in a JSON blob, details at /vente|location/<slug>,<ref>
         return {"index_urls": {"sale": [f"{root}/vente"] + [f"{root}/vente?page={n}" for n in range(2, 12)],
@@ -177,7 +181,7 @@ def retry(workers: int, regate: bool = False) -> None:
     cfg_path = DATA / "site_configs.json"
     if regate:
         todo = [c for c in json.loads(cfg_path.read_text()) if c.get("status") == "needs_review" and c["agency"] in agencies
-                and re.search(r"'(?:netty|wordpress|wp-[a-z]+)'", c.get("note") or "")
+                and re.search(r"'(?:netty|apimo|wordpress|wp-[a-z]+)'", c.get("note") or "")
                 and "[regated]" not in (c.get("note") or "")]
     else:
         todo = [c for c in json.loads(cfg_path.read_text()) if c.get("status") == "unreachable" and c["agency"] in agencies
