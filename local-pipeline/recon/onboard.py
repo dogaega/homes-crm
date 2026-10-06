@@ -42,7 +42,11 @@ def host(url: str) -> str:
 
 def gate(cfg: dict, agency: dict) -> tuple[bool, str]:
     """Dry run: a few index pages, 4 sampled details through the daily gate."""
-    f = PoliteFetcher(delay=(1, 2.5), block_wait=5, retries=1, accept_404=bool(cfg.get("accept_404")))
+    if cfg.get("render"):
+        from scraper.browser import BrowserFetcher
+        f = BrowserFetcher(delay=(1, 2.5), block_wait=5, retries=1)
+    else:
+        f = PoliteFetcher(delay=(1, 2.5), block_wait=5, retries=1, accept_404=bool(cfg.get("accept_404")))
     try:
         cards = [c for c in generic.crawl_index(f, {**cfg, "max_pages": 3}) if not ABROAD.search(c["source_url"])]
         if not cards:
@@ -62,6 +66,9 @@ def gate(cfg: dict, agency: dict) -> tuple[bool, str]:
         return False, f"blocked: {str(e)[:80]}"
     except Exception as e:  # a bad draft must never stop the batch
         return False, f"error: {type(e).__name__}: {str(e)[:80]}"
+    finally:
+        if cfg.get("render"):
+            f.close()
 
 
 # Listing platforms shared by many small agencies: one template each.
@@ -136,6 +143,33 @@ def _onboard_one(agency: dict) -> dict:
     return {"recon": r, "cfg": cfg}
 
 
+def onboard_rendered(site_keys: list[str]) -> None:
+    """Parked sites whose listing grid is drawn by JavaScript: draft and gate
+    them in headless Chromium (Mac runner only)."""
+    agencies = {a["name"]: a for a in json.loads((DATA / "agencies.json").read_text())}
+    cfg_path = DATA / "site_configs.json"
+    todo = [c for c in json.loads(cfg_path.read_text()) if c["site_key"] in set(site_keys) and c["agency"] in agencies]
+    print(f"rendering {len(todo)} sites")
+    for c in todo:
+        agency = agencies[c["agency"]]
+        try:
+            r = recon(agency)
+            cfg = build(r, agency, render=True) if r.get("ok") else None
+        except Exception as e:
+            print(f"error      {c['website']}: {type(e).__name__}: {str(e)[:80]}")
+            continue
+        if not cfg or not cfg.get("listing_pattern"):
+            print(f"no links   {c['website']}")
+            continue
+        cfg.update({"require_riviera": True, "light": False, "runner": "local"})
+        ok, why = gate(cfg, agency)
+        cfg.update(status="verified_auto" if ok else "needs_review", note=f"onboard (rendered): {why}")
+        by_key = {x["site_key"]: x for x in json.loads(cfg_path.read_text())}
+        by_key[c["site_key"]] = cfg if ok else {**c, "note": f"{c.get('note', '')}; rendered: {why} [rendered]"}
+        cfg_path.write_text(json.dumps(list(by_key.values()), ensure_ascii=False, indent=1))
+        print(f"{cfg['status']:14} {c['website']}: {why}", flush=True)
+
+
 def retry(workers: int, regate: bool = False) -> None:
     """Re-onboard sites recorded as unreachable (connection errors), or with
     --regate the parked sites on a platform that now has an adapter."""
@@ -172,7 +206,11 @@ def main() -> None:
     ap.add_argument("--retry-unreachable", action="store_true",
                     help="re-onboard sites recorded as unreachable (connection errors / timeouts)")
     ap.add_argument("--regate", action="store_true", help="re-onboard parked sites on platforms with an adapter")
+    ap.add_argument("--render-sites", help="file with site_keys of parked JS-rendered sites to onboard in Chromium")
     args = ap.parse_args()
+    if args.render_sites:
+        onboard_rendered(Path(args.render_sites).read_text().split())
+        return
     if args.retry_unreachable or args.regate:
         retry(args.workers, regate=args.regate)
         return
