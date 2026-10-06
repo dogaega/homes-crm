@@ -134,7 +134,7 @@ def retry(workers: int, regate: bool = False) -> None:
     if regate:
         todo = [c for c in json.loads(cfg_path.read_text()) if c.get("status") == "needs_review" and c["agency"] in agencies
                 and re.search(r"'(?:netty|wordpress|wp-[a-z]+)'", c.get("note") or "")
-                and not re.search(r"(?:netty|wordpress) adapter:", c.get("note") or "")]
+                and "[regated]" not in (c.get("note") or "")]
     else:
         todo = [c for c in json.loads(cfg_path.read_text()) if c.get("status") == "unreachable" and c["agency"] in agencies
                 and re.search(r"ConnectionError|Timeout", c.get("note") or "")]
@@ -146,6 +146,8 @@ def retry(workers: int, regate: bool = False) -> None:
             results = list(ex.map(lambda c: onboard_one(agencies[c["agency"]]), todo[i:i + 60]))
         by_key = {c["site_key"]: c for c in json.loads(cfg_path.read_text())}
         for x in results:
+            if regate and x["cfg"]["status"] == "needs_review":
+                x["cfg"]["note"] = f"{x['cfg'].get('note', '')} [regated]"  # checked with today's adapters
             by_key[x["cfg"]["site_key"]] = x["cfg"]
         cfg_path.write_text(json.dumps(list(by_key.values()), ensure_ascii=False, indent=1))
         total.update(x["cfg"]["status"] for x in results)
