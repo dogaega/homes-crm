@@ -6,10 +6,13 @@ real-estate content. Results go into data/discovered_websites.json
 (why = "guessed domain"), ready for recon/onboard.py.
 
     python recon/guess_domains.py
+    python recon/guess_domains.py --round2   # .immo / .net / name+town forms, for agencies still without a site
 """
 
 from __future__ import annotations
 
+import argparse
+import glob
 import json
 import re
 import socket
@@ -20,7 +23,7 @@ from pathlib import Path
 import requests
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from find_websites import DATA, OUT, candidates, norm, tokens  # noqa: E402
+from find_websites import DATA, MANAGERS, NETWORKS, OUT, candidates, norm, tokens  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from sync.netwait import online, wait_for_network  # noqa: E402
@@ -43,6 +46,38 @@ def slugs(name: str) -> list[str]:
         c, cj = "".join(core), "-".join(core)
         out += [c, f"{c}-immobilier", f"agence-{cj}"]
     return [s for s in dict.fromkeys(out) if 4 <= len(s) <= 40][:5]
+
+
+def hosts_round2(name: str, commune: str) -> list[str]:
+    """Second-round forms: the .immo TLD many agencies use, .net, and the
+    agency name followed by its town ("agence-x-nice.fr")."""
+    base = slugs(name)[:3]
+    town = "-".join(re.findall(r"[a-z0-9]+", norm(commune or "")))
+    out = [f"{b}.immo" for b in base] + [f"{b}.net" for b in base[:2]]
+    if town:
+        out += [f"{base[0]}-{town}.{t}" for t in TLDS] + [f"{base[0]}{town.replace('-', '')}.{t}" for t in TLDS] if base else []
+    return [h for h in dict.fromkeys(out) if 4 <= len(h.split(".")[0]) <= 45][:10]
+
+
+def sole_traders() -> list[dict]:
+    """Self-employed agents trading under their own agency name (a SIRENE sign)."""
+    agencyish = re.compile(r"immo|immobili|agence|real estate|estate|propert|transaction|habitat|home|house|maison|riviera|azur|villa", re.I)
+    rows = json.loads((DATA / "sirene_agencies.json").read_text())
+    return [r for r in rows if r.get("legal_form") == "1000" and r.get("sign") and agencyish.search(r["sign"])
+            and not MANAGERS.search(r["sign"]) and not NETWORKS.search(f"{r['company']} {r['sign']}")]
+
+
+def guess2(c: dict) -> tuple[str, dict | None]:
+    wait_for_network()
+    name = c.get("sign") or c["company"]
+    for host in hosts_round2(name, c.get("commune") or ""):
+        if exists(host) and verify(host, name):
+            return c["siren"], {"name": name, "company": c["company"], "commune": c["commune"],
+                                "website": f"https://{host}/", "why": "guessed domain round 2 (verified)", "query": None}
+    if not online():
+        return c["siren"], None
+    return c["siren"], {"name": name, "company": c["company"], "commune": c["commune"], "website": None,
+                        "why": "no guessed domain verified (round 2)", "query": None, "guessed": True, "guessed2": True}
 
 
 def exists(host: str) -> bool:
@@ -85,7 +120,38 @@ def guess(c: dict) -> tuple[str, dict]:
                         "why": "no guessed domain verified", "query": None, "guessed": True}
 
 
+def round2() -> None:
+    done = json.loads(OUT.read_text()) if OUT.exists() else {}
+    found_any = set()
+    for f in glob.glob(str(DATA / "discovered_*.json")):
+        found_any |= {k for k, v in json.loads(Path(f).read_text()).items() if v.get("website")}
+    seen, todo = set(), []
+    for c in candidates() + sole_traders():
+        if c["siren"] in found_any or c["siren"] in seen or (done.get(c["siren"]) or {}).get("guessed2"):
+            continue
+        seen.add(c["siren"])
+        todo.append(c)
+    print(f"{len(todo)} agencies for round 2", flush=True)
+    found = 0
+    with ThreadPoolExecutor(max_workers=16) as ex:
+        for i, (siren, res) in enumerate(ex.map(guess2, todo), 1):
+            if res is None:
+                continue
+            done[siren] = res
+            found += bool(res["website"])
+            if i % 25 == 0:
+                OUT.write_text(json.dumps(done, ensure_ascii=False, indent=1))
+                print(f"{i} guessed, {found} websites verified", flush=True)
+    OUT.write_text(json.dumps(done, ensure_ascii=False, indent=1))
+    print(f"done: {found} websites verified of {len(todo)}")
+
+
 def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--round2", action="store_true")
+    if ap.parse_args().round2:
+        round2()
+        return
     done = json.loads(OUT.read_text()) if OUT.exists() else {}
     # Also redo agencies whose guesses ran while the internet was down.
     todo = [c for c in candidates() if c["siren"] not in done
