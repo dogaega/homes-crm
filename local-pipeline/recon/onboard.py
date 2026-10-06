@@ -139,14 +139,18 @@ def retry(workers: int, regate: bool = False) -> None:
         todo = [c for c in json.loads(cfg_path.read_text()) if c.get("status") == "unreachable" and c["agency"] in agencies
                 and re.search(r"ConnectionError|Timeout", c.get("note") or "")]
     print(f"retrying {len(todo)} {'parked' if regate else 'unreachable'} sites")
-    wait_for_network()
-    with ThreadPoolExecutor(max_workers=workers) as ex:
-        results = list(ex.map(lambda c: onboard_one(agencies[c["agency"]]), todo))
-    by_key = {c["site_key"]: c for c in json.loads(cfg_path.read_text())}
-    for x in results:
-        by_key[x["cfg"]["site_key"]] = x["cfg"]
-    cfg_path.write_text(json.dumps(list(by_key.values()), ensure_ascii=False, indent=1))
-    print(Counter(x["cfg"]["status"] for x in results))
+    total: Counter = Counter()
+    for i in range(0, len(todo), 60):  # saved per chunk: an interrupted run keeps what it did
+        wait_for_network()
+        with ThreadPoolExecutor(max_workers=workers) as ex:
+            results = list(ex.map(lambda c: onboard_one(agencies[c["agency"]]), todo[i:i + 60]))
+        by_key = {c["site_key"]: c for c in json.loads(cfg_path.read_text())}
+        for x in results:
+            by_key[x["cfg"]["site_key"]] = x["cfg"]
+        cfg_path.write_text(json.dumps(list(by_key.values()), ensure_ascii=False, indent=1))
+        total.update(x["cfg"]["status"] for x in results)
+        print(f"{min(i + 60, len(todo))}/{len(todo)}", dict(total), flush=True)
+    print(total)
 
 
 def main() -> None:
