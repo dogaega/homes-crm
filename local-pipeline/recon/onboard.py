@@ -94,6 +94,16 @@ def platform_config(platforms: list[str], site: str) -> dict | None:
 
 
 def onboard_one(agency: dict) -> dict:
+    try:
+        return _onboard_one(agency)
+    except Exception as e:  # one malformed site must never stop a batch
+        return {"recon": {"name": agency["name"], "ok": False, "error": f"{type(e).__name__}: {e}"},
+                "cfg": {"site_key": "web-" + host(agency["website"]).replace(".", "-"), "agency": agency["name"],
+                        "website": agency["website"], "status": "bad_config", "runner": "local",
+                        "note": f"onboard crashed: {type(e).__name__}: {str(e)[:100]}"}}
+
+
+def _onboard_one(agency: dict) -> dict:
     r = recon(agency)
     # The Mac's own connection (hotspot) dropping is not the site being down.
     for _ in range(3):

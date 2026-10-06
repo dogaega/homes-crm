@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Install: cp com.monaco-listings.onboard.plist ~/Library/LaunchAgents/ && launchctl load ~/Library/LaunchAgents/com.monaco-listings.onboard.plist
+     Onboards newly discovered agency sites and retries unreachable / parked ones. Starts at login and every
+     2 hours; the loop holds a lock, so a start while one is running exits at once. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.monaco-listings.onboard</string>
+  <key>ProgramArguments</key>
+  <array><string>/Users/markmirimsky/Projects/monaco-riviera-crm-app/local-pipeline/deploy/mac/onboard_loop.sh</string></array>
+  <key>RunAtLoad</key><true/>
+  <key>StartInterval</key><integer>7200</integer>
+  <key>StandardOutPath</key><string>/Users/markmirimsky/Library/Logs/monaco-onboard.log</string>
+  <key>StandardErrorPath</key><string>/Users/markmirimsky/Library/Logs/monaco-onboard.log</string>
+  <key>LowPriorityIO</key><true/>
+  <key>Nice</key><integer>10</integer>
+</dict>
+</plist>
