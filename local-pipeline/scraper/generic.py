@@ -398,7 +398,10 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
     living = num("living_hab") or num("living")
     # Under 10 m² is a room count or a mis-read label ("Surface et espace de vie | 3 pièces"): use an "N m²" figure.
     if living is None or (living < 10 and not (ov.get("living") or ov.get("living_hab"))):
-        m = re.search(r"(\d[\d.,]*)\s*(?:m²|m2|sqm|sq\.? ?m)\b", text, re.I)
+        # The first "N m²" that is not a plot / garden / terrace size.
+        m = next((m for m in re.finditer(r"(\d[\d.,]*)\s*(?:m²|m2|sqm|sq\.? ?m)\b", text, re.I)
+                  if not re.search(r"(?:terrain|parcelle|jardin|plot|land|garden|terrasse|terrace|balcon)\W{0,3}(?:\w+\W{1,3}){0,3}$",
+                                   text[max(0, m.start() - 40):m.start()], re.I)), None)
         living = parse_number(m.group(1)) if m else None
     floor_raw = sel("floor") or labels.get("floor")
     floor = 0 if floor_raw and re.match(r"(rdc|rez|ground|garden)", floor_raw, re.I) else (

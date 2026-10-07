@@ -3016,5 +3016,27 @@
    "photos": "img.absolute.inset-0.object-cover"
   },
   "index_source": "sitemap"
+ },
+ {
+  "site_key": "web-proprietes-privees-com",
+  "agency": "PROPRIETES PRIVEES",
+  "website": "https://www.proprietes-privees.com/",
+  "status": "verified",
+  "runner": "server",
+  "require_riviera": true,
+  "light": false,
+  "index_urls": {
+   "sale": [
+    "https://www.proprietes-privees.com/achat/alpes-maritimes",
+    "https://www.proprietes-privees.com/achat/var"
+   ],
+   "rent": [
+    "https://www.proprietes-privees.com/location/alpes-maritimes",
+    "https://www.proprietes-privees.com/location/var"
+   ]
+  },
+  "listing_pattern": "^https?://www\\.proprietes-privees\\.com/annonces/\\d+[A-Z]+$",
+  "max_pages": 40,
+  "note": "PROPRIETES PRIVEES network: department pages 06 / 83 (achat / location), ?page=N. Full run only."
  }
 ]

@@ -263,17 +263,13 @@ def city_of(d: dict, url: str) -> str | None:
     """Monaco or a Côte d'Azur commune: the earliest place named in the strong
     fields (quarter, address, building, title, URL) wins, then the description."""
     path = re.sub(r"[-_/]+", " ", url.split("://", 1)[-1].split("/", 1)[-1])
-    for text in (" | ".join(str(d.get(k) or "") for k in ("quarter", "address", "building_name", "title")) + " | " + path,
-                 str(d.get("description") or "")[:1500]):
-        text = NEARBY.sub(" ", STREET.sub(" ", text))
-        hits = [(m.start(), "Monaco") for m in [MONACO.search(text)] if m]
-        hits += [(m.start(), city) for rx, city in RIVIERA for m in [rx.search(text)] if m]
-        if hits:
-            return min(hits)[1]
-    # Any other commune of the two departments (inland Var, Toulon's suburbs …).
-    for text in (" | ".join(str(d.get(k) or "") for k in ("quarter", "address", "title")) + " | " + path,):
-        text = _plain(NEARBY.sub(" ", STREET.sub(" ", text)))
-        hits = [(m.start(), city) for rx, city in COMMUNES for m in [rx.search(text)] if m]
+    strong = NEARBY.sub(" ", STREET.sub(" ", " | ".join(str(d.get(k) or "") for k in ("quarter", "address", "building_name", "title")) + " | " + path))
+    desc = NEARBY.sub(" ", STREET.sub(" ", str(d.get("description") or "")[:1500]))
+    # Strong fields first (main towns, then every other 06 / 83 commune), then the
+    # description: "Peymeinade – near Cannes" is in Peymeinade.
+    for text, table in ((strong, RIVIERA), (_plain(strong), COMMUNES), (desc, RIVIERA)):
+        hits = [(m.start(), "Monaco") for m in [MONACO.search(text)] if m] if table is RIVIERA else []
+        hits += [(m.start(), city) for rx, city in table for m in [rx.search(text)] if m]
         if hits:
             return min(hits)[1]
     # No commune named: a 06xxx / 83xxx postcode still places it on the Côte d'Azur.
