@@ -3038,5 +3038,27 @@
   "listing_pattern": "^https?://www\\.proprietes-privees\\.com/annonces/\\d+[A-Z]+$",
   "max_pages": 40,
   "note": "PROPRIETES PRIVEES network: department pages 06 / 83 (achat / location), ?page=N. Full run only."
+ },
+ {
+  "site_key": "web-engelvoelkers-com",
+  "agency": "ENGEL & VOLKERS",
+  "website": "https://www.engelvoelkers.com/fr/",
+  "status": "verified",
+  "runner": "server",
+  "require_riviera": true,
+  "light": false,
+  "index_urls": {
+   "sale": [
+    "https://www.engelvoelkers.com/fr/en/properties/res/sale/house/provence-alpes-cote-dazur",
+    "https://www.engelvoelkers.com/fr/en/properties/res/sale/apartment/provence-alpes-cote-dazur"
+   ],
+   "rent": [
+    "https://www.engelvoelkers.com/fr/en/properties/res/rent/house/provence-alpes-cote-dazur",
+    "https://www.engelvoelkers.com/fr/en/properties/res/rent/apartment/provence-alpes-cote-dazur"
+   ]
+  },
+  "listing_pattern": "^https?://www\\.engelvoelkers\\.com/fr/en/exposes/[0-9a-f-]{36}$",
+  "max_pages": 60,
+  "note": "ENGEL & VOLKERS France: PACA region pages (sale / rent, house / apartment), ?page=N; non-Riviera towns dropped by the town check. Full run only."
  }
 ]
