@@ -2741,5 +2741,34 @@
   "listing_pattern": "^https?://nestenn\\.com/(?:(?:vente|location)/(?:[a-z-]+/)?)?[a-z0-9-]+-ref-\\d+/?$",
   "max_pages": 15,
   "note": "NESTENN network: town pages (vente / location) for the 70 Riviera towns with the most agencies, ?page=N. Full run only."
+ },
+ {
+  "site_key": "web-citya-com",
+  "agency": "CITYA",
+  "website": "https://www.citya.com/",
+  "status": "verified",
+  "runner": "server",
+  "require_riviera": true,
+  "light": false,
+  "index_urls": {
+   "sale": [
+    "https://www.citya.com/annonces/vente/alpes-maritimes-06",
+    "https://www.citya.com/annonces/vente/var-83"
+   ],
+   "rent": [
+    "https://www.citya.com/annonces/location/alpes-maritimes-06",
+    "https://www.citya.com/annonces/location/var-83"
+   ]
+  },
+  "listing_pattern": "^https?://www\\.citya\\.com/annonces/(?:vente|location)/[a-z-]+/[a-z0-9-]+-\\d{5}/[A-Z]{3,5}[\\d-]+$",
+  "max_pages": 80,
+  "note": "CITYA network: department pages 06 / 83 (vente / location), ?page=N; listing URLs come from the embedded JSON. Full run only.",
+  "overrides": {
+   "price": "p.prix strong",
+   "title": "h1 .heading-2"
+  },
+  "remove": [
+   "p.prix .charges"
+  ]
  }
 ]

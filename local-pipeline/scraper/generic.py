@@ -483,6 +483,14 @@ def card_links(b: BeautifulSoup) -> list[str]:
     return out
 
 
+# Listing URLs inside embedded JSON / script data ("url":"https:\/\/site\/annonces\/…").
+EMBEDDED_URL = re.compile(r"https?:(?:\\?/){2}[^\s\"'<>]+")
+
+
+def embedded_links(html: str) -> list[str]:
+    return [u.replace("\\/", "/") for u in EMBEDDED_URL.findall(html)]
+
+
 NETTY_BLOB = re.compile(r"[A-Za-z0-9+/=]{400,}")
 
 
@@ -555,7 +563,7 @@ def crawl_index(f: PoliteFetcher, cfg: dict) -> list[dict]:
                     continue  # a dead "next page" link just ends that pagination
                 b = soup(h)
                 new = 0
-                for href in card_links(b) + (netty_links(h, page) if "netty.immo" in h else []):
+                for href in card_links(b) + (netty_links(h, page) if "netty.immo" in h else []) + embedded_links(h):
                     u = urljoin(page, href).split("#")[0]
                     if pattern.search(u) and u not in found:
                         found[u] = {"source_url": u, "transaction_hint": transaction}
