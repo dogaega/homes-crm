@@ -182,6 +182,47 @@ RIVIERA = [(re.compile(rf"\b(?:{pat})\b", re.I), city) for pat, city in [
     (r"toulon", "Toulon"), (r"la[- ]seyne", "La Seyne-sur-Mer"), (r"six[- ]fours", "Six-Fours-les-Plages"),
     (r"sanary", "Sanary-sur-Mer"), (r"bandol", "Bandol"),
 ]]
+
+
+def _communes() -> list[tuple[re.Pattern, str]]:
+    """Every other commune of the 06 / 83 departments (those with an agency in
+    the SIRENE register), matched without accents. Short one-word names that
+    are also ordinary words ("Bras", "Contes", "Mons") are left out."""
+    import unicodedata
+    path = DATA / "sirene_agencies.json"
+    if not path.exists():
+        return []
+    small = {"de", "du", "des", "la", "le", "les", "sur", "en", "sous", "d", "l", "et", "aux"}
+    skip = {"BRAS", "CONTES", "MONS", "AUPS", "TENDE", "BEUIL", "ANDON", "AUVARE", "BELVEDERE", "CABRIS", "TOUET-SUR-VAR",
+            "LA MOLE", "LE LUC", "LE VAL", "CARROS", "BARJOLS", "LE BAR-SUR-LOUP", "CALLAS", "ILONSE", "SAINT-MARTIN"}
+    out, seen = [], set()
+    for r in json.loads(path.read_text()):
+        name = (r.get("commune") or "").strip().upper()
+        if not name or name in seen or name in skip or (r.get("postcode") or "")[:2] not in ("06", "83"):
+            continue
+        # French spelling: "La Valette-du-Var" (article, then hyphens).
+        name = re.sub(r"^(LA|LE|LES)[- ]", r"\1 ", re.sub(r"(?<=\w) (?=\w)", "-", name))
+        if name in seen:
+            continue
+        seen.add(name)
+        if "-" not in name and " " not in name and len(name) < 6:
+            continue
+        words = re.split(r"([- ])", name.lower())
+        nice = "".join(w if w in "- " or (i and w in small) else w.capitalize() for i, w in enumerate(words))
+        pat = r"[- ]".join(re.escape(w) for w in re.split(r"[- ]", name.lower()))
+        pat = pat.replace("saint", "(?:saint|st)").replace("sainte", "(?:sainte|ste)")
+        out.append((re.compile(rf"\b{pat}\b", re.I), nice))
+    key = lambda c: re.sub(r"[^a-z]", "", _plain(c).lower().replace("saint", "st").replace("sainte", "ste"))
+    known = {key(c) for _, c in RIVIERA}
+    return [(rx, c) for rx, c in out if key(c) not in known]
+
+
+def _plain(text: str) -> str:
+    import unicodedata
+    return unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode()
+
+
+COMMUNES = _communes()
 # A French postcode of the two Côte d'Azur departments when no commune is named.
 POSTCODE = re.compile(r"\b(06|83)\d{3}\b")
 
@@ -224,6 +265,12 @@ def city_of(d: dict, url: str) -> str | None:
         text = NEARBY.sub(" ", STREET.sub(" ", text))
         hits = [(m.start(), "Monaco") for m in [MONACO.search(text)] if m]
         hits += [(m.start(), city) for rx, city in RIVIERA for m in [rx.search(text)] if m]
+        if hits:
+            return min(hits)[1]
+    # Any other commune of the two departments (inland Var, Toulon's suburbs …).
+    for text in (" | ".join(str(d.get(k) or "") for k in ("quarter", "address", "title")) + " | " + path,):
+        text = _plain(NEARBY.sub(" ", STREET.sub(" ", text)))
+        hits = [(m.start(), city) for rx, city in COMMUNES for m in [rx.search(text)] if m]
         if hits:
             return min(hits)[1]
     # No commune named: a 06xxx / 83xxx postcode still places it on the Côte d'Azur.

@@ -75,11 +75,13 @@ def gate(cfg: dict, agency: dict) -> tuple[bool, str]:
 def platform_config(platforms: list[str], site: str) -> dict | None:
     h = re.escape(host(site))
     root = f"https://{urlparse(site).netloc}"
-    if "hektor" in platforms:  # La Boîte Immo / Hektor: /vente/N, /location/N
-        return {"index_urls": {"sale": [f"{root}/vente/{n}" for n in range(1, 16)],
-                               "rent": [f"{root}/location/{n}" for n in range(1, 9)]},
-                "listing_pattern": rf"^https?://(?:www\.)?{h}/(?:vente|location)/(?:[^/?#]+/)+\d+-[a-z0-9-]+/?$",
-                "max_pages": 1, "platform_adapter": "hektor"}
+    if "hektor" in platforms:
+        # La Boîte Immo / Hektor: /vente/N or /a-vendre/N; details /vente/…/<id>-slug/ or flat /<id>-slug.html.
+        return {"index_urls": {"sale": [f"{root}/vente/{n}" for n in range(1, 16)] + [f"{root}/a-vendre/{n}" for n in range(1, 16)],
+                               "rent": [f"{root}/{p}/{n}" for p in ("location", "a-louer", "locations-vides", "locations-meubles")
+                                        for n in range(1, 6)]},
+                "listing_pattern": rf"^https?://(?:www\.)?{h}/(?:(?:vente|location)/(?:[^/?#]+/)+\d+-[a-z0-9-]+/?|\d+-[a-z0-9-]+\.html)$",
+                "max_pages": 1, "accept_404": True, "platform_adapter": "hektor"}
     if "apimo" in platforms:
         # Apimo themes: /fr/ventes or /fr/nos-biens; details /fr/propriete/vente+type+town+…+id
         # or /fr/propriete/vente/type/town/slug/id.

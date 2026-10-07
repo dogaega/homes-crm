@@ -63,7 +63,8 @@ export function inMonaco(lat: unknown, lng: unknown): boolean {
 
 // Côte d'Azur (Saint-Tropez → Menton) bounding box, for listings outside Monaco.
 export function inRiviera(lat: unknown, lng: unknown): boolean {
-  return typeof lat === 'number' && typeof lng === 'number' && lat > 43.1 && lat < 43.9 && lng > 6.4 && lng < 7.55
+  // Alpes-Maritimes + Var (Bandol to Menton, up to the Mercantour)
+  return typeof lat === 'number' && typeof lng === 'number' && lat > 42.95 && lat < 44.4 && lng > 5.65 && lng < 7.72
 }
 
 // Runners send the commune in extra.city; portal listings and older runners are Monaco.
