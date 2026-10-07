@@ -172,4 +172,5 @@ class SiteRun:
         })
         self.finished = True
         log.info("%s run %s: %s %s", self.site_key, self.run_id, status, self.stats)
-        return res
+        # The caller sees this run's own outcome (retries key on status / error).
+        return {**(res if isinstance(res, dict) else {}), "site_key": self.site_key, "status": status, "error": error}

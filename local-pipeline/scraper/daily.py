@@ -317,17 +317,27 @@ def family_web(client, mode: str, results: list, match=None) -> None:
     for c in cfgs:
         host = urlparse(c["website"]).netloc
         try:
-            ip = socket.gethostbyname(host)
+            ip = socket.getaddrinfo(host, 443)[0][4][0]  # via sync.netwait's resolver, not the phone's
         except OSError:
             ip = host
         groups.setdefault(ip, []).append(c)
 
-    def run_group(group: list[dict]) -> list[dict]:
-        return [web_site(client, mode, c, by_name.get(c["agency"], {"name": c["agency"]})) for c in group]
+    def run_group(group: list[dict]) -> list[tuple[dict, dict]]:
+        return [(c, web_site(client, mode, c, by_name.get(c["agency"], {"name": c["agency"]}))) for c in group]
 
+    done: list[tuple[dict, dict]] = []
     with ThreadPoolExecutor(max_workers=6) as ex:
         for res in ex.map(run_group, sorted(groups.values(), key=len, reverse=True)):
-            results += res
+            done += res
+    # A connection that timed out once (the Mac's hotspot drops, a slow host) is
+    # not a block: one more try for those sites at the end of the run.
+    again = [c for c, r in done if r.get("status") in ("blocked", "failed")
+             and re.search(r"Connect(?:Timeout|ionError)|ReadTimeout|RemoteDisconnected", str(r.get("error") or ""))]
+    if again:
+        log.info("retrying %d sites that failed on a connection error", len(again))
+        retried = {c["site_key"]: r for c, r in run_group(again)}
+        done = [(c, retried.get(c["site_key"], r)) for c, r in done]
+    results += [r for _, r in done]
 
 
 def family_notaires(client, mode: str, results: list, match=None) -> None:
