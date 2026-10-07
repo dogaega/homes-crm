@@ -315,7 +315,8 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
             if src and not IMG_JUNK.search(src) and urljoin(url, src) not in gallery:
                 gallery.append(urljoin(url, src))
     for t in b.find_all(["script", "style", "noscript", "header", "footer", "nav", "aside", "form"]):
-        if not t.decomposed:
+        # Broken markup (unclosed tags) can put the whole page inside <header>: keep a block that holds the listing.
+        if not t.decomposed and not (t.name in ("header", "footer", "nav", "aside", "form") and (t.find("h1") or t.find("main"))):
             t.decompose()
     # Site-specific blocks that are not the listing (config "remove": [css, ...]).
     for css in cfg.get("remove") or []:
