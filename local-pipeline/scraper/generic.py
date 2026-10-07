@@ -378,6 +378,8 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
             transaction = "rent"
         elif price >= 150000:
             transaction = "sale"
+        elif price < 20000:  # nothing on the Riviera sells under 20k: a monthly rent (the Worker applies the same rule)
+            transaction = "rent"
     # "On request" only when no figure was found: menus and footers often
     # say "estimation sur demande" etc.
     por = (bool(price_text) and bool(re.search(r"sur demande|on request|on application|p\.o\.a", price_text, re.I))) or (
