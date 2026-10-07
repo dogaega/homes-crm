@@ -369,9 +369,12 @@ def parse_detail(html: str, url: str, cfg: dict, agency: dict, hint: str | None 
                 price = parse_number(t)
                 break
     if price is None and not on_request:
+        # Thousands groups of exactly 3 digits, never starting inside another number:
+        # "BARJOLS 83670 490 € / mois" is 490, not 83 670 490.
+        amt = r"(?<![\d.,])(\d{1,3}(?:[\s.,\u00a0\u202f]\d{3})+(?:[.,]\d{1,2})?|\d+(?:[.,]\d{1,2})?)"
         amounts = [parse_number(m.group(1) or m.group(2)) for m in
-                   re.finditer(r"(\d[\d\s.,\u00a0\u202f]{3,})\s*(?:€|eur\b)|€\s*(\d[\d\s.,\u00a0\u202f]{3,})", text[:6000], re.I)]
-        amounts = [a for a in amounts if a]
+                   re.finditer(rf"{amt}\s*(?:€|eur\b)|€\s*{amt}", text[:6000], re.I)]
+        amounts = [a for a in amounts if a and a >= 100]  # not "10 € / mois" of charges
         if amounts:
             price = max(amounts) if transaction == "sale" else amounts[0]
     if transaction is None and price:
