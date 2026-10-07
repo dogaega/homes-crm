@@ -267,7 +267,7 @@ def transaction_from(url: str, text: str, labels: dict) -> str | None:
     # "rent" as a word only: "saint-laurent-du-var" is not a rental.
     if re.search(r"locat(?!if)|louer|(?<![a-z])rent(?:al|als|ing)?(?![a-z])|to-let|affitt|аренд|€\s*/\s*(?:mois|month)\b", blob):
         return "rent"
-    if re.search(r"vente|vendre|acheter|sale|buy|vendita|продаж", blob):
+    if re.search(r"vente|vendre|acheter|achat|sale|buy|vendita|продаж", blob):
         return "sale"
     return None
 

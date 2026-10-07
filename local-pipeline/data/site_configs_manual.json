@@ -2835,5 +2835,18 @@
   "listing_pattern": "^https?://www\\.laforet\\.com/agence-immobiliere/[a-z0-9-]+/(?:acheter|louer)/[a-z0-9-]+/[a-z0-9-]+-\\d{6,}$",
   "max_pages": 10,
   "note": "LAFORET network: the 23 Riviera agencies' own listing pages (acheter / louer). Full run only."
+ },
+ {
+  "site_key": "web-arthurimmo-com",
+  "agency": "ARTHURIMMO",
+  "website": "https://www.arthurimmo.com/",
+  "status": "verified",
+  "runner": "server",
+  "require_riviera": true,
+  "light": false,
+  "index_source": "sitemap",
+  "index_urls": {},
+  "listing_pattern": "^https?://www\\.arthurimmo\\.com/annonces/(?:achat|location)/[a-z-]+/[a-z0-9-]+-(?:06|83)\\d{3}/\\d+\\.htm$",
+  "note": "ARTHURIMMO network: every listing in the national sitemap whose URL carries a 06xxx / 83xxx postcode. Full run only."
  }
 ]
