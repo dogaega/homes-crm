@@ -226,6 +226,32 @@ def _plain(text: str) -> str:
 
 
 COMMUNES = _communes()
+
+
+def _postcode_towns() -> dict[str, str]:
+    """06xxx / 83xxx postcode -> its commune, when the register shows one
+    commune for it (or one clearly dominant): "83990" is Saint-Tropez."""
+    from collections import Counter, defaultdict
+    path = DATA / "sirene_agencies.json"
+    if not path.exists():
+        return {}
+    seen: dict[str, Counter] = defaultdict(Counter)
+    for r in json.loads(path.read_text()):
+        pc, name = (r.get("postcode") or "")[:5], (r.get("commune") or "").strip()
+        if pc[:2] in ("06", "83") and name:
+            seen[pc][name] += 1
+    out = {}
+    for pc, names in seen.items():
+        (top, n), total = names.most_common(1)[0], sum(names.values())
+        if n >= 0.8 * total:
+            # Longest name wins: "LA GARDE-FREINET" is not La Garde.
+            town = max((c for rx, c in RIVIERA + COMMUNES if rx.search(_plain(top))), key=len, default=None)
+            if town:
+                out[pc] = town
+    return out
+
+
+POSTCODE_TOWN = _postcode_towns()
 # A French postcode of the two Côte d'Azur departments when no commune is named.
 POSTCODE = re.compile(r"\b(06|83)\d{3}\b")
 
@@ -271,11 +297,11 @@ def city_of(d: dict, url: str) -> str | None:
         hits = [(m.start(), "Monaco") for m in [MONACO.search(text)] if m] if table is RIVIERA else []
         hits += [(m.start(), city) for rx, city in table for m in [rx.search(text)] if m]
         if hits:
-            return min(hits)[1]
+            return min(hits, key=lambda h: (h[0], -len(h[1])))[1]  # same place: the longer name ("La Garde-Freinet")
     # No commune named: a 06xxx / 83xxx postcode still places it on the Côte d'Azur.
     m = POSTCODE.search(" ".join(str(d.get(k) or "") for k in ("address", "quarter", "title")) + " " + path)
     if m and m.group(0) != "98000":
-        return "Alpes-Maritimes" if m.group(1) == "06" else "Var"
+        return POSTCODE_TOWN.get(m.group(0)) or ("Alpes-Maritimes" if m.group(1) == "06" else "Var")
     return None
 
 
