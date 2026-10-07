@@ -2848,5 +2848,18 @@
   "index_urls": {},
   "listing_pattern": "^https?://www\\.arthurimmo\\.com/annonces/(?:achat|location)/[a-z-]+/[a-z0-9-]+-(?:06|83)\\d{3}/\\d+\\.htm$",
   "note": "ARTHURIMMO network: every listing in the national sitemap whose URL carries a 06xxx / 83xxx postcode. Full run only."
+ },
+ {
+  "site_key": "web-megagence-com",
+  "agency": "MEGAGENCE",
+  "website": "https://megagence.com/",
+  "status": "verified",
+  "runner": "server",
+  "require_riviera": true,
+  "light": false,
+  "index_source": "sitemap",
+  "index_urls": {},
+  "listing_pattern": "^https?://(?:www\\.)?megagence\\.com/annonces/(?:achat|location)/[a-z-]+/[a-z0-9-]+-(?:06|83)\\d{3}/\\d+/?$",
+  "note": "MEGAGENCE network: listings in the national sitemap with a 06xxx / 83xxx postcode. Full run only."
  }
 ]
