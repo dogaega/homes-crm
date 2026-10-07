@@ -24,14 +24,15 @@ from scraper.fetch import Blocked, NotFound, PoliteFetcher  # noqa: E402
 DATA = Path(__file__).resolve().parents[1] / "data"
 
 PLATFORMS = [
-    ("apimo", r"apimo\.(?:net|com)|apimo-|/apimo/"),
+    ("apimo", r"apimo\.(?:net|com|pro)|apimo-|/apimo/"),
     ("immotoolbox", r"immotoolbox|itb-|immo-toolbox"),
     ("colibri", r"colibri-antispam|analytics\.colibri\.mc|monacodigital"),
     ("zebrasoft", r"zebrasoft"),
     ("immosoft", r"immosoft"),
     ("ubiflow", r"ubiflow"),
-    ("netty", r"netty\.fr|nettytools"),
-    ("hektor", r"hektor|la-boite-immo|laboiteimmo"),
+    ("netty", r"netty\.(?:fr|immo)|nettytools"),
+    ("twimmo", r"twimmo"),
+    ("hektor", r"hektor|la-boite-immo|laboiteimmo|staticlbi"),
     ("adaptimmo", r"adaptimmo"),
     ("wp-houzez", r"houzez"),
     ("wp-realhomes", r"realhomes|inspiry"),

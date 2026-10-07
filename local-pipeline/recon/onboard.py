@@ -94,6 +94,13 @@ def platform_config(platforms: list[str], site: str) -> dict | None:
                                "rent": [f"{root}/location"] + [f"{root}/location?page={n}" for n in range(2, 6)]},
                 "listing_pattern": rf"^https?://(?:www\.)?{h}/(?:vente|location)/[a-z0-9-]+,[A-Z]{{1,3}}\d+$",
                 "max_pages": 1, "platform_adapter": "netty"}
+    if "twimmo" in platforms:  # Twimmo: cards link by data-lien to /vente-…-1-428v1m.html
+        sale = ["vente-appartement", "vente-maison", "vente-terrain", "vente"]
+        return {"index_urls": {"sale": [f"{root}/{p}.html" for p in sale] + [f"{root}/{p}-{n}.html" for p in sale[:2] for n in range(2, 9)],
+                               "rent": [f"{root}/toutes-locations.html", f"{root}/location-appartement,maison.html"]
+                                       + [f"{root}/toutes-locations-{n}.html" for n in range(2, 5)]},
+                "listing_pattern": rf"^https?://(?:www\.)?{h}/(?:en/)?(?:vente|location|sale|rent)[^/?#]*-\d+-\d+[a-z]+\d+[a-z]*\.html$",
+                "max_pages": 1, "accept_404": True, "platform_adapter": "twimmo"}
     if any(p.startswith("wp-") for p in platforms) or "wordpress" in platforms:
         # WordPress property themes (Houzez, WPResidence, RealHomes, Estatik …): one post type per
         # listing, every one of them in the theme's sitemap.
@@ -174,18 +181,21 @@ def onboard_rendered(site_keys: list[str]) -> None:
         print(f"{cfg['status']:14} {c['website']}: {why}", flush=True)
 
 
-def retry(workers: int, regate: bool = False) -> None:
+def retry(workers: int, regate: bool = False, only: list[str] | None = None) -> None:
     """Re-onboard sites recorded as unreachable (connection errors), or with
     --regate the parked sites on a platform that now has an adapter."""
     agencies = {a["name"]: a for a in json.loads((DATA / "agencies.json").read_text())}
     cfg_path = DATA / "site_configs.json"
-    if regate:
+    if only:
+        todo = [c for c in json.loads(cfg_path.read_text()) if c["site_key"] in set(only) and c["agency"] in agencies
+                and c.get("status") != "verified_auto"]
+    elif regate:
         todo = [c for c in json.loads(cfg_path.read_text()) if c.get("status") == "needs_review" and c["agency"] in agencies
                 and re.search(r"'(?:netty|apimo|wordpress|wp-[a-z]+)'", c.get("note") or "")
                 and "[regated]" not in (c.get("note") or "")]
     else:
         todo = [c for c in json.loads(cfg_path.read_text()) if c.get("status") == "unreachable" and c["agency"] in agencies
-                and re.search(r"ConnectionError|Timeout", c.get("note") or "")]
+                and re.search(r"ConnectionError|Timeout", c.get("note") or "") and "[retried]" not in (c.get("note") or "")]
     print(f"retrying {len(todo)} {'parked' if regate else 'unreachable'} sites")
     total: Counter = Counter()
     for i in range(0, len(todo), 60):  # saved per chunk: an interrupted run keeps what it did
@@ -196,6 +206,8 @@ def retry(workers: int, regate: bool = False) -> None:
         for x in results:
             if regate and x["cfg"]["status"] == "needs_review":
                 x["cfg"]["note"] = f"{x['cfg'].get('note', '')} [regated]"  # checked with today's adapters
+            if not regate and x["cfg"]["status"] == "unreachable":
+                x["cfg"]["note"] = f"{x['cfg'].get('note', '')} [retried]"  # down twice, online both times: dead
             by_key[x["cfg"]["site_key"]] = x["cfg"]
         cfg_path.write_text(json.dumps(list(by_key.values()), ensure_ascii=False, indent=1))
         total.update(x["cfg"]["status"] for x in results)
@@ -210,10 +222,14 @@ def main() -> None:
     ap.add_argument("--retry-unreachable", action="store_true",
                     help="re-onboard sites recorded as unreachable (connection errors / timeouts)")
     ap.add_argument("--regate", action="store_true", help="re-onboard parked sites on platforms with an adapter")
+    ap.add_argument("--regate-sites", help="file with site_keys to re-onboard with today's adapters")
     ap.add_argument("--render-sites", help="file with site_keys of parked JS-rendered sites to onboard in Chromium")
     args = ap.parse_args()
     if args.render_sites:
         onboard_rendered(Path(args.render_sites).read_text().split())
+        return
+    if args.regate_sites:
+        retry(args.workers, regate=True, only=Path(args.regate_sites).read_text().split())
         return
     if args.retry_unreachable or args.regate:
         retry(args.workers, regate=args.regate)
