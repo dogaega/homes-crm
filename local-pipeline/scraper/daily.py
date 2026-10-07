@@ -22,7 +22,7 @@ from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from scraper import cim, generic, mcre  # noqa: E402
+from scraper import cim, generic, mcre, notaires  # noqa: E402
 from scraper.fetch import PoliteFetcher  # noqa: E402
 from scraper.runner import run_site  # noqa: E402
 from scraper.text_rules import title_status  # noqa: E402
@@ -327,7 +327,18 @@ def family_web(client, mode: str, results: list, match=None) -> None:
             results += res
 
 
-FAMILIES = {"cim": family_cim, "mcre": family_mcre, "web": family_web}
+def family_notaires(client, mode: str, results: list, match=None) -> None:
+    """Notaries' own listings in the 06 / 83 (immobilier.notaires.fr): daily, full runs only."""
+    if mode == "light" or (match and not any(m.lower() in "notaires" for m in match)) or (ONLY_SITES and "notaires-fr" not in ONLY_SITES):
+        return
+    ff = notaires.FeedFetcher(PoliteFetcher(delay=(10, 12)))  # robots.txt: Crawl-delay 10
+    cfg = {"site_key": "notaires-fr", "require_riviera": True}
+    info = {"name": "Notaires de France", "website": "https://www.immobilier.notaires.fr/"}
+    results.append(run_site(ff, client, "notaires-fr", info, lambda: notaires.crawl_index(ff),
+                            lambda text, url: accept(notaires.parse_detail(text, url), text, url, cfg), mode=mode))
+
+
+FAMILIES = {"cim": family_cim, "mcre": family_mcre, "web": family_web, "notaires": family_notaires}
 
 
 def main() -> None:
