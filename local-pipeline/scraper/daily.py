@@ -70,6 +70,9 @@ def accept(d: dict, html: str, url: str, cfg: dict) -> dict | None:
         return None
     if ABROAD.search(" ".join(str(d.get(k) or "") for k in ("title", "quarter"))) or not d.get("transaction_type"):
         return None
+    # Result / category pages: "Vente et achat maison Nice, 18 annonces", "Immobilier Cagnes-sur-Mer, 3 annonces".
+    if re.search(r"\b\d+\s+annonces?\b|\bnos annonces\b|agence immobili[eè]re .{0,30}pour l.achat", str(d.get("title") or ""), re.I):
+        return None
     # Already sold / rented: not available. Under offer: kept, flagged.
     status = title_status(d.get("title"))
     if status == "gone":
