@@ -29,7 +29,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from recon_websites import recon  # noqa: E402
 from scraper import generic  # noqa: E402
 from scraper.autoconfig import build  # noqa: E402
-from scraper.daily import ABROAD, accept  # noqa: E402
+from scraper.daily import ABROAD, accept, city_of  # noqa: E402
 from scraper.fetch import Blocked, NotFound, PoliteFetcher  # noqa: E402
 from sync.netwait import online, wait_for_network  # noqa: E402
 
@@ -51,17 +51,28 @@ def gate(cfg: dict, agency: dict) -> tuple[bool, str]:
         cards = [c for c in generic.crawl_index(f, {**cfg, "max_pages": 3}) if not ABROAD.search(c["source_url"])]
         if not cards:
             return False, "index: no listing links"
-        kept, seen = 0, 0
-        for c in random.sample(cards, min(4, len(cards))):
+        kept, parsed, seen = 0, 0, 0
+        # Up to 3 from the sale pages and 3 from the rest: a long list of cheap rentals must not hide the sales.
+        sales = [c for c in cards if c.get("transaction_hint") == "sale"]
+        others = [c for c in cards if c.get("transaction_hint") != "sale"]
+        picks = random.sample(sales, min(3, len(sales))) + random.sample(others, min(3, len(others)))
+        picks += random.sample([c for c in cards if c not in picks], min(6 - len(picks), len(cards) - len(picks)))
+        for c in picks:
             try:
                 html = f.get(c["source_url"])
             except (Blocked, NotFound):
                 continue
             seen += 1
-            d = accept(generic.parse_detail(html, c["source_url"], cfg, agency, hint=c["transaction_hint"]), html, c["source_url"], cfg)
+            raw = generic.parse_detail(html, c["source_url"], cfg, agency, hint=c["transaction_hint"])
+            d = accept(dict(raw), html, c["source_url"], cfg)
             if d and (d.get("extra") or {}).get("city"):
                 kept += 1
-        return kept >= 2, f"{kept}/{seen} samples are real Côte d'Azur listings (index {len(cards)})"
+            # Read correctly but below the price floor (a €700 studio rental): the parser works,
+            # the daily run just leaves that one out.
+            elif raw.get("price") and raw.get("living_area_sqm") and raw.get("transaction_type") and city_of(raw, c["source_url"]):
+                parsed += 1
+        ok = kept >= 2 or (kept >= 1 and kept + parsed >= 3)
+        return ok, f"{kept}/{seen} samples are real Côte d'Azur listings, {parsed} more below the price floor (index {len(cards)})"
     except (Blocked, NotFound) as e:
         return False, f"blocked: {str(e)[:80]}"
     except Exception as e:  # a bad draft must never stop the batch
