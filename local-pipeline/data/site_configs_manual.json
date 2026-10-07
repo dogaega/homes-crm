@@ -2770,5 +2770,70 @@
   "remove": [
    "p.prix .charges"
   ]
+ },
+ {
+  "site_key": "web-laforet-com",
+  "agency": "LAFORET",
+  "website": "https://www.laforet.com/",
+  "status": "verified",
+  "runner": "server",
+  "require_riviera": true,
+  "light": false,
+  "accept_404": true,
+  "index_urls": {
+   "sale": [
+    "https://www.laforet.com/agence-immobiliere/antibes/acheter",
+    "https://www.laforet.com/agence-immobiliere/bandol/acheter",
+    "https://www.laforet.com/agence-immobiliere/beausoleil/acheter",
+    "https://www.laforet.com/agence-immobiliere/cagnes-sur-mer/acheter",
+    "https://www.laforet.com/agence-immobiliere/cannes/acheter",
+    "https://www.laforet.com/agence-immobiliere/carqueiranne/acheter",
+    "https://www.laforet.com/agence-immobiliere/carros/acheter",
+    "https://www.laforet.com/agence-immobiliere/cuers/acheter",
+    "https://www.laforet.com/agence-immobiliere/draguignan/acheter",
+    "https://www.laforet.com/agence-immobiliere/frejus/acheter",
+    "https://www.laforet.com/agence-immobiliere/la-londe-les-maures/acheter",
+    "https://www.laforet.com/agence-immobiliere/la-seyne-sur-mer/acheter",
+    "https://www.laforet.com/agence-immobiliere/menton/acheter",
+    "https://www.laforet.com/agence-immobiliere/montauroux/acheter",
+    "https://www.laforet.com/agence-immobiliere/nice-centre/acheter",
+    "https://www.laforet.com/agence-immobiliere/nice-fabron/acheter",
+    "https://www.laforet.com/agence-immobiliere/nice-gambetta/acheter",
+    "https://www.laforet.com/agence-immobiliere/nice-madeleine/acheter",
+    "https://www.laforet.com/agence-immobiliere/nice-port/acheter",
+    "https://www.laforet.com/agence-immobiliere/six-fours-les-plages/acheter",
+    "https://www.laforet.com/agence-immobiliere/sollies-pont/acheter",
+    "https://www.laforet.com/agence-immobiliere/valbonne/acheter",
+    "https://www.laforet.com/agence-immobiliere/vallauris/acheter"
+   ],
+   "rent": [
+    "https://www.laforet.com/agence-immobiliere/antibes/louer",
+    "https://www.laforet.com/agence-immobiliere/bandol/louer",
+    "https://www.laforet.com/agence-immobiliere/beausoleil/louer",
+    "https://www.laforet.com/agence-immobiliere/cagnes-sur-mer/louer",
+    "https://www.laforet.com/agence-immobiliere/cannes/louer",
+    "https://www.laforet.com/agence-immobiliere/carqueiranne/louer",
+    "https://www.laforet.com/agence-immobiliere/carros/louer",
+    "https://www.laforet.com/agence-immobiliere/cuers/louer",
+    "https://www.laforet.com/agence-immobiliere/draguignan/louer",
+    "https://www.laforet.com/agence-immobiliere/frejus/louer",
+    "https://www.laforet.com/agence-immobiliere/la-londe-les-maures/louer",
+    "https://www.laforet.com/agence-immobiliere/la-seyne-sur-mer/louer",
+    "https://www.laforet.com/agence-immobiliere/menton/louer",
+    "https://www.laforet.com/agence-immobiliere/montauroux/louer",
+    "https://www.laforet.com/agence-immobiliere/nice-centre/louer",
+    "https://www.laforet.com/agence-immobiliere/nice-fabron/louer",
+    "https://www.laforet.com/agence-immobiliere/nice-gambetta/louer",
+    "https://www.laforet.com/agence-immobiliere/nice-madeleine/louer",
+    "https://www.laforet.com/agence-immobiliere/nice-port/louer",
+    "https://www.laforet.com/agence-immobiliere/six-fours-les-plages/louer",
+    "https://www.laforet.com/agence-immobiliere/sollies-pont/louer",
+    "https://www.laforet.com/agence-immobiliere/valbonne/louer",
+    "https://www.laforet.com/agence-immobiliere/vallauris/louer"
+   ]
+  },
+  "listing_pattern": "^https?://www\\.laforet\\.com/agence-immobiliere/[a-z0-9-]+/(?:acheter|louer)/[a-z0-9-]+/[a-z0-9-]+-\\d{6,}$",
+  "max_pages": 10,
+  "note": "LAFORET network: the 23 Riviera agencies' own listing pages (acheter / louer). Full run only."
  }
 ]
