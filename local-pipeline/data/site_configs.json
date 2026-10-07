@@ -7541,6 +7541,7 @@
   "immotoolbox": false,
   "index_urls": {
    "rent": [
+    "https://www.harrochrealestate.mc/a-louer-monaco/",
     "https://www.harrochrealestate.mc/status/a-louer/"
    ]
   },
@@ -11301,7 +11302,8 @@
     "https://www.nicolaspisani.com/fr/ventes-villas-appartements.cfm?alea=1"
    ],
    "rent": [
-    "https://www.nicolaspisani.com/fr/locations-villas-appartements-exceptionnel.cfm?cc=2"
+    "https://www.nicolaspisani.com/fr/locations-villas-appartements-exceptionnel.cfm?cc=2",
+    "https://www.nicolaspisani.com/specific_template/css/nicolas-pisani-laurent-romor.webflow.css?c=645587"
    ]
   },
   "listing_pattern": "(?:^https?://(?:www\\.)?nicolaspisani\\.com/fr/detail\\-vente/appartement/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})/?(?:[?#].*)?$)|(?:^https?://(?:www\\.)?nicolaspisani\\.com/fr/detail\\-location/appartement/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})/?(?:[?#].*)?$)",
@@ -15580,7 +15582,8 @@
   "immotoolbox": false,
   "index_urls": {
    "rent": [
-    "https://www.nicea-promenade.com/a-louer/1"
+    "https://www.nicea-promenade.com/a-louer/1",
+    "https://www.nicea-promenade.com/a-louer-vacances/1"
    ]
   },
   "listing_pattern": "(?:^https?://(?:www\\.)?nicea\\-promenade\\.com/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})\\.html/?(?:[?#].*)?$)",
@@ -30923,7 +30926,8 @@
     "https://www.agencevuemer.com/fr/acheter-biens-immobiliers.htm"
    ],
    "rent": [
-    "https://www.agencevuemer.com/fr/location-vacances.htm"
+    "https://www.agencevuemer.com/fr/location-vacances.htm",
+    "https://www.agencevuemer.com/location-vacances//01L0196.htm"
    ]
   },
   "listing_pattern": "(?:^https?://(?:www\\.)?agencevuemer\\.com/\\.inc/modinc/helios/geoloc\\.php\\?(?:[^#]*&)?ref=\\d{2,}(?:[&#].*)?$)|(?:^https?://(?:www\\.)?agencevuemer\\.com/vente\\-achat/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})/\\d{3,}\\.htm/?(?:[?#].*)?$)",
@@ -43584,6 +43588,9 @@
    "sale": [
     "https://www.mercantour-vesubie.com/achat-immobilier-levens/1",
     "https://www.mercantour-vesubie.com/achat-immobilier-valdeblore/1"
+   ],
+   "rent": [
+    "https://www.mercantour-vesubie.com/a-louer-vacances/1"
    ]
   },
   "listing_pattern": "(?:^https?://(?:www\\.)?mercantour\\-vesubie\\.com/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})\\.html/?(?:[?#].*)?$)",
@@ -44850,6 +44857,9 @@
    "sale": [
     "https://orimnice.fr/resultats?transac=location",
     "https://orimnice.fr/resultats?transac=vente"
+   ],
+   "rent": [
+    "https://orimnice.fr/vente-appartement-3pieces-st_laurent_du_var-TAPP277148758"
    ]
   },
   "listing_pattern": "(?:^https?://(?:www\\.)?orimnice\\.fr/[A-Za-z0-9]+(?:[-+,][A-Za-z0-9]+)+/?(?:[?#].*)?$)",
@@ -50261,7 +50271,11 @@
   "runner": "server",
   "status": "verified_auto",
   "immotoolbox": false,
-  "index_urls": {},
+  "index_urls": {
+   "rent": [
+    "https://www.groux-immobilier.com/a-louer-vide/1"
+   ]
+  },
   "listing_pattern": "(?:^https?://(?:www\\.)?groux\\-immobilier\\.com/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})\\.html/?(?:[?#].*)?$)",
   "listing_shape": "/{id-slug}.html",
   "links_seen": 6,
@@ -58819,7 +58833,8 @@
     "https://capitalimmobilier.fr/0-acheter-33234-saint raphael/2-pieces/1"
    ],
    "rent": [
-    "https://capitalimmobilier.fr/a-louer/1"
+    "https://capitalimmobilier.fr/a-louer/1",
+    "https://capitalimmobilier.fr/a-louer-vacances/1"
    ]
   },
   "listing_pattern": "(?:^https?://(?:www\\.)?capitalimmobilier\\.fr/(?:\\d{3,}[-_+,][^/?#]+?|[^/?#]+?[-_+,][a-z]?\\d{3,})\\.html/?(?:[?#].*)?$)",
@@ -92289,7 +92304,10 @@
   "status": "needs_review",
   "immotoolbox": false,
   "index_urls": {
-   "sale": []
+   "sale": [],
+   "rent": [
+    "https://groux-immobilier.fr/a-louer-vide/1"
+   ]
   },
   "require_riviera": true,
   "light": false,
