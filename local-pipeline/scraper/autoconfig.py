@@ -108,22 +108,46 @@ def links(html: str, base: str, site: str) -> list[str]:
     return out
 
 
-def sitemap_urls(f: PoliteFetcher, site: str, limit: int = 8) -> list[str]:
-    """URLs from /sitemap.xml (following one level of sitemap index)."""
-    out: list[str] = []
+def _xml(f: PoliteFetcher, url: str) -> str:
+    """A sitemap's text; .gz sitemaps are fetched raw and decompressed."""
+    if not url.endswith(".gz"):
+        return f.get(url)
+    import gzip
+
+    import requests
+    r = requests.get(url, headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Chrome/129.0"}, timeout=30)
+    r.raise_for_status()
     try:
-        root = f.get(urljoin(site, "/sitemap.xml"))
+        return gzip.decompress(r.content).decode("utf-8", "ignore")
+    except OSError:  # already decompressed by the server
+        return r.content.decode("utf-8", "ignore")
+
+
+def sitemap_urls(f: PoliteFetcher, site: str, limit: int = 8) -> list[str]:
+    """URLs from the site's sitemap: /sitemap.xml, /sitemap_index.xml, or the
+    ones robots.txt names (also .gz), following one level of sitemap index."""
+    out: list[str] = []
+    candidates = [urljoin(site, "/sitemap.xml"), urljoin(site, "/sitemap_index.xml")]
+    try:
+        candidates += re.findall(r"(?im)^\s*sitemap:\s*(\S+)", f.get(urljoin(site, "/robots.txt")))
     except Exception:
+        pass
+    root = None
+    for u in dict.fromkeys(candidates):
         try:
-            root = f.get(urljoin(site, "/sitemap_index.xml"))
+            root = _xml(f, u)
+            if "<loc>" in root:
+                break
         except Exception:
-            return out
+            continue
+    if not root:
+        return out
     locs = re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", root)
     if "<sitemapindex" in root:
         subs = [u for u in locs if re.search(r"propert|bien|annonce|listing|vente|location|sale|rent|product|produit|estate|immo", u, re.I)] or locs
         for sm in subs[:limit]:
             try:
-                out += re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", f.get(sm))
+                out += re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", _xml(f, sm))
             except Exception:
                 continue
     else:
