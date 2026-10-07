@@ -2999,5 +2999,40 @@
   "listing_pattern": "^https?://www\\.guy-hoquet\\.com/(?:achat-vente|location|location-meublee)/[a-z0-9-]+-(?:06|83)\\d{3}-\\d{5,}$",
   "max_pages": 8,
   "note": "GUY HOQUET network: town pages (achat-vente / location) for the Riviera towns. Full run only."
+ },
+ {
+  "site_key": "web-coldwellbanker-fr",
+  "agency": "COLDWELL BANKER",
+  "website": "https://www.coldwellbanker.fr/",
+  "status": "verified",
+  "runner": "server",
+  "require_riviera": true,
+  "light": false,
+  "accept_404": true,
+  "index_urls": {
+   "sale": [
+    "https://www.coldwellbanker.fr/vente-immobilier/biens-immobiliers/france/provence-alpes-cote-d-azur/alpes-maritimes/antibes-06600",
+    "https://www.coldwellbanker.fr/vente-immobilier/biens-immobiliers/france/provence-alpes-cote-d-azur/alpes-maritimes/cannes-06400",
+    "https://www.coldwellbanker.fr/vente-immobilier/biens-immobiliers/france/provence-alpes-cote-d-azur/alpes-maritimes/la-colle-sur-loup-06480",
+    "https://www.coldwellbanker.fr/vente-immobilier/biens-immobiliers/france/provence-alpes-cote-d-azur/alpes-maritimes/mandelieu-la-napoule-06210",
+    "https://www.coldwellbanker.fr/vente-immobilier/biens-immobiliers/france/provence-alpes-cote-d-azur/alpes-maritimes/nice-06000",
+    "https://www.coldwellbanker.fr/vente-immobilier/biens-immobiliers/france/provence-alpes-cote-d-azur/alpes-maritimes/roquebrune-cap-martin-06190",
+    "https://www.coldwellbanker.fr/vente-immobilier/biens-immobiliers/france/provence-alpes-cote-d-azur/alpes-maritimes/saint-jean-cap-ferrat-06230",
+    "https://www.coldwellbanker.fr/vente-immobilier/biens-immobiliers/france/provence-alpes-cote-d-azur/alpes-maritimes/saint-paul-de-vence-06570",
+    "https://www.coldwellbanker.fr/vente-immobilier/biens-immobiliers/france/provence-alpes-cote-d-azur/alpes-maritimes/villeneuve-loubet-06270",
+    "https://www.coldwellbanker.fr/vente-immobilier/biens-immobiliers/france/provence-alpes-cote-d-azur/var/bormes-les-mimosas-83230",
+    "https://www.coldwellbanker.fr/vente-immobilier/biens-immobiliers/france/provence-alpes-cote-d-azur/var/grimaud-83310",
+    "https://www.coldwellbanker.fr/vente-immobilier/biens-immobiliers/france/provence-alpes-cote-d-azur/var/le-lavandou-83980",
+    "https://www.coldwellbanker.fr/vente-immobilier/biens-immobiliers/france/provence-alpes-cote-d-azur/var/rayol-canadel-sur-mer-83820",
+    "https://www.coldwellbanker.fr/vente-immobilier/biens-immobiliers/france/provence-alpes-cote-d-azur/var/saint-raphael-83700",
+    "https://www.coldwellbanker.fr/vente-immobilier/biens-immobiliers/france/provence-alpes-cote-d-azur/var/saint-tropez-83990"
+   ]
+  },
+  "listing_pattern": "^https?://www\\.coldwellbanker\\.fr/(?:vente|location)-immobilier/[a-z-]+/france/provence-alpes-cote-d-azur/(?:alpes-maritimes|var)/[a-z0-9-]+-(?:06|83)\\d{3}/[a-z0-9-]+-\\d+$",
+  "note": "COLDWELL BANKER: the 15 Riviera town pages from the sitemap, paginated; gallery images by CSS. Full run only.",
+  "overrides": {
+   "photos": "img.absolute.inset-0.object-cover"
+  },
+  "max_pages": 10
  }
 ]
