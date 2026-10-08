@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { SlidersHorizontal, Map as MapIcon, GitMerge } from 'lucide-react'
+import { SlidersHorizontal, Map as MapIcon, GitMerge, Search, X } from 'lucide-react'
 import Link from 'next/link'
 import { useLanguage } from '@/contexts/LanguageContext'
 import AuthedPage from '@/components/listings/AuthedPage'
@@ -21,7 +21,7 @@ export default function ListingsPage() {
   })
   const [page, setPage] = useState(0)
   const [cities, setCities] = useState<{ city: string; n: number }[]>([])
-  const [data, setData] = useState<{ total: number; page_size: number; items: ListingCard[] } | null>(null)
+  const [data, setData] = useState<{ total: number; page_size: number; items: ListingCard[]; understood?: string[] } | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [showFilters, setShowFilters] = useState(false)
@@ -54,6 +54,23 @@ export default function ListingsPage() {
       <div className="flex gap-2 mb-3">
         <Link href="/listings/map" className="inline-flex items-center gap-1 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm"><MapIcon className="w-4 h-4" />{t('map.map')}</Link>
         <Link href="/listings/review" className="inline-flex items-center gap-1 h-9 px-3 rounded-md border border-border text-sm"><GitMerge className="w-4 h-4" />{t('review.title')}</Link>
+      </div>
+      <div className="mb-3">
+        <div className="relative">
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+          <input className="h-11 w-full rounded-md border border-border bg-background pl-9 pr-9 text-base text-foreground"
+            placeholder={t('listings.smartSearch')} value={filters.q} onChange={e => set({ q: e.target.value })} />
+          {filters.q && (
+            <button aria-label="clear" onClick={() => set({ q: '' })} className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground">
+              <X className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+        {filters.q && data?.understood && data.understood.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mt-2 text-xs">
+            {data.understood.map(u => <span key={u} className="px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">{u}</span>)}
+          </div>
+        )}
       </div>
       <div className="flex gap-1.5 mb-3 overflow-x-auto pb-1 -mx-1 px-1 [scrollbar-width:thin]">
         <button onClick={() => set({ cities: [] })}
@@ -103,7 +120,6 @@ export default function ListingsPage() {
           <option value="1">{t('listings.newOnly')}: {t('listings.days1')}</option>
           <option value="7">{t('listings.newOnly')}: {t('listings.days7')}</option>
         </select>
-        <input className={`${input} w-full sm:w-56`} placeholder={t('listings.search')} value={filters.q} onChange={e => set({ q: e.target.value })} />
         <select className={input} value={filters.sort} onChange={e => set({ sort: e.target.value })}>
           <option value="">{t('listings.sortNew')}</option>
           <option value="price_asc">{t('listings.sortPriceAsc')}</option>

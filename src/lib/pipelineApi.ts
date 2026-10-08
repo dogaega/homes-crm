@@ -72,7 +72,7 @@ async function call<T>(path: string, init: RequestInit = {}): Promise<T> {
 
 export const pipelineApi = {
   listings: (params: URLSearchParams) =>
-    call<{ total: number; page: number; page_size: number; items: ListingCard[] }>(`/listings?${params}`),
+    call<{ total: number; page: number; page_size: number; items: ListingCard[]; understood?: string[] }>(`/listings?${params}`),
   cities: () => call<{ city: string; n: number }[]>('/cities'),
   map: (params: URLSearchParams) => call<{ total: number; points: any[] }>(`/map?${params}`),
   reviews: () => call<{ total: number; items: any[] }>('/review'),

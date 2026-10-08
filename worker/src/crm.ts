@@ -341,7 +341,142 @@ async function matches(env: Env, c: Criteria, limit = 60): Promise<any[]> {
 }
 
 // Filters shared by the list and the map (query string of /pipeline/listings).
-function listingFilters(q: URLSearchParams): { where: string[]; binds: unknown[] } {
+// ── smart search ─────────────────────────────────────────────────────────
+// One box for "beausuleil 3 bed under 2m", "аренда ницца до 5000", "villa
+// vue mer cannes", a building name or a reference: towns (any spelling or
+// typo, every town in the CRM), Monaco quarters, budget, bedrooms / rooms,
+// size, sale / rent, villa / apartment, sea view; whatever is left must
+// appear in the listing's name, building, quarter, reference or title.
+
+const plain = (s: string) => s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().replace(/[’'`]/g, '')
+  .replace(/[^\p{L}\p{N}.,€–-]+/gu, ' ').replace(/\s+/g, ' ').trim()
+
+let cityCache: { at: number; cities: string[] } | null = null
+async function knownCities(env: Env): Promise<string[]> {
+  if (cityCache && Date.now() - cityCache.at < 10 * 60_000) return cityCache.cities
+  const { results } = await env.DB.prepare(
+    `SELECT DISTINCT COALESCE(city, 'Monaco') AS c FROM properties p WHERE ${LIVE}`).all<{ c: string }>()
+  cityCache = { at: Date.now(), cities: (results || []).map(r => r.c).filter(c => c && c !== 'Var' && c !== 'Alpes-Maritimes') }
+  return cityCache.cities
+}
+
+const AMT = String.raw`(\d+(?:[.,]\d+)?(?:\s\d{3})*)\s*(k|к|тыс\.?|m|м|млн|mln|million|millions|mio)?(?![\p{L}²2])\s*€?`
+const amount = (n: string, unit?: string) => {
+  const v = parseFloat(n.replace(/\s/g, '').replace(',', '.'))
+  const u = (unit || '').toLowerCase()
+  return /^(m|м|млн|mln|million|millions|mio)$/.test(u) ? v * 1e6 : /^(k|к|тыс)/.test(u) ? v * 1e3 : v
+}
+const STOP = new Set(['in', 'a', 'à', 'au', 'en', 'the', 'with', 'avec', 'de', 'du', 'des', 'la', 'le', 'les', 'for', 'pour', 'and', 'et',
+  'в', 'на', 'с', 'и', 'для', 'or', 'ou', 'near', 'près', 'pres', 'около', 'eur', 'euro', 'euros', '€'])
+
+export function smartSearch(text: string, cities: string[]): { where: string[]; binds: unknown[]; understood: string[] } {
+  const where: string[] = [], binds: unknown[] = [], understood: string[] = []
+  let rest = ` ${plain(text)} `
+  const raw = text
+  const take = (rx: RegExp) => { rest = rest.replace(rx, ' ') }
+
+  // Sale / rent
+  if (/аренд|снять|\brent|\blet\b|louer|location|loyer|per month|\/month|в месяц|par mois|mensuel/i.test(raw)) {
+    where.push(`p.transaction_type = 'rent'`); understood.push('rent')
+  } else if (/\bbuy|\bsale\b|for sale|achat|acheter|vente|купить|покупк|продаж/i.test(raw)) {
+    where.push(`p.transaction_type = 'sale'`); understood.push('sale')
+  }
+  take(/аренд\S*|снять|\brent\S*|\blet\b|louer|location|loyer|per month|в месяц|par mois|mensuel\S*|\bbuy\S*|\bsale\b|for sale|achat|acheter|vente|купить|покупк\S*|продаж\S*/giu)
+
+  // Budget: "до 2 млн", "under 1.5m", "500k-800k", "from 1m", "€900 000"
+  const sub = (rx: string) => new RegExp(rx, 'iu')
+  let m = rest.match(sub(String.raw`${AMT}\s*(?:-|–|to|à|до)\s*${AMT}`))
+  let lo: number | null = null, hi: number | null = null
+  if (m && (m[2] || m[4])) { lo = amount(m[1], m[2] || m[4]); hi = amount(m[3], m[4] || m[2]); rest = rest.replace(m[0], ' ') }
+  else {
+    m = rest.match(sub(String.raw`(?:до|under|max|below|less than|up to|jusqu.?a|moins de|budget|<)\s*${AMT}`))
+    if (m) { hi = amount(m[1], m[2]); rest = rest.replace(m[0], ' ') }
+    m = rest.match(sub(String.raw`(?:от|from|min|over|above|more than|plus de|a partir de|>)\s*${AMT}`))
+    if (m) { lo = amount(m[1], m[2]); rest = rest.replace(m[0], ' ') }
+    if (lo == null && hi == null) {
+      m = rest.match(sub(String.raw`(?:€\s*)?(\d+(?:[.,]\d+)?)\s*(k|к|тыс\.?|m|м|млн|mln|million|millions|mio)(?![\p{L}²2])|€\s*(\d[\d\s]{3,})|(\d[\d\s]{4,})\s*€`))
+      if (m) { hi = m[1] ? amount(m[1], m[2]) : amount((m[3] || m[4]).trim()); rest = rest.replace(m[0], ' ') }
+    }
+  }
+  if (lo == null && hi == null) {  // a bare number: "menton rent 2000", "nice 450000"
+    m = rest.match(/(?<![\p{L}\d])(\d{3,})(?![\d\p{L}²])/u)
+    if (m && +m[1] >= 300) { hi = +m[1]; rest = rest.replace(m[0], ' ') }
+  }
+  if (hi != null && hi >= 100) { where.push('(p.price IS NULL OR p.price <= ?)'); binds.push(Math.round(hi * 1.05)); understood.push(`≤ €${hi.toLocaleString('fr-FR')}`) }
+  if (lo != null && lo >= 100) { where.push('p.price >= ?'); binds.push(Math.round(lo)); understood.push(`≥ €${lo.toLocaleString('fr-FR')}`) }
+
+  // Size: "100 m2", "80м2", "120 sqm"
+  m = rest.match(/(\d{2,4})\s*(?:m2|m²|м2|sqm|кв\.?\s*м|кв\b|metres?)/iu)
+  if (m) { where.push('(p.living_area_sqm IS NULL OR p.living_area_sqm >= ?)'); binds.push(Math.round(+m[1] * 0.9)); understood.push(`${m[1]}+ m²`); rest = rest.replace(m[0], ' ') }
+
+  // Bedrooms: "3 bed", "3br", "3 chambres", "3 спальни"; rooms: "T3", "3p", "3 pièces", "3-комн"
+  m = rest.match(/(\d)\s*\+?\s*(?:bed\S*|br\b|ch\b|chambres?|спал\S*)/iu)
+  if (m) { where.push('(p.bedrooms IS NULL OR p.bedrooms >= ?)'); binds.push(+m[1]); understood.push(`${m[1]}+ bed`); rest = rest.replace(m[0], ' ') }
+  else {
+    m = rest.match(/\b[tf]\s?(\d)\b|\b(\d)\s*(?:p\b|pieces?|rooms?|комн\S*|к\b|-к\b)/iu)
+    if (m) { const n = +(m[1] || m[2]); where.push('(COALESCE(p.room_count, p.bedrooms + 1) IS NULL OR COALESCE(p.room_count, p.bedrooms + 1) >= ?)'); binds.push(n); understood.push(`${n}+ rooms`); rest = rest.replace(m[0], ' ') }
+  }
+
+  // Kind
+  if (/кварт|apart|flat|studio|студ|penthouse|пентх|duplex|loft/iu.test(rest)) { where.push(`NOT ${VILLA}`); understood.push('apartment') }
+  else if (/вилл|villa|(?<!\p{L})дом|(?<!\p{L})house|maison|propriete|(?<!\p{L})mas(?!\p{L})|bastide/iu.test(rest)) { where.push(VILLA); understood.push('villa / house') }
+  take(/вилл\S*|villas?|\bдом\S*|houses?|maisons?|propriete\S*|\bmas\b|bastides?|кварт\S*|apart\S*|flats?|studios?|студ\S*|penthouses?|пентх\S*|duplex|lofts?/giu)
+
+  // Sea view
+  if (/вид на море|видом на море|sea ?view|vue (?:sur la )?mer|vista mare/iu.test(raw)) { where.push('p.sea_view = 1'); understood.push('sea view') }
+  take(/вид\S* на море|sea ?views?|vue (?:sur la )?mer|vista mare/giu)
+
+  // Towns and Monaco quarters: aliases (RU / EN / FR), then every town in the CRM with typos allowed.
+  const found = new Set<string>(), quarters = new Set<string>()
+  // Quarters first: "monte carlo" is the Monte-Carlo quarter of Monaco, not just Monaco.
+  for (const [rx, qid] of QUARTER_ALIASES) { const mm = rest.match(new RegExp(rx.source, 'iu')); if (mm) { quarters.add(qid); found.add('Monaco'); rest = rest.replace(mm[0], ' ') } }
+  for (const [rx, cs] of CITY_ALIASES) { const mm = rest.match(new RegExp(rx.source, 'iu')); if (mm) { cs.forEach(c => found.add(c)); rest = rest.replace(mm[0], ' ') } }
+  const words = rest.replace(/[-–]/g, ' ').trim().split(' ').filter(Boolean)
+  const used = new Set<number>()
+  const names = cities.map(c => ({ c, k: plain(c).replace(/\b(?:saint|st)\b/g, 'st').replace(/\b(?:sainte|ste)\b/g, 'ste').replace(/[^a-z0-9а-я]/g, '') }))
+  for (let len = 4; len >= 1; len--) {
+    for (let i = 0; i + len <= words.length; i++) {
+      if ([...Array(len).keys()].some(j => used.has(i + j))) continue
+      const g = words.slice(i, i + len).join('').replace(/\b(?:saint|st)\b/g, 'st').replace(/[^a-z0-9а-я]/g, '')
+        .replace(/^saint/, 'st').replace(/^sainte/, 'ste')
+      if (g.length < 3) continue
+      const tol = g.length >= 8 ? 2 : g.length >= 5 ? 1 : 0
+      const hit = names.find(n => n.k === g) || names.find(n => g.length >= 5 && n.k.startsWith(g))
+        || names.find(n => Math.abs(n.k.length - g.length) <= tol && tol > 0 && editDistance(g, n.k) <= tol)
+        || (g.length >= 6 ? names.find(n => n.k.length > g.length && editDistance(g, n.k.slice(0, g.length)) <= 1) : undefined)
+      if (hit) { found.add(hit.c); for (let j = 0; j < len; j++) used.add(i + j) }
+    }
+  }
+  for (const w of words.filter((_, i) => !used.has(i))) {
+    const f = fuzzyPlaces(w)
+    if (f.cities.length) { f.cities.forEach(c => found.add(c)); f.quarters.forEach(q => quarters.add(q)); used.add(words.indexOf(w)) }
+  }
+  if (quarters.size && !found.size) found.add('Monaco')
+  if (found.size) {
+    where.push(`COALESCE(p.city, 'Monaco') IN (${[...found].map(() => '?').join(',')})`); binds.push(...found); understood.push(...found)
+  }
+  if (quarters.size && found.has('Monaco') && found.size === 1) {
+    where.push(`p.quarter IN (${[...quarters].map(() => '?').join(',')})`); binds.push(...quarters); understood.push(...[...quarters].map(q => q.replace(/-/g, ' ')))
+  }
+
+  // Whatever is left: names, buildings, quarters, references, listing titles.
+  // Words of a town already found ("cap", "martin", "saint") are not extra terms.
+  const townWords = new Set([...found].flatMap(c => plain(c).split(/[\s-]+/)).concat(found.size ? ['st', 'ste', 'saint', 'sainte', 'cap', 'sur', 'mer'] : []))
+  const left = words.filter((w, i) => !used.has(i) && !STOP.has(w) && !townWords.has(w) && !/^\d{1,2}$/.test(w) && w.length >= 2)
+  // Search with the word as typed ("Héraclès"): stored names keep their accents.
+  const typed = new Map(raw.split(/[\s,;]+/).filter(Boolean).map(t => [plain(t), t.replace(/[%_]/g, '')]))
+  for (const w0 of left.slice(0, 4)) {
+    const w = typed.get(w0) || w0
+    where.push(`(p.property_name LIKE ?1x OR p.building_name LIKE ?1x OR p.quarter LIKE ?1x OR p.district LIKE ?1x OR p.property_id LIKE ?1x
+               OR EXISTS (SELECT 1 FROM property_sources s WHERE s.property_id = p.id AND s.removed_at IS NULL
+                          AND (s.listing_title LIKE ?1x OR s.external_ref LIKE ?1x OR s.building_name LIKE ?1x)))`.replace(/\?1x/g, '?'))
+    binds.push(...Array(8).fill(`%${w}%`))
+    understood.push(`“${w}”`)
+  }
+  return { where, binds, understood }
+}
+
+function listingFilters(q: URLSearchParams, towns: string[] = []): { where: string[]; binds: unknown[]; understood?: string[] } {
   const where = [LIVE]; const binds: unknown[] = []
   const cities = q.getAll('city').filter(Boolean)
   if (cities.length) { where.push(`p.city IN (${cities.map(() => '?').join(',')})`); binds.push(...cities) }
@@ -353,11 +488,12 @@ function listingFilters(q: URLSearchParams): { where: string[]; binds: unknown[]
   if (q.get('days')) { where.push('p.first_seen_at >= ?'); binds.push(new Date(Date.now() - +q.get('days')! * 86400_000).toISOString()) }
   if (q.get('type') === 'villa') where.push(VILLA)
   if (q.get('type') === 'apartment') where.push(`NOT ${VILLA}`)
-  if (q.get('q')) {
-    where.push(`(p.property_name LIKE ? OR p.building_name LIKE ? OR p.quarter LIKE ? OR p.property_id LIKE ?)`)
-    binds.push(...Array(4).fill(`%${q.get('q')}%`))
+  let understood: string[] | undefined
+  if (q.get('q')?.trim()) {
+    const s = smartSearch(q.get('q')!, towns)
+    where.push(...s.where); binds.push(...s.binds); understood = s.understood
   }
-  return { where, binds }
+  return { where, binds, understood }
 }
 
 // Town centres for listings without coordinates (approximate markers).
@@ -400,7 +536,7 @@ export async function handleCrm(req: Request, env: CrmEnv, url: URL, path: strin
 
   // GET /pipeline/listings?city=&tx=&min=&max=&beds=&area=&q=&days=&sort=&page=
   if (path === '/pipeline/listings' && req.method === 'GET') {
-    const { where, binds } = listingFilters(q)
+    const { where, binds, understood } = listingFilters(q, q.get('q') ? await knownCities(env) : [])
     const order = ({ price_asc: 'p.price IS NULL, p.price', price_desc: 'p.price DESC', area: 'p.living_area_sqm DESC' } as Record<string, string>)[q.get('sort') || ''] || 'p.first_seen_at DESC'
     const page = Math.max(0, +(q.get('page') || 0)); const size = 30
     const total = await env.DB.prepare(`SELECT COUNT(*) AS n FROM properties p WHERE ${where.join(' AND ')}`).bind(...binds).first<{ n: number }>()
@@ -408,7 +544,7 @@ export async function handleCrm(req: Request, env: CrmEnv, url: URL, path: strin
       `SELECT ${LIST_COLS} FROM properties p WHERE ${where.join(' AND ')} ORDER BY ${order} LIMIT ? OFFSET ?`
     ).bind(...binds, size, page * size).all<any>()
     const since = newSince()
-    return respond({ total: total?.n ?? 0, page, page_size: size,
+    return respond({ total: total?.n ?? 0, page, page_size: size, understood,
                      items: (results || []).map(x => ({ ...x, is_new: x.first_seen_at >= since })) })
   }
 
@@ -416,7 +552,7 @@ export async function handleCrm(req: Request, env: CrmEnv, url: URL, path: strin
   // Exact = listing coordinates or a gazetteer building; approximate = quarter
   // or town centre (Riviera listings carry no coordinates yet).
   if (path === '/pipeline/map' && req.method === 'GET') {
-    const { where, binds } = listingFilters(q)
+    const { where, binds } = listingFilters(q, q.get('q') ? await knownCities(env) : [])
     const { results } = await env.DB.prepare(
       `SELECT p.id, p.price, p.transaction_type, p.city, p.quarter, p.bedrooms, p.living_area_sqm, p.building_name, p.property_name,
               p.map_lat, p.map_lng, p.coord_source, p.hero_image_key, p.first_seen_at
