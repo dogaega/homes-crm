@@ -614,6 +614,7 @@ export function saneTransaction(tx: string | undefined, price: number | null): {
   // Above €150M is a misread (a date or postcode glued onto the price), not a Riviera home.
   if (price > 150_000_000) return { tx, price: null }
   if (tx === 'rent' && price >= 250_000) return { tx: 'sale', price }
+  if (tx === 'rent' && price < 100) return { tx, price: null }  // "0", "5": no real monthly rent
   if (tx === 'sale' && price < 1_000) return { tx, price: null }
   if (tx === 'sale' && price < 20_000) return { tx: 'rent', price }
   return { tx, price }
