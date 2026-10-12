@@ -1292,6 +1292,98 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
   // Best live candidates per client request, with what the outreach needs:
   // how many agencies list it, whether one says "exclusive", and every source
   // (agency, contacts, URL) so the mandate holder can be picked and reached.
+  // POST /sync/outreach/ingest {contacts:[…], interactions:[…]} — history from WhatsApp / Gmail.
+  // Contacts are matched to an agency by website domain, email domain, then name (created if
+  // unknown) and merged by phone / email / WhatsApp jid; interactions are stored once
+  // (external_id); each touched contact's pacing counters are recomputed from its history.
+  if (path === '/sync/outreach/ingest' && req.method === 'POST') {
+    const body = await req.json<any>()
+    const now = new Date().toISOString()
+    const digits = (x: unknown) => String(x || '').replace(/\D/g, '')
+    const host = (x: unknown) => String(x || '').toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0]
+    const keyToContact: Record<string, string> = {}
+    const touched = new Set<string>()
+    let createdAgencies = 0, createdContacts = 0, inserted = 0
+    for (const c of (body?.contacts || []) as any[]) {
+      // 1. agency — by phone first (agents' and agencies' numbers on scraped listings), then domain, then name
+      let agencyId: string | null = null
+      const d9 = digits(c.phone).slice(-9)
+      if (d9.length === 9) {
+        const D = (col: string) => `substr(replace(replace(replace(replace(replace(replace(COALESCE(${col},''),' ',''),'.',''),'-',''),'+',''),'(',''),')',''), -9)`
+        const hit = await ctx.db.prepare(
+          `SELECT agency_id FROM property_sources WHERE ${D('agent_phone')} = ?1 OR ${D('agent_whatsapp')} = ?1 OR ${D('agency_phone')} = ?1
+           UNION ALL SELECT id FROM agencies WHERE ${D('phone')} = ?1 OR ${D('whatsapp')} = ?1 LIMIT 1`).bind(d9).first<{ agency_id: string }>()
+        agencyId = hit?.agency_id ?? null
+      }
+      const dom = host(c.agency_website) || (String(c.email || '').includes('@') ? String(c.email).split('@')[1].toLowerCase() : '')
+      const freeMail = /^(gmail|hotmail|outlook|yahoo|icloud|live|orange|free|wanadoo|sfr|laposte|me)\./.test(dom)
+      if (!agencyId && dom && !freeMail) {
+        const a = await ctx.db.prepare(`SELECT id FROM agencies WHERE lower(website) LIKE ? OR lower(email) LIKE ? LIMIT 1`)
+          .bind(`%${dom}%`, `%@${dom}`).first<{ id: string }>()
+        agencyId = a?.id ?? null
+      }
+      if (!agencyId && c.agency_name) {
+        const n = String(c.agency_name).trim()
+        const a = await ctx.db.prepare(`SELECT id FROM agencies WHERE lower(name) = lower(?) OR lower(name) LIKE lower(?) ORDER BY length(name) LIMIT 1`)
+          .bind(n, `%${n}%`).first<{ id: string }>()
+        agencyId = a?.id ?? null
+        if (!agencyId) {
+          agencyId = crypto.randomUUID(); createdAgencies++
+          await ctx.db.prepare(`INSERT INTO agencies (id, name, website, email, created_at, updated_at, notes) VALUES (?, ?, ?, ?, ?, ?, 'from outreach history')`)
+            .bind(agencyId, n, dom && !freeMail ? `https://${dom}/` : null, null, now, now).run()
+        }
+      }
+      // 2. contact
+      const ph = digits(c.phone), em = String(c.email || '').toLowerCase().trim() || null, jid = c.whatsapp_jid || null
+      let found = await ctx.db.prepare(
+        `SELECT id, agency_id FROM agency_contacts WHERE (? != '' AND (replace(replace(replace(phone,'+',''),' ',''),'-','') = ? OR replace(replace(replace(whatsapp,'+',''),' ',''),'-','') = ?))
+           OR (? IS NOT NULL AND lower(email) = ?) OR (? IS NOT NULL AND whatsapp_jid = ?) LIMIT 1`
+      ).bind(ph, ph, ph, em, em, jid, jid).first<{ id: string; agency_id: string }>()
+      let cid = found?.id
+      if (!cid) {
+        if (!agencyId) continue  // nobody to attach this person to
+        cid = crypto.randomUUID(); createdContacts++
+        await ctx.db.prepare(`INSERT INTO agency_contacts (id, agency_id, name, phone, email, whatsapp, whatsapp_jid, role, source, persona, created_at, updated_at)
+                              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+          .bind(cid, agencyId, c.name || null, ph ? '+' + ph : null, em, c.whatsapp ? '+' + digits(c.whatsapp) : null, jid, c.role || null, c.source || null,
+                c.persona || null, now, now).run()
+      } else {
+        await ctx.db.prepare(`UPDATE agency_contacts SET name = COALESCE(name, ?), email = COALESCE(email, ?), whatsapp_jid = COALESCE(whatsapp_jid, ?),
+                              whatsapp = COALESCE(whatsapp, ?), role = COALESCE(role, ?), persona = COALESCE(?, persona), updated_at = ? WHERE id = ?`)
+          .bind(c.name || null, em, jid, c.whatsapp ? '+' + digits(c.whatsapp) : null, c.role || null, c.persona || null, now, cid).run()
+      }
+      keyToContact[c.key] = cid
+    }
+    // 3. interactions
+    const ins: D1PreparedStatement[] = []
+    for (const m of (body?.interactions || []) as any[]) {
+      const cid = keyToContact[m.contact_key]
+      const ag = cid ? await ctx.db.prepare('SELECT agency_id FROM agency_contacts WHERE id = ?').bind(cid).first<{ agency_id: string }>() : null
+      if (cid) touched.add(cid)
+      ins.push(ctx.db.prepare(`INSERT OR IGNORE INTO interactions (id, agency_id, contact_id, channel, direction, account, external_id, thread_ref, peer, at, text,
+                                attachments, property_ids, request_ids, classification, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+        .bind(crypto.randomUUID(), ag?.agency_id ?? null, cid ?? null, m.channel, m.direction, m.account ?? null, m.external_id ?? null, m.thread_ref ?? null,
+              m.peer ?? null, m.at, m.text ?? null, m.attachments ? JSON.stringify(m.attachments) : null, m.property_ids ? JSON.stringify(m.property_ids) : null,
+              m.request_ids ? JSON.stringify(m.request_ids) : null, m.classification ? JSON.stringify(m.classification) : null, now))
+    }
+    for (let i = 0; i < ins.length; i += 50) {
+      const r = await ctx.db.batch(ins.slice(i, i + 50)); inserted += r.reduce((n, x) => n + (x.meta?.changes || 0), 0)
+    }
+    // 4. pacing counters from history
+    for (const cid of touched) {
+      await ctx.db.prepare(`UPDATE agency_contacts SET
+          first_contacted_at = (SELECT MIN(at) FROM interactions WHERE contact_id = ?1 AND direction = 'out'),
+          last_contacted_at = (SELECT MAX(at) FROM interactions WHERE contact_id = ?1 AND direction = 'out'),
+          last_reply_at = (SELECT MAX(at) FROM interactions WHERE contact_id = ?1 AND direction = 'in'),
+          sent_count = (SELECT COUNT(*) FROM interactions WHERE contact_id = ?1 AND direction = 'out'),
+          reply_count = (SELECT COUNT(*) FROM interactions WHERE contact_id = ?1 AND direction = 'in'),
+          unanswered_streak = (SELECT COUNT(DISTINCT substr(o.at, 1, 10)) FROM interactions o WHERE o.contact_id = ?1 AND o.direction = 'out'
+                                 AND o.at > COALESCE((SELECT MAX(at) FROM interactions WHERE contact_id = ?1 AND direction = 'in'), '')),
+          updated_at = ?2 WHERE id = ?1`).bind(cid, now).run()
+    }
+    return respond({ contacts: Object.keys(keyToContact).length, createdAgencies, createdContacts, interactions: inserted, map: keyToContact })
+  }
+
   // POST /sync/requests-sheet — import "Запросы клиентов" now (the Mac calls it at 07:00 and 15:00).
   if (path === '/sync/requests-sheet' && req.method === 'POST') {
     const { syncSheet } = await import('./crm')
