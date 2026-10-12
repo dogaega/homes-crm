@@ -1384,6 +1384,106 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
     return respond({ contacts: Object.keys(keyToContact).length, createdAgencies, createdContacts, interactions: inserted, map: keyToContact })
   }
 
+  // ── outreach engine endpoints ─────────────────────────────────────────
+  // POST /sync/outreach/agency-contacts {agency_id, website?, phone?, email?, whatsapp?, form_url?, people:[{name, phone, email, role}]}
+  // What the contact finder read on the agency's website; existing values are kept, people merged by phone / email.
+  if (path === '/sync/outreach/agency-contacts' && req.method === 'POST') {
+    const b = await req.json<any>(); const now = new Date().toISOString()
+    const note = b.form_url ? `contact_form: ${b.form_url}` : null
+    await ctx.db.prepare(`UPDATE agencies SET phone = COALESCE(phone, ?), email = COALESCE(email, ?), whatsapp = COALESCE(whatsapp, ?),
+                          website = COALESCE(website, ?), notes = CASE WHEN ? IS NULL OR COALESCE(notes,'') LIKE '%contact_form:%' THEN notes
+                          ELSE trim(COALESCE(notes,'') || ' ' || ?) END, updated_at = ? WHERE id = ?`)
+      .bind(b.phone ?? null, b.email ?? null, b.whatsapp ?? null, b.website ?? null, note, note, now, b.agency_id).run()
+    let added = 0
+    for (const p of (b.people || []) as any[]) {
+      const d9 = String(p.phone || '').replace(/\D/g, '').slice(-9)
+      const em = (p.email || '').toLowerCase() || null
+      const ex = await ctx.db.prepare(`SELECT id FROM agency_contacts WHERE agency_id = ? AND ((? != '' AND substr(replace(replace(replace(COALESCE(phone,''),'+',''),' ',''),'.',''), -9) = ?)
+                                       OR (? IS NOT NULL AND lower(email) = ?) OR (? IS NOT NULL AND lower(name) = lower(?)))`)
+        .bind(b.agency_id, d9, d9, em, em, p.name || null, p.name || null).first()
+      if (ex) continue
+      await ctx.db.prepare(`INSERT INTO agency_contacts (id, agency_id, name, phone, email, whatsapp, role, source, created_at, updated_at)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, 'website', ?, ?)`)
+        .bind(crypto.randomUUID(), b.agency_id, p.name || null, p.phone || null, em, p.whatsapp || null, p.role || null, now, now).run()
+      added++
+    }
+    return respond({ ok: true, added })
+  }
+
+  // GET /sync/outreach/requests — client requests to work on (sheet rows not paused / closed).
+  if (path === '/sync/outreach/requests' && req.method === 'GET') {
+    const { results } = await ctx.db.prepare(
+      `SELECT id, name, criteria FROM saved_searches WHERE active = 1 AND json_extract(criteria, '$.source') = 'sheet'`).all<any>()
+    const skip = /^(Пауза|Закрыт|Нет связи|Сделка)$/
+    const out = (results || []).map(r => ({ id: r.id, name: r.name, c: JSON.parse(r.criteria) }))
+      .filter(r => !skip.test(String(r.c.status || '').trim()))
+    return respond({ requests: out })
+  }
+
+  // POST /sync/outreach/options {request_id, property_ids[], origin} → which of them are new for this client.
+  if (path === '/sync/outreach/options' && req.method === 'POST') {
+    const b = await req.json<any>(); const now = new Date().toISOString()
+    const ids: string[] = b.property_ids || []
+    if (!ids.length) return respond({ new: [], known: {} })
+    const { results } = await ctx.db.prepare(
+      `SELECT property_id, status FROM outreach_options WHERE request_id = ? AND property_id IN (${ids.map(() => '?').join(',')})`).bind(b.request_id, ...ids).all<any>()
+    const known: Record<string, string> = Object.fromEntries((results || []).map(r => [r.property_id, r.status]))
+    const fresh = ids.filter(i => !(i in known))
+    const st = fresh.map(pid => ctx.db.prepare(`INSERT OR IGNORE INTO outreach_options (id, request_id, property_id, origin, status, status_at, created_at, updated_at)
+                                                VALUES (?, ?, ?, ?, 'found', ?, ?, ?)`).bind(crypto.randomUUID(), b.request_id, pid, b.origin || 'crm_match', now, now, now))
+    for (let i = 0; i < st.length; i += 50) await ctx.db.batch(st.slice(i, i + 50))
+    return respond({ new: fresh, known })
+  }
+
+  // POST /sync/outreach/context {agency_id} — the agency's brand group: people with pacing,
+  // agents named on its listings we have never spoken to, and the recent conversation.
+  if (path === '/sync/outreach/context' && req.method === 'POST') {
+    const b = await req.json<any>()
+    const STOP = new Set(['agence', 'agency', 'the', 'cabinet', 'groupe', 'group', 'la', 'le', 'les', "l'", 'sarl', 'sam', 'sas', 'immobilier', 'immobiliere'])
+    const PLACE = new Set(['monaco', 'monte', 'carlo', 'nice', 'cannes', 'riviera', 'cote', 'azur', 'french', 'antibes', 'menton'])
+    const brand = (n: string) => {
+      const t = n.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(w => w && !STOP.has(w))
+      return PLACE.has(t[0] || '') ? t.slice(0, 2).join(' ') : (t[0] || n.toLowerCase())
+    }
+    const me = await ctx.db.prepare('SELECT id, name, website, phone, email FROM agencies WHERE id = ?').bind(b.agency_id).first<any>()
+    if (!me) return respond({ error: 'unknown agency' }, 404)
+    const key = brand(me.name)
+    const { results: all } = await ctx.db.prepare('SELECT id, name, website, phone, email FROM agencies').all<any>()
+    const group = (all || []).filter(a => brand(a.name) === key)
+    const gids = group.map(a => a.id)
+    const ph = gids.map(() => '?').join(',')
+    const { results: people } = await ctx.db.prepare(`SELECT * FROM agency_contacts WHERE agency_id IN (${ph})`).bind(...gids).all<any>()
+    const { results: listingAgents } = await ctx.db.prepare(
+      `SELECT agent_name, agent_phone, agent_email, agent_whatsapp, agency_phone, agency_email, COUNT(*) AS listings, MAX(first_seen_at) AS last_seen
+       FROM property_sources WHERE agency_id IN (${ph}) AND removed_at IS NULL AND (agent_phone IS NOT NULL OR agent_email IS NOT NULL OR agent_whatsapp IS NOT NULL)
+       GROUP BY COALESCE(agent_phone, agent_whatsapp, agent_email) ORDER BY listings DESC LIMIT 40`).bind(...gids).all<any>()
+    const { results: history } = await ctx.db.prepare(
+      `SELECT i.at, i.direction, i.channel, i.account, i.text, c.name AS person, c.phone FROM interactions i LEFT JOIN agency_contacts c ON c.id = i.contact_id
+       WHERE i.agency_id IN (${ph}) ORDER BY i.at DESC LIMIT 60`).bind(...gids).all<any>()
+    return respond({ brand: key, agencies: group, people: people || [], listing_agents: listingAgents || [], history: history || [] })
+  }
+
+  // POST /sync/outreach/queue {messages:[…]} — drafts waiting for Mark (or the sender).
+  if (path === '/sync/outreach/queue' && req.method === 'POST') {
+    const b = await req.json<any>(); const now = new Date().toISOString()
+    const st = (b.messages || []).map((m: any) => ctx.db.prepare(
+      `INSERT INTO outreach_messages (id, agency_id, contact_id, channel, account, to_address, subject, body, property_ids, request_ids, purpose, status, reason,
+                                      scheduled_at, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+      .bind(crypto.randomUUID(), m.agency_id ?? null, m.contact_id ?? null, m.channel, m.account ?? null, m.to_address ?? null, m.subject ?? null, m.body,
+            JSON.stringify(m.property_ids || []), JSON.stringify(m.request_ids || []), m.purpose ?? 'first_contact', m.status ?? 'draft', m.reason ?? null,
+            m.scheduled_at ?? null, now, now))
+    for (let i = 0; i < st.length; i += 50) await ctx.db.batch(st.slice(i, i + 50))
+    return respond({ queued: st.length })
+  }
+
+  // GET /sync/outreach/queue?status=draft
+  if (path === '/sync/outreach/queue' && req.method === 'GET') {
+    const { results } = await ctx.db.prepare(
+      `SELECT m.*, a.name AS agency FROM outreach_messages m LEFT JOIN agencies a ON a.id = m.agency_id WHERE m.status = ? ORDER BY m.created_at`)
+      .bind(new URL(req.url).searchParams.get('status') || 'draft').all<any>()
+    return respond({ messages: results || [] })
+  }
+
   // POST /sync/requests-sheet — import "Запросы клиентов" now (the Mac calls it at 07:00 and 15:00).
   if (path === '/sync/requests-sheet' && req.method === 'POST') {
     const { syncSheet } = await import('./crm')
@@ -1406,6 +1506,16 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
       if (c.quarters?.length) { w.push(`p.quarter IN (${c.quarters.map(() => '?').join(',')})`); b.push(...c.quarters) }
       if (c.villa) w.push(VILLA)
       if (c.apt) w.push(`NOT ${VILLA}`)
+      // Residential clients never get offices / shops / commercial premises.
+      if (!c.commercial) w.push(`NOT (LOWER(COALESCE(p.property_type,'')||' '||COALESCE(p.property_name,'')||' '||COALESCE((SELECT s.listing_title FROM property_sources s WHERE s.property_id = p.id LIMIT 1),''))
+        GLOB '*bureau*' OR LOWER(COALESCE(p.property_type,'')||' '||COALESCE(p.property_name,'')||' '||COALESCE((SELECT s.listing_title FROM property_sources s WHERE s.property_id = p.id LIMIT 1),'')) GLOB '*office*'
+        OR LOWER(COALESCE(p.property_type,'')) IN ('commercial','office','retail','shop','local','parking','garage','land','terrain')
+        OR LOWER(COALESCE((SELECT s.listing_title FROM property_sources s WHERE s.property_id = p.id LIMIT 1),'')) GLOB '*local commercial*'
+        OR LOWER(COALESCE((SELECT s.listing_title FROM property_sources s WHERE s.property_id = p.id LIMIT 1),'')) GLOB '*mixed use*'
+        OR EXISTS (SELECT 1 FROM property_sources s WHERE s.property_id = p.id AND (LOWER(s.source_url) GLOB '*bureau*' OR LOWER(s.source_url) GLOB '*commerce*'
+             OR LOWER(s.source_url) GLOB '*local-*' OR LOWER(s.source_url) GLOB '*fonds*' OR LOWER(COALESCE(s.listing_title,'')) GLOB '*murs et fonds*'
+             OR LOWER(COALESCE(s.listing_title,'')) GLOB '*fonds de commerce*' OR LOWER(COALESCE(s.listing_title,'')) GLOB '*profession lib*'
+             OR LOWER(COALESCE(s.listing_title,'')) GLOB '*local *')))`)
       if (c.beds) { w.push('(p.bedrooms IS NULL OR p.bedrooms >= ?)'); b.push(c.beds) }
       if (c.area) { w.push('(p.living_area_sqm IS NULL OR p.living_area_sqm >= ?)'); b.push(Math.round(c.area * 0.9)) }
       let order = `(CASE WHEN p.hero_image_key IS NOT NULL THEN 2 ELSE 0 END + CASE WHEN p.first_seen_at >= datetime('now','-7 day') THEN 3 ELSE 0 END)`
@@ -1420,7 +1530,7 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
       const items = results || []
       if (items.length) {
         const { results: srcs } = await ctx.db.prepare(
-          `SELECT s.property_id, s.source_url, s.listing_title, s.price_at_source, s.agent_name, s.agent_phone, s.agent_email, s.agent_whatsapp,
+          `SELECT s.property_id, s.agency_id, s.source_url, s.listing_title, s.price_at_source, s.agent_name, s.agent_phone, s.agent_email, s.agent_whatsapp,
                   s.agency_phone, s.agency_email, s.first_seen_at, a.name AS agency, a.website, a.phone AS a_phone, a.email AS a_email,
                   (lower(COALESCE(s.listing_title,'')) LIKE '%exclusiv%' OR lower(COALESCE(s.listing_description,'')) LIKE '%exclusiv%') AS exclusive
            FROM property_sources s LEFT JOIN agencies a ON a.id = s.agency_id
