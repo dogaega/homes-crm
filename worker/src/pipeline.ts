@@ -1288,6 +1288,59 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
   // POST /sync/rematch-town {after?, limit?} — re-run matching for listings
   // outside Monaco (town-level rule + gallery photos), for those ingested
   // before it existed. Paged by source id.
+  // POST /sync/match-clients {clients:[{no, tx, towns[], quarters[], villa, apt, beds, area, budget}], limit}
+  // Best live candidates per client request, with what the outreach needs:
+  // how many agencies list it, whether one says "exclusive", and every source
+  // (agency, contacts, URL) so the mandate holder can be picked and reached.
+  // POST /sync/requests-sheet — import "Запросы клиентов" now (the Mac calls it at 07:00 and 15:00).
+  if (path === '/sync/requests-sheet' && req.method === 'POST') {
+    const { syncSheet } = await import('./crm')
+    return respond(await syncSheet(env as any, true))
+  }
+
+  if (path === '/sync/match-clients' && req.method === 'POST') {
+    const body = await req.json<any>()
+    const limit = Math.min(Number(body?.limit) || 15, 40)
+    const VILLA = `(LOWER(COALESCE(p.property_type,'')||' '||COALESCE(p.property_name,'')) GLOB '*villa*'
+      OR LOWER(COALESCE(p.property_type,'')||' '||COALESCE(p.property_name,'')) GLOB '*maison*'
+      OR LOWER(COALESCE(p.property_type,'')||' '||COALESCE(p.property_name,'')) GLOB '*house*'
+      OR LOWER(COALESCE(p.property_type,'')||' '||COALESCE(p.property_name,'')) GLOB '*propri*t*')`
+    const out: Record<string, any[]> = {}
+    for (const c of (body?.clients || []) as any[]) {
+      const w = [`p.origin = 'pipeline'`, 'p.merged_into IS NULL', `p.listing_status = 'active'`, 'p.transaction_type = ?']
+      const b: unknown[] = [c.tx]
+      const towns: string[] = c.towns || []
+      if (towns.length) { w.push(`COALESCE(p.city, 'Monaco') IN (${towns.map(() => '?').join(',')})`); b.push(...towns) }
+      if (c.quarters?.length) { w.push(`p.quarter IN (${c.quarters.map(() => '?').join(',')})`); b.push(...c.quarters) }
+      if (c.villa) w.push(VILLA)
+      if (c.apt) w.push(`NOT ${VILLA}`)
+      if (c.beds) { w.push('(p.bedrooms IS NULL OR p.bedrooms >= ?)'); b.push(c.beds) }
+      if (c.area) { w.push('(p.living_area_sqm IS NULL OR p.living_area_sqm >= ?)'); b.push(Math.round(c.area * 0.9)) }
+      let order = `(CASE WHEN p.hero_image_key IS NOT NULL THEN 2 ELSE 0 END + CASE WHEN p.first_seen_at >= datetime('now','-7 day') THEN 3 ELSE 0 END)`
+      if (c.budget) {
+        w.push('p.price BETWEEN ? AND ?'); b.push(Math.round(c.budget * (c.tx === 'sale' ? 0.55 : 0.5)), Math.round(c.budget * 1.1))
+        order = `(${order} - ABS(p.price - ${Number(c.budget)}) * 4.0 / ${Number(c.budget)})`
+      }
+      const { results } = await ctx.db.prepare(
+        `SELECT p.id, p.city, p.quarter, p.transaction_type AS tx, p.price, p.bedrooms, p.room_count, p.living_area_sqm, p.source_count,
+                p.property_name, p.building_name, p.hero_image_key, p.first_seen_at
+         FROM properties p WHERE ${w.join(' AND ')} ORDER BY ${order} DESC LIMIT ?`).bind(...b, limit).all<any>()
+      const items = results || []
+      if (items.length) {
+        const { results: srcs } = await ctx.db.prepare(
+          `SELECT s.property_id, s.source_url, s.listing_title, s.price_at_source, s.agent_name, s.agent_phone, s.agent_email, s.agent_whatsapp,
+                  s.agency_phone, s.agency_email, s.first_seen_at, a.name AS agency, a.website, a.phone AS a_phone, a.email AS a_email,
+                  (lower(COALESCE(s.listing_title,'')) LIKE '%exclusiv%' OR lower(COALESCE(s.listing_description,'')) LIKE '%exclusiv%') AS exclusive
+           FROM property_sources s LEFT JOIN agencies a ON a.id = s.agency_id
+           WHERE s.removed_at IS NULL AND s.property_id IN (${items.map(() => '?').join(',')}) ORDER BY s.first_seen_at`
+        ).bind(...items.map(i => i.id)).all<any>()
+        for (const i of items) i.sources = (srcs || []).filter(s => s.property_id === i.id)
+      }
+      out[String(c.no)] = items
+    }
+    return respond({ matches: out })
+  }
+
   if (path === '/sync/rematch-town' && req.method === 'POST') {
     const body = await req.json<any>().catch(() => ({}))
     const limit = Math.min(Number(body?.limit) || 100, 200)

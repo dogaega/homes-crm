@@ -130,6 +130,12 @@ export function parseCriteria(r: { type1?: string; type2?: string; location?: st
     if (!cities.length) cities = f.cities
     if (cities.includes('Monaco') || !cities.length) quarters = [...new Set([...quarters, ...f.quarters])]
   }
+  // Any other town the CRM maps ("Mougins", "Saint-Paul-de-Vence") when no alias matched.
+  if (!cities.length && loc.trim()) {
+    const flat = (x: string) => x.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().replace(/[^a-z]/g, '')
+    const l = flat(loc)
+    cities = Object.keys(TOWN_CENTRES).filter(t => t !== 'Monaco' && flat(t).length >= 4 && l.includes(flat(t)))
+  }
   if (quarters.length && !cities.length) cities = ['Monaco']
   else if (quarters.length && !cities.includes('Monaco')) quarters = []
   const beds = `${r.bedrooms || ''} ${loc}`.match(/(\d+)(?:\s*[-–\s]\s*(\d+))?\s*(?:спал|bed|chamb)/i)
@@ -187,15 +193,52 @@ async function sha(s: string): Promise<string> {
 // card; a row not yet touched in the CRM follows later sheet edits; once
 // edited (or deleted) in the CRM the sheet never overrides it, and rows that
 // disappear from the sheet stay. Identity = client name + location + type.
-async function syncSheet(env: CrmEnv, force = false): Promise<{ synced: boolean; created?: number; error?: string }> {
+// Budget as written in the sheet ("7,5 тыс. €", "1,5 млн €", "65,0 млн €") → plain euros.
+function sheetMoney(s: string): string {
+  const m = (s || '').replace(/\s/g, ' ').match(/([\d\s.,]+)\s*(млн|тыс)?/)
+  if (!m || !m[1].trim()) return ''
+  const v = parseFloat(m[1].replace(/\s/g, '').replace(',', '.'))
+  if (!Number.isFinite(v)) return ''
+  return String(Math.round(m[2] === 'млн' ? v * 1e6 : m[2] === 'тыс' ? v * 1e3 : v))
+}
+
+function fromClientRequestsSheet(rows: string[][], h: number): string[][] {
+  const H = rows[h].map(c => c.trim())
+  const at = (r: string[], name: string) => { const i = H.indexOf(name); return i >= 0 ? (r[i] || '').trim() : '' }
+  const out: string[][] = [['Клиент', 'Посредник', 'Статус', 'Тип объекта', 'Тип объекта', 'Локация', 'Кол-во спален', 'Площадь',
+                            'Цена', 'Аренда', 'Комментарий', 'Дедлайн', '№']]
+  for (const r of rows.slice(h + 1)) {
+    const no = at(r, '№'), client = at(r, 'Клиент')
+    if (!no || !client) continue
+    const rent = at(r, 'Сделка') === 'Аренда'
+    const type = at(r, 'Тип')
+    const beds = at(r, 'Спальни')
+    out.push([
+      client, at(r, 'Посредник / источник'), at(r, 'Статус'),
+      type === 'Коммерция' ? 'н/ф' : '', type === 'Коммерция' ? 'офис / commercial' : type,
+      [at(r, 'Город'), at(r, 'Пожелания')].filter(Boolean).join(' · '),
+      beds ? `${beds} спальни` : '', at(r, 'Площадь от, м²'),
+      rent ? '' : sheetMoney(at(r, 'Бюджет, €')), rent ? sheetMoney(at(r, 'Бюджет, €')) : '',
+      [rent ? 'аренда' : '', at(r, 'Срок аренды'), at(r, 'Комментарий')].filter(Boolean).join(' · '), at(r, 'Дата шага'), no,
+    ])
+  }
+  return out
+}
+
+export async function syncSheet(env: CrmEnv, force = false): Promise<{ synced: boolean; created?: number; error?: string }> {
   if (!env.REQUESTS_SHEET_CSV_URL) return { synced: false, error: 'REQUESTS_SHEET_CSV_URL not set' }
   const last = await env.DB.prepare(
     `SELECT MAX(json_extract(criteria, '$.synced_at')) AS t FROM saved_searches WHERE json_extract(criteria, '$.source') = 'sheet'`
   ).first<{ t: string | null }>()
-  if (!force && last?.t && Date.now() - Date.parse(last.t) < 10 * 60_000) return { synced: false }
+  // Mark updates the sheet by hand once or twice a day.
+  if (!force && last?.t && Date.now() - Date.parse(last.t) < 6 * 3600_000) return { synced: false }
   const res = await fetch(env.REQUESTS_SHEET_CSV_URL, { redirect: 'follow' })
   if (!res.ok) return { synced: false, error: `sheet HTTP ${res.status}` }
-  const rows = parseCsv(await res.text())
+  let rows = parseCsv(await res.text())
+  // "Запросы клиентов" layout (2026-10-13): №, Статус, Клиент, Посредник / источник, Сделка, Тип, Город,
+  // Спальни, Площадь от, Бюджет, Срок аренды, Пожелания … Mapped onto the original columns.
+  const newHdr = rows.findIndex(r => r.some(c => c.trim() === 'Сделка') && r.some(c => c.trim() === 'Город'))
+  if (newHdr >= 0) rows = fromClientRequestsSheet(rows, newHdr)
   const hdr = rows.findIndex(r => r.some(c => /^Клиент$/i.test(c.trim())))
   if (hdr < 0) return { synced: false, error: 'header row (Клиент) not found' }
   const col = (name: RegExp) => rows[hdr].findIndex(c => name.test(c.trim()))
@@ -225,11 +268,14 @@ async function syncSheet(env: CrmEnv, force = false): Promise<{ synced: boolean;
     }
     if (!fields.location && !fields.price && !fields.rent && !fields.bedrooms) continue
     const client = at(r, C.client) || at(r, C.middleman) || 'Client'
-    const key2 = await sha(JSON.stringify([client, fields.location, fields.type2]))
+    const rowNo = at(r, rows[hdr].findIndex(c => c.trim() === '№'))
+    // "Запросы клиентов" numbers its rows: that number is the identity, edits to town/type keep the request.
+    const key2 = rowNo ? `no:${rowNo}` : await sha(JSON.stringify([client, fields.location, fields.type2]))
     // Client and middleman phone numbers stay in the sheet: the CRM never stores them.
     const sheetPart = {
       ...parseCriteria(fields), source: 'sheet', key2, client_name: client, middleman: at(r, C.middleman) || null,
       broker: at(r, C.broker) || null, deadline: at(r, C.deadline) || null, status: at(r, C.status) || null, raw: fields,
+      sheet_no: rowNo || null,
     }
     const e = byKey.get(key2)
     if (e) {
@@ -252,8 +298,10 @@ async function syncSheet(env: CrmEnv, force = false): Promise<{ synced: boolean;
   }
   // Keep the sync clock moving for rows that left the sheet (they stay in the CRM).
   for (const e of byKey.values()) {
-    await env.DB.prepare('UPDATE saved_searches SET criteria = ? WHERE id = ?')
-      .bind(JSON.stringify({ ...e.c, synced_at: now, in_sheet: false }), e.id).run()
+    // Switching to "Запросы клиентов" retires the old WORK FRANCE rows (unless edited in the CRM).
+    const retire = newHdr >= 0 && !String(e.c.key2 || '').startsWith('no:') && !e.c.edited_in_crm
+    await env.DB.prepare('UPDATE saved_searches SET criteria = ?, active = CASE WHEN ? THEN 0 ELSE active END WHERE id = ?')
+      .bind(JSON.stringify({ ...e.c, synced_at: now, in_sheet: false }), retire ? 1 : 0, e.id).run()
   }
   return { synced: true, created }
 }
