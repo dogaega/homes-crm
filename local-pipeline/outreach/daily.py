@@ -95,6 +95,35 @@ def on_whatsapp(phone: str) -> bool:
         return False
 
 
+PRIOR = json.loads((Path(__file__).resolve().parents[1] / "data" / "prior_contacts.json").read_text())
+_SENT_CACHE: list | None = None
+
+
+def _dom(x: str | None) -> str:
+    x = (x or "").lower().strip()
+    x = x.split("@")[-1] if "@" in x else re.sub(r"^https?://(www\.)?", "", x).split("/")[0]
+    return x.removeprefix("www.")
+
+
+def already_contacted(ctx: dict, w) -> str | None:
+    """Why this agency must not get automated outreach, or None."""
+    global _SENT_CACHE
+    if ctx.get("history"):
+        return f"{len(ctx['history'])} earlier messages"
+    doms = {_dom(a.get("website")) for a in ctx.get("agencies", [])} | {_dom(a.get("email")) for a in ctx.get("agencies", [])} \
+        | {_dom(p.get("email")) for p in ctx.get("people", [])}
+    doms.discard("")
+    hit = doms & set(PRIOR["domains"])
+    if hit:
+        return "emailed before from propertyone / markmirimsky: " + ", ".join(sorted(hit))
+    if _SENT_CACHE is None:
+        _SENT_CACHE = w.request("GET", "/sync/outreach/queue?status=sent")["messages"]
+    ids = {a.get("id") for a in ctx.get("agencies", [])}
+    if any(m.get("agency_id") in ids or _dom(m.get("to_address")) in doms for m in _SENT_CACHE):
+        return "already got an outreach message"
+    return None
+
+
 def form_usable(url: str) -> bool:
     """A form we can fill without a person (no CAPTCHA, every required field understood)."""
     from outreach.form_filler import submit
@@ -300,6 +329,12 @@ def main() -> None:
         if not agency_id:
             continue
         ctx = w.request("POST", "/sync/outreach/context", {"agency_id": agency_id})
+        # Hard stop (Mark, 2026-10-13): never auto-contact an agency Mark (or the system) already talked to —
+        # any WhatsApp / email / call history, a propertyone / markmirimsky email, or an earlier outreach message.
+        known = already_contacted(ctx, w)
+        if known:
+            print(f"skip {agency}: already in contact ({known})")
+            continue
         person, why_person = choose_person(ctx, src)
         # Every channel for every agency (Mark, 2026-10-13): email + contact form + WhatsApp (WhatsApp capped low).
         site = next((a.get("website") for a in ctx.get("agencies", []) if a.get("id") == agency_id), None)

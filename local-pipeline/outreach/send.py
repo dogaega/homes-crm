@@ -89,6 +89,14 @@ def run_once(w: WorkerClient) -> str:
         st["wa_next"] = now.timestamp() + random.randint(4 * 60, 9 * 60)
         done.append(f"whatsapp {m.get('agency')} → {'sent' if ok else err}")
     # Emails: one per run too, 1–3 minutes apart (no daily cap).
+    prior = set(json.loads((Path(__file__).resolve().parents[1] / "data" / "prior_contacts.json").read_text())["domains"])
+    sent_doms = {(m.get("to_address") or "").split("@")[-1].lower() for m in w.request("GET", "/sync/outreach/queue?status=sent")["messages"]
+                 if m["channel"] == "email"}
+    for m in [m for m in queue if m["channel"] == "email"]:
+        d = (m["to_address"] or "").split("@")[-1].lower()
+        if d in prior or d in sent_doms or not re.fullmatch(r"[\w.+-]+@[\w-]+(\.[\w-]+)+", m["to_address"] or ""):
+            w.request("POST", "/sync/outreach/sent", {"id": m["id"], "status": "cancelled", "error": "agency already contacted before / bad address"})
+            queue.remove(m)
     em = [m for m in queue if m["channel"] == "email"]
     if em and in_hours(now) and now.timestamp() >= st.get("mail_next", 0) and os.environ.get("GMAIL_APP_PASSWORD"):
         m = em[0]
