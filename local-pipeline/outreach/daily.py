@@ -162,7 +162,10 @@ def choose_person(ctx: dict, src: dict) -> tuple[dict | None, str]:
 
 
 DRAFT = """Write ONE message from Mark to a real-estate agent on the French Riviera / Monaco, in MARK'S OWN STYLE.
-The ONLY goal: ask whether the listed propert{ies} {is_are} still available. Optionally (not always) also ask for the brochure.
+Two questions, always both: (1) is each listed property still available, and (2) do they have it directly — their own mandate
+from the owner / exclusive (for several properties: which ones they have directly or exclusively). Optionally also ask for the brochure.
+Mark's own ways of asking (2): "do you have this one straight from the owner?", "Are all those exclusive?", "could you let me know
+which ones are exclusive", "do you have it directly with the owner".
 NEVER ask for, offer or suggest a viewing or visit, never mention dates, days or timing, never make any commitment or proposal.
 
 Mark's style (copy it, these are his real messages to agents):
@@ -233,6 +236,8 @@ def draft_message(person: dict, ctx: dict, src_agency: str, props: list[dict], c
             problems.append(f"must ask them to reply on WhatsApp at {MY_WA}")
         if re.search(r"[—–;\u2011]|stunning|exquisite|keen|i'?d love|impressed|following up|colleague mentioned|mentioned to me|my colleague|my associate|my partner|we spoke|as discussed", bare, re.I):
             problems.append("not Mark's style (dashes / semicolons / fancy words) or invented a mention")
+        if not re.search(r"direct|exclusiv|mandate|owner", bare, re.I):
+            problems.append("must also ask whether they have it directly / exclusively (mandate)")
         if "availab" not in bare.lower() and "still on the market" not in bare.lower():
             problems.append("must ask whether it is still available")
         if any(msg[:60].lower() == a[:60].lower() for a in avoid):
