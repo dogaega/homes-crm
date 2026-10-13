@@ -235,7 +235,12 @@ def main() -> None:
             taken += 1
 
     # Agency ids for context lookups.
-    drafts, avoid, wa_used = [], [], 0
+    # The WhatsApp cap is per day: count what is already waiting or went out today.
+    today = dt.datetime.now(dt.timezone.utc).date().isoformat()
+    waiting = w.request("GET", "/sync/outreach/queue?status=approved")["messages"]
+    sent = w.request("GET", "/sync/outreach/queue?status=sent")["messages"]
+    wa_used = sum(1 for m in waiting if m["channel"] == "whatsapp") + sum(1 for m in sent if m["channel"] == "whatsapp" and (m.get("sent_at") or "")[:10] == today)
+    drafts, avoid = [], [m["body"][:160] for m in waiting[-6:]]
     for agency, g in sorted(by_agency.items(), key=lambda kv: -len(kv[1]["props"])):
         src = g["src"]
         agency_id = src.get("agency_id")
