@@ -21,7 +21,7 @@ CACHE = Path(__file__).resolve().parents[1] / "data" / "contact_finder_cache.jso
 UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/129.0 Safari/537.36"}
 MOBILE = re.compile(r"(?<![\d.])(?:\+33\s?\(?0?\)?\s?[67]|0[67]|\+377\s?[46]|00377\s?[46])(?:[\s.\-]?\d{2}){4}(?![\d.])")
 EMAIL = re.compile(r"[\w.+-]+@[\w-]+(?:\.[\w-]+)+")
-JUNK_EMAIL = re.compile(r"dpo@|noreply|no-reply|example|exemple|domaine\.|votre|youremail|email@|nom@|name@|sentry|wixpress|@2x|\.(png|jpe?g|webp|svg|gif)$|rgpd|privacy|cnil|webmaster|support@", re.I)
+JUNK_EMAIL = re.compile(r"dpo@|^friend@|@email\.com$|noreply|no-reply|example|exemple|domaine\.|votre|youremail|email@|nom@|name@|sentry|wixpress|@2x|\.(png|jpe?g|webp|svg|gif)$|rgpd|privacy|cnil|webmaster|support@", re.I)
 CONTACT_LINK = re.compile(r"contact|nous-contacter|equipe|team|about|agence|qui-sommes|our-team|l-equipe", re.I)
 NAME_NEAR = re.compile(r"([A-ZÀ-Ý][a-zà-ÿ]+(?:[- ][A-ZÀ-Ý][a-zà-ÿ]+)?\s+[A-ZÀ-Ý][A-Za-zÀ-ÿ'\-]{1,})\W{0,60}$")
 

@@ -29,6 +29,7 @@ import requests
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from sync import netwait  # noqa: E402,F401
 from sync.worker_client import WorkerClient  # noqa: E402
+from outreach.form_filler import submit as submit_form  # noqa: E402
 
 BAILEYS = "http://localhost:8850"
 STATE = Path(__file__).resolve().parents[1] / "data" / "outreach_send_state.json"
@@ -65,7 +66,7 @@ def send_email(to: str, subject: str | None, text: str) -> tuple[bool, str | Non
         return False, None, "no GMAIL_APP_PASSWORD yet"
     msg = EmailMessage()
     msg["From"], msg["To"], msg["Subject"] = f"Mark Mirimsky <{GMAIL}>", to, subject or "Property enquiry"
-    msg.set_content(text + "\n\nMark Mirimsky")
+    msg.set_content(text if re.search(r"Mark\s*$", text.strip()) else text + "\n\nMark Mirimsky")
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=60) as s:
         s.login(GMAIL, pw)
         s.send_message(msg)
@@ -84,8 +85,6 @@ def run_once(w: WorkerClient) -> str:
     if wa and in_hours(now) and now.timestamp() >= st.get("wa_next", 0):
         m = wa[0]
         ok, ext, err = send_whatsapp(m["to_address"], m["body"])
-        if not ok and err == "number not on WhatsApp" and m.get("reason"):
-            pass  # left failed: next planner run picks another channel / person
         w.request("POST", "/sync/outreach/sent", {"id": m["id"], "status": "sent" if ok else "failed", "external_id": ext, "error": err})
         st["wa_next"] = now.timestamp() + random.randint(4 * 60, 9 * 60)
         done.append(f"whatsapp {m.get('agency')} → {'sent' if ok else err}")
@@ -100,6 +99,17 @@ def run_once(w: WorkerClient) -> str:
         w.request("POST", "/sync/outreach/sent", {"id": m["id"], "status": "sent" if ok else "failed", "external_id": ext, "error": err})
         st["mail_next"] = now.timestamp() + random.randint(60, 180)
         done.append(f"email {m.get('agency')} → {'sent' if ok else err}")
+    # Contact forms: one per run, 2–5 minutes apart (no daily cap). CAPTCHA forms are never attempted.
+    fm = [m for m in queue if m["channel"] == "form"]
+    if fm and in_hours(now) and now.timestamp() >= st.get("form_next", 0):
+        m = fm[0]
+        try:
+            ok, note = submit_form(m["to_address"], m["body"], m.get("subject") or "Property enquiry")
+        except (requests.RequestException, ValueError) as e:
+            ok, note = False, str(e)[:200]
+        w.request("POST", "/sync/outreach/sent", {"id": m["id"], "status": "sent" if ok else "failed", "external_id": None, "error": note})
+        st["form_next"] = now.timestamp() + random.randint(120, 300)
+        done.append(f"form {m.get('agency')} → {note}")
     save(st)
     return "; ".join(done) or ("waiting (hours / pacing)" if in_hours(now) else "outside sending hours")
 

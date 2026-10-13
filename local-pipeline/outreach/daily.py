@@ -12,8 +12,10 @@ Rules (Mark, 2026-10-13):
 - at most one message per person per week, never while the last one is
   unanswered; 2 unanswered days in a row pause the person for 30 days;
 - one bundled message per agency group per day;
-- WhatsApp: at most ~20 new people a day, every message worded differently;
-  email / forms are not capped;
+- every agency gets an email, its contact form and (capped, default 8/day)
+  a WhatsApp; emails and forms ask them to reply on Mark's WhatsApp;
+- only ever ask whether it is still available (optionally a brochure) —
+  never a viewing, a date or any commitment;
 - English, written as an interested private person to new contacts; contacts
   who already know Mark as an agent are written to consistently with that.
 """
@@ -37,6 +39,7 @@ from sync.worker_client import WorkerClient  # noqa: E402
 PORTALS = re.compile(r"properties\.lefigaro\.com|immobilier\.notaires\.fr", re.I)
 MOBILE = re.compile(r"^(?:\+?33|0)\s*[67]|^\+?377\s*[46]")
 NOW = dt.datetime.now(dt.timezone.utc)
+MY_WA = "+357 96 146814"  # Mark's WhatsApp: emails and forms ask agencies to reply there
 
 
 def clean_name(x) -> str | None:
@@ -55,7 +58,7 @@ def clean_name(x) -> str | None:
 def clean_email(x) -> str | None:
     from urllib.parse import unquote
     e = unquote(unquote(str(x or ""))).strip().lower()
-    if re.search(r"exemple|example|domaine\.|votre|youremail|^email@|^nom@|noreply|no-reply", e):
+    if re.search(r"exemple|example|domaine\.|votre|youremail|^email@|^nom@|noreply|no-reply|^friend@|@email\.com$|@mail\.com$|^test@|^xxx", e):
         return None
     return e if re.fullmatch(r"[\w.+-]+@[\w-]+(\.[\w-]+)+", e) else None
 
@@ -90,6 +93,18 @@ def on_whatsapp(phone: str) -> bool:
         return bool(r.json().get("exists"))
     except (requests.RequestException, ValueError):
         return False
+
+
+def form_usable(url: str) -> bool:
+    """A form we can fill without a person (no CAPTCHA, every required field understood)."""
+    from outreach.form_filler import submit
+    try:
+        ok, note = submit(url, "-", dry_run=True)
+    except Exception as e:  # noqa: BLE001 — any site error just means: no form
+        ok, note = False, str(e)
+    if not ok:
+        print(f"  form not usable ({note[:80]}): {url}")
+    return ok
 
 
 def mandate_source(prop: dict) -> dict | None:
@@ -146,27 +161,34 @@ def choose_person(ctx: dict, src: dict) -> tuple[dict | None, str]:
     return None, "everyone at this agency was contacted recently or has not replied — wait"
 
 
-DRAFT = """You write ONE short message from Mark to a real-estate agent on the French Riviera / Monaco.
-Main goal: find out whether the listed propert{ies} {is_are} still available. Secondary (pick at most ONE, and not always):
-get a brochure / more photos, or ask about viewing, or (only if Mark is presented as a broker) whether they handle it directly / exclusively.
-It must read like a real person typing on a phone, not a template and not a checklist of questions.
-Rules: English. 1-4 short sentences. Vary the structure: sometimes lead with the property, sometimes with a reason or the
-history, sometimes a quick question. Never start with "Mark here", "Hi, I'm Mark" or "I saw your listing". No clichés
-("I hope this finds you well", "at your earliest convenience"), no emojis, no lists unless there are 3+ properties.
-Mention each property briefly (area or building, type, one key figure) and include its link.
-{persona_rule}
-Use the history: only facts that appear in it. If Mark talked to THIS person before, you may refer to it naturally (what they sent
-or said); if only colleagues were in contact, you may say e.g. "your colleague X helped me before" — never pretend this person
-talked to Mark. Never ask again what was already answered. If nobody talked before, introduce Mark in half a sentence.
+DRAFT = """Write ONE message from Mark to a real-estate agent on the French Riviera / Monaco, in MARK'S OWN STYLE.
+The ONLY goal: ask whether the listed propert{ies} {is_are} still available. Optionally (not always) also ask for the brochure.
+NEVER ask for, offer or suggest a viewing or visit, never mention dates, days or timing, never make any commitment or proposal.
+
+Mark's style (copy it, these are his real messages to agents):
+- "Hi Angie, I came across your 3-room apartment for rent in Beausoleil (€1,990/month): <link> Is it still available? Thank you!"
+- "Hello, do you work for rent also?"
+- "Its for my client, in case you have a brochure could you send please so I can show them"
+- "Could you send the brochures please for these apartments? So I could show to my client"
+- "Hello do you have this one straight from the owner?"
+- "Good day, we got a client looking in monaco for rent at 6000, it can be one bedroom"
+So: plain, short, simple everyday English, a bit casual, like typing on the phone. Opens with "Hello", "Hi <first name>", "Good day"
+or straight with the question. Simple words only — never fancy or salesy wording ("stunning", "exquisite", "I'm keen", "I'd love to",
+"impressed", "following up"), no em dashes or en dashes, no semicolons, no emojis. 1-3 sentences. For 3+ properties a short list
+with "•" is fine (Mark does that), each "•" item on its own line. Each property: type + town + one or two figures, then its link, nothing more.
+Mark may say it's for his client, in his own varied words (e.g. "for my client", "I have a client for it", "Its for a client of mine",
+or not at all); don't always use the same phrase. NEVER say his job title, his position or the agency he works for.
+Use ONLY the facts given below. Never invent anything (that a colleague mentioned it, where Mark is, his plans, prices or terms not given).
+If Mark talked to THIS person before (see history), you may refer to it in a few words; if only colleagues talked to him, you may say
+"your colleague X helped me before" at most. Never ask again what was already answered.
 Address the recipient by first name only if a name is given; otherwise no name.
-NEVER invent facts about Mark (where he lives or comes from, travel, family, timing, moving, budget) — only what is given here.
 Do NOT reuse wording from these recent messages: {avoid}
 Recipient: {person} at {agency}{channel_note}
-Why we write: {purpose}
-Properties:
+Properties (use these figures exactly):
 {props}
 History with this agency (newest first, "OUT" = Mark):
 {history}
+{channel_rule}
 Return ONLY JSON: {{"message": "...", "subject": "short email subject or null"}}"""
 
 
@@ -184,12 +206,14 @@ def draft_message(person: dict, ctx: dict, src_agency: str, props: list[dict], c
         bits = [p.get("city"), (p.get("property_name") or "")[:60] or None,
                 f"{int(p['living_area_sqm'])} m²" if p.get("living_area_sqm") else None,
                 f"{p['bedrooms']} bed" if p.get("bedrooms") else None,
-                f"€{int(p['price']):,}".replace(",", " ") + ("/month" if p.get("tx") == "rent" else "") if p.get("price") else None,
+                f"€{int(p['price']):,}" + ("/month" if p.get("tx") == "rent" else "") if p.get("price") else None,
                 p["_src"].get("source_url")]
         lines.append("- " + ", ".join(b for b in bits if b))
     prompt = DRAFT.format(ies="ies" if len(props) > 1 else "y", is_are="are" if len(props) > 1 else "is", persona_rule=persona_rule,
                           avoid=json.dumps(avoid[-6:], ensure_ascii=False), person=person.get("name") or "the agent", agency=src_agency,
-                          channel_note=" (WhatsApp)" if channel == "whatsapp" else " (email)",
+                          channel_note={"whatsapp": " (WhatsApp)", "email": " (email)", "form": " (the contact form on their website)"}[channel],
+                          channel_rule="" if channel == "whatsapp" else
+                          f"End with a short line asking them to reply on WhatsApp at {MY_WA} (write the number exactly like that), then 'Thank you' and 'Mark'.",
                           purpose="first time asking about these properties", props="\n".join(lines), history=hist)
     for _ in range(3):  # rewrite drafts that break the rules
         out = chat_json(prompt, temperature=0.8)
@@ -202,10 +226,20 @@ def draft_message(person: dict, ctx: dict, src_agency: str, props: list[dict], c
             problems.append("missing links")
         if re.search(r"\b(paris|london|moving|relocat|my wife|my husband|my family|my kids|flying|coming from|visiting from)\b", msg, re.I):
             problems.append("invented personal facts")
+        bare = re.sub(r"https?://\S+", " ", msg)
+        if re.search(r"\bviewings?\b|\bvisit|\bview (it|them|the)|\bsee (it|them|the)|arrange|schedul|this week|next week|tomorrow|come (by|and see)|\btour\b", bare, re.I):
+            problems.append("asks for a viewing / mentions timing — only ask about availability")
+        if channel != "whatsapp" and "146814" not in msg.replace(" ", ""):
+            problems.append(f"must ask them to reply on WhatsApp at {MY_WA}")
+        if re.search(r"[—–;\u2011]|stunning|exquisite|keen|i'?d love|impressed|following up|colleague mentioned|mentioned to me", bare, re.I):
+            problems.append("not Mark's style (dashes / semicolons / fancy words) or invented a mention")
+        if "availab" not in bare.lower() and "still on the market" not in bare.lower():
+            problems.append("must ask whether it is still available")
         if any(msg[:60].lower() == a[:60].lower() for a in avoid):
             problems.append("same opening as another message")
         if msg and not problems:
             return out
+        print(f"  redraft ({', '.join(problems)})", flush=True)
         prompt += f"\n\nYour previous attempt was rejected ({', '.join(problems)}). Write it again, fixing that."
     return None
 
@@ -213,7 +247,8 @@ def draft_message(person: dict, ctx: dict, src_agency: str, props: list[dict], c
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--per-request", type=int, default=6, help="new properties per client per run")
-    ap.add_argument("--whatsapp-cap", type=int, default=20)
+    ap.add_argument("--whatsapp-cap", type=int, default=8, help="new WhatsApp chats a day (start low, raise slowly)")
+    ap.add_argument("--max-agencies", type=int, default=None, help="only the first N agencies (for a quick review)")
     ap.add_argument("--dry-run", action="store_true", help="draft and print, queue nothing")
     args = ap.parse_args()
     w = WorkerClient(timeout=180)
@@ -237,7 +272,7 @@ def main() -> None:
                 continue
             # Town sanity: a "Monaco" property whose own listing URL names another town is mislabelled — skip it.
             urls = " ".join(s.get("source_url") or "" for s in p.get("sources", [])).lower()
-            if p.get("city") == "Monaco" and re.search(r"[/\-_](nice|cannes|antibes|menton|cagnes)[\-_/]", urls) and "monaco" not in urls:
+            if p.get("city") == "Monaco" and re.search(r"[/\-_+](nice|cannes|antibes|menton|cagnes)[\-_/+]", urls) and "monaco" not in urls:
                 continue
             g = by_agency.setdefault(src["agency"], {"src": src, "props": {}, "requests": set()})
             g["props"].setdefault(p["id"], {**p, "_src": src})
@@ -251,7 +286,7 @@ def main() -> None:
     sent = w.request("GET", "/sync/outreach/queue?status=sent")["messages"]
     wa_used = sum(1 for m in waiting if m["channel"] == "whatsapp") + sum(1 for m in sent if m["channel"] == "whatsapp" and (m.get("sent_at") or "")[:10] == today)
     drafts, avoid = [], [m["body"][:160] for m in waiting[-6:]]
-    for agency, g in sorted(by_agency.items(), key=lambda kv: -len(kv[1]["props"])):
+    for agency, g in sorted(by_agency.items(), key=lambda kv: -len(kv[1]["props"]))[:args.max_agencies]:
         src = g["src"]
         agency_id = src.get("agency_id")
         if not agency_id:
@@ -261,41 +296,50 @@ def main() -> None:
             continue
         ctx = w.request("POST", "/sync/outreach/context", {"agency_id": agency_id})
         person, why_person = choose_person(ctx, src)
+        # Every channel for every agency (Mark, 2026-10-13): email + contact form + WhatsApp (WhatsApp capped low).
+        site = next((a.get("website") for a in ctx.get("agencies", []) if a.get("id") == agency_id), None)
+        f = find_contacts(agency_id, src.get("source_url"), site, client=None if args.dry_run else w)
         if not person or not (person.get("phone") or person.get("email")):
-            # Nobody known: read the listing page and the agency's site, then try again.
-            site = next((a.get("website") for a in ctx.get("agencies", []) if a.get("id") == agency_id), None)
-            f = find_contacts(agency_id, src.get("source_url"), site, client=None if args.dry_run else w)
             if f.get("mobiles") or f.get("emails"):
                 p0 = f["people"][0] if f.get("people") else {}
                 person = {"name": clean_name(p0.get("name")), "phone": p0.get("phone") or (f["mobiles"][0] if f.get("mobiles") else None),
                           "email": f["emails"][0] if f.get("emails") else None, "contact_id": None}
                 why_person = "found on the " + ("listing page" if src.get("source_url") else "agency site")
-            elif f.get("form"):
-                print(f"form only for {agency}: {f['form']} (form sending comes next)")
-        if not person:
-            print(f"skip {agency}: {why_person}")
-            continue
+        person = person or {"name": None, "phone": None, "email": None, "contact_id": None}
+        email = person.get("email") or clean_email(src.get("agency_email") or src.get("a_email")) \
+            or next((clean_email(e) for e in f.get("emails", []) if clean_email(e)), None)
+        if email and not person.get("email"):
+            person = {**person, "email": email}
         phone = person.get("phone") or ""
-        on_wa = bool(phone) and MOBILE.search(phone.replace(" ", "")) and on_whatsapp(phone)
-        channel = "whatsapp" if on_wa and wa_used < args.whatsapp_cap else ("email" if person.get("email") else None)
-        if not channel:
-            print(f"skip {agency}: no WhatsApp mobile / email for {person.get('name')}")
+        plan = []
+        wa_recent = any(h.get("channel") == "whatsapp" and h["direction"] == "out" and iso_age_days(h.get("at")) < 7 for h in ctx["history"])
+        if phone and not wa_recent and MOBILE.search(phone.replace(" ", "")) and wa_used < args.whatsapp_cap and on_whatsapp(phone):
+            plan.append(("whatsapp", phone))
+        if email:
+            plan.append(("email", email))
+        if f.get("form") and form_usable(f["form"]):
+            plan.append(("form", f["form"]))
+        if not plan:
+            print(f"skip {agency}: {why_person}; no WhatsApp, email or form")
             continue
         props = list(g["props"].values())[:4]
-        d = draft_message(person, ctx, agency, props, channel, avoid)
-        if not d:
-            print(f"skip {agency}: drafting failed")
-            continue
-        avoid.append(d["message"][:160])
-        wa_used += channel == "whatsapp"
-        drafts.append({"agency_id": agency_id, "contact_id": person.get("contact_id"), "channel": channel, "person_name": person.get("name"),
-                       "status": "approved",  # Mark 2026-10-13: send on their own, he watches the results
-                       "account": "mark" if channel == "whatsapp" else "markmirimsky@gmail.com",
-                       "to_address": phone if channel == "whatsapp" else person["email"], "subject": d.get("subject"), "body": d["message"],
-                       "property_ids": [p["id"] for p in props], "request_ids": sorted(g["requests"]), "purpose": "first_contact",
-                       "reason": f"{agency} — {src['why']}; to {person.get('name') or 'office'}: {why_person}; for "
-                                 + ", ".join(names.get(r, r) for r in sorted(g["requests"]))})
-        print(f"\n=== {agency} → {person.get('name') or 'office'} ({channel} {drafts[-1]['to_address']})\n{drafts[-1]['reason']}\n---\n{d['message']}", flush=True)
+        for channel, to in plan:
+            who = person if channel != "form" else {**person, "name": None}
+            d = draft_message(who, ctx, agency, props, channel, avoid)
+            if not d:
+                print(f"skip {agency} {channel}: drafting failed")
+                continue
+            avoid.append(d["message"][:160])
+            wa_used += channel == "whatsapp"
+            drafts.append({"agency_id": agency_id, "contact_id": person.get("contact_id") if channel != "form" else None, "channel": channel,
+                           "person_name": who.get("name"),
+                           "status": "approved",  # Mark 2026-10-13: send on their own, he watches the results
+                           "account": {"whatsapp": "mark", "email": "markmirimsky@gmail.com", "form": "form"}[channel],
+                           "to_address": to, "subject": d.get("subject"), "body": d["message"],
+                           "property_ids": [p["id"] for p in props], "request_ids": sorted(g["requests"]), "purpose": "first_contact",
+                           "reason": f"{agency} — {src['why']}; {channel} to {who.get('name') or 'office'}: {why_person}; for "
+                                     + ", ".join(names.get(r, r) for r in sorted(g["requests"]))})
+            print(f"\n=== {agency} → {who.get('name') or 'office'} ({channel} {to})\n{drafts[-1]['reason']}\n---\n{d['message']}", flush=True)
     if drafts and not args.dry_run:
         print(w.request("POST", "/sync/outreach/queue", {"messages": drafts}))
     print(f"\n{len(drafts)} drafts ({wa_used} WhatsApp) for {len(by_agency)} agencies")

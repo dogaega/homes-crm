@@ -1494,7 +1494,7 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
       .bind(b.status, channel, to, b.external_id ?? null, b.error ?? null, b.status, now, now, b.id).run()
     if (b.status !== 'sent') return respond({ ok: true })
     let cid = m.contact_id
-    if (!cid && m.agency_id) {
+    if (!cid && m.agency_id && channel !== 'form') {  // a form reaches the office, not a person
       const d9 = String(to || '').replace(/\D/g, '').slice(-9)
       const ex = channel === 'whatsapp'
         ? await ctx.db.prepare(`SELECT id FROM agency_contacts WHERE agency_id = ? AND ? != '' AND (substr(replace(replace(replace(COALESCE(phone,''),'+',''),' ',''),'.',''), -9) = ?
@@ -1612,6 +1612,8 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
         OR LOWER(COALESCE((SELECT s.listing_title FROM property_sources s WHERE s.property_id = p.id LIMIT 1),'')) GLOB '*mixed use*'
         OR EXISTS (SELECT 1 FROM property_sources s WHERE s.property_id = p.id AND (LOWER(s.source_url) GLOB '*bureau*' OR LOWER(s.source_url) GLOB '*commerce*'
              OR LOWER(s.source_url) GLOB '*local-*' OR LOWER(s.source_url) GLOB '*fonds*' OR LOWER(COALESCE(s.listing_title,'')) GLOB '*murs et fonds*'
+             OR LOWER(s.source_url) GLOB '*garage*' OR LOWER(s.source_url) GLOB '*parking*' OR LOWER(s.source_url) GLOB '*box-*' OR LOWER(s.source_url) GLOB '*cave*'
+             OR LOWER(COALESCE(s.listing_title,'')) GLOB '*garage*' OR LOWER(COALESCE(s.listing_title,'')) GLOB '*parking*'
              OR LOWER(COALESCE(s.listing_title,'')) GLOB '*fonds de commerce*' OR LOWER(COALESCE(s.listing_title,'')) GLOB '*profession lib*'
              OR LOWER(COALESCE(s.listing_title,'')) GLOB '*local *')))`)
       if (c.beds) { w.push('(p.bedrooms IS NULL OR p.bedrooms >= ?)'); b.push(c.beds) }
