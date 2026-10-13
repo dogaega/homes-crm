@@ -85,6 +85,40 @@ def criteria(r: dict) -> dict | None:
             "area": c.get("area_min"), "budget": c.get("price_max")}
 
 
+PRIORITY = json.loads((Path(__file__).resolve().parents[1] / "data" / "request_priority.json").read_text())
+HOT = re.compile(r"срочно|готов смотреть|смотреть сейчас|актуально|asap|urgent|сейчас", re.I)
+
+
+def priority(r: dict) -> tuple[int, str]:
+    """Score a client request so the hottest ones get outreach first. -1 = skip for now."""
+    c, no = r["c"], r["c"].get("sheet_no") or ""
+    if no in PRIORITY.get("skip", {}):
+        return -1, PRIORITY["skip"][no]
+    if (c.get("status") or "").strip() == "Уточнить":
+        return -1, "needs details first (status Уточнить)"
+    score, why = 0, []
+    if c.get("deadline"):
+        try:
+            days = (dt.datetime.strptime(c["deadline"], "%d.%m.%Y").date() - dt.date.today()).days
+            if days <= 14:
+                score += 40; why.append(f"deadline {c['deadline']}")
+        except ValueError:
+            pass
+    if no in PRIORITY.get("artem_active", []):
+        score += 30; why.append("on Artem's call cards")
+    text = f"{c.get('notes') or ''} {c.get('location_text') or ''}"
+    recent = [d for d in re.findall(r"\b(\d{1,2})\.(\d{2})\b", text)
+              if 0 <= (dt.date.today() - dt.date(dt.date.today().year, int(d[1]), int(d[0]))).days <= 7] if text else []
+    if HOT.search(text) or recent:
+        score += 15; why.append("recent / urgent note")
+    score += {"Подбор": 10, "Новый": 5}.get((c.get("status") or "").strip(), 0)
+    if c.get("price_max") and c.get("cities"):
+        score += 10
+    else:
+        why.append("vague criteria")
+    return score, ", ".join(why) or "normal"
+
+
 def on_whatsapp(phone: str) -> bool:
     """Ask the local Baileys service whether the number has WhatsApp (no message is sent)."""
     import requests
@@ -288,6 +322,11 @@ def main() -> None:
     w = WorkerClient(timeout=180)
     reqs = w.request("GET", "/sync/outreach/requests")["requests"]
     reqs = [r for r in reqs if r["c"].get("sheet_no")]  # "Запросы клиентов" rows only (not retired WORK FRANCE ones)
+    # Hottest clients first (deadline, Artem's call cards, recent notes); skipped ones (e.g. Mareterra for now) get nothing.
+    prio = {r["id"]: priority(r) for r in reqs}
+    for r in sorted(reqs, key=lambda r: -prio[r["id"]][0]):
+        print(f"  priority {prio[r['id']][0]:>3}  №{r['c'].get('sheet_no')} {r['name'][:40]} — {prio[r['id']][1]}")
+    reqs = [r for r in reqs if prio[r["id"]][0] >= 0]
     crit = [c for c in (criteria(r) for r in reqs) if c]
     names = {r["id"]: f"{r['name']} (№{r['c'].get('sheet_no') or '?'})" for r in reqs}
     matches = w.request("POST", "/sync/match-clients", {"clients": crit, "limit": 25})["matches"]
@@ -299,7 +338,9 @@ def main() -> None:
                                                                   "origin": "crm_match"})["new"]) if not args.dry_run else {p["id"] for p in props}
         taken = 0
         for p in props:
-            if p["id"] not in fresh or taken >= args.per_request:
+            score = prio.get(rid, (0, ""))[0]
+            quota = args.per_request * 2 if score >= 50 else args.per_request if score >= 20 else 1
+            if p["id"] not in fresh or taken >= quota:
                 continue
             src = mandate_source(p)
             if not src or not src.get("agency"):
@@ -320,7 +361,9 @@ def main() -> None:
     sent = w.request("GET", "/sync/outreach/queue?status=sent")["messages"]
     wa_used = sum(1 for m in waiting if m["channel"] == "whatsapp") + sum(1 for m in sent if m["channel"] == "whatsapp" and (m.get("sent_at") or "")[:10] == today)
     drafts, avoid = [], [m["body"][:160] for m in waiting[-6:]]
-    for agency, g in sorted(by_agency.items(), key=lambda kv: -len(kv[1]["props"]))[:args.max_agencies]:
+    # Agencies serving the hottest clients go first (WhatsApp cap is spent on them), then by how many properties they hold.
+    rank = lambda g: (max(prio.get(r, (0, ""))[0] for r in g["requests"]), len(g["props"]))
+    for agency, g in sorted(by_agency.items(), key=lambda kv: rank(kv[1]), reverse=True)[:args.max_agencies]:
         src = g["src"]
         agency_id = src.get("agency_id")
         if not agency_id:
