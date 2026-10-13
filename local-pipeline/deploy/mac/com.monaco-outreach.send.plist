@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.monaco-outreach.send</string>
+  <key>ProgramArguments</key>
+  <array><string>/Users/markmirimsky/Projects/monaco-riviera-crm-app/local-pipeline/deploy/mac/outreach.sh</string><string>send</string></array>
+  <key>StartInterval</key><integer>300</integer>
+  <key>LowPriorityIO</key><true/>
+</dict>
+</plist>

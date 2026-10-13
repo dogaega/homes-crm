@@ -1428,8 +1428,13 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
     const { results } = await ctx.db.prepare(
       `SELECT property_id, status FROM outreach_options WHERE request_id = ? AND property_id IN (${ids.map(() => '?').join(',')})`).bind(b.request_id, ...ids).all<any>()
     const known: Record<string, string> = Object.fromEntries((results || []).map(r => [r.property_id, r.status]))
-    const fresh = ids.filter(i => !(i in known))
-    const st = fresh.map(pid => ctx.db.prepare(`INSERT OR IGNORE INTO outreach_options (id, request_id, property_id, origin, status, status_at, created_at, updated_at)
+    // Waiting in the send queue already → not again.
+    const { results: pending } = await ctx.db.prepare(
+      `SELECT property_ids FROM outreach_messages WHERE status IN ('draft','approved','sending') AND request_ids LIKE ?`).bind(`%${b.request_id}%`).all<any>()
+    const queued = new Set((pending || []).flatMap(r => JSON.parse(r.property_ids || '[]')))
+    // Found earlier but never contacted (nobody free / no channel that day) → try again.
+    const fresh = ids.filter(i => (!(i in known) || known[i] === 'found') && !queued.has(i))
+    const st = fresh.filter(pid => !(pid in known)).map(pid => ctx.db.prepare(`INSERT OR IGNORE INTO outreach_options (id, request_id, property_id, origin, status, status_at, created_at, updated_at)
                                                 VALUES (?, ?, ?, ?, 'found', ?, ?, ?)`).bind(crypto.randomUUID(), b.request_id, pid, b.origin || 'crm_match', now, now, now))
     for (let i = 0; i < st.length; i += 50) await ctx.db.batch(st.slice(i, i + 50))
     return respond({ new: fresh, known })
@@ -1468,12 +1473,105 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
     const b = await req.json<any>(); const now = new Date().toISOString()
     const st = (b.messages || []).map((m: any) => ctx.db.prepare(
       `INSERT INTO outreach_messages (id, agency_id, contact_id, channel, account, to_address, subject, body, property_ids, request_ids, purpose, status, reason,
-                                      scheduled_at, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+                                      scheduled_at, created_at, updated_at, person_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
       .bind(crypto.randomUUID(), m.agency_id ?? null, m.contact_id ?? null, m.channel, m.account ?? null, m.to_address ?? null, m.subject ?? null, m.body,
             JSON.stringify(m.property_ids || []), JSON.stringify(m.request_ids || []), m.purpose ?? 'first_contact', m.status ?? 'draft', m.reason ?? null,
-            m.scheduled_at ?? null, now, now))
+            m.scheduled_at ?? null, now, now, m.person_name ?? null))
     for (let i = 0; i < st.length; i += 50) await ctx.db.batch(st.slice(i, i + 50))
     return respond({ queued: st.length })
+  }
+
+  // POST /sync/outreach/sent {id, status: sent|failed|cancelled, external_id?, error?, to_address?, channel?, person_name?}
+  // A message left (or could not): log it as an interaction, create the person if new, refresh pacing,
+  // and mark its properties "contacted" for its clients.
+  if (path === '/sync/outreach/sent' && req.method === 'POST') {
+    const b = await req.json<any>(); const now = new Date().toISOString()
+    const m = await ctx.db.prepare('SELECT * FROM outreach_messages WHERE id = ?').bind(b.id).first<any>()
+    if (!m) return respond({ error: 'unknown message' }, 404)
+    const channel = b.channel || m.channel, to = b.to_address || m.to_address
+    await ctx.db.prepare(`UPDATE outreach_messages SET status = ?, channel = ?, to_address = ?, external_id = COALESCE(?, external_id), error = ?,
+                          sent_at = CASE WHEN ? = 'sent' THEN ? ELSE sent_at END, updated_at = ? WHERE id = ?`)
+      .bind(b.status, channel, to, b.external_id ?? null, b.error ?? null, b.status, now, now, b.id).run()
+    if (b.status !== 'sent') return respond({ ok: true })
+    let cid = m.contact_id
+    if (!cid && m.agency_id) {
+      const d9 = String(to || '').replace(/\D/g, '').slice(-9)
+      const ex = channel === 'whatsapp'
+        ? await ctx.db.prepare(`SELECT id FROM agency_contacts WHERE agency_id = ? AND ? != '' AND (substr(replace(replace(replace(COALESCE(phone,''),'+',''),' ',''),'.',''), -9) = ?
+                                 OR substr(replace(replace(replace(COALESCE(whatsapp,''),'+',''),' ',''),'.',''), -9) = ?)`).bind(m.agency_id, d9, d9, d9).first<{ id: string }>()
+        : await ctx.db.prepare(`SELECT id FROM agency_contacts WHERE agency_id = ? AND email IS NOT NULL AND lower(email) = lower(?)`).bind(m.agency_id, to || '').first<{ id: string }>()
+      cid = ex?.id
+      if (!cid) {
+        cid = crypto.randomUUID()
+        await ctx.db.prepare(`INSERT INTO agency_contacts (id, agency_id, name, phone, whatsapp, email, source, persona, created_at, updated_at)
+                              VALUES (?, ?, ?, ?, ?, ?, 'outreach', ?, ?, ?)`)
+          .bind(cid, m.agency_id, b.person_name || m.person_name || null, channel === 'whatsapp' ? to : null, channel === 'whatsapp' ? to : null,
+                channel === 'email' ? to : null, b.persona || null, now, now).run()
+      }
+      await ctx.db.prepare('UPDATE outreach_messages SET contact_id = ? WHERE id = ?').bind(cid, b.id).run()
+    }
+    await ctx.db.prepare(`INSERT OR IGNORE INTO interactions (id, agency_id, contact_id, channel, direction, account, external_id, peer, at, text, property_ids, request_ids, created_at)
+                          VALUES (?, ?, ?, ?, 'out', ?, ?, ?, ?, ?, ?, ?, ?)`)
+      .bind(crypto.randomUUID(), m.agency_id, cid, channel, m.account, b.external_id ? `${channel === 'whatsapp' ? 'wa:mark' : 'mail'}:${b.external_id}` : `outreach:${b.id}`,
+            to, now, m.body, m.property_ids, m.request_ids, now).run()
+    if (cid) await ctx.db.prepare(`UPDATE agency_contacts SET first_contacted_at = COALESCE(first_contacted_at, ?1), last_contacted_at = ?1,
+                                   sent_count = sent_count + 1, unanswered_streak = unanswered_streak + 1, updated_at = ?1 WHERE id = ?2`).bind(now, cid).run()
+    const props: string[] = JSON.parse(m.property_ids || '[]'), reqs: string[] = JSON.parse(m.request_ids || '[]')
+    for (const r of reqs) for (const pid of props) {
+      await ctx.db.prepare(`INSERT INTO outreach_options (id, request_id, property_id, origin, status, mandate_agency_id, last_contacted_at, status_at, created_at, updated_at)
+                            VALUES (?, ?, ?, 'crm_match', 'contacted', ?, ?, ?, ?, ?)
+                            ON CONFLICT(request_id, property_id) DO UPDATE SET status = CASE WHEN status IN ('found','no_reply') THEN 'contacted' ELSE status END,
+                              mandate_agency_id = COALESCE(mandate_agency_id, excluded.mandate_agency_id), last_contacted_at = excluded.last_contacted_at,
+                              status_at = CASE WHEN status IN ('found','no_reply') THEN excluded.status_at ELSE status_at END, updated_at = excluded.updated_at`)
+        .bind(crypto.randomUUID(), r, pid, m.agency_id, now, now, now, now).run()
+    }
+    return respond({ ok: true, contact_id: cid })
+  }
+
+  // GET /sync/outreach/inbox?since=ISO — replies (inbound messages) from people we sent outreach to,
+  // each with the last outreach message to that person (its properties and clients) and not yet classified.
+  if (path === '/sync/outreach/inbox' && req.method === 'GET') {
+    const since = new URL(req.url).searchParams.get('since') || new Date(Date.now() - 3 * 86400_000).toISOString()
+    const { results } = await ctx.db.prepare(
+      `SELECT i.id, i.at, i.text, i.contact_id, i.agency_id, c.name AS person, a.name AS agency,
+              (SELECT json_object('id', m.id, 'body', m.body, 'property_ids', m.property_ids, 'request_ids', m.request_ids, 'sent_at', m.sent_at)
+                 FROM outreach_messages m WHERE m.contact_id = i.contact_id AND m.status = 'sent' AND m.sent_at <= i.at ORDER BY m.sent_at DESC LIMIT 1) AS last_out
+       FROM interactions i LEFT JOIN agency_contacts c ON c.id = i.contact_id LEFT JOIN agencies a ON a.id = i.agency_id
+       WHERE i.direction = 'in' AND i.at >= ? AND i.classification IS NULL ORDER BY i.at`).bind(since).all<any>()
+    return respond({ replies: (results || []).filter(r => r.last_out).map(r => ({ ...r, last_out: JSON.parse(r.last_out) })) })
+  }
+
+  // POST /sync/outreach/props {ids[]} — short descriptions for the reply reader.
+  if (path === '/sync/outreach/props' && req.method === 'POST') {
+    const ids: string[] = (await req.json<any>()).ids || []
+    if (!ids.length) return respond({ props: [] })
+    const { results } = await ctx.db.prepare(
+      `SELECT p.id, p.city, p.quarter, p.price, p.bedrooms, p.living_area_sqm, p.transaction_type,
+              (SELECT s.listing_title FROM property_sources s WHERE s.property_id = p.id ORDER BY s.first_seen_at LIMIT 1) AS title,
+              (SELECT group_concat(s.source_url, ' ') FROM property_sources s WHERE s.property_id = p.id) AS urls
+       FROM properties p WHERE p.id IN (${ids.map(() => '?').join(',')})`).bind(...ids).all<any>()
+    return respond({ props: results || [] })
+  }
+
+  // POST /sync/outreach/classified {interaction_id, classification, options:[{request_id, property_id, status, mandate, at}]}
+  if (path === '/sync/outreach/classified' && req.method === 'POST') {
+    const b = await req.json<any>(); const now = new Date().toISOString()
+    await ctx.db.prepare('UPDATE interactions SET classification = ? WHERE id = ?').bind(JSON.stringify(b.classification || {}), b.interaction_id).run()
+    const i = await ctx.db.prepare('SELECT contact_id, agency_id, at FROM interactions WHERE id = ?').bind(b.interaction_id).first<any>()
+    if (i?.contact_id) await ctx.db.prepare(`UPDATE agency_contacts SET last_reply_at = MAX(COALESCE(last_reply_at,''), ?), reply_count = reply_count + 1,
+                                              unanswered_streak = 0, updated_at = ? WHERE id = ?`).bind(i.at, now, i.contact_id).run()
+    for (const o of (b.options || []) as any[]) {
+      const avail = o.status === 'available'
+      await ctx.db.prepare(`UPDATE outreach_options SET status = ?, status_at = ?, updated_at = ?,
+                              available_confirmed_at = CASE WHEN ? THEN ? ELSE available_confirmed_at END,
+                              mandate = COALESCE(?, mandate), mandate_agency_id = CASE WHEN ? = 'exclusive' THEN ? ELSE mandate_agency_id END,
+                              mandate_confirmed_at = CASE WHEN ? IS NOT NULL THEN ? ELSE mandate_confirmed_at END,
+                              notes = trim(COALESCE(notes,'') || ' ' || COALESCE(?, ''))
+                            WHERE request_id = ? AND property_id = ?`)
+        .bind(o.status, o.at || now, now, avail ? 1 : 0, o.at || now, o.mandate ?? null, o.mandate ?? null, i?.agency_id ?? null,
+              o.mandate ?? null, o.at || now, o.note ?? null, o.request_id, o.property_id).run()
+    }
+    return respond({ ok: true })
   }
 
   // GET /sync/outreach/queue?status=draft

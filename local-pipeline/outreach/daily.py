@@ -225,6 +225,10 @@ def main() -> None:
             src = mandate_source(p)
             if not src or not src.get("agency"):
                 continue
+            # Town sanity: a "Monaco" property whose own listing URL names another town is mislabelled — skip it.
+            urls = " ".join(s.get("source_url") or "" for s in p.get("sources", [])).lower()
+            if p.get("city") == "Monaco" and re.search(r"[/\-_](nice|cannes|antibes|menton|cagnes)[\-_/]", urls) and "monaco" not in urls:
+                continue
             g = by_agency.setdefault(src["agency"], {"src": src, "props": {}, "requests": set()})
             g["props"].setdefault(p["id"], {**p, "_src": src})
             g["requests"].add(rid)
@@ -268,7 +272,8 @@ def main() -> None:
             continue
         avoid.append(d["message"][:160])
         wa_used += channel == "whatsapp"
-        drafts.append({"agency_id": agency_id, "contact_id": person.get("contact_id"), "channel": channel,
+        drafts.append({"agency_id": agency_id, "contact_id": person.get("contact_id"), "channel": channel, "person_name": person.get("name"),
+                       "status": "approved",  # Mark 2026-10-13: send on their own, he watches the results
                        "account": "mark" if channel == "whatsapp" else "markmirimsky@gmail.com",
                        "to_address": phone if channel == "whatsapp" else person["email"], "subject": d.get("subject"), "body": d["message"],
                        "property_ids": [p["id"] for p in props], "request_ids": sorted(g["requests"]), "purpose": "first_contact",
