@@ -225,8 +225,9 @@ def choose_person(ctx: dict, src: dict) -> tuple[dict | None, str]:
 
 
 DRAFT = """Write ONE message from Mark to a real-estate agent on the French Riviera / Monaco, in MARK'S OWN STYLE.
-Two questions, always both: (1) is each listed property still available, and (2) do they have it directly — their own mandate
-from the owner / exclusive (for several properties: which ones they have directly or exclusively). Optionally also ask for the brochure.
+Questions: (1) is each listed property still available, and (2) ONLY for properties NOT marked "[mandate known]": do they have it
+directly — their own mandate from the owner / exclusive. Never ask (2) about a property marked "[mandate known]" (the listing already
+says it is theirs exclusively); if every property is marked, ask only (1). Optionally also ask for the brochure.
 Mark's own ways of asking (2): "do you have this one straight from the owner?", "Are all those exclusive?", "could you let me know
 which ones are exclusive", "do you have it directly with the owner".
 NEVER ask for, offer or suggest a viewing or visit, never mention dates, days or timing, never make any commitment or proposal.
@@ -274,7 +275,7 @@ def draft_message(person: dict, ctx: dict, src_agency: str, props: list[dict], c
                 f"{p['bedrooms']} bed" if p.get("bedrooms") else None,
                 f"€{int(p['price']):,}" + ("/month" if p.get("tx") == "rent" else "") if p.get("price") else None,
                 p["_src"].get("source_url")]
-        lines.append("- " + ", ".join(b for b in bits if b))
+        lines.append("- " + ", ".join(b for b in bits if b) + (" [mandate known: listing says exclusive]" if p["_src"].get("exclusive") else ""))
     prompt = DRAFT.format(ies="ies" if len(props) > 1 else "y", is_are="are" if len(props) > 1 else "is", persona_rule=persona_rule,
                           avoid=json.dumps(avoid[-6:], ensure_ascii=False), person=person.get("name") or "the agent", agency=src_agency,
                           channel_note={"whatsapp": " (WhatsApp)", "email": " (email)", "form": " (the contact form on their website)"}[channel],
@@ -299,7 +300,7 @@ def draft_message(person: dict, ctx: dict, src_agency: str, props: list[dict], c
             problems.append(f"must ask them to reply on WhatsApp at {MY_WA}")
         if re.search(r"[—–;\u2011]|stunning|exquisite|keen|i'?d love|impressed|following up|colleague mentioned|mentioned to me|my colleague|my associate|my partner|we spoke|as discussed", bare, re.I):
             problems.append("not Mark's style (dashes / semicolons / fancy words) or invented a mention")
-        if not re.search(r"direct|exclusiv|mandate|owner", bare, re.I):
+        if any(not p["_src"].get("exclusive") for p in props) and not re.search(r"direct|exclusiv|mandate|owner", bare, re.I):
             problems.append("must also ask whether they have it directly / exclusively (mandate)")
         if "availab" not in bare.lower() and "still on the market" not in bare.lower():
             problems.append("must ask whether it is still available")
