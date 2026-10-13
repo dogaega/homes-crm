@@ -82,6 +82,16 @@ def criteria(r: dict) -> dict | None:
             "area": c.get("area_min"), "budget": c.get("price_max")}
 
 
+def on_whatsapp(phone: str) -> bool:
+    """Ask the local Baileys service whether the number has WhatsApp (no message is sent)."""
+    import requests
+    try:
+        r = requests.get("http://localhost:8850/accounts/mark/resolve", params={"phone": digits(phone)}, timeout=20)
+        return bool(r.json().get("exists"))
+    except (requests.RequestException, ValueError):
+        return False
+
+
 def mandate_source(prop: dict) -> dict | None:
     """The source to contact: says 'exclusive' > only agency listing it > first listed. Portals never."""
     srcs = [s for s in prop.get("sources", []) if not PORTALS.search(s.get("source_url") or "")]
@@ -266,7 +276,8 @@ def main() -> None:
             print(f"skip {agency}: {why_person}")
             continue
         phone = person.get("phone") or ""
-        channel = "whatsapp" if phone and MOBILE.search(phone.replace(" ", "")) and wa_used < args.whatsapp_cap else ("email" if person.get("email") else None)
+        on_wa = bool(phone) and MOBILE.search(phone.replace(" ", "")) and on_whatsapp(phone)
+        channel = "whatsapp" if on_wa and wa_used < args.whatsapp_cap else ("email" if person.get("email") else None)
         if not channel:
             print(f"skip {agency}: no WhatsApp mobile / email for {person.get('name')}")
             continue
