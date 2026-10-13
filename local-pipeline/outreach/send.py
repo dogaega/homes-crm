@@ -60,7 +60,7 @@ def send_whatsapp(phone: str, text: str) -> tuple[bool, str | None, str | None]:
 
 
 def send_email(to: str, subject: str | None, text: str) -> tuple[bool, str | None, str | None]:
-    pw = os.environ.get("GMAIL_APP_PASSWORD")
+    pw = (os.environ.get("GMAIL_APP_PASSWORD") or "").replace(" ", "")
     if not pw:
         return False, None, "no GMAIL_APP_PASSWORD yet"
     msg = EmailMessage()
