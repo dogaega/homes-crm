@@ -231,7 +231,7 @@ def draft_message(person: dict, ctx: dict, src_agency: str, props: list[dict], c
             problems.append("asks for a viewing / mentions timing — only ask about availability")
         if channel != "whatsapp" and "146814" not in msg.replace(" ", ""):
             problems.append(f"must ask them to reply on WhatsApp at {MY_WA}")
-        if re.search(r"[—–;\u2011]|stunning|exquisite|keen|i'?d love|impressed|following up|colleague mentioned|mentioned to me", bare, re.I):
+        if re.search(r"[—–;\u2011]|stunning|exquisite|keen|i'?d love|impressed|following up|colleague mentioned|mentioned to me|my colleague|my associate|my partner|we spoke|as discussed", bare, re.I):
             problems.append("not Mark's style (dashes / semicolons / fancy words) or invented a mention")
         if "availab" not in bare.lower() and "still on the market" not in bare.lower():
             problems.append("must ask whether it is still available")
