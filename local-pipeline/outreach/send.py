@@ -94,7 +94,7 @@ def run_once(w: WorkerClient) -> str:
                  if m["channel"] == "email"}
     for m in [m for m in queue if m["channel"] == "email"]:
         d = (m["to_address"] or "").split("@")[-1].lower()
-        if d in prior or d in sent_doms or not re.fullmatch(r"[\w.+-]+@[\w-]+(\.[\w-]+)+", m["to_address"] or ""):
+        if d in prior or d in sent_doms or not re.fullmatch(r"[\w.+-]+@[\w-]+(\.[\w-]+)*\.[a-z]{2,}", m["to_address"] or ""):
             w.request("POST", "/sync/outreach/sent", {"id": m["id"], "status": "cancelled", "error": "agency already contacted before / bad address"})
             queue.remove(m)
     em = [m for m in queue if m["channel"] == "email"]

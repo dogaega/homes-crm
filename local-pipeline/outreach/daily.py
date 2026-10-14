@@ -60,7 +60,7 @@ def clean_email(x) -> str | None:
     e = unquote(unquote(str(x or ""))).strip().lower()
     if re.search(r"exemple|example|domaine\.|votre|youremail|^email@|^nom@|noreply|no-reply|^friend@|@email\.com$|@mail\.com$|^test@|^xxx", e):
         return None
-    return e if re.fullmatch(r"[\w.+-]+@[\w-]+(\.[\w-]+)+", e) else None
+    return e if re.fullmatch(r"[\w.+-]+@[\w-]+(\.[\w-]+)*\.[a-z]{2,}", e) else None
 
 
 def digits(x) -> str:
@@ -94,6 +94,8 @@ def priority(r: dict) -> tuple[int, str]:
     c, no = r["c"], r["c"].get("sheet_no") or ""
     if no in PRIORITY.get("skip", {}):
         return -1, PRIORITY["skip"][no]
+    if not c.get("price_max"):
+        return -1, "no budget in the sheet — matches would be guesses"
     if (c.get("status") or "").strip() == "Уточнить":
         return -1, "needs details first (status Уточнить)"
     score, why = 0, []
@@ -279,7 +281,7 @@ def draft_message(person: dict, ctx: dict, src_agency: str, props: list[dict], c
                           avoid=json.dumps(avoid[-6:], ensure_ascii=False), person=person.get("name") or "the agent", agency=src_agency,
                           channel_note={"whatsapp": " (WhatsApp)", "email": " (email)", "form": " (the contact form on their website)"}[channel],
                           channel_rule="" if channel == "whatsapp" else
-                          f"End with a short line asking them to reply on WhatsApp at {MY_WA} (write the number exactly like that), then 'Thank you' and 'Mark'.",
+                          "End with a short line asking them to reply by email, then 'Thank you' and 'Mark'. Do not mention WhatsApp or any phone number.",
                           purpose="first time asking about these properties", props="\n".join(lines), history=hist)
     for _ in range(3):  # rewrite drafts that break the rules
         out = chat_json(prompt, temperature=0.8)
@@ -295,8 +297,8 @@ def draft_message(person: dict, ctx: dict, src_agency: str, props: list[dict], c
         bare = re.sub(r"https?://\S+", " ", msg)
         if re.search(r"\bviewings?\b|\bvisit|\bview (it|them|the)|\bsee (it|them|the)|arrange|schedul|this week|next week|tomorrow|come (by|and see)|\btour\b", bare, re.I):
             problems.append("asks for a viewing / mentions timing — only ask about availability")
-        if channel != "whatsapp" and "146814" not in msg.replace(" ", ""):
-            problems.append(f"must ask them to reply on WhatsApp at {MY_WA}")
+        if re.search(r"whatsapp|\+357", msg, re.I):
+            problems.append("no WhatsApp / phone number — ask them to reply by email")
         if re.search(r"[—–;\u2011]|stunning|exquisite|keen|i'?d love|impressed|following up|colleague mentioned|mentioned to me|my colleague|my associate|my partner|we spoke|as discussed", bare, re.I):
             problems.append("not Mark's style (dashes / semicolons / fancy words) or invented a mention")
         if not re.search(r"direct|exclusiv|mandate|owner", bare, re.I):
@@ -348,7 +350,7 @@ def main() -> None:
                 continue
             # Town sanity: a "Monaco" property whose own listing URL names another town is mislabelled — skip it.
             urls = " ".join(s.get("source_url") or "" for s in p.get("sources", [])).lower()
-            if p.get("city") == "Monaco" and re.search(r"[/\-_+](nice|cannes|antibes|menton|cagnes)[\-_/+]", urls) and "monaco" not in urls:
+            if p.get("city") == "Monaco" and re.search(r"[/\-_+](nice|cannes|antibes|menton|cagnes|marseille|paris|auteuil|saint-cyr|toulon|lyon)[\-_/+]", urls) and "monaco" not in urls:
                 continue
             g = by_agency.setdefault(src["agency"], {"src": src, "props": {}, "requests": set()})
             g["props"].setdefault(p["id"], {**p, "_src": src})
