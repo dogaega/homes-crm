@@ -225,9 +225,8 @@ def choose_person(ctx: dict, src: dict) -> tuple[dict | None, str]:
 
 
 DRAFT = """Write ONE message from Mark to a real-estate agent on the French Riviera / Monaco, in MARK'S OWN STYLE.
-Questions: (1) is each listed property still available, and (2) ONLY for properties NOT marked "[mandate known]": do they have it
-directly — their own mandate from the owner / exclusive. Never ask (2) about a property marked "[mandate known]" (the listing already
-says it is theirs exclusively); if every property is marked, ask only (1). Optionally also ask for the brochure.
+Questions, always both: (1) is each listed property still available, and (2) do they have it directly — their own mandate
+from the owner / exclusive (for several properties: which ones they have directly or exclusively). Optionally also ask for the brochure.
 Mark's own ways of asking (2): "do you have this one straight from the owner?", "Are all those exclusive?", "could you let me know
 which ones are exclusive", "do you have it directly with the owner".
 NEVER ask for, offer or suggest a viewing or visit, never mention dates, days or timing, never make any commitment or proposal.
@@ -300,7 +299,7 @@ def draft_message(person: dict, ctx: dict, src_agency: str, props: list[dict], c
             problems.append(f"must ask them to reply on WhatsApp at {MY_WA}")
         if re.search(r"[—–;\u2011]|stunning|exquisite|keen|i'?d love|impressed|following up|colleague mentioned|mentioned to me|my colleague|my associate|my partner|we spoke|as discussed", bare, re.I):
             problems.append("not Mark's style (dashes / semicolons / fancy words) or invented a mention")
-        if any(not p["_src"].get("exclusive") for p in props) and not re.search(r"direct|exclusiv|mandate|owner", bare, re.I):
+        if not re.search(r"direct|exclusiv|mandate|owner", bare, re.I):
             problems.append("must also ask whether they have it directly / exclusively (mandate)")
         if "availab" not in bare.lower() and "still on the market" not in bare.lower():
             problems.append("must ask whether it is still available")
@@ -316,7 +315,8 @@ def draft_message(person: dict, ctx: dict, src_agency: str, props: list[dict], c
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--per-request", type=int, default=6, help="new properties per client per run")
-    ap.add_argument("--whatsapp-cap", type=int, default=8, help="new WhatsApp chats a day (start low, raise slowly)")
+    ap.add_argument("--whatsapp-cap", type=int, default=0, help="new WhatsApp chats a day (0: Mark's WhatsApp was blocked 14.10 — email only)")
+    ap.add_argument("--forms", action="store_true", help="also fill contact forms (off: email only, Mark 14.10)")
     ap.add_argument("--max-agencies", type=int, default=None, help="only the first N agencies (for a quick review)")
     ap.add_argument("--dry-run", action="store_true", help="draft and print, queue nothing")
     args = ap.parse_args()
@@ -401,7 +401,7 @@ def main() -> None:
             plan.append(("whatsapp", phone))
         if email:
             plan.append(("email", email))
-        if f.get("form") and form_usable(f["form"]):
+        if args.forms and f.get("form") and form_usable(f["form"]):
             plan.append(("form", f["form"]))
         if not plan:
             print(f"skip {agency}: {why_person}; no WhatsApp, email or form")

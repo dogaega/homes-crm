@@ -81,7 +81,7 @@ def run_once(w: WorkerClient) -> str:
         return "queue empty"
     done = []
     # One WhatsApp per run, only in hours and after the random gap.
-    wa = [m for m in queue if m["channel"] == "whatsapp"]
+    wa = [] if os.environ.get("OUTREACH_WHATSAPP") != "1" else [m for m in queue if m["channel"] == "whatsapp"]  # off since Mark's WhatsApp was blocked (14.10)
     if wa and in_hours(now) and now.timestamp() >= st.get("wa_next", 0):
         m = wa[0]
         ok, ext, err = send_whatsapp(m["to_address"], m["body"])

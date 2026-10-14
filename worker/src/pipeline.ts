@@ -1632,7 +1632,8 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
         const { results: srcs } = await ctx.db.prepare(
           `SELECT s.property_id, s.agency_id, s.source_url, s.listing_title, s.price_at_source, s.agent_name, s.agent_phone, s.agent_email, s.agent_whatsapp,
                   s.agency_phone, s.agency_email, s.first_seen_at, a.name AS agency, a.website, a.phone AS a_phone, a.email AS a_email,
-                  (lower(COALESCE(s.listing_title,'')||' '||COALESCE(s.listing_description,'')) LIKE '%exclusiv%'
+                  ((lower(COALESCE(s.listing_title,'')||' '||COALESCE(s.listing_description,'')) LIKE '%exclusiv%'
+                    AND replace(replace(lower(COALESCE(s.listing_title,'')||' '||COALESCE(s.listing_description,'')),'exclusive service',''),'exclusive amenit','') LIKE '%exclusiv%')
                    OR lower(COALESCE(s.listing_title,'')||' '||COALESCE(s.listing_description,'')) LIKE '%sole agent%'
                    OR lower(COALESCE(s.listing_title,'')||' '||COALESCE(s.listing_description,'')) LIKE '%mandat exclusif%') AS exclusive
            FROM property_sources s LEFT JOIN agencies a ON a.id = s.agency_id
