@@ -1410,6 +1410,26 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
     return respond({ ok: true, added })
   }
 
+  // GET /sync/outreach/known-agents — people we already talk to (any history), with what their agency lists
+  // (towns × rent/sale), for sharing client requests with them.
+  if (path === '/sync/outreach/known-agents' && req.method === 'GET') {
+    const { results } = await ctx.db.prepare(
+      `SELECT c.id, c.name, c.phone, c.whatsapp, c.email, c.agency_id, a.name AS agency, c.persona,
+              (SELECT MAX(at) FROM interactions i WHERE i.contact_id = c.id AND i.direction = 'in') AS last_in,
+              (SELECT MAX(at) FROM interactions i WHERE i.contact_id = c.id AND i.direction = 'out') AS last_out,
+              (SELECT COUNT(*) FROM interactions i WHERE i.contact_id = c.id) AS msgs
+       FROM agency_contacts c JOIN agencies a ON a.id = c.agency_id
+       WHERE EXISTS (SELECT 1 FROM interactions i WHERE i.contact_id = c.id AND i.direction = 'in')`).all<any>()
+    const { results: areas } = await ctx.db.prepare(
+      `SELECT s.agency_id, p.city, p.transaction_type AS tx, COUNT(*) AS n FROM property_sources s JOIN properties p ON p.id = s.property_id
+       WHERE s.removed_at IS NULL AND p.merged_into IS NULL AND p.city IS NOT NULL AND p.transaction_type IN ('rent','sale')
+         AND s.agency_id IN (SELECT DISTINCT agency_id FROM agency_contacts WHERE EXISTS (SELECT 1 FROM interactions i WHERE i.contact_id = agency_contacts.id AND i.direction = 'in'))
+       GROUP BY s.agency_id, p.city, p.transaction_type`).all<any>()
+    const by: Record<string, any[]> = {}
+    for (const r of areas || []) (by[r.agency_id] ||= []).push({ city: r.city, tx: r.tx, n: r.n })
+    return respond({ agents: (results || []).map(r => ({ ...r, areas: by[r.agency_id] || [] })) })
+  }
+
   // GET /sync/outreach/requests — client requests to work on (sheet rows not paused / closed).
   if (path === '/sync/outreach/requests' && req.method === 'GET') {
     const { results } = await ctx.db.prepare(

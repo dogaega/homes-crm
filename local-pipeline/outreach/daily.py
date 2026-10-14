@@ -229,7 +229,7 @@ def choose_person(ctx: dict, src: dict) -> tuple[dict | None, str]:
 DRAFT = """Write ONE message from Mark to a real-estate agent on the French Riviera / Monaco, in MARK'S OWN STYLE.
 Questions, always both: (1) is each listed property still available, and (2) do they have it directly — their own mandate
 from the owner / exclusive (for several properties: which ones they have directly or exclusively).
-Then, always: ask them to send brochures of these and of any other properties they have directly with the owner, and give the
+Then, always: ask them to send brochures ONLY of properties they have directly with the owner (these, and anything similar), and give the
 client's request (area, rent or buy, bedrooms, budget — exactly as in "Client requests" below, no client names) "in case you have
 something similar". Mark's way: "Also if you have anything similar directly from the owner, could you send me the brochures? My client
 is looking for ... up to ...".
@@ -349,6 +349,16 @@ def main() -> None:
         return (f"- {'to rent' if c.get('transaction_type') == 'rent' else 'to buy'}: {kind} in {' / '.join(c.get('cities') or [])}"
                 + (f", {beds}+ bedrooms" if beds else "") + f", up to {money}")
     req_line = {r["id"]: req_text(r["c"]) for r in reqs}
+    req_c = {r["id"]: r["c"] for r in reqs}
+
+    def related_requests(g: dict, props: list[dict]) -> str:
+        """At most 2 client requests to share: same rent/sale and same area as the properties we ask about, hottest first."""
+        txs = {p.get("tx") or p.get("transaction_type") for p in props}
+        towns = {(p.get("city") or "").lower() for p in props}
+        keep = [r for r in g["requests"] if r in req_c and (req_c[r].get("transaction_type") or "sale") in txs
+                and any(t.lower() in towns for t in req_c[r].get("cities") or [])]
+        keep.sort(key=lambda r: -prio.get(r, (0, ""))[0])
+        return "\n".join(req_line[r] for r in keep[:2])
     matches = w.request("POST", "/sync/match-clients", {"clients": crit, "limit": 25})["matches"]
 
     # New properties per client → grouped by the agency that holds the mandate.
@@ -428,7 +438,7 @@ def main() -> None:
         props = list(g["props"].values())[:4]
         for channel, to in plan:
             who = person if channel != "form" else {**person, "name": None}
-            d = draft_message(who, ctx, agency, props, channel, avoid, "\n".join(req_line[r] for r in sorted(g["requests"]) if r in req_line))
+            d = draft_message(who, ctx, agency, props, channel, avoid, related_requests(g, props))
             if not d:
                 print(f"skip {agency} {channel}: drafting failed")
                 continue
