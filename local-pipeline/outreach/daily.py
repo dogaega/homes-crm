@@ -228,7 +228,13 @@ def choose_person(ctx: dict, src: dict) -> tuple[dict | None, str]:
 
 DRAFT = """Write ONE message from Mark to a real-estate agent on the French Riviera / Monaco, in MARK'S OWN STYLE.
 Questions, always both: (1) is each listed property still available, and (2) do they have it directly — their own mandate
-from the owner / exclusive (for several properties: which ones they have directly or exclusively). Optionally also ask for the brochure.
+from the owner / exclusive (for several properties: which ones they have directly or exclusively).
+Then, always: ask them to send brochures of these and of any other properties they have directly with the owner, and give the
+client's request (area, rent or buy, bedrooms, budget — exactly as in "Client requests" below, no client names) "in case you have
+something similar". Mark's way: "Also if you have anything similar directly from the owner, could you send me the brochures? My client
+is looking for ... up to ...".
+Client requests:
+{requests}
 Mark's own ways of asking (2): "do you have this one straight from the owner?", "Are all those exclusive?", "could you let me know
 which ones are exclusive", "do you have it directly with the owner".
 NEVER ask for, offer or suggest a viewing or visit, never mention dates, days or timing, never make any commitment or proposal.
@@ -242,7 +248,7 @@ Mark's style (copy it, these are his real messages to agents):
 - "Good day, we got a client looking in monaco for rent at 6000, it can be one bedroom"
 So: plain, short, simple everyday English, a bit casual, like typing on the phone. Opens with "Hello", "Hi <first name>", "Good day"
 or straight with the question. Simple words only — never fancy or salesy wording ("stunning", "exquisite", "I'm keen", "I'd love to",
-"impressed", "following up"), no em dashes or en dashes, no semicolons, no emojis. 1-3 sentences. For 3+ properties a short list
+"impressed", "following up"), no em dashes or en dashes, no semicolons, no emojis. 2-5 short sentences. For 3+ properties a short list
 with "•" is fine (Mark does that), each "•" item on its own line. Each property: type + town + one or two figures, then its link, nothing more.
 Mark may say it's for his client, in his own varied words (e.g. "for my client", "I have a client for it", "Its for a client of mine",
 or not at all); don't always use the same phrase. NEVER say his job title, his position or the agency he works for.
@@ -260,7 +266,7 @@ History with this agency (newest first, "OUT" = Mark):
 Return ONLY JSON: {{"message": "...", "subject": "short email subject or null"}}"""
 
 
-def draft_message(person: dict, ctx: dict, src_agency: str, props: list[dict], channel: str, avoid: list[str]) -> dict | None:
+def draft_message(person: dict, ctx: dict, src_agency: str, props: list[dict], channel: str, avoid: list[str], requests: str = "") -> dict | None:
     persona = person.get("persona") or ("agent" if any((p.get("persona") == "agent") for p in ctx["people"] if (p.get("sent_count") or 0) > 0) else "private")
     persona_rule = ("Mark is a broker working for a client; he may say 'for my client'." if persona == "agent" else
                     "Write as an interested private person: do NOT mention clients, an agency or brokerage.")
@@ -282,7 +288,8 @@ def draft_message(person: dict, ctx: dict, src_agency: str, props: list[dict], c
                           channel_note={"whatsapp": " (WhatsApp)", "email": " (email)", "form": " (the contact form on their website)"}[channel],
                           channel_rule="" if channel == "whatsapp" else
                           "End with a short line asking them to reply by email, then 'Thank you' and 'Mark'. Do not mention WhatsApp or any phone number.",
-                          purpose="first time asking about these properties", props="\n".join(lines), history=hist)
+                          purpose="first time asking about these properties", props="\n".join(lines), history=hist,
+                          requests=requests or "(none given)")
     for _ in range(3):  # rewrite drafts that break the rules
         out = chat_json(prompt, temperature=0.8)
         msg = (out or {}).get("message") or ""
@@ -301,6 +308,8 @@ def draft_message(person: dict, ctx: dict, src_agency: str, props: list[dict], c
             problems.append("no WhatsApp / phone number — ask them to reply by email")
         if re.search(r"[—–;\u2011]|stunning|exquisite|keen|i'?d love|impressed|following up|colleague mentioned|mentioned to me|my colleague|my associate|my partner|we spoke|as discussed", bare, re.I):
             problems.append("not Mark's style (dashes / semicolons / fancy words) or invented a mention")
+        if not re.search(r"brochure", bare, re.I) or not re.search(r"similar", bare, re.I):
+            problems.append("must ask for brochures of similar properties they have directly with the owner, with the client's area and budget")
         if not re.search(r"direct|exclusiv|mandate|owner", bare, re.I):
             problems.append("must also ask whether they have it directly / exclusively (mandate)")
         if "availab" not in bare.lower() and "still on the market" not in bare.lower():
@@ -332,6 +341,14 @@ def main() -> None:
     reqs = [r for r in reqs if prio[r["id"]][0] >= 0]
     crit = [c for c in (criteria(r) for r in reqs) if c]
     names = {r["id"]: f"{r['name']} (№{r['c'].get('sheet_no') or '?'})" for r in reqs}
+
+    def req_text(c: dict) -> str:
+        beds = c.get("bedrooms_min")
+        kind = {"villa": "villa", "apartment": "apartment"}.get(c.get("kind"), "property")
+        money = f"€{int(c['price_max']):,}".replace(",", " ") + ("/month" if c.get("transaction_type") == "rent" else "") if c.get("price_max") else "budget open"
+        return (f"- {'to rent' if c.get('transaction_type') == 'rent' else 'to buy'}: {kind} in {' / '.join(c.get('cities') or [])}"
+                + (f", {beds}+ bedrooms" if beds else "") + f", up to {money}")
+    req_line = {r["id"]: req_text(r["c"]) for r in reqs}
     matches = w.request("POST", "/sync/match-clients", {"clients": crit, "limit": 25})["matches"]
 
     # New properties per client → grouped by the agency that holds the mandate.
@@ -411,7 +428,7 @@ def main() -> None:
         props = list(g["props"].values())[:4]
         for channel, to in plan:
             who = person if channel != "form" else {**person, "name": None}
-            d = draft_message(who, ctx, agency, props, channel, avoid)
+            d = draft_message(who, ctx, agency, props, channel, avoid, "\n".join(req_line[r] for r in sorted(g["requests"]) if r in req_line))
             if not d:
                 print(f"skip {agency} {channel}: drafting failed")
                 continue
