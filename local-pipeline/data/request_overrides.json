@@ -1,0 +1,10 @@
+{
+ "_note": "Details from Artem's call app (Клиенты tab, Mark's clients) that the team sheet lacks — 15.10",
+ "C-004": {"replace": [
+    {"tx": "sale", "towns": ["Roquebrune-Cap-Martin"], "area": "Roquebrune-Cap-Martin", "kind": "apartment", "beds": "2", "budget": 1700000, "unit": "", "notes": ["only in Les Voiles du Cap (Monaco border)"], "urgent": true},
+    {"tx": "rent", "towns": ["Roquebrune-Cap-Martin"], "area": "Roquebrune-Cap-Martin", "kind": "apartment", "beds": "2", "budget": null, "unit": "/month", "notes": ["only in Les Voiles du Cap", "1 year"], "urgent": true}]},
+ "C-025": {"beds": "2", "notes": ["45–80 m²", "lift", "near bd de la République / Alcazar"]},
+ "C-027": {"notes": ["furnished", "from 75 m²", "ready to view now"]},
+ "C-007": {"beds": "2–3", "notes": ["1 year"]},
+ "C-023": {"notes": ["furnished", "urgent"]}
+}

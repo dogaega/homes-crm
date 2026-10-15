@@ -136,7 +136,28 @@ def team_requests() -> list[dict]:
                     "towns": towns, "area": " / ".join(t for t in towns if t != "*") or "the Riviera, near the sea", "kind": kind,
                     "beds": (x.get("Спальни") or "").replace("–", "–") or None, "budget": budget, "unit": unit, "notes": notes,
                     "urgent": bool(re.search(r"Срочно|Приоритет", (x.get("Приоритет") or "") + wish)) or "ready to view now" in notes})
-    return out
+    return _apply_overrides(out, rows)
+
+
+def _apply_overrides(out: list[dict], rows: list[dict]) -> list[dict]:
+    """Merge details from Artem's app (data/request_overrides.json) — e.g. a client the sheet has without a budget."""
+    import json
+    from pathlib import Path
+    try:
+        ov = json.loads((Path(__file__).resolve().parents[1] / "data" / "request_overrides.json").read_text())
+    except (OSError, ValueError):
+        return out
+    res = [r for r in out if not (ov.get(r["id"]) or {}).get("replace")]
+    for r in res:
+        o = ov.get(r["id"]) or {}
+        for k, v in o.items():
+            r[k] = v
+    for x in rows:
+        o = ov.get(x.get("ID")) or {}
+        if o.get("replace") and x.get("Статус", "").startswith(("Подбор", "Новый")):
+            for rr in o["replace"]:
+                res.append({"id": x["ID"], "no": x.get("№ запроса"), "name": x.get("Клиент"), **rr})
+    return res
 
 
 def for_specialty(reqs: list[dict], areas: list[dict], limit_per_type: int = 3) -> list[dict]:
@@ -151,9 +172,11 @@ def for_specialty(reqs: list[dict], areas: list[dict], limit_per_type: int = 3) 
     for r in sorted(reqs, key=lambda r: (not r["urgent"], -(r["budget"] or 0))):
         if r["towns"] == ["*"] and monaco_only:
             continue
-        b = r["budget"] * 4.3 if r["unit"] == "/week" else r["budget"]
+        b = (r["budget"] or 0) * (4.3 if r["unit"] == "/week" else 1)
+        if not b:  # no budget (e.g. rent in one specific building): match on town + type only
+            b = None
         ok = any(a["tx"] == r["tx"] and ("*" in r["towns"] or norm(a["city"]) in {norm(t) for t in r["towns"]})
-                 and (a.get("mn") or 0) * 0.7 <= b <= a["mx"] * 2 for a in areas)
+                 and (b is None or (a.get("mn") or 0) * 0.7 <= b <= a["mx"] * 2) for a in areas)
         if ok and len(picked[r["tx"]]) < limit_per_type and request_line(r) not in {request_line(p) for p in picked[r["tx"]]}:
             picked[r["tx"]].append(r)
     return picked["rent"] + picked["sale"]
