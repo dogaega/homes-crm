@@ -33,6 +33,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from outreach.contact_finder import find as find_contacts  # noqa: E402
 from outreach.llm import chat_json  # noqa: E402
+from outreach.request_groups import from_criteria, group_lines  # noqa: E402
 from sync import netwait  # noqa: E402,F401
 from sync.worker_client import WorkerClient  # noqa: E402
 
@@ -230,8 +231,8 @@ DRAFT = """Write ONE message from Mark to a real-estate agent on the French Rivi
 Questions, always both: (1) is each listed property still available, and (2) do they have it directly — their own mandate
 from the owner / exclusive (for several properties: which ones they have directly or exclusively).
 Then, always: ask them to send brochures ONLY of properties they have directly with the owner (these, and anything similar), and give the
-client's request (area, rent or buy, bedrooms, budget — exactly as in "Client requests" below, no client names) "in case you have
-something similar". Mark's way: "Also if you have anything similar directly from the owner, could you send me the brochures? My client
+client's request "in case you have something similar" — copy the "Client requests" block below exactly (heading line + bullets),
+no client names. Mark's way: "Also if you have anything similar directly from the owner, could you send me the brochures? My client
 is looking for ... up to ...".
 Client requests:
 {requests}
@@ -358,7 +359,7 @@ def main() -> None:
         keep = [r for r in g["requests"] if r in req_c and (req_c[r].get("transaction_type") or "sale") in txs
                 and any(t.lower() in towns for t in req_c[r].get("cities") or [])]
         keep.sort(key=lambda r: -prio.get(r, (0, ""))[0])
-        return "\n".join(req_line[r] for r in keep[:2])
+        return "\n".join(group_lines([from_criteria(req_c[r]) for r in keep[:2]]))
     matches = w.request("POST", "/sync/match-clients", {"clients": crit, "limit": 25})["matches"]
 
     # New properties per client → grouped by the agency that holds the mandate.

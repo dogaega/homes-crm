@@ -22,12 +22,13 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from outreach.daily import priority  # noqa: E402
 from outreach.llm import chat_json  # noqa: E402
+from outreach.request_groups import from_criteria, group_lines  # noqa: E402
 from sync import netwait  # noqa: E402,F401
 from sync.worker_client import WorkerClient  # noqa: E402
 
 MSG = """Write ONE short WhatsApp message from Mark to {name}, a real-estate agent he already knows ({agency}).
 Goal: share his clients' current requests and ask them to send brochures ONLY of properties they have directly with the owner
-(exclusive / own mandate) that could fit. Requests (share exactly these figures, no client names):
+(exclusive / own mandate) that could fit. Requests — copy this block exactly as it is, headings and bullets, no client names:
 {requests}
 Mark's style (plain, short, casual phone English; his real messages): "Hello, do you have anything for rent in monaco at 6000?",
 "Could you send the brochures please? So I could show to my client", "do you have this one straight from the owner?".
@@ -77,7 +78,7 @@ def main() -> None:
         tx0 = fit[0][1]["c"].get("transaction_type")
         town0 = {t.lower() for t in fit[0][1]["c"].get("cities") or []}
         chosen = [r for s, r in fit if r["c"].get("transaction_type") == tx0 and town0 & {t.lower() for t in r["c"].get("cities") or []}][:2]
-        text = "\n".join(req_text(r["c"]) for r in chosen)
+        text = "\n".join(group_lines([from_criteria(r["c"]) for r in chosen]))
         out = chat_json(MSG.format(name=first(a.get("name")) or "the agent", agency=a.get("agency"), requests=text,
                                    avoid=avoid[-6:]), temperature=0.8) or {}
         msg = out.get("message") or ""
