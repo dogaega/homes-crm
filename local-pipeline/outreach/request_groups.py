@@ -20,8 +20,7 @@ from collections import OrderedDict
 def request_line(r: dict) -> str:
     """r: kind, beds, notes (list[str]), budget, unit ('' | '/month' | '/week')."""
     parts = []
-    if r.get("kind") and r["kind"] not in ("apartment", "apartment or house", "property"):
-        parts.append(r["kind"])
+    parts.append(r["kind"] if r.get("kind") and r["kind"] != "property" else "apartment or house")
     beds = str(r.get("beds") or "")
     if beds:
         parts.append(f"{beds} bedroom{'' if beds == '1' else 's'}")
@@ -68,3 +67,93 @@ if __name__ == "__main__":
         {"tx": "rent", "area": "Monaco", "kind": "apartment", "beds": "1", "budget": 20_000, "unit": "/month", "notes": ["furnished", "ready to view now"]},
     ]
     print("\n".join(group_lines(demo)))
+
+
+SHEET = "10nkjBwS9ZsWz2QUOiWsPZV2CV3zPwEms56V8P9DT6UI"
+AREA_ALIAS = {"Cap d'Antibes": ["Antibes"], "Граница с Monaco": ["Monaco", "Beausoleil"], "Лазурный берег": ["*"]}
+
+
+def _paused() -> set:
+    import json
+    from pathlib import Path
+    try:
+        return {k.lstrip("0") for k in json.loads((Path(__file__).resolve().parents[1] / "data" / "request_priority.json").read_text()).get("skip", {})}
+    except (OSError, ValueError):
+        return set()
+
+
+def team_requests() -> list[dict]:
+    """Active requests from the team sheet's «Клиенты» tab (statuses Подбор / Новый, with a budget). Internal fields id/no/name
+    are for Mark's sheets only — never put them in a message."""
+    import csv
+    import io
+    import re
+    import urllib.parse
+
+    import requests
+    url = f"https://docs.google.com/spreadsheets/d/{SHEET}/gviz/tq?tqx=out:csv&sheet={urllib.parse.quote('Клиенты')}"
+    rows = list(csv.DictReader(io.StringIO(requests.get(url, timeout=60).content.decode("utf-8"))))
+    out = []
+    for x in rows:
+        if not x.get("Статус", "").startswith(("Подбор", "Новый")):
+            continue
+        if (x.get("№ запроса") or "").lstrip("0") in _paused():
+            continue
+        rent = x.get("Сделка") == "Аренда"
+        wish = x.get("Пожелания") or ""
+        try:
+            budget = float(re.sub(r"[^\d.]", "", x.get("Бюджет") or "")) if x.get("Бюджет") else None
+        except ValueError:
+            budget = None
+        unit = "/month" if rent else ""
+        m = re.search(r"до\s*([\d\s]+)\s*€\s*в\s*неделю", wish)
+        if not budget and m:
+            budget, unit = float(m.group(1).replace(" ", "")), "/week"
+        city = x.get("Город") or ""
+        towns = AREA_ALIAS.get(city, ["Cannes", "Menton", "Beaulieu-sur-Mer"] if city == "Не указан" and "Cannes" in wish else [city] if city and city != "Не указан" else [])
+        if not budget or not towns:
+            continue
+        notes = []
+        low = wish.lower()
+        if "мебел" in low and "неизвест" not in low:
+            notes.append("furnished")
+        if "закрыт" in low and "паркинг" in low:
+            notes.append("closed residence with parking")
+        if "carré" in low or "carre" in low:
+            notes.append("Carré d'Or only")
+        if "larvotto" in low:
+            notes.append("Larvotto")
+        if "первая линия" in low:
+            notes.append("front line on the sea")
+        if "belle" in low:
+            notes.append("Belle Époque style")
+        if "готов смотреть" in low:
+            notes.append("ready to view now")
+        if "офф-маркет" in low:
+            notes.append("off-market only")
+        kind = {"Вилла": "villa", "Апартаменты": "apartment"}.get(x.get("Тип"), "property")
+        out.append({"id": x["ID"], "no": x.get("№ запроса"), "name": x.get("Клиент"), "tx": "rent" if rent else "sale",
+                    "towns": towns, "area": " / ".join(t for t in towns if t != "*") or "the Riviera, near the sea", "kind": kind,
+                    "beds": (x.get("Спальни") or "").replace("–", "–") or None, "budget": budget, "unit": unit, "notes": notes,
+                    "urgent": bool(re.search(r"Срочно|Приоритет", (x.get("Приоритет") or "") + wish)) or "ready to view now" in notes})
+    return out
+
+
+def for_specialty(reqs: list[dict], areas: list[dict], limit_per_type: int = 3) -> list[dict]:
+    """Requests that fit an agency's specialty: same rent/sale, a town they list in, budget within their price range.
+    areas: [{city, tx, n, mn, mx}] from their listings."""
+    import re
+    import unicodedata
+    norm = lambda s: re.sub(r"[^a-z]", "", unicodedata.normalize("NFD", (s or "").lower()).encode("ascii", "ignore").decode())
+    areas = [a for a in areas if a.get("n", 0) >= 2 and (a.get("mx") or 0) > 1000]
+    monaco_only = bool(areas) and all(norm(a["city"]) == "monaco" for a in areas)
+    picked = {"rent": [], "sale": []}
+    for r in sorted(reqs, key=lambda r: (not r["urgent"], -(r["budget"] or 0))):
+        if r["towns"] == ["*"] and monaco_only:
+            continue
+        b = r["budget"] * 4.3 if r["unit"] == "/week" else r["budget"]
+        ok = any(a["tx"] == r["tx"] and ("*" in r["towns"] or norm(a["city"]) in {norm(t) for t in r["towns"]})
+                 and (a.get("mn") or 0) * 0.7 <= b <= a["mx"] * 2 for a in areas)
+        if ok and len(picked[r["tx"]]) < limit_per_type and request_line(r) not in {request_line(p) for p in picked[r["tx"]]}:
+            picked[r["tx"]].append(r)
+    return picked["rent"] + picked["sale"]

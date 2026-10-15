@@ -22,7 +22,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from outreach.daily import priority  # noqa: E402
 from outreach.llm import chat_json  # noqa: E402
-from outreach.request_groups import from_criteria, group_lines  # noqa: E402
+from outreach.request_groups import for_specialty, group_lines, team_requests  # noqa: E402
 from sync import netwait  # noqa: E402,F401
 from sync.worker_client import WorkerClient  # noqa: E402
 
@@ -50,51 +50,50 @@ def req_text(c: dict) -> str:
             + (f", {beds}+ bedrooms" if beds else "") + f", up to {money}")
 
 
+INTROS = ["Hello{n}, these are the requests I have from my clients at the moment:",
+          "Hi{n}, I have a few client requests that could fit what you work with:",
+          "Hello{n}, sharing my current client requests in your area:",
+          "Hi{n}, at the moment my clients are looking for:"]
+OUTRO = "If you have anything directly with the owner that fits, could you send me the brochures please?\nThank you\nMark"
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dry-run", action="store_true")
-    ap.add_argument("--limit", type=int, default=15, help="agents per run")
+    ap.add_argument("--queue", action="store_true", help="also queue the drafts (status draft) in the CRM")
+    ap.add_argument("--out", default=str(Path(__file__).resolve().parents[2] / "outreach" / "requests_per_agent.txt"))
     args = ap.parse_args()
     w = WorkerClient(timeout=180)
-    reqs = [r for r in w.request("GET", "/sync/outreach/requests")["requests"] if r["c"].get("sheet_no")]
-    reqs = [(priority(r)[0], r) for r in reqs]
-    reqs = [(s, r) for s, r in reqs if s >= 0]
+    reqs = team_requests()
     now = dt.datetime.now(dt.timezone.utc)
     age = lambda x: (now - dt.datetime.fromisoformat(x.replace("Z", "+00:00"))).days if x else 999
-    drafts, avoid = [], []
-    agents = w.request("GET", "/sync/outreach/known-agents")["agents"]
-    for a in sorted(agents, key=lambda a: -(a.get("msgs") or 0)):
-        phone = a.get("whatsapp") or a.get("phone")
-        if not phone or not a.get("areas"):
+    by: dict = {}
+    for a in w.request("GET", "/sync/outreach/known-agents")["agents"]:
+        g = by.setdefault(a["agency"], {"areas": a.get("areas") or [], "people": []})
+        g["people"].append(a)
+    blocks, drafts = [], []
+    for i, (agency, g) in enumerate(sorted(by.items(), key=lambda kv: kv[0].lower())):
+        chosen = for_specialty(reqs, g["areas"])
+        if not chosen:
             continue
-        if age(a.get("last_out")) < 7 or (a.get("last_out") and (a.get("last_in") or "") < a["last_out"]):
-            continue  # pacing: written recently, or our last message is unanswered
-        works = {(x["city"].lower(), x["tx"]) for x in a["areas"] if x["n"] >= 1}
-        fit = [(s, r) for s, r in reqs if any(((t.lower(), r["c"].get("transaction_type") or "sale") in works) for t in r["c"].get("cities") or [])]
-        if not fit:
-            continue
-        fit.sort(key=lambda sr: -sr[0])
-        # one type only per message: the hottest request decides rent vs sale and the town
-        tx0 = fit[0][1]["c"].get("transaction_type")
-        town0 = {t.lower() for t in fit[0][1]["c"].get("cities") or []}
-        chosen = [r for s, r in fit if r["c"].get("transaction_type") == tx0 and town0 & {t.lower() for t in r["c"].get("cities") or []}][:2]
-        text = "\n".join(group_lines([from_criteria(r["c"]) for r in chosen]))
-        out = chat_json(MSG.format(name=first(a.get("name")) or "the agent", agency=a.get("agency"), requests=text,
-                                   avoid=avoid[-6:]), temperature=0.8) or {}
-        msg = out.get("message") or ""
-        if not msg or re.search(r"[—–;]|viewing|visit|commission", msg, re.I):
-            continue
-        avoid.append(msg[:120])
-        drafts.append({"agency_id": a["agency_id"], "contact_id": a["id"], "channel": "whatsapp", "account": None, "to_address": phone,
-                       "person_name": a.get("name"), "body": msg, "status": "draft", "purpose": "share_requests",
-                       "request_ids": [r["id"] for r in chosen], "property_ids": [],
-                       "reason": f"known agent ({a.get('msgs')} messages); shares " + ", ".join(f"№{r['c'].get('sheet_no')}" for r in chosen)})
-        print(f"\n=== {a.get('name')} / {a.get('agency')} ({phone})\n{msg}", flush=True)
-        if len(drafts) >= args.limit:
-            break
-    if drafts and not args.dry_run:
+        # write to the person we talk to most, if not written to in the last 7 days and not left unanswered
+        people = sorted(g["people"], key=lambda p: -(p.get("msgs") or 0))
+        free = [p for p in people if not (age(p.get("last_out")) < 7 or (p.get("last_out") and (p.get("last_in") or "") < p["last_out"]))]
+        to = (free or people)[0]
+        nm = first(to.get("name"))
+        msg = INTROS[i % len(INTROS)].format(n=f" {nm}" if nm else "") + "\n\n" + "\n".join(group_lines(chosen)) + "\n\n" + OUTRO
+        contact = " · ".join(x for x in [to.get("name"), to.get("whatsapp") or to.get("phone"), to.get("email")] if x)
+        spec = "; ".join(f"{x['city']} {x['tx']} ({x['n']})" for x in sorted(g["areas"], key=lambda x: -x["n"])[:4])
+        blocks.append(f"===== {agency} — {contact}\nSpecialty: {spec}\nFor (internal, never send): "
+                      + ", ".join(f"{r['id']} №{r['no']}" for r in chosen) + ("" if free else "\n(note: last message to them is unanswered or recent — wait)")
+                      + f"\n\n{msg}\n")
+        drafts.append({"agency_id": to["agency_id"], "contact_id": to["id"], "channel": "whatsapp", "account": None,
+                       "to_address": to.get("whatsapp") or to.get("phone") or to.get("email"), "person_name": to.get("name"), "body": msg,
+                       "status": "draft", "purpose": "share_requests", "request_ids": [], "property_ids": [],
+                       "reason": "requests matching their specialty: " + ", ".join(r["id"] for r in chosen)})
+    Path(args.out).write_text("\n".join(blocks))
+    if drafts and args.queue:
         print(w.request("POST", "/sync/outreach/queue", {"messages": drafts}))
-    print(f"\n{len(drafts)} drafts")
+    print(f"{len(drafts)} agencies → {args.out}")
 
 
 if __name__ == "__main__":
