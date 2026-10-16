@@ -1,0 +1,102 @@
+{
+ "Guy Hocquet": {
+  "name": "Guy Hocquet",
+  "company": "Guy Hocquet",
+  "commune": "Draguignan",
+  "website": "https://www.guy-hoquet.com/",
+  "phone": "+33 4 94 39 10 78",
+  "email": null,
+  "why": "OpenStreetMap estate_agent",
+  "source": "osm"
+ },
+ "Foncia": {
+  "name": "Foncia",
+  "company": "Foncia",
+  "commune": null,
+  "website": "https://fr.foncia.com/agence-immobiliere/cagnes-sur-mer-06800/agence-immobiliere/foncia-bourse-immobiliere-2919",
+  "phone": "+33 4 93 22 10 10",
+  "email": "adimmobilier-cagnes@foncia.fr",
+  "why": "OpenStreetMap estate_agent",
+  "source": "osm"
+ },
+ "Les Galets": {
+  "name": "Les Galets",
+  "company": "Les Galets",
+  "commune": null,
+  "website": "https://www.immobilier-saint-raphael.eu/fr/",
+  "phone": "+33 4 94 40 45 02",
+  "email": null,
+  "why": "OpenStreetMap estate_agent",
+  "source": "osm"
+ },
+ "Laforêt": {
+  "name": "Laforêt",
+  "company": "Laforêt",
+  "commune": null,
+  "website": "https://www.laforet.com/agence-immobiliere/antibes",
+  "phone": "+33 4 92 90 44 66",
+  "email": "antibes@laforet.com",
+  "why": "OpenStreetMap estate_agent",
+  "source": "osm"
+ },
+ "Century 21": {
+  "name": "Century 21",
+  "company": "Century 21",
+  "commune": null,
+  "website": "https://www.century21-optimmo-nice-est.com/",
+  "phone": "+33 4 92 26 15 60",
+  "email": null,
+  "why": "OpenStreetMap estate_agent",
+  "source": "osm"
+ },
+ "La Costa Properties": {
+  "name": "La Costa Properties",
+  "company": "La Costa Properties",
+  "commune": null,
+  "website": "https://www.lacosta-properties-monaco.com/",
+  "phone": "+377 97 97 99 00",
+  "email": null,
+  "why": "OpenStreetMap estate_agent",
+  "source": "osm"
+ },
+ "Stéphane Plaza Immobilier": {
+  "name": "Stéphane Plaza Immobilier",
+  "company": "Stéphane Plaza Immobilier",
+  "commune": "Montauroux",
+  "website": "https://montauroux.stephaneplazaimmobilier.com/",
+  "phone": "+33 4 94 68 98 94",
+  "email": null,
+  "why": "OpenStreetMap estate_agent",
+  "source": "osm"
+ },
+ "Cabinet Immobilier Patoux": {
+  "name": "Cabinet Immobilier Patoux",
+  "company": "Cabinet Immobilier Patoux",
+  "commune": null,
+  "website": "https://www.cabinet-immobilier-patoux.com/fr",
+  "phone": "+33 7 68 82 41 77",
+  "email": null,
+  "why": "OpenStreetMap estate_agent",
+  "source": "osm"
+ },
+ "Guy Hoquet": {
+  "name": "Guy Hoquet",
+  "company": "Guy Hoquet",
+  "commune": null,
+  "website": "https://sainte-maxime.guy-hoquet.com",
+  "phone": "+33 4 94 97 93 38",
+  "email": "saintemaxime@guyhoquet.com",
+  "why": "OpenStreetMap estate_agent",
+  "source": "osm"
+ },
+ "Century 21 Moulin de Brun": {
+  "name": "Century 21 Moulin de Brun",
+  "company": "Century 21 Moulin de Brun",
+  "commune": null,
+  "website": "https://www.century21-mdb-grasse.com/",
+  "phone": null,
+  "email": null,
+  "why": "OpenStreetMap estate_agent",
+  "source": "osm"
+ }
+}
