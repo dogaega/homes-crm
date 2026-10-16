@@ -98,7 +98,8 @@ def run_once(w: WorkerClient) -> str:
             w.request("POST", "/sync/outreach/sent", {"id": m["id"], "status": "cancelled", "error": "agency already contacted before / bad address"})
             queue.remove(m)
     em = [m for m in queue if m["channel"] == "email"]
-    if em and in_hours(now) and now.timestamp() >= st.get("mail_next", 0) and os.environ.get("GMAIL_APP_PASSWORD"):
+    # Emails go out day and night (Mark, 16.10); WhatsApp and forms stay within office hours.
+    if em and now.timestamp() >= st.get("mail_next", 0) and os.environ.get("GMAIL_APP_PASSWORD"):
         m = em[0]
         try:
             ok, ext, err = send_email(m["to_address"], m.get("subject"), m["body"])
