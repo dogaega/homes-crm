@@ -33,7 +33,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from outreach.contact_finder import find as find_contacts  # noqa: E402
 from outreach.llm import chat_json  # noqa: E402
-from outreach.request_groups import from_criteria, group_lines  # noqa: E402
+from outreach.request_groups import from_criteria, group_lines, team_requests  # noqa: E402
 from sync import netwait  # noqa: E402,F401
 from sync.worker_client import WorkerClient  # noqa: E402
 
@@ -59,7 +59,8 @@ def clean_name(x) -> str | None:
 def clean_email(x) -> str | None:
     from urllib.parse import unquote
     e = unquote(unquote(str(x or ""))).strip().lower()
-    if re.search(r"exemple|example|domaine\.|votre|youremail|^email@|^nom@|noreply|no-reply|^friend@|@email\.com$|@mail\.com$|^test@|^xxx", e):
+    if re.search(r"exemple|example|domaine\.|votre|youremail|^email@|^nom@|noreply|no-reply|^friend@|@email\.com$|@mail\.com$|^test@|^xxx"
+                 r"|^(qualite|quality|rgpd|dpo|privacy|recrutement|jobs|careers|compta|comptabilite|syndic|webmaster)@", e):
         return None
     return e if re.fullmatch(r"[\w.+-]+@[\w-]+(\.[\w-]+)*\.[a-z]{2,}", e) else None
 
@@ -99,6 +100,8 @@ def priority(r: dict) -> tuple[int, str]:
         return -1, "no budget in the sheet — matches would be guesses"
     if (c.get("status") or "").strip() == "Уточнить":
         return -1, "needs details first (status Уточнить)"
+    if c.get("status") and not c["status"].strip().startswith(("Подбор", "Новый")):
+        return -1, f"status {c['status'].strip()} in Artem's sheet"
     score, why = 0, []
     if c.get("deadline"):
         try:
@@ -230,10 +233,12 @@ def choose_person(ctx: dict, src: dict) -> tuple[dict | None, str]:
 DRAFT = """Write ONE message from Mark to a real-estate agent on the French Riviera / Monaco, in MARK'S OWN STYLE.
 Questions, always both: (1) is each listed property still available, and (2) do they have it directly — their own mandate
 from the owner / exclusive (for several properties: which ones they have directly or exclusively).
-Then, always: ask them to send brochures ONLY of properties they have directly with the owner (these, and anything similar), and give the
-client's request "in case you have something similar" — copy the "Client requests" block below exactly (heading line + bullets),
-no client names. Mark's way: "Also if you have anything similar directly from the owner, could you send me the brochures? My client
-is looking for ... up to ...".
+ORDER (Mark, 16.10): open with the client's request, so the agent sees right away what the client wants and can suggest more
+direct listings. Right after the greeting say the client is looking for this, then copy the "Client requests" block below exactly
+(heading line + bullets), no client names. Then the property question(s) with the link(s). Then, always: ask them to send brochures
+ONLY of properties they have directly with the owner (these, and anything similar that fits the request). Mark's way: "Hello, I have
+a client looking for: <block> Is this one still available? <link> Do you have it directly with the owner? Also if you have anything
+similar directly from the owner, could you send me the brochures?"
 Client requests:
 {requests}
 Mark's own ways of asking (2): "do you have this one straight from the owner?", "Are all those exclusive?", "could you let me know
@@ -249,8 +254,9 @@ Mark's style (copy it, these are his real messages to agents):
 - "Good day, we got a client looking in monaco for rent at 6000, it can be one bedroom"
 So: plain, short, simple everyday English, a bit casual, like typing on the phone. Opens with "Hello", "Hi <first name>", "Good day"
 or straight with the question. Simple words only — never fancy or salesy wording ("stunning", "exquisite", "I'm keen", "I'd love to",
-"impressed", "following up"), no em dashes or en dashes, no semicolons, no emojis. 2-5 short sentences. For 3+ properties a short list
-with "•" is fine (Mark does that), each "•" item on its own line. Each property: type + town + one or two figures, then its link, nothing more.
+"impressed", "following up"), no em dashes or en dashes, no semicolons, no emojis. 2-5 short sentences. For 2+ properties ALWAYS one
+short list with "•", each "•" item on its own line, then ask once ("Are these still available?"); never repeat the question per link.
+Every sentence starts with a capital letter. Each property: type + town + one or two figures, then its link, nothing more.
 Mark may say it's for his client, in his own varied words (e.g. "for my client", "I have a client for it", "Its for a client of mine",
 or not at all); don't always use the same phrase. NEVER say his job title, his position or the agency he works for.
 Use ONLY the facts given below. Never invent anything (that a colleague mentioned it, where Mark is, his plans, prices or terms not given).
@@ -268,7 +274,8 @@ Return ONLY JSON: {{"message": "...", "subject": "short email subject or null"}}
 
 
 def draft_message(person: dict, ctx: dict, src_agency: str, props: list[dict], channel: str, avoid: list[str], requests: str = "") -> dict | None:
-    persona = person.get("persona") or ("agent" if any((p.get("persona") == "agent") for p in ctx["people"] if (p.get("sent_count") or 0) > 0) else "private")
+    # Every email shares the client's request (Mark, 14.10 / 16.10), so Mark writes as a broker for a client.
+    persona = person.get("persona") or "agent"
     persona_rule = ("Mark is a broker working for a client; he may say 'for my client'." if persona == "agent" else
                     "Write as an interested private person: do NOT mention clients, an agency or brokerage.")
     line = lambda h: f"{(h.get('at') or '')[:10]} {'OUT' if h['direction'] == 'out' else 'IN '} {h.get('person') or ''}: {(h.get('text') or '')[:220]}"
@@ -303,6 +310,10 @@ def draft_message(person: dict, ctx: dict, src_agency: str, props: list[dict], c
         if re.search(r"\b(paris|london|moving|relocat|my wife|my husband|my family|my kids|flying|coming from|visiting from)\b", msg, re.I):
             problems.append("invented personal facts")
         bare = re.sub(r"https?://\S+", " ", msg)
+        # The copied "Client requests" block uses "AREA – RENT" headings: it is our text, not a style slip.
+        for line in (requests or "").splitlines():
+            if line.strip():
+                bare = bare.replace(line.strip(), " ")
         if re.search(r"\bviewings?\b|\bvisit|\bview (it|them|the)|\bsee (it|them|the)|arrange|schedul|this week|next week|tomorrow|come (by|and see)|\btour\b", bare, re.I):
             problems.append("asks for a viewing / mentions timing — only ask about availability")
         if re.search(r"whatsapp|\+357", msg, re.I):
@@ -326,7 +337,7 @@ def draft_message(person: dict, ctx: dict, src_agency: str, props: list[dict], c
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--per-request", type=int, default=6, help="new properties per client per run")
+    ap.add_argument("--per-request", type=int, default=10, help="new properties per client per run")
     ap.add_argument("--whatsapp-cap", type=int, default=0, help="new WhatsApp chats a day (0: Mark's WhatsApp was blocked 14.10 — email only)")
     ap.add_argument("--forms", action="store_true", help="also fill contact forms (off: email only, Mark 14.10)")
     ap.add_argument("--max-agencies", type=int, default=None, help="only the first N agencies (for a quick review)")
@@ -352,6 +363,12 @@ def main() -> None:
     req_line = {r["id"]: req_text(r["c"]) for r in reqs}
     req_c = {r["id"]: r["c"] for r in reqs}
 
+    try:  # Artem's «Клиенты» rows carry the wishes (furnished, Belle Époque…) the CRM criteria lack
+        TEAM = {str(t.get("no") or "").lstrip("0"): t for t in team_requests() if t.get("no")}
+    except Exception as e:  # noqa: BLE001
+        print(f"team sheet unavailable: {e}")
+        TEAM = {}
+
     def related_requests(g: dict, props: list[dict]) -> str:
         """At most 2 client requests to share: same rent/sale and same area as the properties we ask about, hottest first."""
         txs = {p.get("tx") or p.get("transaction_type") for p in props}
@@ -359,19 +376,24 @@ def main() -> None:
         keep = [r for r in g["requests"] if r in req_c and (req_c[r].get("transaction_type") or "sale") in txs
                 and any(t.lower() in towns for t in req_c[r].get("cities") or [])]
         keep.sort(key=lambda r: -prio.get(r, (0, ""))[0])
-        return "\n".join(group_lines([from_criteria(req_c[r]) for r in keep[:2]]))
-    matches = w.request("POST", "/sync/match-clients", {"clients": crit, "limit": 25})["matches"]
+        rows = []
+        for r in keep[:2]:
+            t = TEAM.get(str(req_c[r].get("sheet_no") or "").lstrip("0"))
+            rows.append({**t, "area": from_criteria(req_c[r])["area"]} if t else from_criteria(req_c[r]))
+        return "\n".join(group_lines(rows))
+    matches = w.request("POST", "/sync/match-clients", {"clients": crit, "limit": 40})["matches"]
 
     # New properties per client → grouped by the agency that holds the mandate.
     by_agency: dict[str, dict] = {}
     for rid, props in matches.items():
         fresh = set(w.request("POST", "/sync/outreach/options", {"request_id": rid, "property_ids": [p["id"] for p in props],
                                                                   "origin": "crm_match"})["new"]) if not args.dry_run else {p["id"] for p in props}
-        taken = 0
         for p in props:
-            score = prio.get(rid, (0, ""))[0]
-            quota = args.per_request * 2 if score >= 50 else args.per_request if score >= 20 else 1
-            if p["id"] not in fresh or taken >= quota:
+            if p["id"] not in fresh:
+                continue
+            # Under offer / sold / rented listings are not available: never ask about them.
+            if re.search(r"sous[-_ +]?offre|sous[-_ +]?compromis|under[-_ +]offer|vendu|\bsold\b|deja[-_ +]lou|\brented\b",
+                         " ".join(f"{s.get('source_url') or ''} {s.get('listing_title') or ''}" for s in p.get("sources") or []), re.I):
                 continue
             src = mandate_source(p)
             if not src or not src.get("agency"):
@@ -381,9 +403,13 @@ def main() -> None:
             if p.get("city") == "Monaco" and re.search(r"[/\-_+](nice|cannes|antibes|menton|cagnes|marseille|paris|auteuil|saint-cyr|toulon|lyon)[\-_/+]", urls) and "monaco" not in urls:
                 continue
             g = by_agency.setdefault(src["agency"], {"src": src, "props": {}, "requests": set()})
-            g["props"].setdefault(p["id"], {**p, "_src": src})
+            g["props"].setdefault(p["id"], {**p, "_src": src, "_rids": set()})["_rids"].add(rid)
             g["requests"].add(rid)
-            taken += 1
+
+    # Per-client quota, spent only on agencies that are actually written to (agencies skipped as
+    # already contacted no longer use it up — that starved new agencies before 16.10).
+    quota = lambda rid: (lambda sc: args.per_request * 2 if sc >= 50 else args.per_request if sc >= 20 else 2)(prio.get(rid, (0, ""))[0])
+    used: dict[str, int] = {}
 
     # Agency ids for context lookups.
     # The WhatsApp cap is per day: count what is already waiting or went out today.
@@ -436,7 +462,12 @@ def main() -> None:
         if not plan:
             print(f"skip {agency}: {why_person}; no WhatsApp, email or form")
             continue
-        props = list(g["props"].values())[:4]
+        props = [p for p in g["props"].values() if any(used.get(r, 0) < quota(r) for r in p["_rids"])][:4]
+        if not props:
+            print(f"skip {agency}: these clients already got today's quota")
+            continue
+        for r in {r for p in props for r in p["_rids"]}:
+            used[r] = used.get(r, 0) + 1
         for channel, to in plan:
             who = person if channel != "form" else {**person, "name": None}
             d = draft_message(who, ctx, agency, props, channel, avoid, related_requests(g, props))

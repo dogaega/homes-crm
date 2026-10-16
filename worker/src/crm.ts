@@ -204,22 +204,30 @@ function sheetMoney(s: string): string {
 
 function fromClientRequestsSheet(rows: string[][], h: number): string[][] {
   const H = rows[h].map(c => c.trim())
-  const at = (r: string[], name: string) => { const i = H.indexOf(name); return i >= 0 ? (r[i] || '').trim() : '' }
+  // Artem's team workbook («Клиенты» tab, 2026-10-15) renamed a few columns: accept both spellings.
+  const at = (r: string[], ...names: string[]) => {
+    for (const name of names) { const i = H.indexOf(name); if (i >= 0) return (r[i] || '').trim() }
+    return ''
+  }
   const out: string[][] = [['Клиент', 'Посредник', 'Статус', 'Тип объекта', 'Тип объекта', 'Локация', 'Кол-во спален', 'Площадь',
                             'Цена', 'Аренда', 'Комментарий', 'Дедлайн', '№']]
+  const seen = new Set<string>()
   for (const r of rows.slice(h + 1)) {
-    const no = at(r, '№'), client = at(r, 'Клиент')
+    const no = at(r, '№', '№ запроса').replace(/^(\d)$/, '0$1'), client = at(r, 'Клиент')
     if (!no || !client) continue
+    // Archived / closed rows and duplicates reuse a request number: the live row owns it.
+    if (/^(Архив|Закрыт)/.test(at(r, 'Статус')) || seen.has(no)) continue
+    seen.add(no)
     const rent = at(r, 'Сделка') === 'Аренда'
     const type = at(r, 'Тип')
     const beds = at(r, 'Спальни')
     out.push([
-      client, at(r, 'Посредник / источник'), at(r, 'Статус'),
+      client, at(r, 'Посредник / источник', 'Источник'), at(r, 'Статус'),
       type === 'Коммерция' ? 'н/ф' : '', type === 'Коммерция' ? 'офис / commercial' : type,
       [at(r, 'Город'), at(r, 'Пожелания')].filter(Boolean).join(' · '),
       beds ? `${beds} спальни` : '', at(r, 'Площадь от, м²'),
-      rent ? '' : sheetMoney(at(r, 'Бюджет, €')), rent ? sheetMoney(at(r, 'Бюджет, €')) : '',
-      [rent ? 'аренда' : '', at(r, 'Срок аренды'), at(r, 'Комментарий')].filter(Boolean).join(' · '), at(r, 'Дата шага'), no,
+      rent ? '' : sheetMoney(at(r, 'Бюджет, €', 'Бюджет')), rent ? sheetMoney(at(r, 'Бюджет, €', 'Бюджет')) : '',
+      [rent ? 'аренда' : '', at(r, 'Срок аренды'), at(r, 'Комментарий', 'Следующий шаг')].filter(Boolean).join(' · '), at(r, 'Дата шага'), no,
     ])
   }
   return out
@@ -303,6 +311,12 @@ export async function syncSheet(env: CrmEnv, force = false): Promise<{ synced: b
     await env.DB.prepare('UPDATE saved_searches SET criteria = ?, active = CASE WHEN ? THEN 0 ELSE active END WHERE id = ?')
       .bind(JSON.stringify({ ...e.c, synced_at: now, in_sheet: false }), retire ? 1 : 0, e.id).run()
   }
+  // One live request per sheet number: a later copy of the same key (e.g. from an archived duplicate row) is switched off.
+  await env.DB.prepare(
+    `UPDATE saved_searches SET active = 0 WHERE json_extract(criteria, '$.source') = 'sheet' AND active = 1
+       AND EXISTS (SELECT 1 FROM saved_searches o WHERE json_extract(o.criteria, '$.source') = 'sheet'
+                   AND json_extract(o.criteria, '$.key2') = json_extract(saved_searches.criteria, '$.key2')
+                   AND o.created_at < saved_searches.created_at)`).run()
   return { synced: true, created }
 }
 
