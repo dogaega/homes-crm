@@ -1,0 +1,147 @@
+{
+ "_source": "Artem's app «Прозвон · команда», Клиенты tab, read 16.10.2026. Names are internal — never put them in messages to agents.",
+ "requests": [
+  {
+   "client": "Илья М.",
+   "tx": "rent",
+   "towns": [
+    "Monaco"
+   ],
+   "apt": true,
+   "beds": 1,
+   "area": 75,
+   "budget": 20000,
+   "note": "furnished, ready to view now"
+  },
+  {
+   "client": "Юлия · Ольга Д.",
+   "tx": "rent",
+   "towns": [
+    "Monaco"
+   ],
+   "apt": true,
+   "beds": 2,
+   "budget": 25000,
+   "note": "1 year, 2-3 bedrooms"
+  },
+  {
+   "client": "Артём",
+   "tx": "rent",
+   "towns": [
+    "Beausoleil"
+   ],
+   "beds": 3,
+   "budget": 15000,
+   "note": "furnished, urgent"
+  },
+  {
+   "client": "Клиент брокера Майкла",
+   "tx": "rent",
+   "towns": [
+    "Beausoleil"
+   ],
+   "villa": true,
+   "budget": 30000,
+   "note": "villa"
+  },
+  {
+   "client": "М · квартиры 1 и 2",
+   "tx": "rent",
+   "towns": [
+    "Beausoleil"
+   ],
+   "apt": true,
+   "beds": 2,
+   "budget": 8500,
+   "note": "closed residence, furnished, parking; 3, 6 or 12 months"
+  },
+  {
+   "client": "Юлия · вилла Antibes",
+   "tx": "rent",
+   "towns": [
+    "Antibes"
+   ],
+   "villa": true,
+   "budget": 45000,
+   "note": "villa"
+  },
+  {
+   "client": "Анна",
+   "tx": "sale",
+   "towns": [
+    "Beausoleil"
+   ],
+   "apt": true,
+   "beds": 1,
+   "area": 45,
+   "budget": 700000,
+   "note": "2 bed or 1 + dressing, 45-80 m², lift, near bd de la République / Alcazar; not Moneghetti / station area"
+  },
+  {
+   "client": "Мишель Ш.",
+   "tx": "sale",
+   "towns": [
+    "Monaco"
+   ],
+   "apt": true,
+   "beds": 1,
+   "area": 45,
+   "budget": 2000000,
+   "note": "to live in"
+  },
+  {
+   "client": "Elli K.",
+   "tx": "sale",
+   "towns": [
+    "Cannes",
+    "Menton",
+    "Beaulieu-sur-Mer"
+   ],
+   "villa": true,
+   "budget": 7000000,
+   "note": "Belle Époque villa"
+  },
+  {
+   "client": "Сергей Г.",
+   "tx": "sale",
+   "towns": [
+    "Roquebrune-Cap-Martin"
+   ],
+   "apt": true,
+   "budget": 1800000,
+   "building": "voiles du cap",
+   "note": "only Les Voiles du Cap (buy, or rent for a year)"
+  }
+ ],
+ "already_on_cards": [
+  "harbour crest",
+  "bariquand",
+  "sun tower",
+  "parc saint roman",
+  "fairmont",
+  "mirabeau",
+  "monte-carlo sun",
+  "cyclades",
+  "buckingham palace",
+  "chateau amiral",
+  "château amiral",
+  "chateau d'azur",
+  "château d'azur",
+  "perigord",
+  "périgord",
+  "tenao",
+  "ténao",
+  "spelugues",
+  "spélugues",
+  "3032v",
+  "moulins",
+  "3032",
+  "croisette-properties",
+  "wretmanestate",
+  "darkstone",
+  "boumann",
+  "agencearthaud",
+  "serviceazur",
+  "monaco ville / appartement a renover"
+ ]
+}
