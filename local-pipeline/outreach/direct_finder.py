@@ -56,6 +56,41 @@ def direct_reason(item: dict) -> tuple[int, str, dict] | None:
     return None
 
 
+TEAM_SHEET = "10nkjBwS9ZsWz2QUOiWsPZV2CV3zPwEms56V8P9DT6UI"
+
+
+def artem_base() -> list[dict]:
+    """Artem's object list («База объектов» in the team sheet): everything he already has, from any agency."""
+    import csv
+    import io
+    import urllib.parse
+    import requests
+    url = f"https://docs.google.com/spreadsheets/d/{TEAM_SHEET}/gviz/tq?tqx=out:csv&sheet={urllib.parse.quote('База объектов')}"
+    return list(csv.DictReader(io.StringIO(requests.get(url, timeout=60).content.decode("utf-8"))))
+
+
+def in_base(it: dict, base: list[dict]) -> str:
+    """Object id when this property is already in Artem's list: same listing URL, or same price and area (±5%)."""
+    urls = [(s.get("source_url") or "").split("?")[0].rstrip("/") for s in it.get("sources") or []]
+    price, area = it.get("price") or 0, it.get("living_area_sqm") or 0
+    for b in base:
+        link = (b.get("Ссылка") or "").split("?")[0].rstrip("/")
+        if link and any(u and (u == link or u[-30:] == link[-30:]) for u in urls):
+            return b["ID"]
+        bp = float(re.sub(r"[^\d]", "", b.get("Цена") or "") or 0)
+        if not price or bp != price:
+            continue
+        bph = re.sub(r"\D", "", b.get("Телефон") or "")[-8:]
+        if bph and any(bph == re.sub(r"\D", "", str(s.get(k) or ""))[-8:] for s in it.get("sources") or []
+                       for k in ("agent_phone", "agency_phone", "a_phone", "agent_whatsapp")):
+            return b["ID"]
+        m = re.search(r"(\d[\d\s.,]*)\s*м²", b.get("Объект") or "")
+        ba = float(re.sub(r"[^\d.]", "", (m.group(1) if m else b.get("Площадь") or "").replace(",", ".")) or 0)
+        if (area and ba and abs(ba - area) <= 0.05 * area) or (not area or not ba) and norm(it.get("city")) in norm(b.get("Город")):
+            return b["ID"]
+    return ""
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--per-request", type=int, default=6)
@@ -65,6 +100,7 @@ def main() -> None:
     skip = [norm(x) for x in cfg.get("already_on_cards", [])]
     prior = json.loads((DATA / "prior_contacts.json").read_text())
     prior_doms = {dom(x) for k in ("emails", "domains") for x in prior.get(k, [])}
+    base = artem_base()
     w = WorkerClient(timeout=240)
     clients = []
     for i, r in enumerate(cfg["requests"]):
@@ -86,7 +122,7 @@ def main() -> None:
                 continue
             if r.get("building") and r["building"] not in text:
                 continue
-            if any(k and k in text for k in skip):
+            if any(k and k in text for k in skip) or in_base(it, base):
                 continue
             d = direct_reason(it)
             if d:
