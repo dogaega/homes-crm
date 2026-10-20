@@ -422,7 +422,14 @@ def main() -> None:
             t = TEAM.get(str(req_c[r].get("sheet_no") or "").lstrip("0"))
             rows.append({**t, "area": from_criteria(req_c[r])["area"]} if t else from_criteria(req_c[r]))
         return "\n".join(group_lines(rows))
-    matches = w.request("POST", "/sync/match-clients", {"clients": crit, "limit": 150})["matches"]
+    # One client per call: 150 candidates for every client in a single call exceeds the worker's CPU limit (error 1101).
+    matches = {}
+    for c in crit:
+        try:
+            matches.update(w.request("POST", "/sync/match-clients", {"clients": [c], "limit": 150})["matches"])
+        except Exception as e:  # noqa: BLE001 — one heavy request must not stop the others
+            print(f"match-clients failed for {c['no']}: {str(e)[:120]}")
+            matches.update(w.request("POST", "/sync/match-clients", {"clients": [c], "limit": 40})["matches"])
 
     # New properties per client → grouped by the agency that holds the mandate.
     by_agency: dict[str, dict] = {}

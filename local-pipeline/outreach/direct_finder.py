@@ -106,7 +106,9 @@ def main() -> None:
     for i, r in enumerate(cfg["requests"]):
         clients.append({"no": str(i), "tx": r["tx"], "towns": r["towns"], "quarters": [], "villa": bool(r.get("villa")),
                         "apt": bool(r.get("apt")), "beds": r.get("beds"), "area": r.get("area"), "budget": r.get("budget")})
-    matches = w.request("POST", "/sync/match-clients", {"clients": clients, "limit": 80})["matches"]
+    matches = {}
+    for c in clients:
+        matches.update(w.request("POST", "/sync/match-clients", {"clients": [c], "limit": 80})["matches"])
     rows = []
     for i, r in enumerate(cfg["requests"]):
         picked = []
