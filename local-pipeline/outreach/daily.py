@@ -110,6 +110,8 @@ def priority(r: dict) -> tuple[int, str]:
                 score += 40; why.append(f"deadline {c['deadline']}")
         except ValueError:
             pass
+    if no in PRIORITY.get("mark_priority", {}):
+        score += 60; why.append("Mark's top priority")
     if no in PRIORITY.get("app_fire", []):
         score += 40; why.append("🔥 priority in Artem's app")
     elif no in PRIORITY.get("artem_active", []):
