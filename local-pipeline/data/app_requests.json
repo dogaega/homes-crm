@@ -1,18 +1,6 @@
 {
- "_source": "Artem's app «Прозвон · команда», Клиенты tab, read 16.10.2026. Names are internal — never put them in messages to agents.",
+ "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips, read 2026-10-20 15:46. Names are internal — never put them in messages to agents.",
  "requests": [
-  {
-   "client": "Илья М.",
-   "tx": "rent",
-   "towns": [
-    "Monaco"
-   ],
-   "apt": true,
-   "beds": 1,
-   "area": 75,
-   "budget": 20000,
-   "note": "furnished, ready to view now"
-  },
   {
    "client": "Юлия · Ольга Д.",
    "tx": "rent",
@@ -75,7 +63,7 @@
    "beds": 1,
    "area": 45,
    "budget": 700000,
-   "note": "2 bed or 1 + dressing, 45-80 m², lift, near bd de la République / Alcazar; not Moneghetti / station area"
+   "note": "2 bed or 1 + dressing, 45-80 m², lift above 1st floor, bath, near bd de la République / Alcazar; not Moneghetti / station area"
   },
   {
    "client": "Мишель Ш.",
@@ -99,7 +87,7 @@
    ],
    "villa": true,
    "budget": 7000000,
-   "note": "Belle Époque villa"
+   "note": "Belle Époque villa, Cannes to Menton (likes Beaulieu); they renovate themselves"
   },
   {
    "client": "Сергей Г.",
@@ -110,7 +98,33 @@
    "apt": true,
    "budget": 1800000,
    "building": "voiles du cap",
-   "note": "only Les Voiles du Cap (buy, or rent for a year)"
+   "note": "only Les Voiles du Cap (buy, or rent for a year); O-0129 sold, Artem asking which matters more"
+  },
+  {
+   "client": "Екатерина K.",
+   "tx": "sale",
+   "towns": [
+    "Beausoleil"
+   ],
+   "apt": true,
+   "beds": 3,
+   "budget": 800000,
+   "note": "near the Monaco border; budget not stated (card O-0315 at 780 000 €, 3 bed 88 m²)"
+  },
+  {
+   "client": "Клиентка Дарьи",
+   "tx": "sale",
+   "towns": [
+    "Saint-Jean-Cap-Ferrat",
+    "Nice",
+    "Villefranche-sur-Mer",
+    "Beaulieu-sur-Mer",
+    "Cannes",
+    "Antibes"
+   ],
+   "villa": true,
+   "budget": 12000000,
+   "note": "villa anywhere on the Riviera, near the sea"
   }
  ],
  "already_on_cards": [
@@ -142,6 +156,18 @@
   "boumann",
   "agencearthaud",
   "serviceazur",
-  "monaco ville / appartement a renover"
+  "monaco ville / appartement a renover",
+  "2 rue des spelugues",
+  "303zv",
+  "85573207",
+  "87415274",
+  "87432104",
+  "alcazar",
+  "ambassador",
+  "beausoleil superieur",
+  "beausoleil supérieur",
+  "blue roc",
+  "nic210054",
+  "voiles du cap"
  ]
 }
