@@ -1610,7 +1610,7 @@ export async function handlePipelineSync(req: Request, env: Env, path: string, r
 
   if (path === '/sync/match-clients' && req.method === 'POST') {
     const body = await req.json<any>()
-    const limit = Math.min(Number(body?.limit) || 15, 40)
+    const limit = Math.min(Number(body?.limit) || 15, 150)
     const VILLA = `(LOWER(COALESCE(p.property_type,'')||' '||COALESCE(p.property_name,'')) GLOB '*villa*'
       OR LOWER(COALESCE(p.property_type,'')||' '||COALESCE(p.property_name,'')) GLOB '*maison*'
       OR LOWER(COALESCE(p.property_type,'')||' '||COALESCE(p.property_name,'')) GLOB '*house*'

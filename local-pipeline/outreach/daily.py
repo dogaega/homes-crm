@@ -110,8 +110,17 @@ def priority(r: dict) -> tuple[int, str]:
                 score += 40; why.append(f"deadline {c['deadline']}")
         except ValueError:
             pass
-    if no in PRIORITY.get("artem_active", []):
-        score += 30; why.append("on Artem's call cards")
+    if no in PRIORITY.get("app_fire", []):
+        score += 40; why.append("🔥 priority in Artem's app")
+    elif no in PRIORITY.get("artem_active", []):
+        score += 30; why.append("on Artem's cards")
+    row = team_raw().get(no.lstrip("0")) or {}
+    if re.search(r"срочно|приоритет|🔥|высок", row.get("Приоритет") or "", re.I):
+        score += 20; why.append("priority in Artem's sheet")
+    last = row.get("Последняя отправка") or ""
+    m = re.search(r"(\d{1,2})\.(\d{1,2})\.(\d{4})", last)
+    if not m or (dt.date.today() - dt.date(int(m.group(3)), int(m.group(2)), int(m.group(1)))).days > 3:
+        score += 10; why.append("nothing sent to the client lately")
     text = f"{c.get('notes') or ''} {c.get('location_text') or ''}"
     recent = [d for d in re.findall(r"\b(\d{1,2})\.(\d{2})\b", text)
               if 0 <= (dt.date.today() - dt.date(dt.date.today().year, int(d[1]), int(d[0]))).days <= 7] if text else []
@@ -162,6 +171,36 @@ def already_contacted(ctx: dict, w) -> str | None:
     if any(m.get("agency_id") in ids or _dom(m.get("to_address")) in doms for m in _SENT_CACHE):
         return "already got an outreach message"
     return None
+
+
+def emailed_domains() -> set[str]:
+    """Every domain an email already went to: the sender cancels a second one, so the planner must not draft it."""
+    global _SENT_CACHE
+    if _SENT_CACHE is None:
+        from sync.worker_client import WorkerClient
+        _SENT_CACHE = WorkerClient(timeout=120).request("GET", "/sync/outreach/queue?status=sent")["messages"]
+    return {_dom(m.get("to_address")) for m in _SENT_CACHE if m.get("channel") == "email"} | set(PRIOR["domains"])
+
+
+_TEAM_RAW: dict | None = None
+
+
+def team_raw() -> dict:
+    """Artem's «Клиенты» rows by request number (Приоритет, Последняя отправка, Причины отказов …)."""
+    global _TEAM_RAW
+    if _TEAM_RAW is None:
+        import csv
+        import io
+        import urllib.parse
+        import requests
+        url = ("https://docs.google.com/spreadsheets/d/10nkjBwS9ZsWz2QUOiWsPZV2CV3zPwEms56V8P9DT6UI/gviz/tq?tqx=out:csv&sheet="
+               + urllib.parse.quote("Клиенты"))
+        try:
+            rows = csv.DictReader(io.StringIO(requests.get(url, timeout=60).content.decode("utf-8")))
+            _TEAM_RAW = {(x.get("№ запроса") or "").lstrip("0"): x for x in rows if x.get("№ запроса")}
+        except Exception:  # noqa: BLE001
+            _TEAM_RAW = {}
+    return _TEAM_RAW
 
 
 def form_usable(url: str) -> bool:
@@ -381,7 +420,7 @@ def main() -> None:
             t = TEAM.get(str(req_c[r].get("sheet_no") or "").lstrip("0"))
             rows.append({**t, "area": from_criteria(req_c[r])["area"]} if t else from_criteria(req_c[r]))
         return "\n".join(group_lines(rows))
-    matches = w.request("POST", "/sync/match-clients", {"clients": crit, "limit": 40})["matches"]
+    matches = w.request("POST", "/sync/match-clients", {"clients": crit, "limit": 150})["matches"]
 
     # New properties per client → grouped by the agency that holds the mandate.
     by_agency: dict[str, dict] = {}
@@ -446,9 +485,13 @@ def main() -> None:
                           "email": f["emails"][0] if f.get("emails") else None, "contact_id": None}
                 why_person = "found on the " + ("listing page" if src.get("source_url") else "agency site")
         person = person or {"name": None, "phone": None, "email": None, "contact_id": None}
-        email = person.get("email") or clean_email(src.get("agency_email") or src.get("a_email")) \
+        email = clean_email(person.get("email")) or clean_email(src.get("agency_email") or src.get("a_email")) \
             or next((clean_email(e) for e in f.get("emails", []) if clean_email(e)), None)
-        if email and not person.get("email"):
+        # Same checks as the sender, before drafting: no address on a domain we already emailed.
+        if email and email.split("@")[1] in emailed_domains():
+            print(f"skip {agency}: {email.split('@')[1]} was already emailed")
+            continue
+        if email and person.get("email") != email:
             person = {**person, "email": email}
         phone = person.get("phone") or ""
         plan = []
