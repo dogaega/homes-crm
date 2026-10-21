@@ -109,8 +109,12 @@ def main() -> None:
     matches = {}
     for c in clients:
         matches.update(w.request("POST", "/sync/match-clients", {"clients": [c], "limit": 80})["matches"])
+    # Priority order, like the "Today" tab: 🔥 clients in Artem's app first, then the others as the app lists them.
+    fire = json.loads((DATA / "request_priority.json").read_text()).get("app_fire", [])
+    order = sorted(range(len(cfg["requests"])), key=lambda i: (str(cfg["requests"][i].get("no") or "") not in fire, i))
     rows = []
-    for i, r in enumerate(cfg["requests"]):
+    for i in order:
+        r = cfg["requests"][i]
         picked = []
         for it in matches.get(str(i)) or []:
             text = norm(" ".join(str(it.get(k) or "") for k in ("building_name", "property_name"))

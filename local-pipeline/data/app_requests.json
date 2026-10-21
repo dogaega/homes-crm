@@ -10,7 +10,8 @@
    "apt": true,
    "beds": 2,
    "budget": 25000,
-   "note": "1 year, 2-3 bedrooms"
+   "note": "1 year, 2-3 bedrooms",
+   "no": "10"
   },
   {
    "client": "Артём",
@@ -20,7 +21,8 @@
    ],
    "beds": 3,
    "budget": 15000,
-   "note": "furnished, urgent"
+   "note": "furnished, urgent",
+   "no": "27"
   },
   {
    "client": "Клиент брокера Майкла",
@@ -30,7 +32,8 @@
    ],
    "villa": true,
    "budget": 30000,
-   "note": "villa"
+   "note": "villa",
+   "no": "24"
   },
   {
    "client": "М · квартиры 1 и 2",
@@ -41,7 +44,8 @@
    "apt": true,
    "beds": 2,
    "budget": 8500,
-   "note": "closed residence, furnished, parking; 3, 6 or 12 months"
+   "note": "closed residence, furnished, parking; 3, 6 or 12 months",
+   "no": "16"
   },
   {
    "client": "Юлия · вилла Antibes",
@@ -51,7 +55,8 @@
    ],
    "villa": true,
    "budget": 45000,
-   "note": "villa"
+   "note": "villa",
+   "no": "11"
   },
   {
    "client": "Анна",
@@ -63,7 +68,8 @@
    "beds": 1,
    "area": 45,
    "budget": 700000,
-   "note": "2 bed or 1 + dressing, 45-80 m², lift above 1st floor, bath, near bd de la République / Alcazar; not Moneghetti / station area"
+   "note": "2 bed or 1 + dressing, 45-80 m², lift above 1st floor, bath, near bd de la République / Alcazar; not Moneghetti / station area",
+   "no": "30"
   },
   {
    "client": "Мишель Ш.",
@@ -75,7 +81,8 @@
    "beds": 1,
    "area": 45,
    "budget": 2000000,
-   "note": "to live in"
+   "note": "to live in",
+   "no": "13"
   },
   {
    "client": "Elli K.",
@@ -87,7 +94,8 @@
    ],
    "villa": true,
    "budget": 7000000,
-   "note": "Belle Époque villa, Cannes to Menton (likes Beaulieu); they renovate themselves"
+   "note": "Belle Époque villa, Cannes to Menton (likes Beaulieu); they renovate themselves",
+   "no": "35"
   },
   {
    "client": "Сергей Г.",
@@ -98,7 +106,8 @@
    "apt": true,
    "budget": 1800000,
    "building": "voiles du cap",
-   "note": "only Les Voiles du Cap (buy, or rent for a year); O-0129 sold, Artem asking which matters more"
+   "note": "only Les Voiles du Cap (buy, or rent for a year); O-0129 sold, Artem asking which matters more",
+   "no": "07"
   },
   {
    "client": "Екатерина K.",
@@ -109,7 +118,8 @@
    "apt": true,
    "beds": 3,
    "budget": 800000,
-   "note": "near the Monaco border; budget not stated (card O-0315 at 780 000 €, 3 bed 88 m²)"
+   "note": "near the Monaco border; budget not stated (card O-0315 at 780 000 €, 3 bed 88 m²)",
+   "no": "37"
   },
   {
    "client": "Клиентка Дарьи",
@@ -124,7 +134,8 @@
    ],
    "villa": true,
    "budget": 12000000,
-   "note": "villa anywhere on the Riviera, near the sea"
+   "note": "villa anywhere on the Riviera, near the sea",
+   "no": "46"
   }
  ],
  "already_on_cards": [
