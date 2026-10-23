@@ -1,5 +1,5 @@
 {
- "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips, read 2026-10-23 09:05. Names are internal — never put them in messages to agents.",
+ "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips, read 2026-10-23 15:05. Names are internal — never put them in messages to agents.",
  "requests": [
   {
    "client": "Юлия · Ольга Д.",
@@ -146,8 +146,21 @@
    "apt": true,
    "beds": 1,
    "budget": 3500000,
-   "note": "2-room (2 pièces) to buy in Monaco; card O-0223 Ambassador 2.695M in work",
+   "note": "2-room (2 pièces) to buy in Monaco; card O-0223 Ambassador 2.695M on pause",
    "no": "36"
+  },
+  {
+   "client": "Илья М.",
+   "tx": "rent",
+   "towns": [
+    "Monaco"
+   ],
+   "apt": true,
+   "beds": 1,
+   "area": 75,
+   "budget": 20000,
+   "note": "furnished, from 75 m², ready to view now",
+   "no": "32"
   }
  ],
  "already_on_cards": [
@@ -208,6 +221,19 @@
   "rue grimaldi",
   "bd des moulins",
   "o-0316",
-  "le mirabeau"
+  "le mirabeau",
+  "le millenium",
+  "millenium",
+  "hersilia",
+  "place d'armes",
+  "palais bosio",
+  "villa ménésini",
+  "villa menesini",
+  "roqueville",
+  "20 bd princesse charlotte",
+  "villa bariquand",
+  "les cyclades",
+  "fairmont résidence",
+  "le monte-carlo sun"
  ]
 }
