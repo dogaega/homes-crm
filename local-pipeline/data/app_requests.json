@@ -1,5 +1,5 @@
 {
- "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips, read 2026-10-23 15:05. Names are internal — never put them in messages to agents.",
+ "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips, read 2026-10-24 09:05. Names are internal — never put them in messages to agents.",
  "requests": [
   {
    "client": "Юлия · Ольга Д.",
@@ -159,7 +159,7 @@
    "beds": 1,
    "area": 75,
    "budget": 20000,
-   "note": "furnished, from 75 m², ready to view now",
+   "note": "furnished, from 75 m², ready to view now; O-0046 Parc Saint Roman awaiting answer, O-0406 Villa Ménésini viewing 26.10",
    "no": "32"
   }
  ],
@@ -234,6 +234,10 @@
   "villa bariquand",
   "les cyclades",
   "fairmont résidence",
-  "le monte-carlo sun"
+  "le monte-carlo sun",
+  "o-0046",
+  "o-0406",
+  "o-0124",
+  "o-0223"
  ]
 }
