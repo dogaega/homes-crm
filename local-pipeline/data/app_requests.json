@@ -1,5 +1,5 @@
 {
- "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips, read 2026-10-27 12:30. Names are internal — never put them in messages to agents.",
+ "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips, read 2026-10-28 09:05. Names are internal — never put them in messages to agents.",
  "requests": [
   {
    "client": "Юлия · Ольга Д.",
@@ -159,7 +159,7 @@
    "beds": 1,
    "area": 75,
    "budget": 20000,
-   "note": "furnished, from 75 m², ready to view now; O-0046 Parc Saint Roman awaiting answer (reminder due), O-0406 Villa Ménésini viewed 26.10, new own listing 19 000 + 650 in work",
+   "note": "furnished, from 75 m², ready to view now; O-0046 Parc Saint Roman awaiting answer (reminder due, waiting 5 days), O-0406 Villa Ménésini viewed 26.10, new own listing 19 000 + 650 in work",
    "no": "32"
   }
  ],
