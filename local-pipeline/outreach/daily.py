@@ -499,7 +499,12 @@ def main() -> None:
         known = already_contacted(ctx, w)
         # Mark 29.10: for requests marked allow_known, agencies we already know are written to as well —
         # once per request (never twice about the same request).
-        allow_known = all(req_extra.get(r, {}).get("allow_known") for r in g["requests"])
+        allowed = {r for r in g["requests"] if req_extra.get(r, {}).get("allow_known")}
+        allow_known = bool(known and allowed)
+        if allow_known:
+            # Only the allowed request (and its properties) for an agency we already know.
+            g = {**g, "requests": allowed,
+                 "props": {k: v for k, v in g["props"].items() if v["_rids"] & allowed}}
         if known and allow_known:
             agency_ids = {a.get("id") for a in ctx.get("agencies", [])}
             if any(set(json.loads(m.get("request_ids") or "[]")) & g["requests"] and m.get("agency_id") in agency_ids
@@ -522,6 +527,11 @@ def main() -> None:
                           "email": f["emails"][0] if f.get("emails") else None, "contact_id": None}
                 why_person = "found on the " + ("listing page" if src.get("source_url") else "agency site")
         person = person or {"name": None, "phone": None, "email": None, "contact_id": None}
+        if allow_known and not person.get("email"):  # known agency: fall back to its office email
+            office = next((clean_email(a.get("email")) for a in ctx.get("agencies", []) if clean_email(a.get("email"))), None) \
+                or next((clean_email(p.get("email")) for p in ctx.get("people", []) if clean_email(p.get("email"))), None)
+            if office:
+                person = {**person, "email": office}
         email = clean_email(person.get("email")) or clean_email(src.get("agency_email") or src.get("a_email")) \
             or next((clean_email(e) for e in f.get("emails", []) if clean_email(e)), None)
         # Same checks as the sender, before drafting: no address on a domain we already emailed.
