@@ -84,7 +84,7 @@ def criteria(r: dict) -> dict | None:
         return None
     return {"no": r["id"], "tx": c.get("transaction_type") or "sale", "towns": c["cities"], "quarters": c.get("quarters") or [],
             "villa": c.get("kind") == "villa", "apt": c.get("kind") == "apartment", "beds": c.get("bedrooms_min"),
-            "area": c.get("area_min"), "budget": c.get("price_max")}
+            "area": c.get("area_min"), "budget": None if c.get("no_budget_floor") else c.get("price_max")}
 
 
 PRIORITY = json.loads((Path(__file__).resolve().parents[1] / "data" / "request_priority.json").read_text())
@@ -94,6 +94,8 @@ HOT = re.compile(r"срочно|готов смотреть|смотреть с�
 def priority(r: dict) -> tuple[int, str]:
     """Score a client request so the hottest ones get outreach first. -1 = skip for now."""
     c, no = r["c"], r["c"].get("sheet_no") or ""
+    if r.get("extra"):  # Mark's own ad-hoc requests (data/extra_requests.json)
+        return r.get("priority", 100), r.get("note") or "Mark's request"
     if no in PRIORITY.get("skip", {}):
         return -1, PRIORITY["skip"][no]
     if not c.get("price_max"):
@@ -387,6 +389,10 @@ def main() -> None:
     w = WorkerClient(timeout=180)
     reqs = w.request("GET", "/sync/outreach/requests")["requests"]
     reqs = [r for r in reqs if r["c"].get("sheet_no")]  # "Запросы клиентов" rows only (not retired WORK FRANCE ones)
+    # Mark's ad-hoc requests that are not in Artem's sheet (e.g. Cap-d'Ail under €500k, 29.10).
+    extra_path = Path(__file__).resolve().parents[1] / "data" / "extra_requests.json"
+    if extra_path.exists():
+        reqs += [{**x, "extra": True} for x in json.loads(extra_path.read_text())]
     # Hottest clients first (deadline, Artem's call cards, recent notes); skipped ones (e.g. Mareterra for now) get nothing.
     prio = {r["id"]: priority(r) for r in reqs}
     for r in sorted(reqs, key=lambda r: -prio[r["id"]][0]):
@@ -420,7 +426,10 @@ def main() -> None:
         rows = []
         for r in keep[:2]:
             t = TEAM.get(str(req_c[r].get("sheet_no") or "").lstrip("0"))
-            rows.append({**t, "area": from_criteria(req_c[r])["area"]} if t else from_criteria(req_c[r]))
+            row = {**t, "area": from_criteria(req_c[r])["area"]} if t else from_criteria(req_c[r])
+            if isinstance(req_c[r].get("notes"), list):  # ad-hoc requests carry their wishes as a list
+                row["notes"] = list(row.get("notes") or []) + req_c[r]["notes"]
+            rows.append(row)
         return "\n".join(group_lines(rows))
     # One client per call: 150 candidates for every client in a single call exceeds the worker's CPU limit (error 1101).
     matches = {}
@@ -434,8 +443,14 @@ def main() -> None:
     # New properties per client → grouped by the agency that holds the mandate.
     by_agency: dict[str, dict] = {}
     for rid, props in matches.items():
-        fresh = set(w.request("POST", "/sync/outreach/options", {"request_id": rid, "property_ids": [p["id"] for p in props],
-                                                                  "origin": "crm_match"})["new"]) if not args.dry_run else {p["id"] for p in props}
+        if rid.startswith("extra-") or args.dry_run:  # ad-hoc requests have no CRM row; agencies already written to are skipped anyway
+            fresh = {p["id"] for p in props}
+        else:
+            fresh = set(w.request("POST", "/sync/outreach/options", {"request_id": rid, "property_ids": [p["id"] for p in props],
+                                                                      "origin": "crm_match"})["new"])
+        hard = (req_c.get(rid) or {}).get("price_max_hard")
+        if hard:
+            props = [p for p in props if p.get("price") and p["price"] <= hard]
         for p in props:
             if p["id"] not in fresh:
                 continue

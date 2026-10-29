@@ -1,0 +1,6 @@
+[
+ {"id": "extra-capdail-staff", "name": "Клиент · персонал (Cap-d'Ail)", "priority": 120,
+  "note": "Mark 29.10: apartments in Cap-d'Ail under €500k, studio or 1 bedroom for staff, cheapest first",
+  "c": {"sheet_no": "X1", "transaction_type": "sale", "cities": ["Cap-d'Ail"], "kind": "apartment", "price_max": 500000,
+        "price_max_hard": 500000, "no_budget_floor": true, "notes": ["studio or 1 bedroom"]}}
+]
