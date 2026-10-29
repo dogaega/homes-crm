@@ -527,11 +527,25 @@ def main() -> None:
                           "email": f["emails"][0] if f.get("emails") else None, "contact_id": None}
                 why_person = "found on the " + ("listing page" if src.get("source_url") else "agency site")
         person = person or {"name": None, "phone": None, "email": None, "contact_id": None}
-        if allow_known and not person.get("email"):  # known agency: fall back to its office email
-            office = next((clean_email(a.get("email")) for a in ctx.get("agencies", []) if clean_email(a.get("email"))), None) \
-                or next((clean_email(p.get("email")) for p in ctx.get("people", []) if clean_email(p.get("email"))), None)
+        if allow_known and clean_email(src.get("agent_email") or src.get("agency_email")):
+            # the listing's own address beats a colleague from another branch (Laforêt Solliès-Pont, 29.10)
+            person = {**person, "email": clean_email(src.get("agent_email") or src.get("agency_email"))}
+        elif allow_known and person.get("email") and _dom(person["email"]) != _dom(
+                next((a.get("website") for a in ctx.get("agencies", []) if a.get("id") == agency_id), None)):
+            person = {**person, "email": None}
+        if allow_known and not person.get("email"):
+            # Known agency: the address printed on THIS listing first (right branch of a network like Laforêt),
+            # else an office email on the agency's own website domain. Never a colleague's address from
+            # another agency merged into the same record (that sent Cap-d'Ail emails to Service Azur, 29.10).
+            site_dom = _dom(next((a.get("website") for a in ctx.get("agencies", []) if a.get("id") == agency_id), None))
+            office = clean_email(src.get("agent_email") or src.get("agency_email")) \
+                or next((clean_email(a.get("email")) for a in ctx.get("agencies", [])
+                         if clean_email(a.get("email")) and site_dom and _dom(a.get("email")) == site_dom), None)
             if office:
                 person = {**person, "email": office}
+            elif not person.get("phone"):
+                print(f"skip {agency}: no email of this agency on the listing or its own domain")
+                continue
         email = clean_email(person.get("email")) or clean_email(src.get("agency_email") or src.get("a_email")) \
             or next((clean_email(e) for e in f.get("emails", []) if clean_email(e)), None)
         # Same checks as the sender, before drafting: no address on a domain we already emailed.
