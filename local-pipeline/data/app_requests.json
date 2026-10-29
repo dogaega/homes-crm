@@ -1,6 +1,17 @@
 {
- "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips, read 2026-10-29 09:04. Names are internal — never put them in messages to agents.",
+ "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips, read 2026-10-29 15:04. Names are internal — never put them in messages to agents.",
  "requests": [
+  {
+   "client": "Клиент · персонал",
+   "tx": "sale",
+   "towns": [
+    "Cap-d'Ail"
+   ],
+   "apt": true,
+   "budget": 600000,
+   "note": "urgent: studio or 1-bed in Cap-d'Ail for staff, budget open (start from the cheapest), exclusive/mandate preferred; 11 cards O-0759..O-0769 at 260-600k; ELISS 2 not relevant",
+   "no": ""
+  },
   {
    "client": "Юлия · Ольга Д.",
    "tx": "rent",
@@ -238,6 +249,22 @@
   "o-0046",
   "o-0406",
   "o-0124",
-  "o-0223"
+  "o-0223",
+  "o-0759",
+  "o-0760",
+  "o-0761",
+  "o-0762",
+  "o-0763",
+  "o-0764",
+  "o-0765",
+  "o-0766",
+  "o-0767",
+  "o-0768",
+  "o-0769",
+  "le chevalier",
+  "eliss 2",
+  "résidence eliss 2",
+  "residence eliss",
+  "hugues savorani"
  ]
 }
