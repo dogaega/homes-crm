@@ -391,8 +391,10 @@ def main() -> None:
     reqs = [r for r in reqs if r["c"].get("sheet_no")]  # "Запросы клиентов" rows only (not retired WORK FRANCE ones)
     # Mark's ad-hoc requests that are not in Artem's sheet (e.g. Cap-d'Ail under €500k, 29.10).
     extra_path = Path(__file__).resolve().parents[1] / "data" / "extra_requests.json"
+    req_extra: dict = {}
     if extra_path.exists():
         reqs += [{**x, "extra": True} for x in json.loads(extra_path.read_text())]
+        req_extra = {x["id"]: x for x in json.loads(extra_path.read_text())}
     # Hottest clients first (deadline, Artem's call cards, recent notes); skipped ones (e.g. Mareterra for now) get nothing.
     prio = {r["id"]: priority(r) for r in reqs}
     for r in sorted(reqs, key=lambda r: -prio[r["id"]][0]):
@@ -495,6 +497,17 @@ def main() -> None:
         # Hard stop (Mark, 2026-10-13): never auto-contact an agency Mark (or the system) already talked to —
         # any WhatsApp / email / call history, a propertyone / markmirimsky email, or an earlier outreach message.
         known = already_contacted(ctx, w)
+        # Mark 29.10: for requests marked allow_known, agencies we already know are written to as well —
+        # once per request (never twice about the same request).
+        allow_known = all(req_extra.get(r, {}).get("allow_known") for r in g["requests"])
+        if known and allow_known:
+            agency_ids = {a.get("id") for a in ctx.get("agencies", [])}
+            if any(set(json.loads(m.get("request_ids") or "[]")) & g["requests"] and m.get("agency_id") in agency_ids
+                   for m in (_SENT_CACHE or [])):
+                print(f"skip {agency}: already written to about this request")
+                continue
+            print(f"known agency {agency} ({known}): writing about this new request (allowed by Mark)")
+            known = None
         if known:
             print(f"skip {agency}: already in contact ({known})")
             continue
@@ -512,7 +525,7 @@ def main() -> None:
         email = clean_email(person.get("email")) or clean_email(src.get("agency_email") or src.get("a_email")) \
             or next((clean_email(e) for e in f.get("emails", []) if clean_email(e)), None)
         # Same checks as the sender, before drafting: no address on a domain we already emailed.
-        if email and email.split("@")[1] in emailed_domains():
+        if email and email.split("@")[1] in emailed_domains() and not allow_known:
             print(f"skip {agency}: {email.split('@')[1]} was already emailed")
             continue
         if email and person.get("email") != email:
@@ -548,7 +561,7 @@ def main() -> None:
                            "status": "approved",  # Mark 2026-10-13: send on their own, he watches the results
                            "account": {"whatsapp": "mark", "email": "markmirimsky@gmail.com", "form": "form"}[channel],
                            "to_address": to, "subject": d.get("subject"), "body": d["message"],
-                           "property_ids": [p["id"] for p in props], "request_ids": sorted(g["requests"]), "purpose": "first_contact",
+                           "property_ids": [p["id"] for p in props], "request_ids": sorted(g["requests"]), "purpose": "known_agency_request" if allow_known else "first_contact",
                            "reason": f"{agency} — {src['why']}; {channel} to {who.get('name') or 'office'}: {why_person}; for "
                                      + ", ".join(names.get(r, r) for r in sorted(g["requests"]))})
             print(f"\n=== {agency} → {who.get('name') or 'office'} ({channel} {to})\n{drafts[-1]['reason']}\n---\n{d['message']}", flush=True)
