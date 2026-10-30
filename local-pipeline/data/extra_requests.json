@@ -19,5 +19,48 @@
    ]
   },
   "allow_known": true
+ },
+ {
+  "id": "extra-beausoleil-rent-2500",
+  "name": "Аренда Beausoleil до 2 500 (срочно)",
+  "priority": 125,
+  "allow_known": true,
+  "note": "Mark 30.10: urgent, apartment to rent in Beausoleil up to €2,500/month",
+  "c": {
+   "sheet_no": "X2",
+   "transaction_type": "rent",
+   "cities": [
+    "Beausoleil"
+   ],
+   "kind": "apartment",
+   "price_max": 2500,
+   "price_max_hard": 2500,
+   "no_budget_floor": true,
+   "notes": [
+    "urgent"
+   ]
+  }
+ },
+ {
+  "id": "extra-beausoleil-rent-8-15k",
+  "name": "Аренда Beausoleil 8 000–15 000",
+  "priority": 115,
+  "allow_known": true,
+  "note": "Mark 30.10: apartment to rent in Beausoleil from €8,000 to €15,000/month",
+  "c": {
+   "sheet_no": "X3",
+   "transaction_type": "rent",
+   "cities": [
+    "Beausoleil"
+   ],
+   "kind": "apartment",
+   "price_max": 15000,
+   "price_max_hard": 15000,
+   "price_min_hard": 8000,
+   "no_budget_floor": true,
+   "notes": [
+    "from €8,000/month"
+   ]
+  }
  }
 ]

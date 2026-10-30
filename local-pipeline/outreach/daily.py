@@ -453,6 +453,9 @@ def main() -> None:
         hard = (req_c.get(rid) or {}).get("price_max_hard")
         if hard:
             props = [p for p in props if p.get("price") and p["price"] <= hard]
+        floor = (req_c.get(rid) or {}).get("price_min_hard")
+        if floor:
+            props = [p for p in props if p.get("price") and p["price"] >= floor]
         for p in props:
             if p["id"] not in fresh:
                 continue
