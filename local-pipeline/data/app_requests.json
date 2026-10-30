@@ -1,5 +1,5 @@
 {
- "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips, read 2026-10-29 15:04. Names are internal — never put them in messages to agents.",
+ "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips, read 2026-10-30 09:05. Names are internal — never put them in messages to agents.",
  "requests": [
   {
    "client": "Клиент · персонал",
@@ -9,7 +9,7 @@
    ],
    "apt": true,
    "budget": 600000,
-   "note": "urgent: studio or 1-bed in Cap-d'Ail for staff, budget open (start from the cheapest), exclusive/mandate preferred; 11 cards O-0759..O-0769 at 260-600k; ELISS 2 not relevant",
+   "note": "urgent: studio or 1-bed in Cap-d'Ail for staff, budget open (start from the cheapest), exclusive/mandate preferred; 11 cards O-0759..O-0769 at 260-600k; O-0760 and ELISS 2 not relevant",
    "no": ""
   },
   {
@@ -170,7 +170,7 @@
    "beds": 1,
    "area": 75,
    "budget": 20000,
-   "note": "furnished, from 75 m², ready to view now; O-0046 Parc Saint Roman awaiting answer (reminder due, waiting 6 days), O-0406 Villa Ménésini viewed 26.10, new own listing 19 000 + 650 in work",
+   "note": "furnished, from 75 m², ready to view now; O-0046 Parc Saint Roman awaiting answer (reminder due, waiting 7 days), O-0406 Villa Ménésini viewed 26.10, new own listing 19 000 + 650 in work",
    "no": "32"
   }
  ],
