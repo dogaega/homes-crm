@@ -505,7 +505,7 @@ def main() -> None:
         allowed = {r for r in g["requests"] if req_extra.get(r, {}).get("allow_known")}
         if known and allowed:  # drop requests this agency was already written to about (another request may still be new to them)
             agency_ids = {a.get("id") for a in ctx.get("agencies", [])}
-            done_reqs = {r for m in (_SENT_CACHE or []) if m.get("agency_id") in agency_ids
+            done_reqs = {r for m in (_SENT_CACHE or []) + waiting if m.get("agency_id") in agency_ids
                          for r in json.loads(m.get("request_ids") or "[]")}
             allowed -= done_reqs
             if not allowed:
