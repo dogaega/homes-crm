@@ -1,6 +1,20 @@
 {
- "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips, read 2026-10-30 09:05. Names are internal — never put them in messages to agents.",
+ "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips, read 2026-10-30 17:20. Names are internal — never put them in messages to agents.",
  "requests": [
+  {
+   "client": "Юрий Х.",
+   "tx": "rent",
+   "towns": [
+    "Beausoleil",
+    "Monaco",
+    "Cap-d'Ail",
+    "Roquebrune-Cap-Martin"
+   ],
+   "apt": true,
+   "budget": 15000,
+   "note": "SUPER priority (Саша's main client): apartments only, Beausoleil first (Monaco, Cap-d'Ail, Roquebrune border also ok), furnished, luxury, fresh strong renovation only; no houses/villas; no request number in Artem's sheet yet",
+   "no": ""
+  },
   {
    "client": "Клиент · персонал",
    "tx": "sale",
@@ -9,7 +23,7 @@
    ],
    "apt": true,
    "budget": 600000,
-   "note": "urgent: studio or 1-bed in Cap-d'Ail for staff, budget open (start from the cheapest), exclusive/mandate preferred; 11 cards O-0759..O-0769 at 260-600k; O-0760 and ELISS 2 not relevant",
+   "note": "urgent: studio or 1-bed in Cap-d'Ail for staff, budget open (start from the cheapest), exclusive/mandate preferred; 12 cards O-0755, O-0759..O-0769 at 260-600k; O-0760 and ELISS 2 not relevant",
    "no": ""
   },
   {
@@ -265,6 +279,29 @@
   "eliss 2",
   "résidence eliss 2",
   "residence eliss",
-  "hugues savorani"
+  "hugues savorani",
+  "château périgord ii",
+  "chateau perigord ii",
+  "shakespeare",
+  "millefiori",
+  "rosa maris",
+  "le victoria",
+  "patio palace",
+  "shangri-la",
+  "shangri la",
+  "o-0425",
+  "o-0426",
+  "o-0427",
+  "o-0770",
+  "o-0771",
+  "o-0772",
+  "o-0773",
+  "o-0774",
+  "o-0775",
+  "o-0776",
+  "o-0777",
+  "o-0778",
+  "o-0779",
+  "o-0755"
  ]
 }
