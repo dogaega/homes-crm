@@ -503,6 +503,14 @@ def main() -> None:
         # Mark 29.10: for requests marked allow_known, agencies we already know are written to as well —
         # once per request (never twice about the same request).
         allowed = {r for r in g["requests"] if req_extra.get(r, {}).get("allow_known")}
+        if known and allowed:  # drop requests this agency was already written to about (another request may still be new to them)
+            agency_ids = {a.get("id") for a in ctx.get("agencies", [])}
+            done_reqs = {r for m in (_SENT_CACHE or []) if m.get("agency_id") in agency_ids
+                         for r in json.loads(m.get("request_ids") or "[]")}
+            allowed -= done_reqs
+            if not allowed:
+                print(f"skip {agency}: already written to about this request")
+                continue
         allow_known = bool(known and allowed)
         if allow_known:
             # Only the allowed request (and its properties) for an agency we already know.
