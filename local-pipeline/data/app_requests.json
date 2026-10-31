@@ -1,5 +1,5 @@
 {
- "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips, read 2026-10-30 17:20. Names are internal — never put them in messages to agents.",
+ "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips, read 2026-10-31 09:05. Names are internal — never put them in messages to agents.",
  "requests": [
   {
    "client": "Юрий Х.",
@@ -23,7 +23,7 @@
    ],
    "apt": true,
    "budget": 600000,
-   "note": "urgent: studio or 1-bed in Cap-d'Ail for staff, budget open (start from the cheapest), exclusive/mandate preferred; 12 cards O-0755, O-0759..O-0769 at 260-600k; O-0760 and ELISS 2 not relevant",
+   "note": "urgent: studio or 1-bed in Cap-d'Ail for staff, budget open (start from the cheapest), exclusive/mandate preferred; 12 cards O-0755, O-0759..O-0769 at 260-600k; O-0760 and ELISS 2 not relevant; O-0765/O-0767 reminder due (waiting 2 days)",
    "no": ""
   },
   {
@@ -184,7 +184,7 @@
    "beds": 1,
    "area": 75,
    "budget": 20000,
-   "note": "furnished, from 75 m², ready to view now; O-0046 Parc Saint Roman awaiting answer (reminder due, waiting 7 days), O-0406 Villa Ménésini viewed 26.10, new own listing 19 000 + 650 in work",
+   "note": "furnished, from 75 m², ready to view now; O-0046 Parc Saint Roman awaiting answer (reminder due, waiting 8 days), O-0406 Villa Ménésini viewed 26.10, new own listing 19 000 + 650 in work",
    "no": "32"
   }
  ],
@@ -302,6 +302,24 @@
   "o-0777",
   "o-0778",
   "o-0779",
-  "o-0755"
+  "o-0755",
+  "o-0145",
+  "o-0407",
+  "o-0404",
+  "o-0402",
+  "o-0045",
+  "o-0403",
+  "o-0405",
+  "o-0062",
+  "o-0125",
+  "o-0001",
+  "o-0005",
+  "o-0006",
+  "o-0002",
+  "o-0003",
+  "o-0026",
+  "o-0162",
+  "o-0163",
+  "le shangri-la"
  ]
 }
