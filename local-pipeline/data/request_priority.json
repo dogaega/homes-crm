@@ -3,25 +3,26 @@
   "04": "Mareterra / Jardins d'Eau — not needed right now (Mark, 13.10)"
  },
  "artem_active": [
-  "13",
-  "35",
-  "36",
-  "32",
-  "27",
-  "37",
-  "24",
-  "46",
   "07",
   "10",
   "11",
+  "13",
   "16",
   "17",
-  "30"
+  "24",
+  "25",
+  "27",
+  "30",
+  "32",
+  "35",
+  "36",
+  "37",
+  "46"
  ],
- "artem_active_note": "Artem's app read 2026-11-01 09:05: no changes since 30.10 17:20 except reminder day counts. 🔥 SUPER Мишель Ш. #13 and SUPER Юрий Х. (still no request number in Artem's sheet; 13 cards, O-0779 Shangri-La годный, O-0775 Hersilia не актуально, O-0777/O-0776 called 30.10, O-0771/0426/0427 новые, rest в работе). 🔥🔥 Elli K. #35. 'Клиент · персонал' 12 cards unchanged: O-0765/O-0767 reminder due (ждём 3 дня), O-0762/0763/0768 материалы пришли, O-0760 and O-0769 ELISS 2 не актуально. Илья М. 18 cards: O-0046 Parc Saint Roman reminder due (waiting 9 days). Майкл 2 cards в работе; Юлия·Ольга O-0026 Le Mirabeau ждём материалы, O-0162/O-0163 ушло клиенту; Анастасия 1 card. Алёна in archive.",
+ "artem_active_note": "Artem's app read 2026-11-02 18:45. Day: 5 calls, 3 годных, 0 на перезвоне (ждём ответа 3); no cards approved for today, no new tasks, no callbacks. Все карточки 74 (71 shown), архив 10. 🔥 СУПЕР Мишель Ш. #13 (0 open cards), СУПЕР Юрий Х. (still no request number), 🔥🔥 Elli K. #35. Юрий Х. now 15 cards (was 13): NEW O-0787 Monte-Carlo y Carré d'Or 9 000+90 and O-0788 Jardin Exotique · Monte-Carlo View 13 250, both в работе; three went Годный today — O-0777 Château d'Azur, O-0426 Moneghetti, O-0771 Shakespeare (Carré d'Or) — plus O-0779 Le Shangri-La годный; O-0775 Hersilia не актуально; O-0427 touched today 17:26, O-0776 Rosa Maris 30.10. 'Клиент · персонал' 12 cards unchanged: O-0765/O-0767 'пора напомнить · ждём 4 дня', O-0762/0763/0768 материалы пришли, O-0760 and O-0769 ELISS 2 не актуально. Илья М. 18 cards unchanged: O-0046 Parc Saint Roman 'пора напомнить · ждём 10 дней', O-0406 Villa Ménésini 26.10. Юлия·Ольга Д. 3 cards unchanged (O-0026 Le Mirabeau ждём материалы, O-0162/O-0163 ушло клиенту). Анастасия O-0223 Ambassador на паузе. Клиент брокера Майкла O-0316/O-0124 на паузе. Note: Клиенты tab now lists only 12 clients — Мишель Ш., Elli K., Екатерина К., Клиентка Д. and 'Клиент брокера Майкла · вилла' appear only as chips on Задачи; their cards are in Все карточки (Elli K. O-0179 Cannes Villa Belle Époque ref 3032V 6.8M материалы пришли; Екатерина К. O-0315 Beausoleil 780k; Клиентка Дарьи O-0224 SJCF 6.95M and O-0225 Nice 6.48M; Майкл·вилла O-0203 Antibes SP1839 и O-0191 Cannes 3000V презентация принята / материалы пришли).",
  "app_fire": [
   "13",
   "35"
  ],
- "app_read_at": "2026-11-01 09:05"
+ "app_read_at": "2026-11-02 18:45"
 }

@@ -1,5 +1,5 @@
 {
- "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips, read 2026-11-01 09:05. Names are internal — never put them in messages to agents.",
+ "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips + Все карточки, read 2026-11-02 18:45. Names are internal — never put them in messages to agents.",
  "requests": [
   {
    "client": "Юрий Х.",
@@ -12,7 +12,7 @@
    ],
    "apt": true,
    "budget": 15000,
-   "note": "SUPER priority (Саша's main client): apartments only, Beausoleil first (Monaco, Cap-d'Ail, Roquebrune border also ok), furnished, luxury, fresh strong renovation only; no houses/villas; no request number in Artem's sheet yet",
+   "note": "SUPER priority (Саша's main client): apartments only, Beausoleil first (Monaco, Cap-d'Ail, Roquebrune border also ok), furnished, luxury, fresh strong renovation only; no houses/villas; no request number in Artem's sheet yet. 15 cards: 3 went годный on 02.11 (O-0777 Château d'Azur, O-0426 Moneghetti, O-0771 Shakespeare) plus O-0779 Le Shangri-La; new O-0787 and O-0788 в работе; O-0775 Hersilia не актуально",
    "no": ""
   },
   {
@@ -23,7 +23,7 @@
    ],
    "apt": true,
    "budget": 600000,
-   "note": "urgent: studio or 1-bed in Cap-d'Ail for staff, budget open (start from the cheapest), exclusive/mandate preferred; 12 cards O-0755, O-0759..O-0769 at 260-600k; O-0760 and ELISS 2 not relevant; O-0765/O-0767 reminder due (waiting 3 days)",
+   "note": "urgent: studio or 1-bed in Cap-d'Ail for staff, budget open (start from the cheapest), exclusive/mandate preferred; 12 cards O-0755, O-0759..O-0769 at 260-600k; O-0760 and ELISS 2 not relevant; O-0765/O-0767 'пора напомнить · ждём 4 дня'",
    "no": ""
   },
   {
@@ -57,7 +57,7 @@
    ],
    "villa": true,
    "budget": 30000,
-   "note": "villa",
+   "note": "villa; both cards на паузе (O-0316 Beausoleil villa, O-0124 Ténao 4 bed)",
    "no": "24"
   },
   {
@@ -119,7 +119,7 @@
    ],
    "villa": true,
    "budget": 7000000,
-   "note": "Belle Époque villa, Cannes to Menton (likes Beaulieu); they renovate themselves",
+   "note": "Belle Époque villa, Cannes to Menton (likes Beaulieu); they renovate themselves; card O-0179 Cannes Californie, Villa Belle Époque 6.8M — материалы пришли",
    "no": "35"
   },
   {
@@ -143,7 +143,7 @@
    "apt": true,
    "beds": 3,
    "budget": 800000,
-   "note": "near the Monaco border; budget not stated (card O-0315 at 780 000 €, 3 bed 88 m²)",
+   "note": "near the Monaco border; budget not stated (card O-0315 at 780 000 €, 3 bed 88 m², материалы пришли)",
    "no": "37"
   },
   {
@@ -159,7 +159,7 @@
    ],
    "villa": true,
    "budget": 12000000,
-   "note": "villa anywhere on the Riviera, near the sea",
+   "note": "villa anywhere on the Riviera, near the sea; cards O-0224 Saint-Jean-Cap-Ferrat 6.95M and O-0225 Nice, Cap de Nice 6.48M — материалы пришли",
    "no": "46"
   },
   {
@@ -184,8 +184,20 @@
    "beds": 1,
    "area": 75,
    "budget": 20000,
-   "note": "furnished, from 75 m², ready to view now; O-0046 Parc Saint Roman awaiting answer (reminder due, waiting 9 days), O-0406 Villa Ménésini viewed 26.10, new own listing 19 000 + 650 in work",
+   "note": "furnished, from 75 m², ready to view now; O-0046 Parc Saint Roman awaiting answer ('пора напомнить · ждём 10 дней'), O-0406 Villa Ménésini viewed 26.10, own listing 19 000 + 650 in work",
    "no": "32"
+  },
+  {
+   "client": "Клиент брокера Майкла · вилла",
+   "tx": "sale",
+   "towns": [
+    "Cannes",
+    "Antibes"
+   ],
+   "villa": true,
+   "budget": 15000000,
+   "note": "villa to buy, Cannes or Antibes; back on the app chips with 2 cards — O-0203 Antibes Cap d'Antibes (ref SP1839) 9.5M презентация принята, O-0191 Cannes Basse Californie (ref 3000V) 10.25M материалы пришли",
+   "no": "25"
   }
  ],
  "already_on_cards": [
@@ -320,6 +332,43 @@
   "o-0026",
   "o-0162",
   "o-0163",
-  "le shangri-la"
+  "le shangri-la",
+  "monte-carlo view",
+  "jardin exotique",
+  "carre d'or",
+  "carré d'or",
+  "fontvieille",
+  "moneghetti",
+  "villa belle époque",
+  "villa belle epoque",
+  "port canto",
+  "basse californie",
+  "cap de nice",
+  "croisette",
+  "o-0787",
+  "o-0788",
+  "o-0179",
+  "o-0314",
+  "o-0315",
+  "o-0224",
+  "o-0225",
+  "o-0208",
+  "o-0209",
+  "o-0210",
+  "o-0211",
+  "o-0212",
+  "o-0203",
+  "o-0204",
+  "o-0107",
+  "o-0202",
+  "o-0205",
+  "o-0194",
+  "o-0206",
+  "o-0207",
+  "o-0191",
+  "o-0192",
+  "o-0193",
+  "o-0164",
+  "o-0129"
  ]
 }
