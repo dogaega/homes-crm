@@ -1,5 +1,5 @@
 {
- "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips + Все карточки, read 2026-11-03 13:30. Names are internal — never put them in messages to agents.",
+ "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips + Все карточки, read 2026-11-03 15:08 (second read today; nothing changed since the 13:30 read). Names are internal — never put them in messages to agents.",
  "requests": [
   {
    "client": "Юрий Х.",
@@ -57,7 +57,7 @@
    ],
    "villa": true,
    "budget": 30000,
-   "note": "villa; both cards на паузе (O-0316 Beausoleil villa, O-0124 Ténao 4 bed)",
+   "note": "villa; both cards still на паузе (O-0316 Beausoleil villa 460 m² / 7 bed / pool, O-0124 Ténao 4 bed 20 000 €)",
    "no": "24"
   },
   {
@@ -106,7 +106,7 @@
    "beds": 1,
    "area": 45,
    "budget": 2000000,
-   "note": "to live in; first card appeared 03.11 — O-0121 Monaco-Ville, 2 rue des Spélugues, 1 580 000 €, СУПЕР-ПРИОРИТЕТ, материалы пришли",
+   "note": "to live in; 🔥 СУПЕР-ПРИОРИТЕТ. Only card is O-0121 Monaco-Ville, 2 rue des Spélugues, 1 580 000 €, материалы пришли (appeared 03.11, still the only one)",
    "no": "13"
   },
   {
@@ -372,6 +372,14 @@
   "o-0129",
   "o-0121",
   "2 rue des spélugues",
-  "monaco-ville"
+  "monaco-ville",
+  "cap d'antibes",
+  "la condamine",
+  "condamine",
+  "mont boron",
+  "baie des anges",
+  "cannes californie",
+  "californie",
+  "centre village"
  ]
 }
