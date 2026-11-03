@@ -1,5 +1,5 @@
 {
- "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips + Все карточки, read 2026-11-02 18:45. Names are internal — never put them in messages to agents.",
+ "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips + Все карточки, read 2026-11-03 13:30. Names are internal — never put them in messages to agents.",
  "requests": [
   {
    "client": "Юрий Х.",
@@ -23,7 +23,7 @@
    ],
    "apt": true,
    "budget": 600000,
-   "note": "urgent: studio or 1-bed in Cap-d'Ail for staff, budget open (start from the cheapest), exclusive/mandate preferred; 12 cards O-0755, O-0759..O-0769 at 260-600k; O-0760 and ELISS 2 not relevant; O-0765/O-0767 'пора напомнить · ждём 4 дня'",
+   "note": "urgent: studio or 1-bed in Cap-d'Ail for staff, budget open (start from the cheapest), exclusive/mandate preferred; 12 cards O-0755, O-0759..O-0769 at 260-600k; O-0760 and ELISS 2 not relevant; O-0765/O-0767 'пора напомнить · ждём 5 дней'",
    "no": ""
   },
   {
@@ -106,7 +106,7 @@
    "beds": 1,
    "area": 45,
    "budget": 2000000,
-   "note": "to live in",
+   "note": "to live in; first card appeared 03.11 — O-0121 Monaco-Ville, 2 rue des Spélugues, 1 580 000 €, СУПЕР-ПРИОРИТЕТ, материалы пришли",
    "no": "13"
   },
   {
@@ -184,7 +184,7 @@
    "beds": 1,
    "area": 75,
    "budget": 20000,
-   "note": "furnished, from 75 m², ready to view now; O-0046 Parc Saint Roman awaiting answer ('пора напомнить · ждём 10 дней'), O-0406 Villa Ménésini viewed 26.10, own listing 19 000 + 650 in work",
+   "note": "furnished, from 75 m², ready to view now; O-0046 Parc Saint Roman awaiting answer ('пора напомнить · ждём 11 дней'), O-0406 Villa Ménésini viewed 26.10, own listing 19 000 + 650 in work",
    "no": "32"
   },
   {
@@ -369,6 +369,9 @@
   "o-0192",
   "o-0193",
   "o-0164",
-  "o-0129"
+  "o-0129",
+  "o-0121",
+  "2 rue des spélugues",
+  "monaco-ville"
  ]
 }
