@@ -499,13 +499,20 @@ def main() -> None:
         ctx = w.request("POST", "/sync/outreach/context", {"agency_id": agency_id})
         # Hard stop (Mark, 2026-10-13): never auto-contact an agency Mark (or the system) already talked to —
         # any WhatsApp / email / call history, a propertyone / markmirimsky email, or an earlier outreach message.
+        never = set(json.loads((Path(__file__).resolve().parents[1] / "data" / "never_auto.json").read_text()).get("domains", []))
+        if {_dom(a.get("website")) for a in ctx.get("agencies", [])} & never or _dom(src.get("agency_email") or src.get("a_email")) in never:
+            print(f"skip {agency}: Mark handles this agency himself")
+            continue
         known = already_contacted(ctx, w)
         # Mark 29.10: for requests marked allow_known, agencies we already know are written to as well —
         # once per request (never twice about the same request).
         allowed = {r for r in g["requests"] if req_extra.get(r, {}).get("allow_known")}
         if known and allowed:  # drop requests this agency was already written to about (another request may still be new to them)
             agency_ids = {a.get("id") for a in ctx.get("agencies", [])}
-            done_reqs = {r for m in (_SENT_CACHE or []) + waiting if m.get("agency_id") in agency_ids
+            emailed_domains()  # loads _SENT_CACHE: already_contacted() returns before loading it for agencies with history
+            agency_doms = {_dom(a.get("website")) for a in ctx.get("agencies", [])} - {""}
+            done_reqs = {r for m in (_SENT_CACHE or []) + waiting
+                         if m.get("agency_id") in agency_ids or (agency_doms and _dom(m.get("to_address")) in agency_doms)
                          for r in json.loads(m.get("request_ids") or "[]")}
             allowed -= done_reqs
             if not allowed:

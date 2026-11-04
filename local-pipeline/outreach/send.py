@@ -92,10 +92,22 @@ def run_once(w: WorkerClient) -> str:
     prior = set(json.loads((Path(__file__).resolve().parents[1] / "data" / "prior_contacts.json").read_text())["domains"])
     sent_doms = {(m.get("to_address") or "").split("@")[-1].lower() for m in w.request("GET", "/sync/outreach/queue?status=sent")["messages"]
                  if m["channel"] == "email"}
+    cutoff = (now - dt.timedelta(days=14)).isoformat()
+    recent_to = {(x.get("to_address") or "").lower() for x in w.request("GET", "/sync/outreach/queue?status=sent")["messages"]
+                 if x.get("channel") == "email" and (x.get("sent_at") or "") >= cutoff}
     for m in [m for m in queue if m["channel"] == "email"]:
         d = (m["to_address"] or "").split("@")[-1].lower()
         # Mark-approved emails to known agencies about a new request are exempt from the "already contacted" stop.
         known_ok = m.get("purpose") == "known_agency_request"
+        # Hard stops for every purpose: an agency Mark handles himself, or an address that already got an email
+        # in the last 14 days (a dedupe bug sent Monaco Properties the same email ~36 times, 30.10–04.11).
+        never = set(json.loads((Path(__file__).resolve().parents[1] / "data" / "never_auto.json").read_text()).get("domains", []))
+        to = (m.get("to_address") or "").lower()
+        if d in never or to in recent_to:
+            w.request("POST", "/sync/outreach/sent", {"id": m["id"], "status": "cancelled",
+                                                      "error": "Mark handles this agency" if d in never else "address already emailed in the last 14 days"})
+            queue.remove(m)
+            continue
         if (not known_ok and (d in prior or d in sent_doms)) or not re.fullmatch(r"[\w.+-]+@[\w-]+(\.[\w-]+)*\.[a-z]{2,}", m["to_address"] or ""):
             w.request("POST", "/sync/outreach/sent", {"id": m["id"], "status": "cancelled", "error": "agency already contacted before / bad address"})
             queue.remove(m)
