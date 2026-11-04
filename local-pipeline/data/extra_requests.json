@@ -43,15 +43,18 @@
  },
  {
   "id": "extra-beausoleil-rent-8-15k",
-  "name": "Аренда Beausoleil 8 000–15 000",
-  "priority": 115,
-  "allow_known": true,
-  "note": "Mark 30.10: apartment to rent in Beausoleil from €8,000 to €15,000/month",
+  "name": "Юрий Х. · аренда €8–15k (Beausoleil first)",
+  "priority": 130,
+  "allow_known": false,
+  "note": "Artem's app 30.10–04.11 SUPER priority (Юрий Х.): apartments only, Beausoleil first, also Monaco / Cap-d'Ail / Roquebrune border, furnished, luxury, freshly renovated, €8,000–15,000/month",
   "c": {
    "sheet_no": "X3",
    "transaction_type": "rent",
    "cities": [
-    "Beausoleil"
+    "Beausoleil",
+    "Monaco",
+    "Cap-d'Ail",
+    "Roquebrune-Cap-Martin"
    ],
    "kind": "apartment",
    "price_max": 15000,
@@ -59,6 +62,8 @@
    "price_min_hard": 8000,
    "no_budget_floor": true,
    "notes": [
+    "furnished",
+    "luxury, freshly renovated",
     "from €8,000/month"
    ]
   }
