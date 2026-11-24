@@ -12,7 +12,7 @@
    ],
    "apt": true,
    "budget": 15000,
-   "note": "SUPER priority (Саша's main client): apartments only, Beausoleil first (Monaco, Cap-d'Ail, Roquebrune border also ok), furnished, luxury, fresh strong renovation only; no houses/villas; no request number in Artem's sheet yet. 15 cards: 3 went годный on 02.11 (O-0777 Château d'Azur, O-0426 Moneghetti, O-0771 Shakespeare) plus O-0779 Le Shangri-La; new O-0787 and O-0788 в работе; O-0775 Hersilia не актуально",
+   "note": "СУПЕР 🔥🔥🔥 (2026-11-24). Apartments only, furnished, luxury fresh renovation; Beausoleil first. No request number in Artem's sheet. 5 cards (down from 15): 4 годных (O-0777 Château d'Azur, O-0426 Moneghetti, O-0771 Shakespeare Carré d'Or, O-0779 Shangri-La Port), 1 не актуально (O-0775 Hersilia)",
    "no": ""
   },
   {
@@ -23,7 +23,7 @@
    ],
    "apt": true,
    "budget": 600000,
-   "note": "urgent: studio or 1-bed in Cap-d'Ail for staff, budget open (start from the cheapest), exclusive/mandate preferred; 12 cards O-0755, O-0759..O-0769 at 260-600k; O-0760 and ELISS 2 not relevant; O-0765/O-0767 'пора напомнить · ждём 7 дней'",
+   "note": "urgent: studio or 1-bed in Cap-d'Ail for staff, budget open, exclusive/mandate preferred. 7 cards (down from 12): 3 Материалы пришли (O-0762 325k Hugues Savorani, O-0763 357k terrace, O-0768 400k Louis II view) — Mark to review; 2 В работе (O-0765 478k centre terrace, O-0767 350k studio 2023); 2 Не актуально (O-0760, O-0769 ELISS 2). No request number in Artem's sheet.",
    "no": ""
   },
   {
@@ -106,7 +106,7 @@
    "beds": 1,
    "area": 45,
    "budget": 2000000,
-   "note": "to live in; 🔥 СУПЕР-ПРИОРИТЕТ. Only card is O-0121 Monaco-Ville, 2 rue des Spélugues, 1 580 000 €, материалы пришли (appeared 03.11, still the only one)",
+   "note": "ARCHIVED in app 2026-11-24 (was СУПЕР-ПРИОРИТЕТ 🔥🔥🔥). Card O-0121 Monaco-Ville, 2 rue des Spélugues, 1 580 000 €.",
    "no": "13"
   },
   {
@@ -184,7 +184,7 @@
    "beds": 1,
    "area": 75,
    "budget": 20000,
-   "note": "furnished, from 75 m², ready to view now; O-0046 Parc Saint Roman awaiting answer ('пора напомнить · ждём 13 дней'), O-0406 Villa Ménésini viewed 26.10, own listing 19 000 + 650 in work",
+   "note": "furnished, from 75 m², ready to view now. 16 cards: O-0046 Parc Saint Roman В работе (32+ days wait), O-0002 Fairmont Résidence годный, O-0004 Monte-Carlo Sun годный; rest не актуально or ушло клиенту",
    "no": "32"
   },
   {
@@ -380,6 +380,8 @@
   "baie des anges",
   "cannes californie",
   "californie",
-  "centre village"
+  "centre village",
+  "louis ii",
+  "o-0004"
  ]
 }
