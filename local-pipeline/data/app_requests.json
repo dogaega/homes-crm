@@ -1,5 +1,5 @@
 {
- "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips + Все карточки. Last full read: 2026-11-25 15:04 (no card changes from 2026-11-24 09:05). Names are internal — never put them in messages to agents.",
+ "_source": "Artem's app «Прозвон · команда», Клиенты tab + Задачи client chips + Все карточки. Last full read: 2026-11-26 15:04 (no changes from 2026-11-26 09:05). Names are internal — never put them in messages to agents.",
  "requests": [
   {
    "client": "Юрий Х.",
@@ -184,7 +184,7 @@
    "beds": 1,
    "area": 75,
    "budget": 20000,
-   "note": "furnished, from 75 m², ready to view now. 16 cards: O-0046 Parc Saint Roman В работе (32+ days wait), O-0002 Fairmont Résidence годный, O-0004 Monte-Carlo Sun годный; rest не актуально or ушло клиенту",
+   "note": "furnished, from 75 m², ready to view now. 16 cards: O-0046 Parc Saint Roman ждём 34 дней (agent not responding), O-0002 Fairmont Résidence годный, O-0004 Monte-Carlo Sun годный; rest не актуально or ушло клиенту",
    "no": "32"
   },
   {
